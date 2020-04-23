@@ -1,0 +1,21 @@
+#HBox {
+	-fx-alignment: center;
+	-fx-spacing: 10;
+}
+
+#VBox {
+	-fx-alignment: center;
+	-fx-spacing: 10; 
+}
+
+#root {
+	-fx-background-color: rgba(50, 50, 50, 1);
+	-fx-alignment: center;
+}
+
+.label {
+	-fx-font-size: 16px;
+  	-fx-text-fill: salmon;
+  	-fx-alignment: center;
+  	-fx-text-alignment: center;
+}
