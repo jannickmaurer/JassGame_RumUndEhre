@@ -15,6 +15,4 @@ public class Ping extends Message {
 		System.out.println("Test");
 	}
 	
-	
-
 }

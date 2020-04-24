@@ -13,8 +13,6 @@ public class JassClientController {
 		
 		view.getBtnRun().setOnAction(event -> connect());
 		view.getBtnPing().setOnAction(event -> model.ping());
-		
-		
 	}
 	
 	public void connect() {

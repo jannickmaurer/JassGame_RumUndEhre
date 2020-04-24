@@ -92,6 +92,8 @@ public class Client {
 	public static ArrayList<Client> getClients() {
 		return clients;
 	}
+
+	
 	
 	
 

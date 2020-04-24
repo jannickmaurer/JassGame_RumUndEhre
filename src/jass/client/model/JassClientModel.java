@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import jass.commons.Configuration;
 import jass.commons.ServiceLocator;
 import jass.commons.Translator;
+import jass.message.CreateAccount;
 import jass.message.Message;
 import jass.message.Ping;
 import javafx.concurrent.Task;
@@ -18,7 +19,8 @@ import javafx.concurrent.Task;
 public class JassClientModel {
 	private Socket socket = null;
 	
-	ServiceLocator serviceLocator;
+	ServiceLocator serviceLocator = ServiceLocator.getServiceLocator();
+	
 	
 	public void connect(String ipAdress, int port) {
 		try {
@@ -30,7 +32,6 @@ public class JassClientModel {
 						Message msg = Message.receive(socket);
 						System.out.println("Client Message received: " + msg.toString());
 						}
-					
 				}
 			};
 			Thread t = new Thread(r);
@@ -52,6 +53,27 @@ public class JassClientModel {
 			e.printStackTrace();
 		}
 	}
+	
+	public void createAccount(String username, String password) {
+		String[] content = new String[] {"CreateAccount", username, password};
+		Message msg = new CreateAccount(content);
+		try {
+			msg.send(socket);
+			System.out.println("Client sent message: " + msg.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void Login(String username, String password) {
+		
+	}
+	
+	public void createPlayroom(String name, String playmode) {
+		
+	}
+	
+	
 	
 	public void initialize() {
         new Thread(initializer).start();

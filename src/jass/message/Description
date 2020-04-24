@@ -1,0 +1,13 @@
+Description Message Classes 
+
+How the messages' String must look like: 
+
+How to read:	"Name of Message"|variable[data type] ...				
+
+CreateAccount: 	"CreateAccount|username[String]|password[String]"
+
+Ping: 			"Ping"
+
+Result: 		"Result"|result[String]
+
+
