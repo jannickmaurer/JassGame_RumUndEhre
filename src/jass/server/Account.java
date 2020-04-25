@@ -17,6 +17,7 @@ public class Account implements Serializable {
 	private final String username;
 	private final String password;
 //	private String token;
+	private int points;
 	
 	public Account(String username, String password) {
 		this.username = username;
@@ -27,6 +28,10 @@ public class Account implements Serializable {
 		synchronized(accounts) {
 			accounts.add(ac);
 		}
+	}
+	
+	public void addPoints(int points) {
+		this.points += points;
 	}
 	
 	
