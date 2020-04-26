@@ -13,9 +13,36 @@
 	-fx-alignment: center;
 }
 
+#titel {
+	-fx-font-size: 24px;
+	-fx-font-weight: bold;
+  	-fx-text-fill: salmon;
+  	-fx-alignment: center;
+  	-fx-text-alignment: center;
+}
+
+#subtitel {
+	-fx-font-size: 24px;
+  	-fx-text-fill: salmon;
+  	-fx-alignment: center;
+  	-fx-text-alignment: center;
+}
+
 .label {
 	-fx-font-size: 16px;
   	-fx-text-fill: salmon;
   	-fx-alignment: center;
   	-fx-text-alignment: center;
+}
+
+.menu-bar {
+  	-fx-background-color: dimgray;
+}
+
+.cell {
+	-fx-text-fill: black;
+}
+
+.cell:selected {
+	-fx-background-color: lightblue;
 }

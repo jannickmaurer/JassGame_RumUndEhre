@@ -17,6 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class JassClientView {
@@ -40,16 +41,22 @@ public class JassClientView {
 	Button btnPing = connectLayout.btnPing;
 	Button btnStart = connectLayout.btnStart;
 	
+	Label lblTitelLogin = loginLayout.lblTitelLogin;
+	Label lblSubtitelLogin = loginLayout.lblSubtitelLogin;
 	TextField tfUsername = loginLayout.tfUsername;
 	TextField tfPassword = loginLayout.tfPassword;
 	Button btnLogin = loginLayout.btnLogin;
 	Button btnRegistration = loginLayout.btnRegistration;
 	
+	Label lblTitelRegistration = registrationLayout.lblTitelRegistration;
+	Label lblSubtitelRegistration = registrationLayout.lblSubtitelRegistration;
 	TextField tfNewUsername = registrationLayout.tfUsername;
 	TextField tfNewPassword = registrationLayout.tfPassword;
 	Button btnNewRegistration = registrationLayout.btnRegistration;
 	Button btnBack = registrationLayout.btnBack;
 	
+	Button btnProfil = lobbyLayout.btnProfil;
+	Button btnConfig = lobbyLayout.btnConfig;
 	Button btnJoin = lobbyLayout.btnJoin;
 	Button btnCreatePlayroom = lobbyLayout.btnCreatePlayroom;
 	Button btnLogout = lobbyLayout.btnLogout;
@@ -144,8 +151,12 @@ public class JassClientView {
 	    // Text
 		connectLayout.lblIP.setText(t.getString("label.IPAdress"));
 		connectLayout.lblPort.setText(t.getString("label.port"));
+		loginLayout.lblTitelLogin.setText(t.getString("text.titel.jass"));
+		loginLayout.lblSubtitelLogin.setText(t.getString("text.untertitel.login"));
 		loginLayout.lblUsername.setText(t.getString("label.username"));
 		loginLayout.lblPassword.setText(t.getString("label.password"));
+		registrationLayout.lblTitelRegistration.setText(t.getString("text.titel.jass"));
+		registrationLayout.lblSubtitelRegistration.setText(t.getString("text.untertitel.registration"));
 		registrationLayout.lblUsername.setText(t.getString("label.username"));
 		registrationLayout.lblPassword.setText(t.getString("label.password"));
 		
@@ -157,6 +168,8 @@ public class JassClientView {
 		loginLayout.btnRegistration.setText(t.getString("button.registration"));
 		registrationLayout.btnRegistration.setText(t.getString("button.registration"));
 		registrationLayout.btnBack.setText(t.getString("button.back"));
+		lobbyLayout.btnProfil.setText(t.getString("button.profil"));
+		lobbyLayout.btnConfig.setText(t.getString("button.config"));
 		lobbyLayout.btnJoin.setText(t.getString("button.join"));
 		lobbyLayout.btnCreatePlayroom.setText(t.getString("button.createplayroom"));
 		lobbyLayout.btnLogout.setText(t.getString("button.logout"));
@@ -293,6 +306,22 @@ public class JassClientView {
 
 	public void setBtnLogout(Button btnLogout) {
 		this.btnLogout = btnLogout;
+	}
+	
+	public Button getBtnProfil() {
+		return btnProfil;
+	}
+
+	public void setBtnProfil(Button btnProfil) {
+		this.btnProfil = btnProfil;
+	}
+	
+	public Button getBtnConfig() {
+		return btnConfig;
+	}
+
+	public void setBtnConfig(Button btnConfig) {
+		this.btnConfig = btnConfig;
 	}
 	
 	public Button getBtnLeave() {
