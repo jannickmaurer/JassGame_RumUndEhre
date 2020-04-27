@@ -6,6 +6,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 
 public class LoginPane extends GridPane {
@@ -13,10 +15,8 @@ public class LoginPane extends GridPane {
 	
 	Label lblTitelLogin = new Label();
 	Label lblSubtitelLogin = new Label();
-	Label lblUsername = new Label();
-	Label lblPassword = new Label();
-	TextField tfUsername = new TextField("Pesche");
-	TextField tfPassword = new TextField("123456");
+	TextField tfUsername = new TextField();
+	TextField tfPassword = new TextField();
 	Button btnLogin = new Button();
 	Button btnRegistration = new Button();
 	
@@ -27,14 +27,14 @@ public class LoginPane extends GridPane {
 		lblTitelLogin.setId("titel");
 		this.add(lblSubtitelLogin, 1, 1);
 		lblSubtitelLogin.setId("subtitel");
-		this.add(lblUsername, 1, 2);
 		this.add(tfUsername, 1, 3);
-		this.add(lblPassword, 1, 4);
 		this.add(tfPassword, 1, 5);
 
 		HBox h1 = new HBox();
+		Region spacer1 = new Region();
+		HBox.setHgrow(spacer1, Priority.ALWAYS);
 		h1.setId("HBox");
-		h1.getChildren().addAll(btnLogin, btnRegistration);
+		h1.getChildren().addAll(btnLogin, spacer1, btnRegistration);
 		
 		this.add(h1, 1, 6);
 		

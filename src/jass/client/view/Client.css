@@ -3,40 +3,66 @@
 	-fx-spacing: 10;
 }
 
+#HBoxTop {
+	-fx-alignment: top-center;
+	-fx-spacing: 10;
+}
+
+#HBoxRight {
+	-fx-alignment: baseline-right;
+	-fx-spacing: 10;
+}
+
 #VBox {
 	-fx-alignment: center;
 	-fx-spacing: 10; 
 }
 
 #root {
-	-fx-background-color: rgba(50, 50, 50, 1);
+	-fx-background-color: rgba(175, 175, 175, 1);
 	-fx-alignment: center;
+	-fx-padding: 0 20 0 0;
 }
 
 #titel {
 	-fx-font-size: 24px;
 	-fx-font-weight: bold;
-  	-fx-text-fill: salmon;
+  	-fx-text-fill: rgba(62, 132, 187, 1);
   	-fx-alignment: center;
   	-fx-text-alignment: center;
 }
 
 #subtitel {
 	-fx-font-size: 24px;
-  	-fx-text-fill: salmon;
+  	-fx-text-fill: rgba(62, 132, 187, 1);
   	-fx-alignment: center;
   	-fx-text-alignment: center;
 }
 
 .label {
 	-fx-font-size: 16px;
-  	-fx-text-fill: salmon;
+  	-fx-text-fill: rgba(50, 50, 50, 1);
   	-fx-alignment: center;
   	-fx-text-alignment: center;
 }
 
+.button {
+	-fx-background-color: rgba(62, 132, 187, 1);
+	-fx-text-fill: rgba(255, 255, 255, 1);
+	-fx-background-radius: 15px;
+}
+
+.button:hover {
+	-fx-background-color: rgba(54, 116, 164, 1);
+	-fx-text-fill: rgba(255, 255, 255, 1);
+}
+
+.button:disabled {
+	-fx-text-fill: rgba(255, 255, 255, 1);
+}
+
 .menu-bar {
-  	-fx-background-color: dimgray;
+  	-fx-background-color: rgba(120, 120, 120, 1);
 }
 
 .cell {

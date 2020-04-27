@@ -7,6 +7,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 
 public class LobbyPane  extends GridPane {
 	private JassClientView view;
@@ -22,15 +24,19 @@ public class LobbyPane  extends GridPane {
 		this.getStylesheets().add(getClass().getResource("Client.css").toExternalForm());
 		
 		HBox h1 = new HBox();
-		h1.setId("HBox");
-		h1.getChildren().addAll(btnProfil, btnConfig, btnLogout);
+		Region spacer1 = new Region();
+		HBox.setHgrow(spacer1, Priority.ALWAYS);
+		h1.setId("HBoxTop");
+		h1.getChildren().addAll(btnProfil, spacer1, btnConfig, btnLogout);
 		
 		this.add(h1, 1, 0);
 		
+		listView.setPrefWidth(4000);
 		this.add(listView, 1, 1);
 		
 		HBox h2 = new HBox();
-		h2.setId("HBox");
+		
+		h2.setId("HBoxRight");
 		h2.getChildren().addAll(btnJoin, btnCreatePlayroom);
 		
 		this.add(h2, 1, 2);
