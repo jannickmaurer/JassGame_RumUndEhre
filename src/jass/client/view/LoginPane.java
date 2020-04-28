@@ -1,5 +1,7 @@
 package jass.client.view;
 
+import javafx.animation.ScaleTransition;
+import javafx.animation.Timeline;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -9,6 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 public class LoginPane extends GridPane {
 	private JassClientView view;
@@ -19,6 +22,7 @@ public class LoginPane extends GridPane {
 	TextField tfPassword = new TextField();
 	Button btnLogin = new Button();
 	Button btnRegistration = new Button();
+	int count = 0;
 	
 	public LoginPane() {
 		this.getStylesheets().add(getClass().getResource("Client.css").toExternalForm());
@@ -34,7 +38,7 @@ public class LoginPane extends GridPane {
 		Region spacer1 = new Region();
 		HBox.setHgrow(spacer1, Priority.ALWAYS);
 		h1.setId("HBox");
-		h1.getChildren().addAll(btnLogin, spacer1, btnRegistration);
+		h1.getChildren().addAll(btnLogin, spacer1, btnRegistration);		
 		
 		this.add(h1, 1, 6);
 		
@@ -43,5 +47,4 @@ public class LoginPane extends GridPane {
 		this.setHgap(20);
 		this.setVgap(10);
 	}
-	
 }

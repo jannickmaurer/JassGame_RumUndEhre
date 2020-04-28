@@ -61,6 +61,13 @@
 	-fx-text-fill: rgba(255, 255, 255, 1);
 }
 
+.text-field {
+	-fx-background-radius: 15px;
+	-fx-alignment: center;
+	-fx-padding: 5 0 5 0;
+	-fx-focus-color: rgba(62, 132, 187, 1);
+}
+
 .menu-bar {
   	-fx-background-color: rgba(120, 120, 120, 1);
 }
