@@ -7,10 +7,12 @@ import jass.commons.ServiceLocator;
 import jass.commons.Translator;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -34,10 +36,10 @@ public class JassClientView {
 	LobbyPane lobbyLayout = new LobbyPane();
 	LoginPane loginLayout = new LoginPane();
 	RegistrationPane registrationLayout = new RegistrationPane();
+	SpielraumPopupPane spielraumPopupLayout = new SpielraumPopupPane();
 	SpielraumPane spielraumLayout = new SpielraumPane();
 	
 	Popup createSpielraumPopUp = new Popup();
-	Label lblTest = new Label("Test");
 	
 	Label lblPort = connectLayout.lblPort;
 	Label lblIP = connectLayout.lblIP;
@@ -66,6 +68,14 @@ public class JassClientView {
 	Button btnJoin = lobbyLayout.btnJoin;
 	Button btnCreatePlayroom = lobbyLayout.btnCreatePlayroom;
 	Button btnLogout = lobbyLayout.btnLogout;
+	
+	TextField tfSpielraumName = spielraumPopupLayout.tfSpielraumName;
+	RadioButton rbTrumpf = spielraumPopupLayout.rbTrumpf;
+	RadioButton rbUndeUfe = spielraumPopupLayout.rbUndeUfe;
+	RadioButton rbObeAbe = spielraumPopupLayout.rbObeAbe;
+	RadioButton rbSlalom = spielraumPopupLayout.rbSlalom;
+	CheckBox cbWyss = spielraumPopupLayout.cbWyss;
+	Button btnCreatePlayroomPopup = spielraumPopupLayout.btnCreate;
 	
 	Button btnLeave = spielraumLayout.btnLeave;
 
@@ -158,11 +168,8 @@ public class JassClientView {
 			primaryStage.setTitle("Login");
 		});
 		
-		createSpielraumPopUp.getContent().add(lblTest);
+		createSpielraumPopUp.getContent().add(spielraumPopupLayout);
 		createSpielraumPopUp.setAutoHide(true);
-		lblTest.setMinWidth(80); 
-		lblTest.setMinHeight(50);
-		lblTest.setStyle(" -fx-background-color: red;"); 
 		
 		lobbyLayout.btnCreatePlayroom.setOnAction(e ->{
 			if (!createSpielraumPopUp.isShowing()) 
@@ -211,6 +218,7 @@ public class JassClientView {
 		registrationLayout.lblSubtitelRegistration.setText(t.getString("text.untertitel.registration"));
 		registrationLayout.tfUsername.setPromptText(t.getString("label.username"));
 		registrationLayout.tfPassword.setPromptText(t.getString("label.password"));
+		spielraumPopupLayout.tfSpielraumName.setPromptText(t.getString("label.spielraumname"));
 		
 	    // Other controls
 		connectLayout.btnPing.setText(t.getString("button.ping"));
@@ -225,6 +233,12 @@ public class JassClientView {
 		lobbyLayout.btnJoin.setText(t.getString("button.join"));
 		lobbyLayout.btnCreatePlayroom.setText(t.getString("button.createplayroom"));
 		lobbyLayout.btnLogout.setText(t.getString("button.logout"));
+		spielraumPopupLayout.rbTrumpf.setText(t.getString("radiobutton.trumpf"));
+		spielraumPopupLayout.rbUndeUfe.setText(t.getString("radiobutton.undeufe"));
+		spielraumPopupLayout.rbObeAbe.setText(t.getString("radiobutton.obeabe"));
+		spielraumPopupLayout.rbSlalom.setText(t.getString("radiobutton.slalom"));
+		spielraumPopupLayout.cbWyss.setText(t.getString("checkbox.wyss"));
+		spielraumPopupLayout.btnCreate.setText(t.getString("button.createplayroom"));
 		spielraumLayout.btnLeave.setText(t.getString("button.leave"));
     }
 	
@@ -374,6 +388,62 @@ public class JassClientView {
 
 	public void setBtnConfig(Button btnConfig) {
 		this.btnConfig = btnConfig;
+	}
+	
+	public TextField getTfSpielraumName() {
+		return tfSpielraumName;
+	}
+
+	public void setTfSpielraumName(TextField tfSpielraumName) {
+		this.tfSpielraumName = tfSpielraumName;
+	}
+	
+	public RadioButton getRbTrumpf() {
+		return rbTrumpf;
+	}
+
+	public void setRbTrumpf(RadioButton rbTrumpf) {
+		this.rbTrumpf = rbTrumpf;
+	}
+	
+	public RadioButton getRbUndeUfe() {
+		return rbUndeUfe;
+	}
+
+	public void setRbUndeUfe(RadioButton rbUndeUfe) {
+		this.rbUndeUfe = rbUndeUfe;
+	}
+	
+	public RadioButton getRbObeAbe() {
+		return rbObeAbe;
+	}
+
+	public void setRbObeAbe(RadioButton rbObeAbe) {
+		this.rbObeAbe = rbObeAbe;
+	}
+	
+	public RadioButton getRbSlalom() {
+		return rbSlalom;
+	}
+
+	public void setRbSlalom(RadioButton rbSlalom) {
+		this.rbSlalom = rbSlalom;
+	}
+	
+	public CheckBox getCbWyss() {
+		return cbWyss;
+	}
+
+	public void setCbWyss(CheckBox cbWyss) {
+		this.cbWyss = cbWyss;
+	}
+	
+	public Button getBtnCreatePlayroomPopup() {
+		return btnCreatePlayroomPopup;
+	}
+
+	public void setBtnCreatePlayroomPopup(Button btnCreatePlayroomPopup) {
+		this.btnCreatePlayroomPopup = btnCreatePlayroomPopup;
 	}
 	
 	public Button getBtnLeave() {
