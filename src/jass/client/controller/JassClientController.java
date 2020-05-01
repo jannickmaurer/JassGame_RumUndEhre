@@ -13,6 +13,14 @@ public class JassClientController {
 		
 		view.getBtnRun().setOnAction(event -> connect());
 		view.getBtnPing().setOnAction(event -> model.ping());
+		view.getBtnCreatePlayroomPopup().setOnAction(e -> {
+		
+			String name = view.getTfSpielraumName().getText();
+			view.getTfSpielraumName().setText("");
+			model.addNewElement(name);
+			view.getCreateSpielraumPopUp().hide();
+   
+		});
 	}
 	
 	public void connect() {

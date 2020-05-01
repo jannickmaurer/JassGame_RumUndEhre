@@ -25,8 +25,6 @@ public class LoginPane extends GridPane {
 	int count = 0;
 	
 	public LoginPane() {
-		this.getStylesheets().add(getClass().getResource("Client.css").toExternalForm());
-		
 		this.add(lblTitelLogin, 1, 0);
 		lblTitelLogin.setId("titel");
 		this.add(lblSubtitelLogin, 1, 1);

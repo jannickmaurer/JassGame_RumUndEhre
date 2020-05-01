@@ -14,13 +14,15 @@ import jass.commons.Translator;
 import jass.message.CreateAccount;
 import jass.message.Message;
 import jass.message.Ping;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 
 public class JassClientModel {
 	private Socket socket = null;
 	
 	ServiceLocator serviceLocator = ServiceLocator.getServiceLocator();
-	
+	private final ObservableList<String> elements = FXCollections.observableArrayList();
 	
 	public void connect(String ipAdress, int port) {
 		try {
@@ -132,6 +134,18 @@ public class JassClientModel {
 
         return ourLogger;
     }
+
+    public void addNewElement(String element) {
+		elements.add(element);
+	}
+    
+    public void removeElement(String element) {
+		elements.remove(element);
+	}
+	
+	public ObservableList<String> getElements() {
+		return elements;
+	}
 	
 
 }

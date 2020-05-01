@@ -20,8 +20,6 @@ public class ConnectPane extends GridPane {
 	Button btnStart = new Button();
 	
 	public ConnectPane() {
-		this.getStylesheets().add(getClass().getResource("Client.css").toExternalForm());
-		
 		this.add(lblPort, 1, 1);
 		this.add(tfPort, 2, 1);
 		this.add(lblIP, 3, 1);

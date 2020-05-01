@@ -20,8 +20,6 @@ public class RegistrationPane extends GridPane {
 	Button btnBack = new Button();
 	
 	public RegistrationPane() {
-		this.getStylesheets().add(getClass().getResource("Client.css").toExternalForm());
-		
 		this.add(lblTitelRegistration, 1, 0);
 		lblTitelRegistration.setId("titel");
 		this.add(lblSubtitelRegistration, 1, 1);

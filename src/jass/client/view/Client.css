@@ -4,8 +4,9 @@
 }
 
 #HBoxTop {
-	-fx-alignment: top-center;
+	-fx-alignment: baseline-right;
 	-fx-spacing: 10;
+	-fx-padding: 0 20 20 20;
 }
 
 #HBoxRight {
@@ -15,13 +16,19 @@
 
 #VBox {
 	-fx-alignment: center;
-	-fx-spacing: 10; 
+	-fx-spacing: 20;
+	-fx-padding: 0 20 20 20;
 }
 
 #root {
 	-fx-background-color: rgba(175, 175, 175, 1);
 	-fx-alignment: center;
-	-fx-padding: 0 20 0 0;
+}
+
+#popup {
+	-fx-background-color: rgba(185, 185, 185, 0.8);
+	-fx-alignment: center;
+	-fx-padding: 20 20 20 20;
 }
 
 #titel {
@@ -78,4 +85,8 @@
 
 .cell:selected {
 	-fx-background-color: lightblue;
+}
+
+.check-box {
+
 }

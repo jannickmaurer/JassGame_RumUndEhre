@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -65,9 +66,10 @@ public class JassClientView {
 	
 	Button btnProfil = lobbyLayout.btnProfil;
 	Button btnConfig = lobbyLayout.btnConfig;
-	Button btnJoin = lobbyLayout.btnJoin;
-	Button btnCreatePlayroom = lobbyLayout.btnCreatePlayroom;
+	Button btnJoin = new Button();
+	Button btnCreatePlayroom = new Button();
 	Button btnLogout = lobbyLayout.btnLogout;
+	ListView<String> listView;
 	
 	TextField tfSpielraumName = spielraumPopupLayout.tfSpielraumName;
 	RadioButton rbTrumpf = spielraumPopupLayout.rbTrumpf;
@@ -90,8 +92,11 @@ public class JassClientView {
 		tfIP.setMinWidth(Region.USE_PREF_SIZE);
 		tfIP.setPrefWidth(120);
 		btnRun.setMinWidth(Region.USE_PREF_SIZE);
+		btnRun.setPrefWidth(100);
 		btnPing.setMinWidth(Region.USE_PREF_SIZE);
+		btnPing.setPrefWidth(100);
 		btnStart.setMinWidth(Region.USE_PREF_SIZE);
+		btnStart.setPrefWidth(100);
 		lblTitelLogin.setMinWidth(Region.USE_PREF_SIZE);
 		lblSubtitelLogin.setMinWidth(Region.USE_PREF_SIZE);
 		tfUsername.setMinWidth(Region.USE_PREF_SIZE);
@@ -99,7 +104,9 @@ public class JassClientView {
 		tfPassword.setMinWidth(Region.USE_PREF_SIZE);
 		tfPassword.setPrefWidth(240);
 		btnLogin.setMinWidth(Region.USE_PREF_SIZE);
+		btnLogin.setPrefWidth(100);
 		btnRegistration.setMinWidth(Region.USE_PREF_SIZE);
+		btnRegistration.setPrefWidth(100);
 		lblTitelRegistration.setMinWidth(Region.USE_PREF_SIZE);
 		lblSubtitelRegistration.setMinWidth(Region.USE_PREF_SIZE);
 		tfNewUsername.setMinWidth(Region.USE_PREF_SIZE);
@@ -107,14 +114,26 @@ public class JassClientView {
 		tfNewPassword.setMinWidth(Region.USE_PREF_SIZE);
 		tfNewPassword.setPrefWidth(240);
 		btnNewRegistration.setMinWidth(Region.USE_PREF_SIZE);
+		btnNewRegistration.setPrefWidth(100);
 		btnBack.setMinWidth(Region.USE_PREF_SIZE);
+		btnBack.setPrefWidth(100);
 		btnProfil.setMinWidth(Region.USE_PREF_SIZE);
+		btnProfil.setPrefWidth(100);
 		btnConfig.setMinWidth(Region.USE_PREF_SIZE);
+		btnConfig.setPrefWidth(100);
 		btnJoin.setMinWidth(Region.USE_PREF_SIZE);
+		btnJoin.setPrefWidth(100);
 		btnCreatePlayroom.setMinWidth(Region.USE_PREF_SIZE);
+		btnCreatePlayroom.setPrefWidth(140);
 		btnLogout.setMinWidth(Region.USE_PREF_SIZE);
+		btnLogout.setPrefWidth(100);
+		tfSpielraumName.setMinWidth(Region.USE_PREF_SIZE);
+		tfSpielraumName.setPrefWidth(240);
+		btnCreatePlayroomPopup.setMinWidth(Region.USE_PREF_SIZE);
+		btnCreatePlayroomPopup.setPrefWidth(140);
 		btnLeave.setMinWidth(Region.USE_PREF_SIZE);
-		
+		btnLeave.setPrefWidth(100);
+	
 		BorderPane root = new BorderPane();
 		root.setId("root");
 		
@@ -158,35 +177,51 @@ public class JassClientView {
 		lobbyLayout.btnConfig.setDisable(true);
 		lobbyLayout.btnProfil.setDisable(true);
 		
+		VBox v1 = new VBox();
+		v1.setId("VBox");
+		
+		HBox h1 = new HBox();
+		h1.setId("HBoxRight");
+		h1.getChildren().addAll(btnJoin, btnCreatePlayroom);
+		listView = new ListView<>(model.getElements());
+		
+		v1.getChildren().addAll(listView, h1);
+		
 		loginLayout.btnLogin.setOnAction(e ->{
 			root.setCenter(lobbyLayout);
+			root.setBottom(v1);
 			primaryStage.setTitle("Lobby");
 		});
 		
 		lobbyLayout.btnLogout.setOnAction(e ->{
 			root.setCenter(loginLayout);
+			root.setBottom(null);
 			primaryStage.setTitle("Login");
 		});
+		
 		
 		createSpielraumPopUp.getContent().add(spielraumPopupLayout);
 		createSpielraumPopUp.setAutoHide(true);
 		
-		lobbyLayout.btnCreatePlayroom.setOnAction(e ->{
+		this.btnCreatePlayroom.setOnAction(e ->{
 			if (!createSpielraumPopUp.isShowing()) 
 				createSpielraumPopUp.show(primaryStage);
 		});
 		
-		lobbyLayout.btnJoin.setOnAction(e ->{
+		this.btnJoin.setOnAction(e ->{
 			root.setCenter(spielraumLayout);
+			root.setBottom(null);
 			primaryStage.setTitle("Spielraum");
 		});
 		
 		spielraumLayout.btnLeave.setOnAction(e ->{
 			root.setCenter(lobbyLayout);
+			root.setBottom(v1);
 			primaryStage.setTitle("Lobby");
 		});
-		
 		scene = new Scene(root, 850, 600);
+		scene.getStylesheets().add(
+                getClass().getResource("Client.css").toExternalForm());
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Connect to Server");
 	}
@@ -230,8 +265,8 @@ public class JassClientView {
 		registrationLayout.btnBack.setText(t.getString("button.back"));
 		lobbyLayout.btnProfil.setText(t.getString("button.profil"));
 		lobbyLayout.btnConfig.setText(t.getString("button.config"));
-		lobbyLayout.btnJoin.setText(t.getString("button.join"));
-		lobbyLayout.btnCreatePlayroom.setText(t.getString("button.createplayroom"));
+		this.btnJoin.setText(t.getString("button.join"));
+		this.btnCreatePlayroom.setText(t.getString("button.createplayroom"));
 		lobbyLayout.btnLogout.setText(t.getString("button.logout"));
 		spielraumPopupLayout.rbTrumpf.setText(t.getString("radiobutton.trumpf"));
 		spielraumPopupLayout.rbUndeUfe.setText(t.getString("radiobutton.undeufe"));
@@ -452,6 +487,14 @@ public class JassClientView {
 
 	public void setBtnLeave(Button btnLeave) {
 		this.btnLeave = btnLeave;
+	}
+	
+	public Popup getCreateSpielraumPopUp() {
+		return createSpielraumPopUp;
+	}
+
+	public void setCreateSpielraumPopUp(Popup createSpielraumPopUp) {
+		this.createSpielraumPopUp = createSpielraumPopUp;
 	}
 
 }

@@ -10,8 +10,6 @@ public class SpielraumPane extends GridPane {
 	Button btnLeave = new Button();
 	
 	public SpielraumPane() {
-		this.getStylesheets().add(getClass().getResource("Client.css").toExternalForm());
-		
 		this.add(btnLeave, 1, 1);
 		
 		this.setId("root");
