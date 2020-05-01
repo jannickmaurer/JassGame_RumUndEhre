@@ -162,7 +162,7 @@ public class JassClientView {
 			primaryStage.setTitle("Registration");
 		});
 		
-		registrationLayout.btnRegistration.setDisable(true);
+		registrationLayout.btnRegistration.setDisable(false); // changed from Jannick
 		
 		registrationLayout.btnBack.setOnAction(e ->{
 			root.setCenter(loginLayout);

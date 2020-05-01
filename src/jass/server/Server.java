@@ -2,9 +2,14 @@ package jass.server;
 
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.logging.Logger;
+
+import jass.commons.ServiceLocator;
 
 public class Server {
 	private static int port = 0;
+	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
+	private static Logger logger = sl.getServerLogger();
 	
 	public static void main(String[] args) {
 		
@@ -32,7 +37,7 @@ public class Server {
 			e.printStackTrace();
 		}
 		
-		System.out.println("Alright, you can start the client and connect!");
+		logger.info("Server started on port: " + port);
 		
 	}
 

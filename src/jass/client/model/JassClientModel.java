@@ -12,16 +12,20 @@ import jass.commons.Configuration;
 import jass.commons.ServiceLocator;
 import jass.commons.Translator;
 import jass.message.CreateAccount;
+import jass.message.Login;
 import jass.message.Message;
 import jass.message.Ping;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 
 public class JassClientModel {
 	private Socket socket = null;
+	private SimpleStringProperty token = new SimpleStringProperty();
 	
-	ServiceLocator serviceLocator = ServiceLocator.getServiceLocator();
+	private static ServiceLocator serviceLocator = ServiceLocator.getServiceLocator();
+	private static Logger logger = serviceLocator.getClientLogger();
 	private final ObservableList<String> elements = FXCollections.observableArrayList();
 	
 	public void connect(String ipAdress, int port) {
@@ -38,6 +42,7 @@ public class JassClientModel {
 			};
 			Thread t = new Thread(r);
 			t.start();
+			logger.info("Client Connected");
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -50,7 +55,7 @@ public class JassClientModel {
 		Message msg = new Ping(content);
 		try {
 			msg.send(socket);
-			System.out.println("Client sent message: " + msg.toString());
+			logger.info("Client tries to send message: " + msg.toString());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -61,14 +66,21 @@ public class JassClientModel {
 		Message msg = new CreateAccount(content);
 		try {
 			msg.send(socket);
-			System.out.println("Client sent message: " + msg.toString());
+			logger.info("Client tries to send message: " + msg.toString());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void Login(String username, String password) {
-		
+	public void login(String username, String password) {
+		String[] content = new String[] {"Login", username, password};
+		Message msg = new Login(content);
+		try {
+			msg.send(socket);
+			logger.info("Client tries to send message: " + msg.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void createPlayroom(String name, String playmode) {
@@ -146,6 +158,8 @@ public class JassClientModel {
 	public ObservableList<String> getElements() {
 		return elements;
 	}
-	
+	public SimpleStringProperty getTokenProperty() {
+		return token;
+	}
 
 }

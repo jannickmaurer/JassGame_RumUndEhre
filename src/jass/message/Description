@@ -9,5 +9,22 @@ CreateAccount: 	"CreateAccount|username[String]|password[String]"
 Ping: 			"Ping"
 
 Result: 		"Result"|result[String]
+				"Result"|result[String]|token[String]
 
+Login: 			"Login"|username[String]|password[String]
+
+
+
+
+
+
+
+
+
+Create a new Message: 
+
+- Create Message Class
+- Connection to Button in Client Controller if needed (with new method in controller)
+- New Method named the same as the message class in client model
+- New if-statement in Message Class receive method!
 

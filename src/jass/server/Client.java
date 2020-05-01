@@ -3,12 +3,16 @@ package jass.server;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
+import jass.commons.ServiceLocator;
 import jass.message.Message;
 
 public class Client {
 	
 	private static final ArrayList<Client> clients = new ArrayList<>();
+	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
+	private static Logger logger = sl.getServerLogger();
 	
 	private Account account = null;
 	private String token = null;
@@ -28,12 +32,13 @@ public class Client {
 					while(clientReachable) {
 						// New Message object with static method receive
 						Message msg = Message.receive(socket);
-						System.out.println("Server received message: " + msg.toString());
+						
 						// if msg != null -> static method process from class Message
 						if(msg != null) {
+							logger.info("Server received message: " + msg.toString());
 							msg.process(Client.this);
 						} else {
-							System.out.println("Message is empty!");
+							logger.info("Empty Message");
 							//TBD: Send new Errormessage
 						}
 					}
@@ -61,7 +66,7 @@ public class Client {
 	public void send(Message msg) {
 		try {
 			msg.send(socket);	
-			System.out.println("Server sent message: " + msg.toString());
+			logger.info("Server sent message: " + msg.toString());
 		} catch (Exception e) { //TBD: Why not IOException?
 			e.printStackTrace();
 			this.token = null;

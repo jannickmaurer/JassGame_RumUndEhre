@@ -43,6 +43,7 @@ public class Jass extends Application {
 	}
 	
 	public void stop() {
+		
         
     }
 	

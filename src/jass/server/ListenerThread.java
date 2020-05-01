@@ -3,10 +3,15 @@ package jass.server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.logging.Logger;
+
+import jass.commons.ServiceLocator;
 
 public class ListenerThread extends Thread {
 	private final ServerSocket listener;
 	private final int port;
+	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
+	private static Logger logger = sl.getServerLogger();
 	
 	public ListenerThread(int port) throws IOException {
 		super();
@@ -14,7 +19,7 @@ public class ListenerThread extends Thread {
 		this.setName("ListenerThread");
 		
 		listener = new ServerSocket(port, 10, null);	
-		System.out.println("LT started");
+		logger.info("ListenerThread started");
 	}
 	
 	

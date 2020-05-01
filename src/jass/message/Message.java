@@ -5,12 +5,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
+import java.util.logging.Logger;
 
-import com.sun.media.jfxmedia.logging.Logger;
-
+import jass.commons.ServiceLocator;
 import jass.server.Client;
 
 public abstract class Message {
+	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
+	private static Logger logger = sl.getServerLogger();
 	
 	private String[] content;
 
@@ -18,6 +20,7 @@ public abstract class Message {
 	
 	public Message(String[] content) {
 		this.content = content;
+		logger.info("Message created:" + this.toString());
 	}
 
 	public void send(Socket socket) throws IOException {
@@ -40,7 +43,9 @@ public abstract class Message {
 				parts[i] = parts[i].trim();
 			}
 			if (parts[0].equals("Ping")) msg = new Ping(parts);
-			if (parts[0].equals("Result")) msg = new Result(true);
+			if (parts[0].equals("Result")) msg = new Result(parts);
+			if (parts[0].equals("CreateAccount")) msg = new CreateAccount(parts);
+			if (parts[0].equals("Login")) msg = new Login(parts);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
