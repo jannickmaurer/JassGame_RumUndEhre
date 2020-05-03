@@ -29,18 +29,19 @@ public class JassClientView {
 	
 	protected Stage primaryStage;
 	private JassClientModel model;
+	public BorderPane root;
 	
 	Menu menuFileLanguage = new Menu();
 	
 	Scene scene, connectScene, lobbyScene, loginScene, registrationScene, spielraumScene;
 	ConnectPane connectLayout = new ConnectPane();
-	LobbyPane lobbyLayout = new LobbyPane();
-	LoginPane loginLayout = new LoginPane();
-	RegistrationPane registrationLayout = new RegistrationPane();
-	SpielraumPopupPane spielraumPopupLayout = new SpielraumPopupPane();
-	SpielraumPane spielraumLayout = new SpielraumPane();
+	public LobbyPane lobbyLayout = new LobbyPane();
+	public LoginPane loginLayout = new LoginPane();
+	public RegistrationPane registrationLayout = new RegistrationPane();
+	public SpielraumPopupPane spielraumPopupLayout = new SpielraumPopupPane();
+	public SpielraumPane spielraumLayout = new SpielraumPane();
 	
-	Popup createSpielraumPopUp = new Popup();
+	public Popup createSpielraumPopUp = new Popup();
 	
 	Label lblPort = connectLayout.lblPort;
 	Label lblIP = connectLayout.lblIP;
@@ -70,6 +71,7 @@ public class JassClientView {
 	Button btnCreatePlayroom = new Button();
 	Button btnLogout = lobbyLayout.btnLogout;
 	ListView<String> listView;
+	public VBox v1 = new VBox();
 	
 	TextField tfSpielraumName = spielraumPopupLayout.tfSpielraumName;
 	RadioButton rbTrumpf = spielraumPopupLayout.rbTrumpf;
@@ -134,13 +136,8 @@ public class JassClientView {
 		btnLeave.setMinWidth(Region.USE_PREF_SIZE);
 		btnLeave.setPrefWidth(100);
 	
-		BorderPane root = new BorderPane();
+		root = new BorderPane();
 		root.setId("root");
-		
-		connectLayout.btnStart.setOnAction(e ->{
-			root.setCenter(loginLayout);
-			primaryStage.setTitle("Login");
-		});
 		
 		for (Locale locale : sl.getLocales()) {
             MenuItem language = new MenuItem(locale.getLanguage());
@@ -157,68 +154,23 @@ public class JassClientView {
 		root.setTop(menuBar);
 		root.setCenter(connectLayout);
 		
-		loginLayout.btnRegistration.setOnAction(e ->{
-			root.setCenter(registrationLayout);
-			primaryStage.setTitle("Registration");
-		});
-		
 		registrationLayout.btnRegistration.setDisable(false); // changed from Jannick
-		
-		registrationLayout.btnBack.setOnAction(e ->{
-			root.setCenter(loginLayout);
-			primaryStage.setTitle("Login");
-		});
-		
-		registrationLayout.btnRegistration.setOnAction(e ->{
-			root.setCenter(loginLayout);
-			primaryStage.setTitle("Login");
-		});
 		
 		lobbyLayout.btnConfig.setDisable(true);
 		lobbyLayout.btnProfil.setDisable(true);
 		
-		VBox v1 = new VBox();
 		v1.setId("VBox");
 		
 		HBox h1 = new HBox();
 		h1.setId("HBoxRight");
 		h1.getChildren().addAll(btnJoin, btnCreatePlayroom);
 		listView = new ListView<>(model.getElements());
-		
-		v1.getChildren().addAll(listView, h1);
-		
-		loginLayout.btnLogin.setOnAction(e ->{
-			root.setCenter(lobbyLayout);
-			root.setBottom(v1);
-			primaryStage.setTitle("Lobby");
-		});
-		
-		lobbyLayout.btnLogout.setOnAction(e ->{
-			root.setCenter(loginLayout);
-			root.setBottom(null);
-			primaryStage.setTitle("Login");
-		});
-		
+		v1.getChildren().addAll(listView, h1);		
 		
 		createSpielraumPopUp.getContent().add(spielraumPopupLayout);
+		spielraumPopupLayout.btnCreate.disableProperty().bind(spielraumPopupLayout.tfSpielraumName.textProperty().isEmpty());
 		createSpielraumPopUp.setAutoHide(true);
 		
-		this.btnCreatePlayroom.setOnAction(e ->{
-			if (!createSpielraumPopUp.isShowing()) 
-				createSpielraumPopUp.show(primaryStage);
-		});
-		
-		this.btnJoin.setOnAction(e ->{
-			root.setCenter(spielraumLayout);
-			root.setBottom(null);
-			primaryStage.setTitle("Spielraum");
-		});
-		
-		spielraumLayout.btnLeave.setOnAction(e ->{
-			root.setCenter(lobbyLayout);
-			root.setBottom(v1);
-			primaryStage.setTitle("Lobby");
-		});
 		scene = new Scene(root, 850, 600);
 		scene.getStylesheets().add(
                 getClass().getResource("Client.css").toExternalForm());
@@ -279,6 +231,10 @@ public class JassClientView {
 	
 	public Stage getStage() {
 	    return primaryStage;
+	}
+	
+	public BorderPane getRoot() {
+		return root;
 	}
 	
 	public TextField getTfPort() {
