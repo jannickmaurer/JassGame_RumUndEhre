@@ -14,16 +14,61 @@ public class JassClientController {
 		
 		view.getBtnRun().setOnAction(event -> connect());
 		view.getBtnPing().setOnAction(event -> model.ping());
-		view.getBtnNewRegistration().setOnAction(event -> createAccount());
-		view.getBtnLogin().setOnAction(event -> login());
+		view.getBtnNewRegistration().setOnAction(event ->{
+			createAccount();
+			view.getRoot().setCenter(view.loginLayout);
+			view.getStage().setTitle("Login");
+		});
+		view.getBtnLogin().setOnAction(event ->{
+			login();
+			view.getRoot().setCenter(view.lobbyLayout);
+			view.getRoot().setBottom(view.v1);
+			view.getStage().setTitle("Lobby");
+		});
+		view.getBtnStart().setOnAction(e ->{
+			view.getRoot().setCenter(view.loginLayout);
+			view.getStage().setTitle("Login");
+		});
+		view.getBtnRegistration().setOnAction(e ->{
+			view.getRoot().setCenter(view.registrationLayout);
+			view.getStage().setTitle("Registration");
+		});
+		view.getBtnBack().setOnAction(e ->{
+			view.getRoot().setCenter(view.loginLayout);
+			view.getStage().setTitle("Login");
+		});
+		view.getBtnNewRegistration().setOnAction(e ->{
+			view.getRoot().setCenter(view.loginLayout);
+			view.getStage().setTitle("Login");
+		});
+		view.getBtnLogout().setOnAction(e ->{
+			view.getRoot().setCenter(view.loginLayout);
+			view.getRoot().setBottom(null);
+			view.getStage().setTitle("Login");
+		});
 		view.getBtnCreatePlayroomPopup().setOnAction(e -> {
-		
 			String name = view.getTfSpielraumName().getText();
 			view.getTfSpielraumName().setText("");
 			model.addNewElement(name);
 			view.getCreateSpielraumPopUp().hide();
-   
 		});
+		view.getBtnCreatePlayroom().setOnAction(e ->{
+			if (!view.createSpielraumPopUp.isShowing()) 
+				view.createSpielraumPopUp.show(view.getStage());
+		});
+		
+		view.getBtnJoin().setOnAction(e ->{
+			view.getRoot().setCenter(view.spielraumLayout);
+			view.getRoot().setBottom(null);
+			view.getStage().setTitle("Spielraum");
+		});
+		
+		view.getBtnLeave().setOnAction(e ->{
+			view.getRoot().setCenter(view.lobbyLayout);
+			view.getRoot().setBottom(view.v1);
+			view.getStage().setTitle("Lobby");
+		});
+
 	
 		model.getTokenProperty().addListener( (o, oldValue, newValue) -> {
 			this.token = newValue;
