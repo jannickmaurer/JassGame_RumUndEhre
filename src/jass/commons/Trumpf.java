@@ -2,29 +2,21 @@ package jass.commons;
 
 import java.util.ArrayList;
 
+import jass.commons.Card.Rank;
 import jass.commons.Card.Suit;
 
 //public class Eval{
 
-public enum Trumpf { Trumpf, SameSuit, Stich; //ClubTrumpf, DiamondTrumpf, HeartTrumpf, SpadeTrumpf;
+public enum Trumpf { Trumpf, Stich; //ClubTrumpf, DiamondTrumpf, HeartTrumpf, SpadeTrumpf;
 
-	public static Trumpf evaluatePlayableCards(ArrayList<Card> cards) {
-//	public Eval evaluatePlayableCards(ArrayList<Card> cards){
-		//Eval currentEval = AllCards;
-//		public String toString() {
-			String playable = "";
-		
-			// muss ich Trumpf spielen?
-			if (isFirstCardTrumpf(cards)) playable = "Trumpf";
+	public static Trumpf evaluateTrumpf(ArrayList<Card> cards) {
+
+			Trumpf trumpfevaluation = null;
+
+			if (isTrumpf(cards)) trumpfevaluation = Trumpf;
 	// ausserhalb programmieren siehe methode unten		if (isSuit(cards))	;
-			if (isStich(cards)) playable = "Stich";
-				// muss ich gleiche Farbe Spielen
-		
-				// muss ich gleiche Farbe oder Trumpf höher Spielen oder Trumpf
-		
-				// Stich
-			
-		return null;
+			if (isStich(cards)) trumpfevaluation = Stich;			
+		return trumpfevaluation;
 //		}
 	}
 //**************************************	
@@ -33,15 +25,10 @@ public enum Trumpf { Trumpf, SameSuit, Stich; //ClubTrumpf, DiamondTrumpf, Heart
 	public String suit = "H";
 	
 	
-	public static boolean isFirstCardTrumpf(ArrayList<Card> cards) {
+	public static boolean isTrumpf(ArrayList<Card> cards) {
 		boolean found = false;
 		if (cards.get(0).getSuit().toString() == trumpf) found = true;
 		return found;
-	}
-	//in andere MEthode ausserhalb packen wie bei <<Player>>
-	public static Suit isSuit(ArrayList<Card> cards) {
-		Suit searchedSuit = cards.get(0).getSuit();
-		return searchedSuit;
 	}
 	
 	public static boolean isStich(ArrayList<Card> cards) {
@@ -51,16 +38,12 @@ public enum Trumpf { Trumpf, SameSuit, Stich; //ClubTrumpf, DiamondTrumpf, Heart
 		return found;
 	}
 	
-	public static boolean isTrumpf(ArrayList<Card> cards) {
-		// this.trumpf muss noch geändert werden....
-		// alle Karten werden geprüft ob mindestens 1 Karte Trumpf ist
-		boolean found = false;
-		for (int i = 0; i < cards.size() && !found; i++) {
-		//	for (int j = i+1; j < cards.size() && !found; j++) {
-				if (cards.get(i).getSuit().toString() == trumpf) found = true;//	}
-		} return found;
+	//in andere MEthode ausserhalb packen wie bei <<Player>>
+	public static Suit getSuit(ArrayList<Card> cards) {
+		Suit searchedSuit = cards.get(0).getSuit();
+		return searchedSuit;
 	}
-	
+
 	
 	private Card highestTrumpf(ArrayList<Card> cards) {
     	//Gibt den WErt der höchsten gespielten Trumpfkarte zurück
@@ -106,7 +89,26 @@ public enum Trumpf { Trumpf, SameSuit, Stich; //ClubTrumpf, DiamondTrumpf, Heart
     }
 
 
-
+//adaption highest rank mit Rückgabe von...
+	public static Rank getHighestRankIfTrumpf(ArrayList<Card> cards) {
+    	ArrayList<Card> clonedCards = (ArrayList<Card>) cards.clone();
+    	boolean found = false;
+    	Rank searchedRank = null;
+			for (int i = 0; i < cards.size() && found == true; i++) {
+				switch(cards.get(i).getRank().toString()) {
+				case "4": searchedRank = cards.get(i).getRank(); break;
+				case "6": searchedRank = cards.get(i).getRank(); found = true; break;
+				
+				}
+				
+					
+						
+					
+				
+			}
+		
+		return null;
+	}
 
 	
 
