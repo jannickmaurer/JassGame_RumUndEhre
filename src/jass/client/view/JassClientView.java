@@ -14,6 +14,8 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -74,13 +76,28 @@ public class JassClientView {
 	public VBox v1 = new VBox();
 	
 	TextField tfSpielraumName = spielraumPopupLayout.tfSpielraumName;
-	RadioButton rbTrumpf = spielraumPopupLayout.rbTrumpf;
-	RadioButton rbUndeUfe = spielraumPopupLayout.rbUndeUfe;
-	RadioButton rbObeAbe = spielraumPopupLayout.rbObeAbe;
-	RadioButton rbSlalom = spielraumPopupLayout.rbSlalom;
+	CheckBox cbTrumpf = spielraumPopupLayout.cbTrumpf;
+	CheckBox cbUndeUfe = spielraumPopupLayout.cbUndeUfe;
+	CheckBox cbObeAbe = spielraumPopupLayout.cbObeAbe;
+	CheckBox cbSlalom = spielraumPopupLayout.cbSlalom;
 	CheckBox cbWyss = spielraumPopupLayout.cbWyss;
 	Button btnCreatePlayroomPopup = spielraumPopupLayout.btnCreate;
 	
+	Label lblPlayer = spielraumLayout.lblPlayer;
+	Label lblPlayer1 = spielraumLayout.lblPlayer1;
+	Label lblPlayer2 = spielraumLayout.lblPlayer2;
+	Label lblPlayer3 = spielraumLayout.lblPlayer3;
+	Label lblPlayer4 = spielraumLayout.lblPlayer4;
+	Label lblPoints = spielraumLayout.lblPoints;
+	Label lblPoints1 = spielraumLayout.lblPoints1;
+	Label lblPoints2 = spielraumLayout.lblPoints2;
+	Label lblPoints3 = spielraumLayout.lblPoints3;
+	Label lblPoints4 = spielraumLayout.lblPoints4;
+	Label lblChat = spielraumLayout.lblChat;
+	TextArea txtMessages = spielraumLayout.txtMessages;
+	TextField tfMessage = spielraumLayout.tfMessage;
+	Button btnSend = spielraumLayout.btnSend;
+	ScrollPane scrollPane = spielraumLayout.scrollPane;
 	Button btnLeave = spielraumLayout.btnLeave;
 
 	public JassClientView(Stage primaryStage, JassClientModel model) {
@@ -131,8 +148,23 @@ public class JassClientView {
 		btnLogout.setPrefWidth(100);
 		tfSpielraumName.setMinWidth(Region.USE_PREF_SIZE);
 		tfSpielraumName.setPrefWidth(240);
+		lblPlayer.setMinWidth(Region.USE_PREF_SIZE);
+		lblPlayer1.setMinWidth(Region.USE_PREF_SIZE);
+		lblPlayer2.setMinWidth(Region.USE_PREF_SIZE);
+		lblPlayer3.setMinWidth(Region.USE_PREF_SIZE);
+		lblPlayer4.setMinWidth(Region.USE_PREF_SIZE);
+		lblPoints.setMinWidth(Region.USE_PREF_SIZE);
+		lblPoints1.setMinWidth(Region.USE_PREF_SIZE);
+		lblPoints2.setMinWidth(Region.USE_PREF_SIZE);
+		lblPoints3.setMinWidth(Region.USE_PREF_SIZE);
+		lblPoints4.setMinWidth(Region.USE_PREF_SIZE);
+		lblChat.setMinWidth(Region.USE_PREF_SIZE);
 		btnCreatePlayroomPopup.setMinWidth(Region.USE_PREF_SIZE);
 		btnCreatePlayroomPopup.setPrefWidth(140);
+		tfMessage.setMinWidth(Region.USE_PREF_SIZE);
+		tfMessage.setPrefWidth(240);
+		btnSend.setMinWidth(Region.USE_PREF_SIZE);
+		btnSend.setPrefWidth(100);
 		btnLeave.setMinWidth(Region.USE_PREF_SIZE);
 		btnLeave.setPrefWidth(100);
 	
@@ -158,7 +190,7 @@ public class JassClientView {
 		
 		lobbyLayout.btnConfig.setDisable(true);
 		lobbyLayout.btnProfil.setDisable(true);
-		
+		this.btnJoin.setDisable(true);
 		v1.setId("VBox");
 		
 		HBox h1 = new HBox();
@@ -206,6 +238,9 @@ public class JassClientView {
 		registrationLayout.tfUsername.setPromptText(t.getString("label.username"));
 		registrationLayout.tfPassword.setPromptText(t.getString("label.password"));
 		spielraumPopupLayout.tfSpielraumName.setPromptText(t.getString("label.spielraumname"));
+		spielraumLayout.lblPlayer.setText(t.getString("label.player"));
+		spielraumLayout.lblPoints.setText(t.getString("label.points"));
+		spielraumLayout.lblChat.setText(t.getString("label.chat"));
 		
 	    // Other controls
 		connectLayout.btnPing.setText(t.getString("button.ping"));
@@ -220,12 +255,13 @@ public class JassClientView {
 		this.btnJoin.setText(t.getString("button.join"));
 		this.btnCreatePlayroom.setText(t.getString("button.createplayroom"));
 		lobbyLayout.btnLogout.setText(t.getString("button.logout"));
-		spielraumPopupLayout.rbTrumpf.setText(t.getString("radiobutton.trumpf"));
-		spielraumPopupLayout.rbUndeUfe.setText(t.getString("radiobutton.undeufe"));
-		spielraumPopupLayout.rbObeAbe.setText(t.getString("radiobutton.obeabe"));
-		spielraumPopupLayout.rbSlalom.setText(t.getString("radiobutton.slalom"));
+		spielraumPopupLayout.cbTrumpf.setText(t.getString("checkbox.trumpf"));
+		spielraumPopupLayout.cbUndeUfe.setText(t.getString("checkbox.undeufe"));
+		spielraumPopupLayout.cbObeAbe.setText(t.getString("checkbox.obeabe"));
+		spielraumPopupLayout.cbSlalom.setText(t.getString("checkbox.slalom"));
 		spielraumPopupLayout.cbWyss.setText(t.getString("checkbox.wyss"));
 		spielraumPopupLayout.btnCreate.setText(t.getString("button.createplayroom"));
+		spielraumLayout.btnSend.setText(t.getString("button.send"));
 		spielraumLayout.btnLeave.setText(t.getString("button.leave"));
     }
 	
@@ -389,36 +425,36 @@ public class JassClientView {
 		this.tfSpielraumName = tfSpielraumName;
 	}
 	
-	public RadioButton getRbTrumpf() {
-		return rbTrumpf;
+	public CheckBox getCbTrumpf() {
+		return cbTrumpf;
 	}
 
-	public void setRbTrumpf(RadioButton rbTrumpf) {
-		this.rbTrumpf = rbTrumpf;
+	public void setCbTrumpf(CheckBox cbTrumpf) {
+		this.cbTrumpf = cbTrumpf;
 	}
 	
-	public RadioButton getRbUndeUfe() {
-		return rbUndeUfe;
+	public CheckBox getCbUndeUfe() {
+		return cbUndeUfe;
 	}
 
-	public void setRbUndeUfe(RadioButton rbUndeUfe) {
-		this.rbUndeUfe = rbUndeUfe;
+	public void setCbUndeUfe(CheckBox cbUndeUfe) {
+		this.cbUndeUfe = cbUndeUfe;
 	}
 	
-	public RadioButton getRbObeAbe() {
-		return rbObeAbe;
+	public CheckBox getCbObeAbe() {
+		return cbObeAbe;
 	}
 
-	public void setRbObeAbe(RadioButton rbObeAbe) {
-		this.rbObeAbe = rbObeAbe;
+	public void setCbObeAbe(CheckBox cbObeAbe) {
+		this.cbObeAbe = cbObeAbe;
 	}
 	
-	public RadioButton getRbSlalom() {
-		return rbSlalom;
+	public CheckBox getCbSlalom() {
+		return cbSlalom;
 	}
 
-	public void setRbSlalom(RadioButton rbSlalom) {
-		this.rbSlalom = rbSlalom;
+	public void setCbSlalom(CheckBox rbSlalom) {
+		this.cbSlalom = rbSlalom;
 	}
 	
 	public CheckBox getCbWyss() {
@@ -451,6 +487,86 @@ public class JassClientView {
 
 	public void setCreateSpielraumPopUp(Popup createSpielraumPopUp) {
 		this.createSpielraumPopUp = createSpielraumPopUp;
+	}
+	
+	public Label getLblPlayer() {
+		return lblPlayer;
+	}
+
+	public void setLblPlayer(Label lblPlayer) {
+		this.lblPlayer = lblPlayer;
+	}
+	
+	public Label getLblPlayer1() {
+		return lblPlayer1;
+	}
+
+	public void setLblPlayer1(Label lblPlayer1) {
+		this.lblPlayer1 = lblPlayer1;
+	}
+	
+	public Label getLblPlayer2() {
+		return lblPlayer2;
+	}
+
+	public void setLblPlayer2(Label lblPlayer2) {
+		this.lblPlayer2 = lblPlayer2;
+	}
+	
+	public Label getLblPlayer3() {
+		return lblPlayer3;
+	}
+
+	public void setLblPlayer3(Label lblPlayer3) {
+		this.lblPlayer3 = lblPlayer3;
+	}
+	
+	public Label getLblPlayer4() {
+		return lblPlayer4;
+	}
+
+	public void setLblPlayer4(Label lblPlayer4) {
+		this.lblPlayer4 = lblPlayer4;
+	}
+	
+	public Label getLblChat() {
+		return lblChat;
+	}
+
+	public void setLblChat(Label lblChat) {
+		this.lblChat = lblChat;
+	}
+	
+	public TextArea getTxtMessages() {
+		return txtMessages;
+	}
+
+	public void setTxtMessages(TextArea txtMessages) {
+		this.txtMessages = txtMessages;
+	}
+	
+	public TextField getTfMessage() {
+		return tfMessage;
+	}
+
+	public void setTfMessage(TextField tfMessage) {
+		this.tfMessage = tfMessage;
+	}
+	
+	public Button getBtnSend() {
+		return btnSend;
+	}
+
+	public void setBtnSend(Button btnSend) {
+		this.btnSend = btnSend;
+	}
+	
+	public ScrollPane getScrollPane() {
+		return scrollPane;
+	}
+
+	public void setScrollPane(ScrollPane scrollPane) {
+		this.scrollPane = scrollPane;
 	}
 
 }

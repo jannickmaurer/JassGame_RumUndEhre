@@ -22,7 +22,6 @@ public class LoginPane extends GridPane {
 	TextField tfPassword = new TextField();
 	Button btnLogin = new Button();
 	Button btnRegistration = new Button();
-	int count = 0;
 	
 	public LoginPane() {
 		this.add(lblTitelLogin, 1, 0);
