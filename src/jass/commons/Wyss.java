@@ -51,7 +51,7 @@ public enum Wyss {
 //und bei Sechsblatt, wäres dann auch fünfblatt, vierblatt, dreiblatt....
 
 	private static boolean hasStöck(ArrayList<Card> cards) {
-		if(Trummpf != Undeufe || Tr)
+//		if(Trummpf != Undeufe || Tr)
 		
 		return false;
 	}
