@@ -13,6 +13,7 @@ import jass.commons.ServiceLocator;
 import jass.commons.Translator;
 import jass.message.CreateAccount;
 import jass.message.Login;
+import jass.message.MakeTrumpf;
 import jass.message.Message;
 import jass.message.Ping;
 import javafx.beans.property.SimpleStringProperty;
@@ -147,6 +148,7 @@ public class JassClientModel {
         return ourLogger;
     }
 
+    
     public void addNewElement(String element) {
 		elements.add(element);
 	}
