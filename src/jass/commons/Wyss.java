@@ -1,10 +1,14 @@
 package jass.commons;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public enum Wyss { 
 	Stöck, Dreiblatt, Vierblatt, Fünfblatt, Sechsblatt, Siebenblatt, Achtblatt, Neunblatt, Viergliichi, Vierneun, Vierbuebe;
 	
+	//Trumpf importieren
+	//Wie kann ich mehrere Blätter evaluieren und prüfen das sie nicht doppelt sind und hinzufügen zum
+	//zurück geben
 	public static Wyss evaluateWyss(ArrayList<Card> cards){
 		Wyss currentEval = null;
 		ArrayList<Wyss> wyss = new ArrayList<>();
@@ -51,13 +55,27 @@ public enum Wyss {
 //und bei Sechsblatt, wäres dann auch fünfblatt, vierblatt, dreiblatt....
 
 	private static boolean hasStöck(ArrayList<Card> cards) {
-//		if(Trummpf != Undeufe || Tr)
-		
-		return false;
+		boolean found = false;
+		ArrayList<Card> clonedCards = (ArrayList<Card>) cards.clone();
+		for (int i = 0; i < clonedCards.size(); i++) {
+	//		if(clonedCards.get(i).getSuit() != trumpf) 			//Trumpf konstante
+				clonedCards.remove(i);
+				i--;
+		}
+	    Collections.sort(clonedCards);
+	    boolean queen = false;
+	    boolean king = false;
+	    for (int i = 0; i < clonedCards.size(); i++) {
+	    	if (clonedCards.get(i).getRank().toString() == "7") queen = true;
+	    	if (clonedCards.get(i).getRank().toString() == "8") king = true;
+	    }
+		if (queen == true && king == true) found = true;
+		return found;
 	}
 
 	private static boolean hasDreiblatt(ArrayList<Card> cards) {
 		// TODO Auto-generated method stub
+		
 		return false;
 	}
 
