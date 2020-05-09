@@ -14,20 +14,20 @@ public enum Trumpf { Trumpf, Stich;
 		return trumpfevaluation;
 	}
 	//zum lösche erste zwei zeilen und ersetzen
-	public static String trumpf = "C";
+	//public static String trumpf = "C";
 	public String suit = "H";
 	
 	
 	public static boolean isTrumpf(ArrayList<Card> cards) {
 		boolean found = false;
-		if (cards.get(0).getSuit().toString() == trumpf) found = true;
+		if (cards.get(0).getSuit().toString() == Board.trumpf) found = true;
 		return found;
 	}
 	
 	public static boolean isStich(ArrayList<Card> cards) {
 		boolean found = false;
 		for (int i = 0; i < cards.size() && !found; i++) {
-					if (cards.get(i).getSuit().toString() == trumpf) found = true;}
+					if (cards.get(i).getSuit().toString() == Board.trumpf) found = true;}
 		return found;
 	}
 	
@@ -42,7 +42,7 @@ public enum Trumpf { Trumpf, Stich;
 		int place = -1;
 		for (int i = 0; i < cards.size() - 1; i++) {
 			for (int j = i+1; j < cards.size(); j++) {
-				if (cards.get(i).getSuit().toString() == trumpf && rank != 11);
+				if (cards.get(i).getSuit().toString() == Board.trumpf && rank != 11);
 					
 					int value = Integer.parseInt(cards.get(i).getRank().toString());
 					if(value == 6) value += 5;
