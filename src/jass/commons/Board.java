@@ -13,6 +13,7 @@ public class Board {
 	public static int playersTurn = 1;
 	public int imPlayer;
 	public static String trumpf;
+	public static int playedTableCards = 0;
 
 	HandCards handCards = new HandCards();
 	TableCards tableCards = new TableCards();
@@ -25,12 +26,13 @@ public class Board {
 		handCards.add(new Card("DA"));
 		handCards.add(new Card("SQ"));
 		handCards.add(new Card("CT"));
+		
 		handCards.add(new Card("S6"));
 		handCards.add(new Card("HJ"));
 		handCards.add(new Card("HK"));
 		handCards.add(new Card("S7"));
 
-		// aks Server witch player iam mit dem roomName
+		// ask Server witch player iam mit dem roomName
 		imPlayer = 1;
 
 	}
@@ -43,15 +45,35 @@ public class Board {
 			public void run() {
 				// gettabelcards und getplayersturn beim server abrfragen
 				// über message server anfrage und rückmeldung der aktuellen karten
-				if (playersTurn == imPlayer) {
+				getTableCards();
+				getPlayersTurn();
+				
+				
+				if (playersTurn == imPlayer) { //erfragt welcher player am zug ist, falls identisch kann player spielen
 					play();
 				}
 				if (tableCards.isComplete()) {
 					winnerEval();
 				}
+				//ABfrage ob Tablecards nach erster Runde um Weisen zu können
+				if (playedTableCards == 4 ) {
+					wiisEval();
+				}
 			}
 
-		}, 100, 1000);
+			private void getTableCards() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			private void getPlayersTurn() {
+				// TODO Auto-generated method stub
+				
+				
+			}
+
+
+		}, 100, 500); //Zeit für Anfrage aller erste Anfrageverzögerung, zweite wiederholzeitraum
 
 	}
 
@@ -59,15 +81,20 @@ public class Board {
 		if (trumpf == null) {
 			// logik um Trumpf zu bestimmen Rückmeldung view
 			// view box triggern welcher Spielmethode ob Trumpf obeAbe undeUfe, etc
+			
+			
 			trumpf = "H";
+			playedTableCards++;
 		}
 
 		if (tableCards.hasCards()) {
 			// evaluieren was ich legen darf
 			// TODO evaluieren welche Karte gespielt werden darf anhand TableCards und
 			// HandCards
+			playedTableCards++;
 		} else {
 			// TODO KArte darf gelegt werden direkt
+			playedTableCards++;
 		}
 
 	}
@@ -85,4 +112,10 @@ public class Board {
 		 */
 
 	}
+	
+	private void wiisEval() {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }
