@@ -2,6 +2,9 @@ package jass.commons;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
+
+import jass.commons.Card.Suit;
 
 public enum Wyss { 
 	Stöck, Dreiblatt, Vierblatt, Fünfblatt, Sechsblatt, Siebenblatt, Achtblatt, Neunblatt, Viergliichi, Vierneun, Vierbuebe;
@@ -9,11 +12,11 @@ public enum Wyss {
 	//Trumpf importieren
 	//Wie kann ich mehrere Blätter evaluieren und prüfen das sie nicht doppelt sind und hinzufügen zum
 	//zurück geben
-	public static Wyss evaluateWyss(ArrayList<Card> cards){
+	public static int evaluateWyss(ArrayList<Card> cards){
 		Wyss currentEval = null;
 		ArrayList<Wyss> wyss = new ArrayList<>();
-		
-		if (hasStöck(cards)) currentEval = Stöck; wyss.add(currentEval);
+		int points = 0;
+		if (hasStöck(cards)) points += 20;
 		if (hasDreiblatt(cards)) currentEval = Dreiblatt; wyss.add(currentEval);
 		if (hasVierblatt(cards)) currentEval = Vierblatt; wyss.add(currentEval);
 		if (hasFünfblatt(cards)) currentEval = Fünfblatt; wyss.add(currentEval);
@@ -25,7 +28,7 @@ public enum Wyss {
 		if (hasVierneun(cards)) currentEval = Vierneun; wyss.add(currentEval);//150
 		if (hasVierbuebe(cards)) currentEval = Vierbuebe; wyss.add(currentEval);//200
 		
-	return null;
+	return points;
 	}
 //    public static boolean isStraight(ArrayList<Card> cards) {
 //    	ArrayList<Card> clonedCards = (ArrayList<Card>) cards.clone();
@@ -50,18 +53,39 @@ public enum Wyss {
 //    	return straightFound;
 //    }
 //	
-	
+	/**
+	 * Static ned Static unterschiede und was alles geht und wo ich probleme bekomme
+	 * weil ich keine objekt habe...
+	 * 
+	 * wie kann ich mehrere evaluationen, zb drei dreiblätter abspeichern und zurück geben
+	 * 
+	 * wie kan jeder client nacheinander gecheckt werden
+	 */
 //Achtung: Evaluation mit mehreren dingen möglich zb drei Mal Dreiblatt....
 //und bei Sechsblatt, wäres dann auch fünfblatt, vierblatt, dreiblatt....
 
+	private static Suit trumpf; //static dancah probleme oder wie komme ich den Trumpf herein
+	private static ArrayList<Card> clubCards = new ArrayList<Card>();
+	private static ArrayList<Card> diamondCards = new ArrayList<Card>();
+	private static ArrayList<Card> heartCards = new ArrayList<Card>();
+	private static ArrayList<Card> spadeCards = new ArrayList<Card>();
+	
+	
 	private static boolean hasStöck(ArrayList<Card> cards) {
 		boolean found = false;
 		ArrayList<Card> clonedCards = (ArrayList<Card>) cards.clone();
-		for (int i = 0; i < clonedCards.size(); i++) {
-	//		if(clonedCards.get(i).getSuit() != trumpf) 			//Trumpf konstante
-				clonedCards.remove(i);
-				i--;
-		}
+		Iterator<Card> c = clonedCards.iterator();
+		while(c.hasNext()){
+			Card card = c.next();
+			if(card.getSuit() != trumpf) {
+				 c.remove();
+			 }
+		 }
+//		for (int i = 0; i < clonedCards.size(); i++) {
+//		if(clonedCards.get(i).getSuit() != trumpf) 			//Trumpf konstante
+//				clonedCards.remove(i);
+//				i--;
+//		}
 	    Collections.sort(clonedCards);
 	    boolean queen = false;
 	    boolean king = false;
@@ -72,9 +96,44 @@ public enum Wyss {
 		if (queen == true && king == true) found = true;
 		return found;
 	}
-
+	
+	private static void sortCards(ArrayList<Card> cards) {
+		Iterator<Card> c = cards.iterator();
+		while(c.hasNext()) {
+			Card card =c.next();
+			switch (card.getSuit().toString()) {
+			case ("C"): clubCards.add(card); break;
+			case ("D"): diamondCards.add(card); break;
+			case ("H"): heartCards.add(card); break;			
+			case ("S"): spadeCards.add(card); break;			
+			}//wie wichtig ist default bei Fehler, sollte ja keiner passieren....
+		
+		Collections.sort(clubCards);
+		Collections.sort(diamondCards);
+		Collections.sort(heartCards);
+		Collections.sort(spadeCards);
+		}
+	}
+	
+	
+	private void sortedCardsQuantity(int quantity) {
+		if (clubCards.size() >= quantity) ;
+		if (diamondCards.size() >= quantity) ;
+		if (heartCards.size() >= quantity) ;
+		if (spadeCards.size() >= quantity) ;
+	}
+	
+	/**
+	 * wie kann ich 
+	 */
 	private static boolean hasDreiblatt(ArrayList<Card> cards) {
-		// TODO Auto-generated method stub
+		sortCards(cards);
+		int quantity = 3;
+		
+		if (clubCards.size() >= 3) {
+
+		}
+		
 		
 		return false;
 	}
@@ -106,6 +165,8 @@ public enum Wyss {
 
 	private static boolean hasNeunblatt(ArrayList<Card> cards) {
 		// TODO Auto-generated method stub
+		sortCards(cards);
+		//wenn nur eine collection karten enthält
 		return false;
 	}
 
