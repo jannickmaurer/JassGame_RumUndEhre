@@ -38,67 +38,55 @@ public enum Trumpf { Trumpf, Stich;
 
 	
 	public static Rank highestTrumpf(ArrayList<Card> cards) {
-		int rank = -1;
+		String rank = "0";
 		int place = -1;
-		for (int i = 0; i < cards.size() - 1; i++) {
-			for (int j = i+1; j < cards.size(); j++) {
-				if (cards.get(i).getSuit().toString() == Board.trumpf && rank != 11);
-					
-					int value = Integer.parseInt(cards.get(i).getRank().toString());
-					if(value == 6) value += 5;
-					if(value == 4) value += 6;
-					
-					switch(value) {
-						case(1): if(rank < value) rank = value; place = i; break;
-						case(2): if(rank < value) rank = value; place = i; break;
-						case(3): if(rank < value) rank = value; place = i; break;
-						case(5): if(rank < value) rank = value; place = i; break;
-						case(7): if(rank < value) rank = value; place = i; break;
-						case(8): if(rank < value) rank = value; place = i; break;
-						case(9): if(rank < value) rank = value; place = i; break;
-						case(10): if(rank < value) rank = value; place = i; break;
-						case(11): if(rank < value) rank = value; place = i; break;
-					}
-			}
+		for (int i = 0; i<cards.size();i++) {
+			if(cards.get(i).getSuit().toString() == Board.trumpf && rank != "J") {
+				String value = cards.get(i).getRank().toString();
+				switch(value) {
+				case("6"): if(isHigher(rank, value)) rank = value; place = i; break;
+				case("7"): if(isHigher(rank, value)) rank = value; place = i; break;
+				case("8"): if(isHigher(rank, value)) rank = value; place = i; break;
+				case("9"): if(isHigher(rank, value)) rank = value; place = i; break;
+				case("T"): if(isHigher(rank, value)) rank = value; place = i; break;
+				case("J"): if(isHigher(rank, value)) rank = value; place = i; break;
+				case("Q"): if(isHigher(rank, value)) rank = value; place = i; break;
+				case("K"): if(isHigher(rank, value)) rank = value; place = i; break;
+				case("A"): if(isHigher(rank, value)) rank = value; place = i; break;
+				}
+			}	
 		}
 		return cards.get(place).getRank();
-    		//Achtung Trumpfkarte mit Werten 
-    		// 1 = 6
-    		// 2 = 7
-    		// 3 = 8
-    		// 4 = 9 = Nell
-    		// 5 = 10 
-    		// 6 = Jack = Trumpf Bueb
-    		// 7 = Queen 
-    		// 8 = King 
-    		// 9 = Ace
-		//ert
-
-		// T = 10 
-		// J = Jack = Trumpf Bueb
-		// Q = Queen 
-		// K = King 
-		// A = Ace
     }
 
-
-//adaption highest rank mit Rückgabe von...
-//	public static Rank getHighestTrumpfRank(ArrayList<Card> cards) {
-//    	ArrayList<Card> clonedCards = (ArrayList<Card>) cards.clone();
-//    	boolean found = false;
-//    	Rank searchedRank = cards.get(0).getRank();
-//			for (int i = 1; i < cards.size() && found != true; i++) {
-//				switch(cards.get(i).getRank().toString()) {
-//				case "1": if (searchedRank < cards.get(i).getRank()) {
-//					searchedRank = cards.get(i).getRank();} break;
-//				case "4": searchedRank = cards.get(i).getRank(); break;
-//				case "6": searchedRank = cards.get(i).getRank(); found = true; break;
-//				}				
-//			}
-//
-//		return null;
-//	}
-
+	private static boolean isHigher(String rank, String value) {
+		int rankInt = 0;
+		int valueInt = 0;
+		switch(rank) {
+			case("0"): rankInt = 0; break;
+			case("6"): rankInt = 1; break;
+			case("7"): rankInt = 2; break;
+			case("8"): rankInt = 3; break;
+			case("9"): rankInt = 8; break;
+			case("T"): rankInt = 4; break;
+			case("J"): rankInt = 9; break;
+			case("Q"): rankInt = 5; break;
+			case("K"): rankInt = 6; break;
+			case("A"): rankInt = 7; break;
+		}
+		switch(value) {
+			case("6"): valueInt = 1; break;
+			case("7"): valueInt = 2; break;
+			case("8"): valueInt = 3; break;
+			case("9"): valueInt = 8; break;
+			case("T"): valueInt = 4; break;
+			case("J"): valueInt = 9; break;
+			case("Q"): valueInt = 5; break;
+			case("K"): valueInt = 6; break;
+			case("A"): valueInt = 7; break;
+		}
+		return valueInt > rankInt;
+	}
 	
 
 	//Folgend NUR Methoden zur Siegauswertung von Karten
@@ -121,5 +109,4 @@ public enum Trumpf { Trumpf, Stich;
 		return cards.get(place).getRank();
 	}
 		
-	}
-
+}
