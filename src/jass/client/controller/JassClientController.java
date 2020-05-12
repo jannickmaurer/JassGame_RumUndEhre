@@ -56,13 +56,14 @@ public class JassClientController {
 		
 		view.getBtnJoin().setOnAction(e ->{
 			view.getRoot().setCenter(view.spielraumLayout);
+			view.spielraumLayout.setId("rootleft");
 			view.getRoot().setBottom(null);
 			view.getStage().setTitle("Spielraum");
-			view.spielraumLayout.setStyle("-fx-background-color: darkolivegreen;");
 		});
 		
 		view.getBtnLeave().setOnAction(e ->{
 			view.getRoot().setCenter(view.lobbyLayout);
+			view.getRoot().setId("root");
 			view.getRoot().setBottom(view.v1);
 			view.getStage().setTitle("Lobby");
 		});

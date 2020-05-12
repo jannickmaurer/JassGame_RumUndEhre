@@ -26,7 +26,7 @@ public class LobbyPane  extends BorderPane {
 		h1.setId("HBoxTop");
 		h1.getChildren().addAll(btnProfil, btnConfig, btnLogout);
 		
-		this.setBottom(h1);
+		this.setTop(h1);
 	}
 	
 }

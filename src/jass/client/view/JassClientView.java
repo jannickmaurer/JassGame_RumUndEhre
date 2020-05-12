@@ -162,9 +162,11 @@ public class JassClientView {
 		btnCreatePlayroomPopup.setMinWidth(Region.USE_PREF_SIZE);
 		btnCreatePlayroomPopup.setPrefWidth(140);
 		tfMessage.setMinWidth(Region.USE_PREF_SIZE);
-		tfMessage.setPrefWidth(240);
+		tfMessage.setPrefWidth(120);
+		txtMessages.setMinWidth(Region.USE_PREF_SIZE);
+		txtMessages.setPrefWidth(120);
 		btnSend.setMinWidth(Region.USE_PREF_SIZE);
-		btnSend.setPrefWidth(100);
+		btnSend.setPrefWidth(120);
 		btnLeave.setMinWidth(Region.USE_PREF_SIZE);
 		btnLeave.setPrefWidth(100);
 	
@@ -197,7 +199,9 @@ public class JassClientView {
 		h1.setId("HBoxRight");
 		h1.getChildren().addAll(btnJoin, btnCreatePlayroom);
 		listView = new ListView<>(model.getElements());
-		v1.getChildren().addAll(listView, h1);		
+		v1.getChildren().addAll(listView, h1);
+		listView.setMinHeight(Region.USE_PREF_SIZE);
+		listView.setPrefHeight(440);
 		
 		createSpielraumPopUp.getContent().add(spielraumPopupLayout);
 		spielraumPopupLayout.btnCreate.disableProperty().bind(spielraumPopupLayout.tfSpielraumName.textProperty().isEmpty());
