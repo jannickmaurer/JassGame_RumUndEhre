@@ -15,24 +15,19 @@ public class SpielraumPopupPane extends GridPane {
 	private JassClientView view;
 	
 	TextField tfSpielraumName = new TextField();
-	ToggleGroup group = new ToggleGroup();
-	RadioButton rbTrumpf = new RadioButton();
-	RadioButton rbUndeUfe = new RadioButton();
-	RadioButton rbObeAbe = new RadioButton();
-	RadioButton rbSlalom = new RadioButton();
+	CheckBox cbTrumpf = new CheckBox();
+	CheckBox cbUndeUfe = new CheckBox();
+	CheckBox cbObeAbe = new CheckBox();
+	CheckBox cbSlalom = new CheckBox();
 	CheckBox cbWyss = new CheckBox();
 	Button btnCreate = new Button();
 	
 	public SpielraumPopupPane() {		
 		this.add(tfSpielraumName, 0, 0);
-		rbTrumpf.setToggleGroup(group);
-		rbUndeUfe.setToggleGroup(group);
-		rbObeAbe.setToggleGroup(group);
-		rbSlalom.setToggleGroup(group);
-		this.add(rbTrumpf, 0, 1);
-		this.add(rbUndeUfe, 0, 2);
-		this.add(rbObeAbe, 0, 3);
-		this.add(rbSlalom, 0, 4);
+		this.add(cbTrumpf, 0, 1);
+		this.add(cbUndeUfe, 0, 2);
+		this.add(cbObeAbe, 0, 3);
+		this.add(cbSlalom, 0, 4);
 		
 		HBox h1 = new HBox();
 		Region spacer1 = new Region();

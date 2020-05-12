@@ -37,10 +37,6 @@ public class JassClientController {
 			view.getRoot().setCenter(view.loginLayout);
 			view.getStage().setTitle("Login");
 		});
-		view.getBtnNewRegistration().setOnAction(e ->{
-			view.getRoot().setCenter(view.loginLayout);
-			view.getStage().setTitle("Login");
-		});
 		view.getBtnLogout().setOnAction(e ->{
 			view.getRoot().setCenter(view.loginLayout);
 			view.getRoot().setBottom(null);
@@ -50,6 +46,7 @@ public class JassClientController {
 			String name = view.getTfSpielraumName().getText();
 			view.getTfSpielraumName().setText("");
 			model.addNewElement(name);
+			view.getBtnJoin().setDisable(false);
 			view.getCreateSpielraumPopUp().hide();
 		});
 		view.getBtnCreatePlayroom().setOnAction(e ->{
@@ -59,12 +56,14 @@ public class JassClientController {
 		
 		view.getBtnJoin().setOnAction(e ->{
 			view.getRoot().setCenter(view.spielraumLayout);
+			view.spielraumLayout.setId("rootleft");
 			view.getRoot().setBottom(null);
 			view.getStage().setTitle("Spielraum");
 		});
 		
 		view.getBtnLeave().setOnAction(e ->{
 			view.getRoot().setCenter(view.lobbyLayout);
+			view.getRoot().setId("root");
 			view.getRoot().setBottom(view.v1);
 			view.getStage().setTitle("Lobby");
 		});
