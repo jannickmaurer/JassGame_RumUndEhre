@@ -19,32 +19,41 @@ public class Account implements Serializable {
 	private final String password;
 	private String token;
 	private int points;
-	
+	private int wins;
+
 	public Account(String username, String password) {
 		this.username = username;
 		this.password = password;
 		logger.info("Account created: " + this.toString());
 	}
 	
+	//add account into list of accounts
 	public static void add(Account ac) {
 		synchronized(accounts) {
 			accounts.add(ac);
 		}
 	}
 	
-	public static Boolean exists(String username) {
-		synchronized (accounts) {
-			for (Account account : accounts) {
-				if (account.username.equals(username)) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
+	//check if an account exists depending on username -> 
+//	public static Boolean exists(String username) {
+//		synchronized (accounts) {
+//			for (Account account : accounts) {
+//				if (account.username.equals(username)) {
+//					return true;
+//				}
+//			}
+//		}
+//		return false;
+//	}
 	
+	//Add playing points to an account
 	public void addPoints(int points) {
 		this.points += points;
+	}
+	
+	//Add overall wins to account
+	public void addWin(int wins) {
+		this.wins += wins;
 	}
 	
 	public String toString() {
@@ -58,6 +67,7 @@ public class Account implements Serializable {
     return "uuid = " + uuid;
 	}
 	
+	//return account the client is connectet with
 	public static Account getAccount(String username) {
 		synchronized (accounts) {
 			for (Account account : accounts) {
@@ -69,6 +79,7 @@ public class Account implements Serializable {
 		return null;
 	}
 	
+	//Check if an account exists depending on username and password
 	public static Boolean checkLogin(String username, String password) {
 		synchronized (accounts) {
 			for (Account account : accounts) {

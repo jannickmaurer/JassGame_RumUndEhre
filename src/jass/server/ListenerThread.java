@@ -7,6 +7,8 @@ import java.util.logging.Logger;
 
 import jass.commons.ServiceLocator;
 
+// ListenerThread is for building a connection to the client
+
 public class ListenerThread extends Thread {
 	private final ServerSocket listener;
 	private final int port;

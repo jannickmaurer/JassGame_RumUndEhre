@@ -63,6 +63,7 @@ public class Client {
 		}
 	}
 	
+	//sned a new message to this client
 	public void send(Message msg) {
 		try {
 			msg.send(socket);	
@@ -74,6 +75,8 @@ public class Client {
 		}
 	}
 
+	//Getters and Setters
+	
 	public Account getAccount() {
 		return account;
 	}
