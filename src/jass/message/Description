@@ -10,6 +10,15 @@ Ping: 			"Ping"
 
 Result: 		"Result"|result[String]
 				"Result"|result[String]|token[String]
+				
+				Result FIX Sequence: 
+				0: "Result"
+				1: Result ("True" / "False")
+				2: Use Case: 	if null -> Only true / false needed
+								Token
+								ListPlayrooms
+								ListPlayers
+								
 
 Login: 			"Login"|username[String]|password[String]
 

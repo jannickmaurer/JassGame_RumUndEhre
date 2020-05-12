@@ -1,5 +1,6 @@
 package jass.server;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
@@ -13,22 +14,25 @@ import jass.commons.ServiceLocator;
  * Through the client we can always get the Account with which the client is logged in in order to get more information (username etc.)
  */
 
-public abstract class Playroom {
+public abstract class Playroom implements Serializable {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
+	
+	private static final ArrayList<Playroom> playrooms = new ArrayList<>();
 	
 	private String name;
 	private int MAX_MEMBER = 4;
 	private int MIN_MEMBER = 2;
-	ArrayList<Client> members;
+	private ArrayList<Client> members;
 	private Chatroom chatroom;
 	private boolean gameStarted = false;
 	private Client playerOnTurn;
 	private Client owner;
-	
-	public void Playroom(String name, Client owner) {
+
+	public Playroom(String name, Client owner) {
 		this.name = name;
 		this.owner = owner;
+		members = new ArrayList<>();
 		members.add(owner);
 		this.chatroom = new Chatroom(Playroom.this);
 	}
@@ -37,6 +41,11 @@ public abstract class Playroom {
 	public void addMember(Client member) {
 		members.add(member);
 		chatroom.addMember(member);
+	}
+	
+	//add a new playroom to the list of playrooms
+	public static void add(Playroom playroom) {
+		playrooms.add(playroom);
 	}
 	
 	public static void endGame() {
@@ -104,6 +113,15 @@ public abstract class Playroom {
 	public void setOwner(Client owner) {
 		this.owner = owner;
 	}
+	
+	public static ArrayList<Playroom> getPlayrooms(){
+		return playrooms;
+	}
+	
+	public String toString() {
+		return this.name;
+	}
+	
 	
 }
 	
