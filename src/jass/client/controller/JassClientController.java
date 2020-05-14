@@ -43,6 +43,7 @@ public class JassClientController {
 			view.getStage().setTitle("Login");
 		});
 		view.getBtnCreatePlayroomPopup().setOnAction(e -> {
+			createPlayroom();
 			String name = view.getTfSpielraumName().getText();
 			view.getTfSpielraumName().setText("");
 			model.addNewElement(name);
@@ -75,6 +76,12 @@ public class JassClientController {
 		
 	}
 	
+	private void createPlayroom() {
+		if(view.getCbTrumpf().isSelected() == true) {
+			model.createPlayroom(view.getTfSpielraumName().getText(), "Trumpf");
+		}
+	}
+
 	public void connect() {
 		model.connect(view.getTfIP().getText(), Integer.parseInt(view.getTfPort().getText()));
 	}

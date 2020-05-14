@@ -12,6 +12,7 @@ import jass.commons.Configuration;
 import jass.commons.ServiceLocator;
 import jass.commons.Translator;
 import jass.message.CreateAccount;
+import jass.message.CreatePlayroom;
 import jass.message.Login;
 import jass.message.MakeTrumpf;
 import jass.message.Message;
@@ -28,6 +29,7 @@ public class JassClientModel {
 	private static ServiceLocator serviceLocator = ServiceLocator.getServiceLocator();
 	private static Logger logger = serviceLocator.getClientLogger();
 	private final ObservableList<String> elements = FXCollections.observableArrayList();
+	private ObservableList<String> playrooms = FXCollections.observableArrayList();
 	
 	public void connect(String ipAdress, int port) {
 		try {
@@ -37,6 +39,11 @@ public class JassClientModel {
 				public void run() {
 					while (true) {
 						Message msg = Message.receive(socket);
+						
+						// Only "Result" messages got sent to Client. Therefore, we use process method from Result class and
+						// provide the model to the method in order for it to able to use model's methods
+						msg.process(JassClientModel.this); 
+						
 						System.out.println("Client Message received: " + msg.toString());
 						}
 				}
@@ -85,7 +92,14 @@ public class JassClientModel {
 	}
 	
 	public void createPlayroom(String name, String playmode) {
-		
+		String[] content = new String[] {"CreatePlayroom", this.token.getValue(), name, playmode};
+		Message msg = new CreatePlayroom(content);
+		try {
+			msg.send(socket);
+			logger.info("Client tries to send message: " + msg.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -156,12 +170,23 @@ public class JassClientModel {
     public void removeElement(String element) {
 		elements.remove(element);
 	}
+    
+    public void addNewPlayroom(String playroom) {
+		elements.add(playroom);
+	}
+    
+    public void removePlayroom(String playroom) {
+		elements.remove(playroom);
+	}
 	
 	public ObservableList<String> getElements() {
 		return elements;
 	}
 	public SimpleStringProperty getTokenProperty() {
 		return token;
+	}
+	public void setToken(String token) {
+		this.token.set(token);
 	}
 
 }
