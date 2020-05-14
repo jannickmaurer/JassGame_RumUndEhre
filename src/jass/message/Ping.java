@@ -12,7 +12,6 @@ public class Ping extends Message {
 	@Override
 	public void process(Client client) {
 		client.send(new Result(true));
-		System.out.println("Test");
 	}
 	
 }
