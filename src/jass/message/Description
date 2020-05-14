@@ -8,18 +8,17 @@ CreateAccount: 	"CreateAccount|username[String]|password[String]"
 
 Ping: 			"Ping"
 
-Result: 		"Result"|result[String]
-				"Result"|result[String]|token[String]
+Result: 				"Result"|result[String]	
+ResultToken:			"Result"|result[String]|token[String]
+ResultListPlayrooms:	"ResultListPlayrooms"|result[String]|playroom1[String]|playroom2...
 				
-				Result FIX Sequence: 
-				0: "Result"
-				1: Result ("True" / "False")
-				2: Use Case: 	if null -> Only true / false needed
-								Token
-								ListPlayrooms
-								ListPlayers
 								
-Login: 			"Login"|username[String]|password[String]
+Login: 					"Login"|username[String]|password[String]
+
+CreatePlayroom:			CreatePlayroom|TOKEN|Name|Playmode
+
+ListPlayrooms:			ListPlayrooms|TOKEN
+JoinPlayroom:			JoinPlayroom|TOKEN|PlayroomName
 
 Create a new Message: 
 

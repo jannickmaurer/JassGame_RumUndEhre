@@ -3,6 +3,8 @@ package jass.message;
 import java.util.logging.Logger;
 
 import jass.commons.ServiceLocator;
+import jass.message.result.Result;
+import jass.message.result.ResultLogin;
 import jass.server.Account;
 import jass.server.Client;
 
@@ -30,10 +32,10 @@ public class Login extends Message {
 			token = account.getToken();
 			client.setToken(token);
 			result = true;
-			String[] content = new String[] {"Result", Boolean.toString(result), "Token", token};
-			client.send(new Result(content));
+			String[] content = new String[] {"ResultLogin", Boolean.toString(result), token};
+			client.send(new ResultLogin(content));
 		} else {
-			client.send(new Result(result));
+			client.send(new ResultLogin(result));
 		}
 	}
 

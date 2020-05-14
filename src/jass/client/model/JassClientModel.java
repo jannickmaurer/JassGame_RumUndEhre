@@ -13,6 +13,7 @@ import jass.commons.ServiceLocator;
 import jass.commons.Translator;
 import jass.message.CreateAccount;
 import jass.message.CreatePlayroom;
+import jass.message.ListPlayrooms;
 import jass.message.Login;
 import jass.message.MakeTrumpf;
 import jass.message.Message;
@@ -42,8 +43,12 @@ public class JassClientModel {
 						
 						// Only "Result" messages got sent to Client. Therefore, we use process method from Result class and
 						// provide the model to the method in order for it to able to use model's methods
-						msg.process(JassClientModel.this); 
 						
+						if(msg != null) {
+							if(msg.isTrue()) {
+								msg.process(JassClientModel.this); 
+							}
+						}
 						System.out.println("Client Message received: " + msg.toString());
 						}
 				}
@@ -102,7 +107,49 @@ public class JassClientModel {
 		}
 	}
 	
+	public void listPlayrooms() {
+		String[] content = new String[] {"ListPlayrooms", this.token.getValue()};
+		Message msg = new ListPlayrooms(content);
+		try {
+			msg.send(socket);
+			logger.info("Client tries to send message: " + msg.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
+	
+
+
+    
+    public void addNewElement(String element) {
+		elements.add(element);
+	}
+    
+    public void removeElement(String element) {
+		elements.remove(element);
+	}
+    
+    public void addNewPlayroom(String playroom) {
+		elements.add(playroom);
+	}
+    
+    public void removePlayroom(String playroom) {
+		playrooms.remove(playroom);
+	}
+	
+	public ObservableList<String> getElements() {
+		return elements;
+	}
+	public SimpleStringProperty getTokenProperty() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token.set(token);
+		logger.info("Client set token to: " + this.token.getValue());
+	}
+
+
 	
 	public void initialize() {
         new Thread(initializer).start();
@@ -161,32 +208,4 @@ public class JassClientModel {
 
         return ourLogger;
     }
-
-    
-    public void addNewElement(String element) {
-		elements.add(element);
-	}
-    
-    public void removeElement(String element) {
-		elements.remove(element);
-	}
-    
-    public void addNewPlayroom(String playroom) {
-		playrooms.add(playroom);
-	}
-    
-    public void removePlayroom(String playroom) {
-		playrooms.remove(playroom);
-	}
-	
-	public ObservableList<String> getElements() {
-		return elements;
-	}
-	public SimpleStringProperty getTokenProperty() {
-		return token;
-	}
-	public void setToken(String token) {
-		this.token.set(token);
-	}
-
 }

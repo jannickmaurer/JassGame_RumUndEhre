@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import jass.commons.ServiceLocator;
+import jass.message.result.Result;
+import jass.message.result.ResultListPlayrooms;
 import jass.server.Client;
 import jass.server.Playroom;
 
@@ -25,15 +27,21 @@ public class ListPlayrooms extends Message {
 		boolean result = false;
 		
 		if(this.token.equals(client.getToken())) {
-			ArrayList<String> names = new ArrayList<>();
-			for(Playroom p : Playroom.getPlayrooms()) {
-				names.add(p.getName());
-			}
 			result = true;
-			String[] content = new String[] {"Result", Boolean.toString(result), "ListPlayrooms"};
-			client.send(new Result(content, names));
+			String[] temp = new String[] {"ResultListPlayrooms", Boolean.toString(result)};
+			String[] content = this.combineArrayAndArrayList(temp, Playroom.getPlayroomNames());
+			client.send(new ResultListPlayrooms(content));
+			
+//			ArrayList<String> names = new ArrayList<>();
+//			for(Playroom p : Playroom.getPlayrooms()) {
+//				names.add(p.getName());
+//			}
+//			result = true;
+//			String content = this.combineArrayAndArrayList(array, list)
+////			String[] content = new String[] {"ResultListPlayrooms", Boolean.toString(result)};
+//			client.send(new Result(content, names));
 		} else {
-			client.send(new Result(result));
+			client.send(new ResultListPlayrooms(result));
 		}
 	}
 }

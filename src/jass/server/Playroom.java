@@ -52,6 +52,15 @@ public abstract class Playroom implements Serializable {
 		
 	}
 	
+	public static Playroom exists(String name) {
+		synchronized (playrooms) {
+			for (Playroom playroom : playrooms) {
+				if (playroom.name.equals(name)) return playroom;
+			}
+		}
+		return null;
+	}
+	
 	// Getters and Setters:
 	
 	public ArrayList<Client> getMembers(){
@@ -116,6 +125,14 @@ public abstract class Playroom implements Serializable {
 	
 	public static ArrayList<Playroom> getPlayrooms(){
 		return playrooms;
+	}
+	
+	public static ArrayList<String> getPlayroomNames(){
+		ArrayList<String> names = new ArrayList<>();
+		for(Playroom p : playrooms) {
+			names.add(p.getName());
+		}
+		return names;
 	}
 	
 	public String toString() {

@@ -8,6 +8,7 @@ public class JassClientController {
 	private JassClientView view;
 	private String token;
 
+	
 	public JassClientController(JassClientModel model, JassClientView view) {
 		this.model = model;
 		this.view = view;
@@ -46,7 +47,7 @@ public class JassClientController {
 			createPlayroom();
 			String name = view.getTfSpielraumName().getText();
 			view.getTfSpielraumName().setText("");
-			model.addNewElement(name);
+//			model.addNewElement(name);
 			view.getBtnJoin().setDisable(false);
 			view.getCreateSpielraumPopUp().hide();
 		});

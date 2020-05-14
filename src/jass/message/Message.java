@@ -10,6 +10,12 @@ import java.util.logging.Logger;
 
 import jass.client.model.JassClientModel;
 import jass.commons.ServiceLocator;
+import jass.message.result.Result;
+import jass.message.result.ResultCreateAccount;
+import jass.message.result.ResultCreatePlayroom;
+import jass.message.result.ResultJoinPlayroom;
+import jass.message.result.ResultListPlayrooms;
+import jass.message.result.ResultLogin;
 import jass.server.Client;
 
 public abstract class Message {
@@ -23,13 +29,7 @@ public abstract class Message {
 		this.content = content;
 		logger.info("Message created:" + this.toString());
 	}
-	public Message(String[] content, ArrayList<String> elements) {
-		this.content = new String[content.length + elements.size()];
-		for (int i = 0; i < content.length; i++)
-			this.content[i] = content[i];
-		for (int i = 0; i < elements.size(); i++)
-			this.content[i + content.length] = elements.get(i);
-	}
+	
 
 	public void send(Socket socket) throws IOException {
 		OutputStreamWriter out;
@@ -56,25 +56,13 @@ public abstract class Message {
 			if (content[0].equals("Login")) msg = new Login(content);
 			if (content[0].equals("CreatePlayroom")) msg = new CreatePlayroom(content);
 			if (content[0].equals("ListPlayrooms")) msg = new ListPlayrooms(content);
-			
-			
-			/* Since there are some different types of Result messages we have to handle it different:
-			 * If String array's length is < 3 the message is only for sending true or false
-			 * If it is longer, we have to check for the usecase value in third position. Depending on the value,
-			 * we have to use different constructors
-			 */
-			
-			if (content[0].equals("Result")) {
-				if (content.length < 3) { 
-					msg = new Result(content); 
-				} else { 
-					if (content[2].equals("Token")) msg = new Result(content);
-					if (content[2] == "ListPlayrooms") msg = new Result(content);
-				}
-			
-			
-			}
-			
+			if (content[0].equals("Result")) msg = new Result(content); 
+			if (content[0].equals("ResultLogin")) msg = new ResultLogin(content);
+			if (content[0].equals("ResultListPlayrooms")) msg = new ResultListPlayrooms(content);
+			if (content[0].equals("ResultCreateAccount")) msg = new ResultCreateAccount(content);
+			if (content[0].equals("ResultCreatePlayrom")) msg = new ResultCreatePlayroom(content);
+			if (content[0].equals("ResultJoinPlayroom")) msg = new ResultJoinPlayroom(content);
+
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -86,15 +74,31 @@ public abstract class Message {
 		return String.join("|", content);
 	}
 	public void process(Client client) {
-		// TODO Auto-generated method stub
+		logger.warning("Wrong process (Message) Used!");
 	}
 	
 	public void process() {
+		logger.warning("Wrong process (Message) Used!");
 		
 	}
 	public void process(JassClientModel model) {
-		// TODO Auto-generated method stub
-		
+		logger.warning("Wrong process (Message) Used!");
+	}
+	
+	public String[] combineArrayAndArrayList(String[] array, ArrayList<String> list) {
+		this.content = new String[array.length + list.size()];
+		for (int i = 0; i < array.length; i++)
+			this.content[i] = array[i];
+		for (int i = 0; i < list.size(); i++)
+			this.content[i + array.length] = list.get(i);
+		return content;
+	}
+	
+	public Boolean isTrue() {
+		return this.content[1].equalsIgnoreCase("True");
+	}
+	public Boolean isFalse() {
+		return this.content[1].equalsIgnoreCase("False");
 	}
 }
 

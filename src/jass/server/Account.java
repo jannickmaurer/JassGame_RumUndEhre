@@ -64,7 +64,7 @@ public class Account implements Serializable {
 	public String getToken() {
 	String uuid = UUID.randomUUID().toString();
 	System.out.println(uuid);
-    return "uuid = " + uuid;
+    return uuid;
 	}
 	
 	//return account the client is connectet with
