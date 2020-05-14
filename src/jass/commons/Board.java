@@ -7,6 +7,7 @@ import java.util.TimerTask;
 
 import jass.client.TableCards;
 import jass.client.HandCards;
+import jass.client.Player;
 import jass.commons.Card.Suit;
 
 public class Board {
@@ -15,7 +16,7 @@ public class Board {
 	public static String trumpf;
 	public static int playedTableCards = 0;
 	
-	public String gameVariety = "Trumpf";  
+	public static String gameVariety = "Trumpf";  
 
 	HandCards handCards = new HandCards();
 	TableCards tableCards = new TableCards();
@@ -71,37 +72,24 @@ public class Board {
 
 	private void play() {
 		if (tableCards.hasCards() == false ) {
-			//evaluation Trumpf, UndeUfe, ObeAbe, Slalom
-			
+			//evaluation Trumpf, UndeUfe, ObeAbe, Slalom	
 //			getGameVariety(); @Sämi bitte trumpfauswahl bei spielstart implementieren
+		
+			selectGameVariety();
+			//Karte ziehen
+			playedTableCards++;
+		//select GameVariety : Auswählen was in dieser Rund gespielt wir, ob Trumpf, ObeAbe, UndeUfe oder Slalom
+
 			
-			if (gameVariety == "Trumpf") {
-				
-				
-			}
-				// logik um Trumpf zu bestimmen Rückmeldung view
-				// view box triggern welcher Spielmethode ob Trumpf obeAbe undeUfe, etc
-	
-				trumpf = "H";
-				playedTableCards++;
-			}
-			
-			if (gameVariety == "ObeAbe") {}
-			if (gameVariety == "UndeUfe") {}
-			if (gameVariety == "Slalom") {}
-//evtl hier else
-			
-		if (tableCards.hasCards()) {
+		if (tableCards.hasCards() == true) {
 			// evaluieren was ich legen darf
 			// TODO evaluieren welche Karte gespielt werden darf anhand TableCards und
 			// HandCards
-//			String s;
-//			s = Trumpf.getSuit(null).toString();
 			if (gameVariety == "Trumpf") {
 				//
 				boolean test = true;
-				evaluateTrumpf();
-	//			Trumpf.evaluateTrumpf();
+//				Player p = new Player("i weis au ned welle das i bin HAHA");
+//				p.evaluateTrumpf();
 				if(Trumpf.isTrumpf(null)) test = false;{
 					
 				}
@@ -118,7 +106,14 @@ public class Board {
 			// TODO KArte darf gelegt werden direkt
 			playedTableCards++;
 		}
+		}
+	}
 
+	private void selectGameVariety() {
+			//Methode evaluieren was der Spieler als GAmeVariante gewählt hat
+			//zB Trumpf, ObeAbe, UndeUfe, Slalom
+			// TODO Auto-generated method stub
+			
 	}
 
 	public Trumpf evaluateTrumpf() {
