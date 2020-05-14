@@ -19,16 +19,7 @@ Result: 		"Result"|result[String]
 								ListPlayrooms
 								ListPlayers
 								
-
 Login: 			"Login"|username[String]|password[String]
-
-
-
-
-
-
-
-
 
 Create a new Message: 
 

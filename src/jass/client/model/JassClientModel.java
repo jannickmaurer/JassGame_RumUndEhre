@@ -172,11 +172,11 @@ public class JassClientModel {
 	}
     
     public void addNewPlayroom(String playroom) {
-		elements.add(playroom);
+		playrooms.add(playroom);
 	}
     
     public void removePlayroom(String playroom) {
-		elements.remove(playroom);
+		playrooms.remove(playroom);
 	}
 	
 	public ObservableList<String> getElements() {
