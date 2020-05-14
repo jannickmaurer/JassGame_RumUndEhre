@@ -21,8 +21,7 @@ import jass.commons.*;
  */
 public class CardCreation {
 	private final ArrayList<Card> cards = new ArrayList<>();
-	// private final SimpleIntegerProperty cardsRemaining = new
-	// SimpleIntegerProperty();
+
 
 	/**
 	 * We only ever have one deck of cards, so we do not set an ID attribute.

@@ -14,6 +14,8 @@ public class Board {
 	public int imPlayer;
 	public static String trumpf;
 	public static int playedTableCards = 0;
+	
+	public String gameVariety = "Trumpf";  
 
 	HandCards handCards = new HandCards();
 	TableCards tableCards = new TableCards();
@@ -34,6 +36,9 @@ public class Board {
 
 		// ask Server witch player iam mit dem roomName
 		imPlayer = 1;
+		
+		
+		
 
 	}
 
@@ -60,43 +65,65 @@ public class Board {
 					wiisEval();
 				}
 			}
-
-			private void getTableCards() {
-				// TODO Auto-generated method stub
-				
-			}
-
-			private void getPlayersTurn() {
-				// TODO Auto-generated method stub
-				
-				
-			}
-
-
 		}, 100, 500); //Zeit für Anfrage aller erste Anfrageverzögerung, zweite wiederholzeitraum
 
 	}
 
 	private void play() {
-		if (trumpf == null) {
-			// logik um Trumpf zu bestimmen Rückmeldung view
-			// view box triggern welcher Spielmethode ob Trumpf obeAbe undeUfe, etc
+		if (tableCards.hasCards() == false ) {
+			//evaluation Trumpf, UndeUfe, ObeAbe, Slalom
 			
+//			getGameVariety(); @Sämi bitte trumpfauswahl bei spielstart implementieren
 			
-			trumpf = "H";
-			playedTableCards++;
-		}
-
+			if (gameVariety == "Trumpf") {
+				
+				
+			}
+				// logik um Trumpf zu bestimmen Rückmeldung view
+				// view box triggern welcher Spielmethode ob Trumpf obeAbe undeUfe, etc
+	
+				trumpf = "H";
+				playedTableCards++;
+			}
+			
+			if (gameVariety == "ObeAbe") {}
+			if (gameVariety == "UndeUfe") {}
+			if (gameVariety == "Slalom") {}
+//evtl hier else
+			
 		if (tableCards.hasCards()) {
 			// evaluieren was ich legen darf
 			// TODO evaluieren welche Karte gespielt werden darf anhand TableCards und
 			// HandCards
+//			String s;
+//			s = Trumpf.getSuit(null).toString();
+			if (gameVariety == "Trumpf") {
+				//
+				boolean test = true;
+				evaluateTrumpf();
+	//			Trumpf.evaluateTrumpf();
+				if(Trumpf.isTrumpf(null)) test = false;{
+					
+				}
+				
+			}
+			
+			if (gameVariety == "ObeAbe") {}
+			if (gameVariety == "UndeUfe") {}
+			if (gameVariety == "Slalom") {}
+			
+			
 			playedTableCards++;
 		} else {
 			// TODO KArte darf gelegt werden direkt
 			playedTableCards++;
 		}
 
+	}
+
+	public Trumpf evaluateTrumpf() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	private void winnerEval() {
@@ -116,6 +143,15 @@ public class Board {
 	private void wiisEval() {
 		// TODO Auto-generated method stub
 		
+	}
+	private void getTableCards() {
+		// TODO Auto-generated method stub
+		//mit jannick absprechen worauf ich die Message und methodenaufrufe senden soll
+	}
+
+	private void getPlayersTurn() {
+		// TODO Auto-generated method stub
+		//dito wie bei getTableCards
 	}
 	
 }

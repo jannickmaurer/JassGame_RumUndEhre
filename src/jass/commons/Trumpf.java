@@ -20,14 +20,14 @@ public enum Trumpf { Trumpf, Stich;
 	
 	public static boolean isTrumpf(ArrayList<Card> cards) {
 		boolean found = false;
-		if (cards.get(0).getSuit().toString() == Board.trumpf) found = true;
+			if (cards.get(0).getSuit().toString() == Board.trumpf) found = true;
 		return found;
 	}
 	
 	public static boolean isStich(ArrayList<Card> cards) {
 		boolean found = false;
 		for (int i = 0; i < cards.size() && !found; i++) {
-					if (cards.get(i).getSuit().toString() == Board.trumpf) found = true;}
+			if (cards.get(i).getSuit().toString() == Board.trumpf) found = true;}
 		return found;
 	}
 	
