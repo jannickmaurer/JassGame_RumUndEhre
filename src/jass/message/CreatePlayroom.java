@@ -3,6 +3,8 @@ package jass.message;
 import java.util.logging.Logger;
 
 import jass.commons.ServiceLocator;
+import jass.message.result.Result;
+import jass.message.result.ResultCreatePlayroom;
 import jass.server.Client;
 import jass.server.Playroom;
 import jass.server.TrumpfGame;
@@ -31,7 +33,7 @@ public class CreatePlayroom extends Message {
 				Playroom.add(playroom);
 				result = true;
 			}
-			client.send(new Result(result));
+			client.send(new ResultCreatePlayroom(result));
 		}
 	}
 }
