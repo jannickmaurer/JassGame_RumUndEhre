@@ -7,7 +7,8 @@ import java.util.Iterator;
 import jass.commons.Card.Suit;
 
 public enum Wiis { 
-	Stöck, Dreiblatt, Vierblatt, Fünfblatt, Sechsblatt, Siebenblatt, Achtblatt, Neunblatt, Viergliichi, Vierneun, Vierbuebe;
+	Stöck, Dreiblatt, Vierblatt, Fünfblatt, Sechsblatt, Siebenblatt, Achtblatt, Neunblatt,
+	Viergliichi, Viernell, Vierbuebe;
 	
 	//Trumpf importieren
 	//Wie kann ich mehrere Blätter evaluieren und prüfen das sie nicht doppelt sind und hinzufügen zum
@@ -17,7 +18,8 @@ public enum Wiis {
 		ArrayList<Wiis> wyss = new ArrayList<>();
 		int points = 0;
 		if (hasStöck(cards)) points += 20;
-		if (hasDreiblatt(cards)) currentEval = Dreiblatt; wyss.add(currentEval);
+		if (hasStöck(cards)) currentEval = Stöck; wyss.add(currentEval); //Done
+		if (hasDreiblatt(cards)) currentEval = Dreiblatt; wyss.add(currentEval); //
 		if (hasVierblatt(cards)) currentEval = Vierblatt; wyss.add(currentEval);
 		if (hasFünfblatt(cards)) currentEval = Fünfblatt; wyss.add(currentEval);
 		if (hasSechsblatt(cards)) currentEval = Sechsblatt; wyss.add(currentEval);
@@ -25,7 +27,7 @@ public enum Wiis {
 		if (hasAchtblatt(cards)) currentEval = Achtblatt; wyss.add(currentEval);//Nur ein Weiss Plus Stöcke evtl.
 		if (hasNeunblatt(cards)) currentEval = Neunblatt; wyss.add(currentEval);//Nur ein Weiss Plus Stöcke evtl.
 		if (hasViergliichi(cards)) currentEval = Viergliichi; wyss.add(currentEval);
-		if (hasVierneun(cards)) currentEval = Vierneun; wyss.add(currentEval);//150
+		if (hasVierneun(cards)) currentEval = Viernell; wyss.add(currentEval);//150
 		if (hasVierbuebe(cards)) currentEval = Vierbuebe; wyss.add(currentEval);//200
 		
 	return points;
@@ -53,14 +55,7 @@ public enum Wiis {
 //    	return straightFound;
 //    }
 //	
-	/**
-	 * Static ned Static unterschiede und was alles geht und wo ich probleme bekomme
-	 * weil ich keine objekt habe...
-	 * 
-	 * wie kann ich mehrere evaluationen, zb drei dreiblätter abspeichern und zurück geben
-	 * 
-	 * wie kan jeder client nacheinander gecheckt werden
-	 */
+
 //Achtung: Evaluation mit mehreren dingen möglich zb drei Mal Dreiblatt....
 //und bei Sechsblatt, wäres dann auch fünfblatt, vierblatt, dreiblatt....
 
@@ -73,6 +68,8 @@ public enum Wiis {
 	
 	private static boolean hasStöck(ArrayList<Card> cards) {
 		boolean found = false;
+	    boolean queen = false;
+	    boolean king = false;
 		ArrayList<Card> clonedCards = (ArrayList<Card>) cards.clone();
 		Iterator<Card> c = clonedCards.iterator();
 		while(c.hasNext()){
@@ -81,23 +78,15 @@ public enum Wiis {
 				 c.remove();
 			 }
 		 }
-//		for (int i = 0; i < clonedCards.size(); i++) {
-//		if(clonedCards.get(i).getSuit() != trumpf) 			//Trumpf konstante
-//				clonedCards.remove(i);
-//				i--;
-//		}
-	    Collections.sort(clonedCards);
-	    boolean queen = false;
-	    boolean king = false;
 	    for (int i = 0; i < clonedCards.size(); i++) {
-	    	if (clonedCards.get(i).getRank().toString() == "7") queen = true;
-	    	if (clonedCards.get(i).getRank().toString() == "8") king = true;
+	    	if (clonedCards.get(i).getRank().toString() == "Q") queen = true;
+	    	if (clonedCards.get(i).getRank().toString() == "K") king = true;
 	    }
 		if (queen == true && king == true) found = true;
 		return found;
 	}
 	
-	private static void sortCards(ArrayList<Card> cards) {
+	private static void sortCardsOnSuit(ArrayList<Card> cards) {
 		Iterator<Card> c = cards.iterator();
 		while(c.hasNext()) {
 			Card card =c.next();
@@ -127,7 +116,7 @@ public enum Wiis {
 	 * wie kann ich 
 	 */
 	private static boolean hasDreiblatt(ArrayList<Card> cards) {
-		sortCards(cards);
+		sortCardsOnSuit(cards);
 		int quantity = 3;
 		
 		if (clubCards.size() >= 3) {
@@ -165,7 +154,7 @@ public enum Wiis {
 
 	private static boolean hasNeunblatt(ArrayList<Card> cards) {
 		// TODO Auto-generated method stub
-		sortCards(cards);
+		sortCardsOnSuit(cards);
 		//wenn nur eine collection karten enthält
 		return false;
 	}
