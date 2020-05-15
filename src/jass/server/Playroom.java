@@ -40,7 +40,7 @@ public abstract class Playroom implements Serializable {
 		this.name = name;
 		this.owner = owner;
 		members = new ArrayList<>();
-		members.add(owner);
+		addMember(owner);
 		this.chatroom = new Chatroom(Playroom.this);
 		Chatroom.add(this.chatroom);
 	}

@@ -1,7 +1,9 @@
 package jass.server;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Logger;
 
 import jass.commons.ServiceLocator;
@@ -29,14 +31,18 @@ public class Chatroom implements Serializable {
 	}
 
 	public void send(Message msg) {
-		for(String c : members) {
-			Client.getClient(c).send(msg);
+		synchronized(Client.getClients()) {
+			for(String c : members) {
+				Client.getClient(c).send(msg);
+			}
 		}
 	}
 	
 	public static void add(Chatroom chatroom) {
 		chatrooms.add(chatroom);
 	}
+	
+	
 	
 }
 

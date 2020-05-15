@@ -2,11 +2,13 @@ package jass.client.controller;
 
 import jass.client.model.JassClientModel;
 import jass.client.view.JassClientView;
+import javafx.application.Platform;
 
 public class JassClientController {
 	private JassClientModel model;
 	private JassClientView view;
 	private String token;
+	private String currentPlayroom;
 
 	
 	public JassClientController(JassClientModel model, JassClientView view) {
@@ -75,6 +77,16 @@ public class JassClientController {
 	
 		model.getTokenProperty().addListener( (o, oldValue, newValue) -> {
 			this.token = newValue;
+		});
+		
+		model.getMessageProperty().addListener((o, oldValue, newValue) ->{
+			Platform.runLater(new Runnable() {
+				public void run() {
+					
+					view.getTxtMessages().appendText(newValue + "\n");
+					
+				}
+				});
 		});
 		
 	}

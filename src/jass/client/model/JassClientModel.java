@@ -28,7 +28,8 @@ import javafx.concurrent.Task;
 public class JassClientModel {
 	private Socket socket = null;
 	private SimpleStringProperty token = new SimpleStringProperty();
-	
+	private SimpleStringProperty message = new SimpleStringProperty();
+
 	private static ServiceLocator serviceLocator = ServiceLocator.getServiceLocator();
 	private static Logger logger = serviceLocator.getClientLogger();
 	private final ObservableList<String> elements = FXCollections.observableArrayList();
@@ -143,6 +144,10 @@ public class JassClientModel {
 		}
 	}
 	
+	public void sendMessage(String s) {
+		
+	}
+	
 
 
     
@@ -171,6 +176,14 @@ public class JassClientModel {
 	public void setToken(String token) {
 		this.token.set(token);
 		logger.info("Client set token to: " + this.token.getValue());
+	}
+	
+	public void updateChat(String message) {
+		this.message.set(message);
+	}
+	
+	public SimpleStringProperty getMessageProperty() {
+		return this.message;
 	}
 
 

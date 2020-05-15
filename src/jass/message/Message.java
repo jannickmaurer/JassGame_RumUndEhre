@@ -19,6 +19,8 @@ import jass.message.result.ResultJoinPlayroom;
 import jass.message.result.ResultListPlayrooms;
 import jass.message.result.ResultLogin;
 import jass.message.result.ResultLogout;
+import jass.message.result.ResultSendMessage;
+import jass.message.result.ResultText;
 import jass.server.Client;
 
 public abstract class Message {
@@ -63,6 +65,8 @@ public abstract class Message {
 			if (content[0].equals("DeleteAccount")) msg = new DeleteAccount(content);
 			if (content[0].equals("DeletePlayroom")) msg = new DeletePlayroom(content);
 			if (content[0].equals("JoinPlayroom")) msg = new JoinPlayroom(content);
+			if (content[0].equals("SendMessage")) msg = new SendMessage(content);
+			if (content[0].equals("Text")) msg = new Text(content);
 
 
 			if (content[0].equals("Result")) msg = new Result(content); 
@@ -74,6 +78,9 @@ public abstract class Message {
 			if (content[0].equals("ResultDeleteAccount")) msg = new ResultDeleteAccount(content);
 			if (content[0].equals("ResultDeletePlayroom")) msg = new ResultDeletePlayroom(content);
 			if (content[0].equals("ResultLogout")) msg = new ResultLogout(content);
+			if (content[0].equals("ResultSendMessage")) msg = new ResultSendMessage(content);
+			if (content[0].equals("ResultText")) msg = new ResultText(content);
+
 
 			
 
