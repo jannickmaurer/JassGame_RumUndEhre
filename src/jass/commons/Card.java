@@ -1,7 +1,9 @@
 package jass.commons;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
+import jass.client.TableCards;
 import jass.commons.Card;
 import jass.commons.Card.Rank;
 import jass.commons.Card.Suit;
@@ -66,22 +68,40 @@ public class Card implements Comparable<Card>{
     
     
 
-    public Suit getSuit() {
-    	//TODO converntieren zu enums
-    	//string splitten mit 1 und zweite zahl/buchstabe -> googlen 
-    	//Danach mit Case auf neum matchen
-    	//case (shortForm.fistLetter()) case c = suit.Clubs
-    	//
+    public Suit getSuit() { //String card
+//    	//TODO converntieren zu enums
+//    	//string splitten mit 1 und zweite zahl/buchstabe -> googlen 
+//    	//Danach mit Case auf neum matchen
+//    	//case (shortForm.fistLetter()) case c = suit.Clubs
+    	String card = new String("6D");
+    	Suit suit = null;
+    	switch(card.charAt(0)){
+    		case('C'): suit = Suit.Clubs; break;
+    		case('D'): suit = Suit.Diamonds; break;
+    		case('H'): suit = Suit.Hearts; break;
+    		case('S'): suit = Suit.Spades; break;
+    	}
         return suit;
     }
-    
-    public Rank getRank() {
-    	//TODO converntieren zu enums
-    	//string splitten mit 1 und zweite zahl/buchstabe -> googlen 
-    	//Danach mit Case auf enum matchen
-    	
-    	
-        return rank;
+//    
+    public Rank getRank() {// String card
+//    	//TODO converntieren zu enums
+//    	//string splitten mit 1 und zweite zahl/buchstabe -> googlen 
+//    	//Danach mit Case auf enum matchen
+    	String card = new String("6D");
+    	Rank rank = null;
+    	switch(card.charAt(1)){
+    		case('6'): rank = Rank.Six; break;
+    		case('7'): rank = Rank.Seven; break;
+    		case('8'): rank = Rank.Eight; break;
+    		case('9'): rank = Rank.Nine; break;
+    		case('T'): rank = Rank.Ten; break;
+    		case('J'): rank = Rank.Jack; break;
+    		case('Q'): rank = Rank.Queen; break;
+    		case('K'): rank = Rank.King; break;
+    		case('A'): rank = Rank.Ace; break;
+    	}
+    return rank;
     }
     
     public Image getCardPicture(Card card) {
@@ -103,7 +123,7 @@ public class Card implements Comparable<Card>{
 	private String cardToFileName(Card card) {
 		String rank = card.getRank().toString();
 		String suit = card.getSuit().toString();
-		String locale = "FR";
+		String locale = "FR";  //Wie greife ich aud eine Locale zu?????
 		return rank + "_of_" + suit + "_" + locale +".jpg";
 	}
 
