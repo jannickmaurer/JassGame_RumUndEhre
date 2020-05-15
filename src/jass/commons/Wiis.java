@@ -8,7 +8,7 @@ import jass.commons.Card.Suit;
 
 public enum Wiis { 
 	Stöck, Dreiblatt, Vierblatt, Fünfblatt, Sechsblatt, Siebenblatt, Achtblatt, Neunblatt,
-	Viergliichi, Viernell, Vierbuebe;
+	Viergliichi, Vierneun, Vierbuebe;
 	
 	//Trumpf importieren
 	//Wie kann ich mehrere Blätter evaluieren und prüfen das sie nicht doppelt sind und hinzufügen zum
@@ -29,7 +29,7 @@ public enum Wiis {
 		if (hasAchtblatt(cards)) currentEval = Achtblatt; wyss.add(currentEval);//Nur ein Weiss Plus Stöcke evtl.
 		if (hasNeunblatt(cards)) currentEval = Neunblatt; wyss.add(currentEval);//Nur ein Weiss Plus Stöcke evtl.
 		if (hasViergliichi(cards)) currentEval = Viergliichi; wyss.add(currentEval);
-		if (hasVierneun(cards)) currentEval = Viernell; wyss.add(currentEval);//150
+		if (hasVierneun(cards)) currentEval = Vierneun; wyss.add(currentEval);//150
 		if (hasVierbuebe(cards)) currentEval = Vierbuebe; wyss.add(currentEval);//200
 		
 	return points;
@@ -109,7 +109,6 @@ public enum Wiis {
 			case ("H"): heartCards.add(card); break;			
 			case ("S"): spadeCards.add(card); break;			
 			}//wie wichtig ist default bei Fehler, sollte ja keiner passieren....
-		
 		Collections.sort(clubCards);
 		Collections.sort(diamondCards);
 		Collections.sort(heartCards);
@@ -183,18 +182,28 @@ public enum Wiis {
 	}
 
 	private static boolean hasViergliichi(ArrayList<Card> cards) {
-		// TODO Auto-generated method stub
-		return false;
+		sortCardsOnRank(cards);
+		boolean found = false;
+		int count = 0; ///Eventuell Punktezahl zurück geben oder wie auch immer
+		if (sixCards.size() == 4) count++; found = true;
+		if (sevenCards.size() == 4) count++; found = true;
+		if (eightCards.size() == 4) count++; found = true;
+		if (tenCards.size() == 4) count++; found = true;
+		if (queenCards.size() == 4) count++; found = true;
+		if (kingCards.size() == 4) count++; found = true;
+		if (aceCards.size() == 4) count++; found = true;
+		//zwei mal möglich
+		return found;
 	}
 
 	private static boolean hasVierneun(ArrayList<Card> cards) {
-		// TODO Auto-generated method stub
-		return false;
+		sortCardsOnRank(cards);
+		return nineCards.size() == 4;
 	}
 
 	private static boolean hasVierbuebe(ArrayList<Card> cards) {
-		// TODO Auto-generated method stub
-		return false;
+		sortCardsOnRank(cards);
+		return jackCards.size() == 4;
 	}
 	
 	
