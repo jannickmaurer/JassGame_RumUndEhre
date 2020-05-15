@@ -86,7 +86,21 @@ public class Board {
 			// TODO evaluieren welche Karte gespielt werden darf anhand TableCards und
 			// HandCards
 			if (gameVariety == "Trumpf") {
-				//
+				if(tableCards.evaluateTrumpf().toString() == "Trumpf") {
+					//evaluieren ob ich Trumpf habe, sonst kann ich alles spielen
+					if(handCards.evaluateTrumpf().toString() == "Trumpf") {
+						
+					}
+				}
+				if(tableCards.evaluateTrumpf().toString() == "Stich") {
+					
+				}
+				if(tableCards.evaluateTrumpf().toString() == "None") {
+					
+				}
+				
+				
+				
 				boolean test = true;
 //				Player p = new Player("i weis au ned welle das i bin HAHA");
 //				p.evaluateTrumpf();
