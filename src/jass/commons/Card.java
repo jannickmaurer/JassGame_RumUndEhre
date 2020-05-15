@@ -134,11 +134,10 @@ public class Card implements Comparable<Card>{
     }
 
     
-    // Method to compare cards by rank -- Noch nicht gebraucht
-	public int compareTo(Card o) {
-		if(this.getRank().compareTo(o.getRank()) > 0 ) {
+   	public int compareTo(Card card) {
+		if(this.getRank().compareTo(card.getRank()) > 0 ) {
 			return 1;
-		} else if(this.getRank().compareTo(o.getRank()) < 0) {
+		} else if(this.getRank().compareTo(card.getRank()) < 0) {
 				return -1;
 			} 
 		return 0;
