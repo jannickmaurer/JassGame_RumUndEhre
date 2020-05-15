@@ -104,12 +104,13 @@ public enum Wiis {
 		}
 	}
 	
-	
-	private void sortedCardsQuantity(int quantity) {
-		if (clubCards.size() >= quantity) ;
-		if (diamondCards.size() >= quantity) ;
-		if (heartCards.size() >= quantity) ;
-		if (spadeCards.size() >= quantity) ;
+	private static boolean sortedCardsOnSuitQuantity(int quantity) {
+		boolean found = false;
+		if (clubCards.size() == quantity) found = true;
+		if (diamondCards.size() == quantity) found = true;
+		if (heartCards.size() == quantity) found = true;
+		if (spadeCards.size() == quantity) found = true;
+		return found;
 	}
 	
 	/**
@@ -133,30 +134,28 @@ public enum Wiis {
 	}
 
 	private static boolean hasFünfblatt(ArrayList<Card> cards) {
-		// TODO Auto-generated method stub
-		return false;
+		sortCardsOnSuit(cards);
+		return sortedCardsOnSuitQuantity(5);
 	}
 
 	private static boolean hasSechsblatt(ArrayList<Card> cards) {
-		// TODO Auto-generated method stub
-		return false;
+		sortCardsOnSuit(cards);
+		return sortedCardsOnSuitQuantity(6);
 	}
 
 	private static boolean hasSiebenblatt(ArrayList<Card> cards) {
-		// TODO Auto-generated method stub
-		return false;
+		sortCardsOnSuit(cards);
+		return sortedCardsOnSuitQuantity(7);
 	}
 
 	private static boolean hasAchtblatt(ArrayList<Card> cards) {
-		// TODO Auto-generated method stub
-		return false;
+		sortCardsOnSuit(cards);
+		return sortedCardsOnSuitQuantity(8);
 	}
 
 	private static boolean hasNeunblatt(ArrayList<Card> cards) {
-		// TODO Auto-generated method stub
 		sortCardsOnSuit(cards);
-		//wenn nur eine collection karten enthält
-		return false;
+		return sortedCardsOnSuitQuantity(9);
 	}
 
 	private static boolean hasViergliichi(ArrayList<Card> cards) {
