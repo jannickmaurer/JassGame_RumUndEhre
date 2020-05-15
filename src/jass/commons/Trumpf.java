@@ -5,17 +5,18 @@ import java.util.ArrayList;
 import jass.commons.Card.Rank;
 import jass.commons.Card.Suit;
 
-public enum Trumpf { Trumpf, Stich;
+public enum Trumpf { Trumpf, Stich, None;
 
 	public static Trumpf evaluateTrumpf(ArrayList<Card> cards) {
-			Trumpf trumpfevaluation = null;
+			Trumpf trumpfevaluation = None;
 			if (isTrumpf(cards)) trumpfevaluation = Trumpf;
 			if (isStich(cards)) trumpfevaluation = Stich;			
 		return trumpfevaluation;
 	}
+	
 	//zum lösche erste zwei zeilen und ersetzen
 	//public static String trumpf = "C";
-	public String suit = "H";
+//	public String suit = "H";
 	
 	
 	public static boolean isTrumpf(ArrayList<Card> cards) {
@@ -31,8 +32,8 @@ public enum Trumpf { Trumpf, Stich;
 		return found;
 	}
 	
-	public static Suit getSuit(ArrayList<Card> cards) {
-		Suit searchedSuit = cards.get(0).getSuit();
+	public static Suit getFirstSuit(ArrayList<Card> cards) {
+		Suit searchedSuit = cards.get(0).getSuit();//Hier noch KArte mitgegeben ERT
 		return searchedSuit;
 	}
 
