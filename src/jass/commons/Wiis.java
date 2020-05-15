@@ -34,29 +34,7 @@ public enum Wiis {
 		
 	return points;
 	}
-//    public static boolean isStraight(ArrayList<Card> cards) {
-//    	ArrayList<Card> clonedCards = (ArrayList<Card>) cards.clone();
-//    	boolean straightFound = false;
-//    	int successfulTries = 0;
-//    	boolean next = true;
-//    	
-//    	Collections.sort(clonedCards);
-//
-//    		for(int i = 0; i < clonedCards.size() && next; i++) {
-//    			if(clonedCards.get(i).getRank().compareTo(clonedCards.get(i+1).getRank()) == -1) {
-//    				successfulTries++;
-//    			} else {
-//    				next = false;
-//    			}
-//    			if(successfulTries == 4) {
-//    				next = false;
-//    				straightFound = true;
-//    			}	
-//    		}
-//    	 
-//    	return straightFound;
-//    }
-//	
+
 
 //Achtung: Evaluation mit mehreren dingen möglich zb drei Mal Dreiblatt....
 //und bei Sechsblatt, wäres dann auch fünfblatt, vierblatt, dreiblatt....
@@ -143,12 +121,45 @@ public enum Wiis {
 		}
 	}
 	
-	/**
-	 * wie kann ich 
-	 */
+    public static boolean isBlattNum(ArrayList<Card> cards, int blattlength) {   	
+    	
+    	ArrayList<Card> clonedCards = (ArrayList<Card>) cards.clone();
+    	boolean blattFound = false;
+    	int successfulTries = 0;
+    	boolean next = true;
+    	
+    	Collections.sort(clonedCards);
+
+    		for(int i = 0; i < clonedCards.size() && next; i++) {
+    			if(clonedCards.get(i).getRank().compareTo(clonedCards.get(i+1).getRank()) == -1) {
+    				successfulTries++;
+    			} else {
+    				next = false;
+    			}
+    			if(successfulTries == blattlength) {
+    				next = false;
+    				blattFound = true;
+    			}	
+    		}
+    	return blattFound;
+    }
+	
 	private static boolean hasDreiblatt(ArrayList<Card> cards) {
+		boolean found = false;
 		sortCardsOnSuit(cards);
-		return sortedCardsOnSuitQuantity(3);
+		if(clubCards.size() >= 3 && !found) {
+			found = isBlattNum(clubCards, 2);
+		}
+		if(diamondCards.size() >= 3 && !found) {
+			found = isBlattNum(diamondCards, 2);	
+		}
+		if(heartCards.size() >= 3 && !found) {
+			found = isBlattNum(heartCards, 2);	
+		}
+		if(spadeCards.size() >= 3 && !found) {
+			found = isBlattNum(spadeCards, 2);	
+		}
+		return found;
 	}
 
 	private static boolean hasVierblatt(ArrayList<Card> cards) {
@@ -182,7 +193,8 @@ public enum Wiis {
 	}
 
 	private static boolean hasViergliichi(ArrayList<Card> cards) {
-		sortCardsOnRank(cards);
+    	ArrayList<Card> clonedCards = (ArrayList<Card>) cards.clone();
+		sortCardsOnRank(clonedCards);
 		boolean found = false;
 		int count = 0; ///Eventuell Punktezahl zurück geben oder wie auch immer
 		if (sixCards.size() == 4) count++; found = true;
