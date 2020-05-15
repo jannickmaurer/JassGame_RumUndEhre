@@ -6,22 +6,21 @@ import jass.client.model.JassClientModel;
 import jass.commons.ServiceLocator;
 import jass.message.Message;
 
-public class ResultLogin extends Message {
+public class ResultText extends Message {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
-	private String token;
+	private String name;
+	private String message;
 
-	public ResultLogin(boolean result) {
-		super(new String[] {"ResultLogin", Boolean.toString(result)});
-	}
-	public ResultLogin(String[] content) {
+	public ResultText(String[] content) {
 		super(content);
-		this.token = content[2];
+		this.name = content[1];
+		this.message = content[2];
 	}
 	
 	@Override
 	public void process(JassClientModel model) {
-		model.setToken(this.token);
+		model.updateChat(this.name + ": " + this.message);
 	}
 
 }

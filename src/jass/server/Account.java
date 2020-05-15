@@ -1,8 +1,15 @@
 package jass.server;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.UUID;
 import java.util.logging.Logger;
 
@@ -31,6 +38,45 @@ public class Account implements Serializable {
 	public static void add(Account ac) {
 		synchronized(accounts) {
 			accounts.add(ac);
+			saveAccounts();
+		}
+	}
+	
+	public static void remove(Account account) {
+		synchronized (accounts) {
+			for (Iterator<Account> i = accounts.iterator(); i.hasNext();) {
+				if (account == i.next()) i.remove();
+			}
+		}
+	}
+	
+	public static void saveAccounts() {
+		File accountFile = new File(Server.getDirectory() + "accounts.sav");
+		try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(accountFile))) {
+			synchronized (accounts) {
+				out.writeInt(accounts.size());
+				for (Account account : accounts) {
+					out.writeObject(account);
+				}
+				out.flush();
+				out.close();
+			}
+		} catch (IOException e) {
+			logger.severe("Unable to save accounts: " + e.getMessage());
+		}
+	}
+	
+	public static void readAccounts() {
+		File accountFile = new File(Server.getDirectory() + "accounts.sav");
+		try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(accountFile))) {
+			int num = in.readInt();
+			for (int i = 0; i < num; i++) {
+				Account account = (Account) in.readObject();
+				accounts.add(account);
+				logger.info("Loaded account " + account.getUsername());
+			}
+		} catch (Exception e) {
+			logger.severe("Unable to read accounts: " + e.getMessage());
 		}
 	}
 	
@@ -92,6 +138,11 @@ public class Account implements Serializable {
 		}	
 		return false;	
 	}
+	
+	public String getUsername() {
+		return this.username;
+	}
+	
 	
 	
 }

@@ -1,7 +1,14 @@
 package jass.server;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Logger;
 
 import jass.commons.ServiceLocator;
@@ -23,36 +30,54 @@ public abstract class Playroom implements Serializable {
 	private String name;
 	private int MAX_MEMBER = 4;
 	private int MIN_MEMBER = 2;
-	private ArrayList<Client> members;
+	private ArrayList<String> members;
 	private Chatroom chatroom;
 	private boolean gameStarted = false;
-	private Client playerOnTurn;
-	private Client owner;
+	private String playerOnTurn;
+	private String owner;
 
-	public Playroom(String name, Client owner) {
+	public Playroom(String name, String owner) {
 		this.name = name;
 		this.owner = owner;
 		members = new ArrayList<>();
-		members.add(owner);
+		addMember(owner);
 		this.chatroom = new Chatroom(Playroom.this);
+		Chatroom.add(this.chatroom);
 	}
 	
 	//add new member to the playroom and add the member to playroom's chatroom
-	public void addMember(Client member) {
+	public void addMember(String member) {
 		members.add(member);
-		chatroom.addMember(member);
+		//Chatroom
+	}
+	
+	public void removeMember(String username) {
+		members.remove(username);
+	}
+	
+	public static void removeMemberFromAny(String username) {
+		for(Playroom p : Playroom.getPlayrooms()) {
+			for(String s : p.getMembers()) {
+				if(s.equals(username)) {
+					p.removeMember(s);
+				}
+			}
+		}
 	}
 	
 	//add a new playroom to the list of playrooms
 	public static void add(Playroom playroom) {
 		playrooms.add(playroom);
+		savePlayrooms();
+
 	}
+
 	
 	public static void endGame() {
 		
 	}
 	
-	public static Playroom exists(String name) {
+	public static Playroom getPlayroom(String name) {
 		synchronized (playrooms) {
 			for (Playroom playroom : playrooms) {
 				if (playroom.name.equals(name)) return playroom;
@@ -61,9 +86,48 @@ public abstract class Playroom implements Serializable {
 		return null;
 	}
 	
+	
+	public static void remove(Playroom playroom) {
+		synchronized (playrooms) {
+			for (Iterator<Playroom> i = playrooms.iterator(); i.hasNext();) {
+				if (playroom == i.next()) i.remove();
+			}
+		}
+	}
+	
+	public static void savePlayrooms() {
+		File playroomFile = new File(Server.getDirectory() + "playrooms.sav");
+		try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(playroomFile))) {
+			synchronized (playrooms) {
+				out.writeInt(playrooms.size());
+				for (Playroom playroom : playrooms) {
+					out.writeObject(playroom);
+				}
+				out.flush();
+				out.close();
+			}
+		} catch (IOException e) {
+			logger.severe("Unable to save playrooms: " + e.getMessage());
+		}
+	}
+	
+	public static void readPlayrooms() {
+		File playroomFile = new File(Server.getDirectory() + "playrooms.sav");
+		try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(playroomFile))) {
+			int num = in.readInt();
+			for (int i = 0; i < num; i++) {
+				Playroom playroom = (Playroom) in.readObject();
+				playrooms.add(playroom);
+				logger.info("Loaded playroom " + playroom.getName());
+			}
+		} catch (Exception e) {
+			logger.severe("Unable to read playrooms: " + e.getMessage());
+		}
+	}
+	
 	// Getters and Setters:
 	
-	public ArrayList<Client> getMembers(){
+	public ArrayList<String> getMembers(){
 		return members;
 	}
 	
@@ -107,19 +171,19 @@ public abstract class Playroom implements Serializable {
 		this.gameStarted = gameStarted;
 	}
 
-	public Client getPlayerOnTurn() {
+	public String getPlayerOnTurn() {
 		return playerOnTurn;
 	}
 
-	public void setPlayerOnTurn(Client playerOnTurn) {
+	public void setPlayerOnTurn(String playerOnTurn) {
 		this.playerOnTurn = playerOnTurn;
 	}
 
-	public Client getOwner() {
+	public String getOwner() {
 		return owner;
 	}
 
-	public void setOwner(Client owner) {
+	public void setOwner(String owner) {
 		this.owner = owner;
 	}
 	

@@ -17,8 +17,13 @@ Login: 					"Login"|username[String]|password[String]
 
 CreatePlayroom:			CreatePlayroom|TOKEN|Name|Playmode
 
+Text:					Text|Name|Message
+
 ListPlayrooms:			ListPlayrooms|TOKEN
 JoinPlayroom:			JoinPlayroom|TOKEN|PlayroomName
+DeleteAccount:			DeleteAccount|TOKEN
+DeletePlayroom:			DeletePlayroom|TOKEN|PlayroomName
+
 
 Create a new Message: 
 

@@ -101,7 +101,18 @@ public class Client {
 		return clients;
 	}
 
+	public static Client getClient(String username) {
+		synchronized (clients) {
+			for (Client c : clients) {
+				if (c.getAccount() != null && c.getName().equals(username)) return c;
+			}
+		}
+		return null;
+	}
 	
+	public String getName() {
+		return getAccount().getUsername();
+	}
 	
 	
 

@@ -2,11 +2,13 @@ package jass.client.controller;
 
 import jass.client.model.JassClientModel;
 import jass.client.view.JassClientView;
+import javafx.application.Platform;
 
 public class JassClientController {
 	private JassClientModel model;
 	private JassClientView view;
 	private String token;
+	private String currentPlayroom;
 
 	
 	public JassClientController(JassClientModel model, JassClientView view) {
@@ -39,6 +41,7 @@ public class JassClientController {
 			view.getStage().setTitle("Login");
 		});
 		view.getBtnLogout().setOnAction(e ->{
+			logout();
 			view.getRoot().setCenter(view.loginLayout);
 			view.getRoot().setBottom(null);
 			view.getStage().setTitle("Login");
@@ -57,6 +60,7 @@ public class JassClientController {
 		});
 		
 		view.getBtnJoin().setOnAction(e ->{
+			joinPlayroom();
 			view.getRoot().setCenter(view.spielraumLayout);
 			view.spielraumLayout.setId("rootleft");
 			view.getRoot().setBottom(null);
@@ -75,6 +79,24 @@ public class JassClientController {
 			this.token = newValue;
 		});
 		
+		model.getMessageProperty().addListener((o, oldValue, newValue) ->{
+			Platform.runLater(new Runnable() {
+				public void run() {
+					
+					view.getTxtMessages().appendText(newValue + "\n");
+					
+				}
+				});
+		});
+		
+	}
+	
+	private void joinPlayroom() {
+		model.joinPlayroom("Testraum");
+	}
+	
+	private void deletePlayroom() {
+		
 	}
 	
 	private void createPlayroom() {
@@ -82,16 +104,24 @@ public class JassClientController {
 			model.createPlayroom(view.getTfSpielraumName().getText(), "Trumpf");
 		}
 	}
-
-	public void connect() {
-		model.connect(view.getTfIP().getText(), Integer.parseInt(view.getTfPort().getText()));
+	
+	public void deleteAccount() {
+		
 	}
 	
 	public void createAccount() {
 		model.createAccount(view.getTfNewUsername().getText(), view.getTfNewPassword().getText());
 	}
 
+	private void logout() {
+		model.logout();
+	}
+	
 	public void login() {
 		model.login(view.getTfUsername().getText(), view.getTfPassword().getText());
+	}
+	
+	public void connect() {
+		model.connect(view.getTfIP().getText(), Integer.parseInt(view.getTfPort().getText()));
 	}
 }
