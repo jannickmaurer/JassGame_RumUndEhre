@@ -89,14 +89,16 @@ public class Board {
 				if(tableCards.evaluateTrumpf().toString() == "Trumpf") {
 					//evaluieren ob ich Trumpf habe, sonst kann ich alles spielen
 					if(handCards.evaluateTrumpf().toString() == "Trumpf") {
+						//Play Trumpf if you have
 						
 					}
 				}
 				if(tableCards.evaluateTrumpf().toString() == "Stich") {
+					//play all cards without lower Trumpf
 					
 				}
 				if(tableCards.evaluateTrumpf().toString() == "None") {
-					
+					//play all cards
 				}
 				
 				
