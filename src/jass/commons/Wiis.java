@@ -20,6 +20,8 @@ public enum Wiis {
 		if (hasStöck(cards)) points += 20;
 		if (hasStöck(cards)) currentEval = Stöck; wyss.add(currentEval); //Done
 		if (hasDreiblatt(cards)) currentEval = Dreiblatt; wyss.add(currentEval); //
+		
+		
 		if (hasVierblatt(cards)) currentEval = Vierblatt; wyss.add(currentEval);
 		if (hasFünfblatt(cards)) currentEval = Fünfblatt; wyss.add(currentEval);
 		if (hasSechsblatt(cards)) currentEval = Sechsblatt; wyss.add(currentEval);
@@ -64,6 +66,17 @@ public enum Wiis {
 	private static ArrayList<Card> diamondCards = new ArrayList<Card>();
 	private static ArrayList<Card> heartCards = new ArrayList<Card>();
 	private static ArrayList<Card> spadeCards = new ArrayList<Card>();
+	private static ArrayList<Card> sixCards = new ArrayList<Card>();
+	private static ArrayList<Card> sevenCards = new ArrayList<Card>();
+	private static ArrayList<Card> eightCards = new ArrayList<Card>();
+	private static ArrayList<Card> nineCards = new ArrayList<Card>();
+	private static ArrayList<Card> tenCards = new ArrayList<Card>();
+	private static ArrayList<Card> jackCards = new ArrayList<Card>();
+	private static ArrayList<Card> queenCards = new ArrayList<Card>();
+	private static ArrayList<Card> kingCards = new ArrayList<Card>();
+	private static ArrayList<Card> aceCards = new ArrayList<Card>();
+
+
 	
 	
 	private static boolean hasStöck(ArrayList<Card> cards) {
@@ -113,24 +126,35 @@ public enum Wiis {
 		return found;
 	}
 	
+	private static void sortCardsOnRank(ArrayList<Card> cards) {
+		Iterator<Card> c = cards.iterator();
+		while(c.hasNext()) {
+			Card card =c.next();
+			switch (card.getRank().toString()) {
+			case ("6"): sixCards.add(card); break;
+			case ("7"): sevenCards.add(card); break;
+			case ("8"): eightCards.add(card); break;
+			case ("9"): nineCards.add(card); break;
+			case ("T"): tenCards.add(card); break;
+			case ("J"): jackCards.add(card); break;
+			case ("Q"): queenCards.add(card); break;
+			case ("K"): kingCards.add(card); break;
+			case ("A"): aceCards.add(card); break;
+			}//wie wichtig ist default bei Fehler, sollte ja keiner passieren....
+		}
+	}
+	
 	/**
 	 * wie kann ich 
 	 */
 	private static boolean hasDreiblatt(ArrayList<Card> cards) {
 		sortCardsOnSuit(cards);
-		int quantity = 3;
-		
-		if (clubCards.size() >= 3) {
-
-		}
-		
-		
-		return false;
+		return sortedCardsOnSuitQuantity(3);
 	}
 
 	private static boolean hasVierblatt(ArrayList<Card> cards) {
-		// TODO Auto-generated method stub
-		return false;
+		sortCardsOnSuit(cards);
+		return sortedCardsOnSuitQuantity(4);
 	}
 
 	private static boolean hasFünfblatt(ArrayList<Card> cards) {
