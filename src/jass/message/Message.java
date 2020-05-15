@@ -13,9 +13,12 @@ import jass.commons.ServiceLocator;
 import jass.message.result.Result;
 import jass.message.result.ResultCreateAccount;
 import jass.message.result.ResultCreatePlayroom;
+import jass.message.result.ResultDeleteAccount;
+import jass.message.result.ResultDeletePlayroom;
 import jass.message.result.ResultJoinPlayroom;
 import jass.message.result.ResultListPlayrooms;
 import jass.message.result.ResultLogin;
+import jass.message.result.ResultLogout;
 import jass.server.Client;
 
 public abstract class Message {
@@ -56,12 +59,23 @@ public abstract class Message {
 			if (content[0].equals("Login")) msg = new Login(content);
 			if (content[0].equals("CreatePlayroom")) msg = new CreatePlayroom(content);
 			if (content[0].equals("ListPlayrooms")) msg = new ListPlayrooms(content);
+			if (content[0].equals("Logout")) msg = new Logout(content);
+			if (content[0].equals("DeleteAccount")) msg = new DeleteAccount(content);
+			if (content[0].equals("DeletePlayroom")) msg = new DeletePlayroom(content);
+			if (content[0].equals("JoinPlayroom")) msg = new JoinPlayroom(content);
+
+
 			if (content[0].equals("Result")) msg = new Result(content); 
 			if (content[0].equals("ResultLogin")) msg = new ResultLogin(content);
 			if (content[0].equals("ResultListPlayrooms")) msg = new ResultListPlayrooms(content);
 			if (content[0].equals("ResultCreateAccount")) msg = new ResultCreateAccount(content);
-			if (content[0].equals("ResultCreatePlayrom")) msg = new ResultCreatePlayroom(content);
+			if (content[0].equals("ResultCreatePlayroom")) msg = new ResultCreatePlayroom(content);
 			if (content[0].equals("ResultJoinPlayroom")) msg = new ResultJoinPlayroom(content);
+			if (content[0].equals("ResultDeleteAccount")) msg = new ResultDeleteAccount(content);
+			if (content[0].equals("ResultDeletePlayroom")) msg = new ResultDeletePlayroom(content);
+			if (content[0].equals("ResultLogout")) msg = new ResultLogout(content);
+
+			
 
 			
 		} catch (IOException e) {

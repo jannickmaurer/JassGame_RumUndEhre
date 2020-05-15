@@ -39,6 +39,7 @@ public class JassClientController {
 			view.getStage().setTitle("Login");
 		});
 		view.getBtnLogout().setOnAction(e ->{
+			logout();
 			view.getRoot().setCenter(view.loginLayout);
 			view.getRoot().setBottom(null);
 			view.getStage().setTitle("Login");
@@ -57,6 +58,7 @@ public class JassClientController {
 		});
 		
 		view.getBtnJoin().setOnAction(e ->{
+			joinPlayroom();
 			view.getRoot().setCenter(view.spielraumLayout);
 			view.spielraumLayout.setId("rootleft");
 			view.getRoot().setBottom(null);
@@ -77,21 +79,37 @@ public class JassClientController {
 		
 	}
 	
+	private void joinPlayroom() {
+		model.joinPlayroom("Testraum");
+	}
+	
+	private void deletePlayroom() {
+		
+	}
+	
 	private void createPlayroom() {
 		if(view.getCbTrumpf().isSelected() == true) {
 			model.createPlayroom(view.getTfSpielraumName().getText(), "Trumpf");
 		}
 	}
-
-	public void connect() {
-		model.connect(view.getTfIP().getText(), Integer.parseInt(view.getTfPort().getText()));
+	
+	public void deleteAccount() {
+		
 	}
 	
 	public void createAccount() {
 		model.createAccount(view.getTfNewUsername().getText(), view.getTfNewPassword().getText());
 	}
 
+	private void logout() {
+		model.logout();
+	}
+	
 	public void login() {
 		model.login(view.getTfUsername().getText(), view.getTfPassword().getText());
+	}
+	
+	public void connect() {
+		model.connect(view.getTfIP().getText(), Integer.parseInt(view.getTfPort().getText()));
 	}
 }

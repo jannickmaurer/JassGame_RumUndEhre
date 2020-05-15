@@ -19,6 +19,8 @@ CreatePlayroom:			CreatePlayroom|TOKEN|Name|Playmode
 
 ListPlayrooms:			ListPlayrooms|TOKEN
 JoinPlayroom:			JoinPlayroom|TOKEN|PlayroomName
+DeleteAccount:			DeleteAccount|TOKEN
+DeletePlayroom:			DeletePlayroom|TOKEN|PlayroomName
 
 Create a new Message: 
 

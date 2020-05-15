@@ -12,8 +12,17 @@ public class Server {
 	private static int port = 0;
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
+	private static String directory = "";
 	
 	public static void main(String[] args) {
+		
+		if(args.length > 1) {
+			directory = args[1];
+		}
+		
+		Playroom.readPlayrooms();
+		Account.readAccounts();
+		
 		
 		System.out.println("Welcome to our Jass Game");
 		System.out.println("Let's set up the server");
@@ -41,6 +50,10 @@ public class Server {
 		
 		logger.info("Server started on port: " + port);
 		
+	}
+	
+	public static String getDirectory() {
+		return directory;
 	}
 
 }

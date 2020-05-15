@@ -29,7 +29,7 @@ public class CreatePlayroom extends Message {
 		boolean result = false;
 		if(this.token.equals(client.getToken())) {
 			if(this.playmode.equals("Trumpf")) {
-				Playroom playroom = new TrumpfGame(this.name, client);
+				Playroom playroom = new TrumpfGame(this.name, client.getName());
 				Playroom.add(playroom);
 				result = true;
 			}

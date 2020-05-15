@@ -14,27 +14,27 @@ public class Chatroom implements Serializable {
 	private static final ArrayList<Chatroom> chatrooms = new ArrayList<>();
 	private Playroom playroom;
 	
-	private ArrayList<Client> members;
+	private ArrayList<String> members;
 	
 	public Chatroom(Playroom playroom) {
-		for(Client c : playroom.getMembers()) {
-			members = new ArrayList<>();
-			members.add(c);
-			this.playroom = playroom;
+		members = new ArrayList<>();
+		this.playroom = playroom;
+		for(String s : playroom.getMembers()) {
+			members.add(s);
 		}
 	}
 	
-	public void addMember(Client member) {
+	public void addMember(String member) {
 		members.add(member);
 	}
 
 	public void send(Message msg) {
-		for(Client c : members) {
-			c.send(msg);
+		for(String c : members) {
+			Client.getClient(c).send(msg);
 		}
 	}
 	
-	public void add(Chatroom chatroom) {
+	public static void add(Chatroom chatroom) {
 		chatrooms.add(chatroom);
 	}
 	

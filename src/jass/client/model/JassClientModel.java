@@ -13,8 +13,10 @@ import jass.commons.ServiceLocator;
 import jass.commons.Translator;
 import jass.message.CreateAccount;
 import jass.message.CreatePlayroom;
+import jass.message.JoinPlayroom;
 import jass.message.ListPlayrooms;
 import jass.message.Login;
+import jass.message.Logout;
 import jass.message.MakeTrumpf;
 import jass.message.Message;
 import jass.message.Ping;
@@ -96,6 +98,18 @@ public class JassClientModel {
 		}
 	}
 	
+	public void logout() {
+		String[] content = new String[] {"Logout", this.token.getValue()};
+		Message msg = new Logout(content);
+		try {
+			msg.send(socket);
+			logger.info("Client tries to send message: " + msg.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 	public void createPlayroom(String name, String playmode) {
 		String[] content = new String[] {"CreatePlayroom", this.token.getValue(), name, playmode};
 		Message msg = new CreatePlayroom(content);
@@ -118,6 +132,16 @@ public class JassClientModel {
 		}
 	}
 	
+	public void joinPlayroom(String name) {
+		String[] content = new String[] {"JoinPlayroom", this.token.getValue(), name};
+		Message msg = new JoinPlayroom(content);
+		try {
+			msg.send(socket);
+			logger.info("Client tries to send message: " + msg.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 
 

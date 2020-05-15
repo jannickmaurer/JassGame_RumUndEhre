@@ -24,9 +24,10 @@ public class JoinPlayroom extends Message {
 	public void process(Client client) {
 		Boolean result = false;
 		if(this.token.equals(client.getToken())) {
-			Playroom playroom = Playroom.exists(name);
+			Playroom playroom = Playroom.getPlayroom(this.name);
 			if(playroom != null) {
-				playroom.addMember(client);
+				playroom.addMember(client.getName());
+				result = true;
 			}
 		}
 		client.send(new ResultJoinPlayroom(result));
