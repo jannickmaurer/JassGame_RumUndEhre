@@ -8,30 +8,29 @@ import jass.commons.Card.Suit;
 
 public enum Wiis { 
 	Stöck, Dreiblatt, Vierblatt, Fünfblatt, Sechsblatt, Siebenblatt, Achtblatt, Neunblatt,
-	Viergliichi, Vierneun, Vierbuebe;
+	Viergliichi, Vierneun, Vierbuebe, NoWiis;
 	
 	//Trumpf importieren
 	//Wie kann ich mehrere Blätter evaluieren und prüfen das sie nicht doppelt sind und hinzufügen zum
 	//zurück geben
 	public static int evaluateWiis(ArrayList<Card> cards){
-		Wiis currentEval = null;
-		ArrayList<Wiis> wyss = new ArrayList<>();
+		Wiis currentEval = NoWiis;
+		ArrayList<Wiis> wiis = new ArrayList<>();
 		int points = 0;
-		if (hasStöck(cards)) points += 20;
-		if (hasStöck(cards)) currentEval = Stöck; wyss.add(currentEval); //Done
-		if (hasDreiblatt(cards)) currentEval = Dreiblatt; wyss.add(currentEval); //
+		if (hasStöck(cards)) points += 20; currentEval = Stöck; wiis.add(currentEval); 
+		if (hasDreiblatt(cards)) currentEval = Dreiblatt; wiis.add(currentEval); 
 		
 		
-		if (hasVierblatt(cards)) currentEval = Vierblatt; wyss.add(currentEval);
-		if (hasFünfblatt(cards)) currentEval = Fünfblatt; wyss.add(currentEval);
-		if (hasSechsblatt(cards)) currentEval = Sechsblatt; wyss.add(currentEval);
-		if (hasSiebenblatt(cards)) currentEval = Siebenblatt; wyss.add(currentEval);//Nur ein Weiss Plus Stöcke
-		if (hasAchtblatt(cards)) currentEval = Achtblatt; wyss.add(currentEval);//Nur ein Weiss Plus Stöcke evtl.
-		if (hasNeunblatt(cards)) currentEval = Neunblatt; wyss.add(currentEval);//Nur ein Weiss Plus Stöcke evtl.
-		if (hasViergliichi(cards)) currentEval = Viergliichi; wyss.add(currentEval);
-		if (hasVierneun(cards)) currentEval = Vierneun; wyss.add(currentEval);//150
-		if (hasVierbuebe(cards)) currentEval = Vierbuebe; wyss.add(currentEval);//200
-		
+		if (hasVierblatt(cards)) currentEval = Vierblatt; wiis.add(currentEval);
+		if (hasFünfblatt(cards)) points += 100; currentEval = Fünfblatt; wiis.add(currentEval);
+		if (hasSechsblatt(cards)) points += 150; currentEval = Sechsblatt; wiis.add(currentEval);
+		if (hasSiebenblatt(cards)) points += 200; currentEval = Siebenblatt; wiis.add(currentEval);//Nur ein Weiss Plus Stöcke
+		if (hasAchtblatt(cards)) points += 250; currentEval = Achtblatt; wiis.add(currentEval);//Nur ein Weiss Plus Stöcke evtl.
+		//erledigt nach unten
+		if (hasNeunblatt(cards)) points += 300;currentEval = Neunblatt; wiis.add(currentEval);//Nur ein Weiss Plus Stöcke evtl.
+		if (hasViergliichi(cards)) points += countViergliichi; currentEval = Viergliichi; wiis.add(currentEval);
+		if (hasVierneun(cards)) points += 150; currentEval = Vierneun; wiis.add(currentEval);//150
+		if (hasVierbuebe(cards)) points += 200; currentEval = Vierbuebe; wiis.add(currentEval);//200
 	return points;
 	}
 
@@ -53,11 +52,11 @@ public enum Wiis {
 	private static ArrayList<Card> queenCards = new ArrayList<Card>();
 	private static ArrayList<Card> kingCards = new ArrayList<Card>();
 	private static ArrayList<Card> aceCards = new ArrayList<Card>();
-
+	private static int countViergliichi;
 
 	
 	
-	private static boolean hasStöck(ArrayList<Card> cards) {
+	private static boolean hasStöck(ArrayList<Card> cards) { //ös und us entfernen
 		boolean found = false;
 	    boolean queen = false;
 	    boolean king = false;
@@ -164,26 +163,31 @@ public enum Wiis {
 
 	private static boolean hasVierblatt(ArrayList<Card> cards) {
 		sortCardsOnSuit(cards);
+		//TODO Evaluation 
 		return sortedCardsOnSuitQuantity(4);
 	}
 
 	private static boolean hasFünfblatt(ArrayList<Card> cards) {
 		sortCardsOnSuit(cards);
+		//TODO Evaluation 
 		return sortedCardsOnSuitQuantity(5);
 	}
 
 	private static boolean hasSechsblatt(ArrayList<Card> cards) {
 		sortCardsOnSuit(cards);
+		//TODO Evaluation 
 		return sortedCardsOnSuitQuantity(6);
 	}
 
 	private static boolean hasSiebenblatt(ArrayList<Card> cards) {
 		sortCardsOnSuit(cards);
+		//TODO Evaluation 
 		return sortedCardsOnSuitQuantity(7);
 	}
 
 	private static boolean hasAchtblatt(ArrayList<Card> cards) {
 		sortCardsOnSuit(cards);
+		//TODO Evaluation 
 		return sortedCardsOnSuitQuantity(8);
 	}
 
@@ -195,16 +199,15 @@ public enum Wiis {
 	private static boolean hasViergliichi(ArrayList<Card> cards) {
     	ArrayList<Card> clonedCards = (ArrayList<Card>) cards.clone();
 		sortCardsOnRank(clonedCards);
+		countViergliichi = 0;
 		boolean found = false;
-		int count = 0; ///Eventuell Punktezahl zurück geben oder wie auch immer
-		if (sixCards.size() == 4) count++; found = true;
-		if (sevenCards.size() == 4) count++; found = true;
-		if (eightCards.size() == 4) count++; found = true;
-		if (tenCards.size() == 4) count++; found = true;
-		if (queenCards.size() == 4) count++; found = true;
-		if (kingCards.size() == 4) count++; found = true;
-		if (aceCards.size() == 4) count++; found = true;
-		//zwei mal möglich
+		if (sixCards.size() == 4) countViergliichi+= 100; found = true;
+		if (sevenCards.size() == 4) countViergliichi+= 100; found = true;
+		if (eightCards.size() == 4) countViergliichi+= 100; found = true;
+		if (tenCards.size() == 4) countViergliichi+= 100; found = true;
+		if (queenCards.size() == 4) countViergliichi+= 100; found = true;
+		if (kingCards.size() == 4) countViergliichi+= 100; found = true;
+		if (aceCards.size() == 4) countViergliichi+= 100; found = true;
 		return found;
 	}
 
@@ -217,8 +220,4 @@ public enum Wiis {
 		sortCardsOnRank(cards);
 		return jackCards.size() == 4;
 	}
-	
-	
-	
-
 }
