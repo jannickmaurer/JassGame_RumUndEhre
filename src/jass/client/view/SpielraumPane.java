@@ -59,6 +59,8 @@ public class SpielraumPane extends GridPane {
 	public SpielraumPane() {
 		VBox vPoints = new VBox();
 		vPoints.setId("VBoxPoints");
+		vPoints.setMinWidth(Region.USE_PREF_SIZE);
+		vPoints.setPrefWidth(200);
 		
 		HBox h1 = new HBox();
 		h1.setId("HBox");
@@ -183,8 +185,6 @@ public class SpielraumPane extends GridPane {
 		VBox vP4 = new VBox();
 		vP4.setId("VBoxP4");
 		
-		crcP4.setCenterX(100.0f);
-		crcP4.setCenterY(100.0f);
 		crcP4.setRadius(50.0f);
 		crcP4.setFill(Color.rgb(255, 236, 111, 0.8));
 		vP4.getChildren().addAll(crcP4);
@@ -201,22 +201,20 @@ public class SpielraumPane extends GridPane {
 		h6.getChildren().addAll(btnStartGame, btnLeave);
 		
 		VBox vControls = new VBox();
-		vControls.setId("VBoxP4");
+		vControls.setId("VBoxControls");
 		vControls.getChildren().addAll(h6);
 		this.add(vControls, 1, 3);
-
+	
 		GridPane.setHgrow(vP1, Priority.ALWAYS);
 		GridPane.setVgrow(vP1, Priority.ALWAYS);
+		GridPane.setHgrow(vP3, Priority.ALWAYS);
+		GridPane.setVgrow(vP3, Priority.ALWAYS);
 		GridPane.setHgrow(vP2, Priority.ALWAYS);
 		GridPane.setVgrow(vP2, Priority.ALWAYS);
 		GridPane.setHgrow(vP4, Priority.ALWAYS);
 		GridPane.setVgrow(vP4, Priority.ALWAYS);
-		GridPane.setHgrow(btnLeave, Priority.ALWAYS);
-		GridPane.setVgrow(btnLeave, Priority.ALWAYS);
 		this.setId("root");
 		this.setAlignment(Pos.TOP_LEFT);
-		this.setHgap(20);
-		this.setVgap(10);
 	}
 	
 }

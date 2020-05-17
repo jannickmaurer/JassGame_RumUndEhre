@@ -10,6 +10,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
@@ -24,12 +25,12 @@ public class LoginPane extends GridPane {
 	Button btnRegistration = new Button();
 	
 	public LoginPane() {
-		this.add(lblTitelLogin, 1, 0);
+		
+		VBox v1 = new VBox();
+		v1.setId("VBox");
+		
 		lblTitelLogin.setId("titel");
-		this.add(lblSubtitelLogin, 1, 1);
 		lblSubtitelLogin.setId("subtitel");
-		this.add(tfUsername, 1, 3);
-		this.add(tfPassword, 1, 5);
 
 		HBox h1 = new HBox();
 		Region spacer1 = new Region();
@@ -37,11 +38,12 @@ public class LoginPane extends GridPane {
 		h1.setId("HBox");
 		h1.getChildren().addAll(btnLogin, spacer1, btnRegistration);		
 		
-		this.add(h1, 1, 6);
+		v1.getChildren().addAll(lblTitelLogin, lblSubtitelLogin, tfUsername, tfPassword, h1);
+		
+		this.add(v1, 0, 0);
 		
 		this.setId("root");
 		this.setAlignment(Pos.TOP_LEFT);
-		this.setHgap(20);
-		this.setVgap(10);
+
 	}
 }

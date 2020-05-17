@@ -66,6 +66,10 @@ public class JassClientController {
 			view.getBtnJoin().setDisable(false);
 			view.getCreateSpielraumPopUp().hide();
 		});
+		view.getBtnProfil().setOnAction(e ->{
+			if (!view.profilPopUp.isShowing()) 
+				view.profilPopUp.show(view.getStage());
+		});
 		view.getBtnCreatePlayroom().setOnAction(e ->{
 			if (!view.createSpielraumPopUp.isShowing()) 
 				view.createSpielraumPopUp.show(view.getStage());
