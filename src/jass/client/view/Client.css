@@ -174,7 +174,7 @@
 }
 
 .cell:selected {
-	-fx-background-color: green;
+	-fx-background-color: rgba(121, 255, 136, 1);
 }
 
 .check-box {
