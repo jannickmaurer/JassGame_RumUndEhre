@@ -1,20 +1,18 @@
 package jass.message;
 
-import jass.message.result.ResultSendMessage;
-import jass.message.result.ResultText;
+import jass.client.message.result.ResultSendMessage;
+import jass.client.message.result.ResultText;
 import jass.server.Client;
 import jass.server.Playroom;
 
 public class SendMessage extends Message {
 	private String token;
-	private String targetPlayroom;
 	private String message;
 
 	public SendMessage(String[] content) {
 		super(content);
 		this.token = content[1];
-		this.targetPlayroom = content[2];
-		this.message = content[3];
+		this.message = content[2];
 	}
 
 	@Override
@@ -22,9 +20,9 @@ public class SendMessage extends Message {
 		boolean result = false;
 		
 		if(this.token.equals(client.getToken())) {
-			Playroom targetPlayroom = Playroom.getPlayroom(this.targetPlayroom);
+			Playroom targetPlayroom = client.getPlayroom();
 			if(targetPlayroom != null) {
-				String[] content = new String[] {"Text", client.getName(), this.message};
+				String[] content = new String[] {"ResultText", client.getAccount().getUsername(), this.message};
 				Message msg = new ResultText(content);
 				targetPlayroom.getChatroom().send(msg);
 				result = true;

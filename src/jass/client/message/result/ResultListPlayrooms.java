@@ -1,7 +1,8 @@
-package jass.message.result;
+package jass.client.message.result;
 
 import java.util.ArrayList;
 
+import jass.client.controller.JassClientController;
 import jass.client.model.JassClientModel;
 import jass.message.Message;
 
@@ -21,13 +22,16 @@ public class ResultListPlayrooms extends Message {
 		}
 	}
 	@Override
-	public void process(JassClientModel model) {
+	public void process(JassClientController controller) {
 		for(String s : playrooms) {
-			model.addNewPlayroom(s);
+			controller.getModel().addNewPlayroom(s);
 		}
 		
 	}
 
-	
+	public void processIfFalse(JassClientController jassClientController) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

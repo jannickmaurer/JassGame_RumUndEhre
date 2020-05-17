@@ -17,8 +17,6 @@ import jass.commons.ServiceLocator;
  * Playrooms are created by a client and the client is the owner, only the owner can start the game
  * But in fact, only specific Gametypes can be created (Trumpf, Schieber etc.)
  * This concept contains all information, variables and methods that all the gametypes share
- * A "Player" in a Playroom is represented by a "Client" Object bc this class represents best a "Player" in a technical view
- * Through the client we can always get the Account with which the client is logged in in order to get more information (username etc.)
  */
 
 public abstract class Playroom implements Serializable {
@@ -40,18 +38,19 @@ public abstract class Playroom implements Serializable {
 		this.name = name;
 		this.owner = owner;
 		members = new ArrayList<>();
-		addMember(owner);
 		this.chatroom = new Chatroom(Playroom.this);
 		Chatroom.add(this.chatroom);
+		addMember(owner);
 	}
 	
 	//add new member to the playroom and add the member to playroom's chatroom
 	public void addMember(String member) {
 		members.add(member);
-		//Chatroom
+		this.chatroom.addMember(member);	
 	}
 	
 	public void removeMember(String username) {
+		this.chatroom.removeMember(username);
 		members.remove(username);
 	}
 	
@@ -69,9 +68,13 @@ public abstract class Playroom implements Serializable {
 	public static void add(Playroom playroom) {
 		playrooms.add(playroom);
 		savePlayrooms();
-
 	}
-
+	
+	public static void remove(Playroom playroom) {
+		synchronized (playrooms) {
+			playrooms.remove(playroom);
+		}
+	}
 	
 	public static void endGame() {
 		
@@ -87,13 +90,7 @@ public abstract class Playroom implements Serializable {
 	}
 	
 	
-	public static void remove(Playroom playroom) {
-		synchronized (playrooms) {
-			for (Iterator<Playroom> i = playrooms.iterator(); i.hasNext();) {
-				if (playroom == i.next()) i.remove();
-			}
-		}
-	}
+	
 	
 	public static void savePlayrooms() {
 		File playroomFile = new File(Server.getDirectory() + "playrooms.sav");

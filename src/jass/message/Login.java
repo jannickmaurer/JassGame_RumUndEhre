@@ -2,9 +2,9 @@ package jass.message;
 
 import java.util.logging.Logger;
 
+import jass.client.message.result.Result;
+import jass.client.message.result.ResultLogin;
 import jass.commons.ServiceLocator;
-import jass.message.result.Result;
-import jass.message.result.ResultLogin;
 import jass.server.Account;
 import jass.server.Client;
 

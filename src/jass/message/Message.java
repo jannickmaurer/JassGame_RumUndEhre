@@ -8,19 +8,21 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import jass.client.controller.JassClientController;
+import jass.client.message.result.Result;
+import jass.client.message.result.ResultCreateAccount;
+import jass.client.message.result.ResultCreatePlayroom;
+import jass.client.message.result.ResultDeleteAccount;
+import jass.client.message.result.ResultDeletePlayroom;
+import jass.client.message.result.ResultJoinPlayroom;
+import jass.client.message.result.ResultLeavePlayroom;
+import jass.client.message.result.ResultListPlayrooms;
+import jass.client.message.result.ResultLogin;
+import jass.client.message.result.ResultLogout;
+import jass.client.message.result.ResultSendMessage;
+import jass.client.message.result.ResultText;
 import jass.client.model.JassClientModel;
 import jass.commons.ServiceLocator;
-import jass.message.result.Result;
-import jass.message.result.ResultCreateAccount;
-import jass.message.result.ResultCreatePlayroom;
-import jass.message.result.ResultDeleteAccount;
-import jass.message.result.ResultDeletePlayroom;
-import jass.message.result.ResultJoinPlayroom;
-import jass.message.result.ResultListPlayrooms;
-import jass.message.result.ResultLogin;
-import jass.message.result.ResultLogout;
-import jass.message.result.ResultSendMessage;
-import jass.message.result.ResultText;
 import jass.server.Client;
 
 public abstract class Message {
@@ -67,7 +69,7 @@ public abstract class Message {
 			if (content[0].equals("JoinPlayroom")) msg = new JoinPlayroom(content);
 			if (content[0].equals("SendMessage")) msg = new SendMessage(content);
 			if (content[0].equals("Text")) msg = new Text(content);
-
+			if (content[0].equals("LeavePlayroom")) msg = new LeavePlayroom(content);
 
 			if (content[0].equals("Result")) msg = new Result(content); 
 			if (content[0].equals("ResultLogin")) msg = new ResultLogin(content);
@@ -80,8 +82,10 @@ public abstract class Message {
 			if (content[0].equals("ResultLogout")) msg = new ResultLogout(content);
 			if (content[0].equals("ResultSendMessage")) msg = new ResultSendMessage(content);
 			if (content[0].equals("ResultText")) msg = new ResultText(content);
+			if (content[0].equals("ResultLeavePlayroom")) msg = new ResultLeavePlayroom(content);
 
 
+			
 			
 
 			
@@ -120,6 +124,16 @@ public abstract class Message {
 	}
 	public Boolean isFalse() {
 		return this.content[1].equalsIgnoreCase("False");
+	}
+
+
+	public void process(JassClientController jassClientController) {
+	}
+
+
+	public void processIfFalse(JassClientController jassClientController) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 

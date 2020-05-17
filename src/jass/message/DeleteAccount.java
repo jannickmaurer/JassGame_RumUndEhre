@@ -2,8 +2,8 @@ package jass.message;
 
 import java.util.logging.Logger;
 
+import jass.client.message.result.ResultDeleteAccount;
 import jass.commons.ServiceLocator;
-import jass.message.result.ResultDeleteAccount;
 import jass.server.Account;
 import jass.server.Client;
 import jass.server.Playroom;

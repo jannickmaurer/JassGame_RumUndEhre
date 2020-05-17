@@ -1,7 +1,8 @@
-package jass.message.result;
+package jass.client.message.result;
 
 import java.util.logging.Logger;
 
+import jass.client.controller.JassClientController;
 import jass.client.model.JassClientModel;
 import jass.commons.ServiceLocator;
 import jass.message.Message;
@@ -19,8 +20,12 @@ public class ResultText extends Message {
 	}
 	
 	@Override
-	public void process(JassClientModel model) {
-		model.updateChat(this.name + ": " + this.message);
+	public void process(JassClientController controller) {
+		controller.updateChatText(this.name + ": " + this.message);
 	}
 
+	public void processIfFalse(JassClientController jassClientController) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -29,17 +29,32 @@ public class Chatroom implements Serializable {
 	public void addMember(String member) {
 		members.add(member);
 	}
+	
+	public void removeMember(String member) {
+		members.remove(member);
+	}
 
 	public void send(Message msg) {
-		synchronized(Client.getClients()) {
-			for(String c : members) {
-				Client.getClient(c).send(msg);
-			}
+		Iterator<String> i = members.iterator();
+		for(String s : members) {
+			System.out.println(s);
+		}
+		
+		while (i.hasNext()) {
+			String username = i.next();
+			Client user = Client.getClient(username);
+			if (user == null) i.remove();
+			else // User exists
+				user.send(msg);
 		}
 	}
 	
 	public static void add(Chatroom chatroom) {
 		chatrooms.add(chatroom);
+	}
+	
+	public static void remove(Chatroom chatroom) {
+		chatrooms.remove(chatroom);
 	}
 	
 	

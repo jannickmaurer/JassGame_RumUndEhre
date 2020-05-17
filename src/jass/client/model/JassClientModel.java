@@ -1,7 +1,9 @@
 package jass.client.model;
 
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
@@ -14,12 +16,14 @@ import jass.commons.Translator;
 import jass.message.CreateAccount;
 import jass.message.CreatePlayroom;
 import jass.message.JoinPlayroom;
+import jass.message.LeavePlayroom;
 import jass.message.ListPlayrooms;
 import jass.message.Login;
 import jass.message.Logout;
 import jass.message.MakeTrumpf;
 import jass.message.Message;
 import jass.message.Ping;
+import jass.message.SendMessage;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,6 +33,7 @@ public class JassClientModel {
 	private Socket socket = null;
 	private SimpleStringProperty token = new SimpleStringProperty();
 	private SimpleStringProperty message = new SimpleStringProperty();
+	private SimpleStringProperty lastReceivedMessage = new SimpleStringProperty();
 
 	private static ServiceLocator serviceLocator = ServiceLocator.getServiceLocator();
 	private static Logger logger = serviceLocator.getClientLogger();
@@ -42,18 +47,27 @@ public class JassClientModel {
 			Runnable r = new Runnable() {
 				public void run() {
 					while (true) {
-						Message msg = Message.receive(socket);
-						
-						// Only "Result" messages got sent to Client. Therefore, we use process method from Result class and
-						// provide the model to the method in order for it to able to use model's methods
-						
-						if(msg != null) {
-							if(msg.isTrue()) {
-								msg.process(JassClientModel.this); 
-							}
+						BufferedReader in;
+						try {
+							in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+							String msgText = in.readLine(); // Will wait here for complete line
+							lastReceivedMessage.setValue(msgText);
+						} catch (IOException e) {
+							e.printStackTrace();
 						}
-						System.out.println("Client Message received: " + msg.toString());
-						}
+					}
+//						Message msg = Message.receive(socket);
+//						
+//						// Only "Result" messages got sent to Client. Therefore, we use process method from Result class and
+//						// provide the model to the method in order for it to able to use model's methods
+//						
+//						if(msg != null) {
+//							if(!msg.isFalse()) {
+//								msg.process(JassClientModel.this); 
+//							}
+//						}
+//						System.out.println("Client Message received: " + msg.toString());
+//						}
 				}
 			};
 			Thread t = new Thread(r);
@@ -144,8 +158,26 @@ public class JassClientModel {
 		}
 	}
 	
-	public void sendMessage(String s) {
-		
+	public void leavePlayroom() {
+		String[] content = new String[] {"LeavePlayroom", this.token.getValue()};
+		Message msg = new LeavePlayroom(content);
+		try {
+			msg.send(socket);
+			logger.info("Client tries to send message: " + msg.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}		
+	}
+	
+	public void sendMessage(String message) {
+		String[] content = new String[] {"SendMessage", this.token.getValue(), message};
+		Message msg = new SendMessage(content);
+		try {
+			msg.send(socket);
+			logger.info("Client tries to send message: " + msg.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 
@@ -179,11 +211,20 @@ public class JassClientModel {
 	}
 	
 	public void updateChat(String message) {
+		System.out.println("Sollte gehen");
 		this.message.set(message);
 	}
 	
 	public SimpleStringProperty getMessageProperty() {
 		return this.message;
+	}
+	
+	public SimpleStringProperty getLastReceivedMessage() {
+		return lastReceivedMessage;
+	}
+
+	public void setLastReceivedMessage(SimpleStringProperty lastReceivedMessage) {
+		this.lastReceivedMessage = lastReceivedMessage;
 	}
 
 
@@ -245,4 +286,6 @@ public class JassClientModel {
 
         return ourLogger;
     }
+
+	
 }
