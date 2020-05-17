@@ -54,43 +54,47 @@ public class Card implements Comparable<Card>{
     };
     
     private Suit suit;
-    private Rank rank;
+
+
+	private Rank rank;
     private String shortForm;
-    
-    public Card(Suit suit, Rank rank) {
-        this.suit = suit;
-        this.rank = rank;
-    }
     
     public Card(String shortForm) {
         this.shortForm = shortForm;
+        this.setSuit();
+        this.setRank();
     }
     
     
+    public Suit getSuit() {
+		return suit;
+	}
 
-    public Suit getSuit() { //String card
+	public Rank getRank() {
+		return rank;
+	}
+	
+    public void setSuit() { //String card
 //    	//TODO converntieren zu enums
 //    	//string splitten mit 1 und zweite zahl/buchstabe -> googlen 
 //    	//Danach mit Case auf neum matchen
 //    	//case (shortForm.fistLetter()) case c = suit.Clubs
-    	String card = new String("6D");
-    	Suit suit = null;
-    	switch(card.charAt(0)){
+ //   	String card = new String("6D");
+
+    	switch(shortForm.charAt(0)){
     		case('C'): suit = Suit.Clubs; break;
     		case('D'): suit = Suit.Diamonds; break;
     		case('H'): suit = Suit.Hearts; break;
     		case('S'): suit = Suit.Spades; break;
     	}
-        return suit;
+        this.suit = suit;
     }
 //    
-    public Rank getRank() {// String card
+    public void setRank() {// String card
 //    	//TODO converntieren zu enums
 //    	//string splitten mit 1 und zweite zahl/buchstabe -> googlen 
 //    	//Danach mit Case auf enum matchen
-    	String card = new String("6D");
-    	Rank rank = null;
-    	switch(card.charAt(1)){
+    	switch(shortForm.charAt(1)){
     		case('6'): rank = Rank.Six; break;
     		case('7'): rank = Rank.Seven; break;
     		case('8'): rank = Rank.Eight; break;
@@ -101,7 +105,7 @@ public class Card implements Comparable<Card>{
     		case('K'): rank = Rank.King; break;
     		case('A'): rank = Rank.Ace; break;
     	}
-    return rank;
+    	this.rank = rank;
     }
     
     public Image getCardPicture(Card card) {
@@ -130,7 +134,7 @@ public class Card implements Comparable<Card>{
     
     @Override
     public String toString() {
-        return rank.toString() + suit.toString();
+        return shortForm;
     }
 
     
