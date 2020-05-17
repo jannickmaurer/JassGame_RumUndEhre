@@ -37,7 +37,6 @@ public class JassClientModel {
 
 	private static ServiceLocator serviceLocator = ServiceLocator.getServiceLocator();
 	private static Logger logger = serviceLocator.getClientLogger();
-	private final ObservableList<String> elements = FXCollections.observableArrayList();
 	private ObservableList<String> playrooms = FXCollections.observableArrayList();
 	
 	public void connect(String ipAdress, int port) {
@@ -180,19 +179,8 @@ public class JassClientModel {
 		}
 	}
 	
-
-
-    
-    public void addNewElement(String element) {
-		elements.add(element);
-	}
-    
-    public void removeElement(String element) {
-		elements.remove(element);
-	}
-    
     public void addNewPlayroom(String playroom) {
-		elements.add(playroom);
+		playrooms.add(playroom);
 	}
     
     public void removePlayroom(String playroom) {
@@ -200,7 +188,7 @@ public class JassClientModel {
 	}
 	
 	public ObservableList<String> getElements() {
-		return elements;
+		return playrooms;
 	}
 	public SimpleStringProperty getTokenProperty() {
 		return token;

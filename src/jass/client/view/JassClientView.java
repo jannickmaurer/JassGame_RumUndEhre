@@ -15,13 +15,16 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
@@ -37,13 +40,14 @@ public class JassClientView {
 	
 	Scene scene, connectScene, lobbyScene, loginScene, registrationScene, spielraumScene;
 	ConnectPane connectLayout = new ConnectPane();
-	public LobbyPane lobbyLayout = new LobbyPane();
 	public LoginPane loginLayout = new LoginPane();
 	public RegistrationPane registrationLayout = new RegistrationPane();
 	public SpielraumPopupPane spielraumPopupLayout = new SpielraumPopupPane();
 	public SpielraumPane spielraumLayout = new SpielraumPane();
+	public StartGamePopupPane startGamePopupLayout = new StartGamePopupPane();
 	
 	public Popup createSpielraumPopUp = new Popup();
+	public Popup startGamePopUp = new Popup();
 	
 	Label lblPort = connectLayout.lblPort;
 	Label lblIP = connectLayout.lblIP;
@@ -67,13 +71,14 @@ public class JassClientView {
 	Button btnNewRegistration = registrationLayout.btnRegistration;
 	Button btnBack = registrationLayout.btnBack;
 	
-	Button btnProfil = lobbyLayout.btnProfil;
-	Button btnConfig = lobbyLayout.btnConfig;
+	Button btnProfil = new Button();
+	Button btnConfig = new Button();
 	Button btnJoin = new Button();
 	Button btnCreatePlayroom = new Button();
-	Button btnLogout = lobbyLayout.btnLogout;
+	Button btnLogout = new Button();
 	ListView<String> listView;
 	public VBox v1 = new VBox();
+	public HBox h1 = new HBox();
 	
 	TextField tfSpielraumName = spielraumPopupLayout.tfSpielraumName;
 	CheckBox cbTrumpf = spielraumPopupLayout.cbTrumpf;
@@ -94,11 +99,20 @@ public class JassClientView {
 	Label lblPoints3 = spielraumLayout.lblPoints3;
 	Label lblPoints4 = spielraumLayout.lblPoints4;
 	Label lblChat = spielraumLayout.lblChat;
+	Label lblWait = spielraumLayout.lblWait;
 	TextArea txtMessages = spielraumLayout.txtMessages;
 	TextField tfMessage = spielraumLayout.tfMessage;
 	Button btnSend = spielraumLayout.btnSend;
 	ScrollPane scrollPane = spielraumLayout.scrollPane;
+	Circle crcP1 = spielraumLayout.crcP1;
+	Circle crcP2 = spielraumLayout.crcP2;
+	Circle crcP3 = spielraumLayout.crcP3;
+	Circle crcP4 = spielraumLayout.crcP4;
 	Button btnLeave = spielraumLayout.btnLeave;
+	Button btnStartGame = spielraumLayout.btnStartGame;
+	
+	Button btnStartGamePopUp = startGamePopupLayout.btnStartGamePopUp;
+	TextField tfPoints = startGamePopupLayout.tfPoints;
 
 	public JassClientView(Stage primaryStage, JassClientModel model) {
 		this.primaryStage = primaryStage;
@@ -159,6 +173,7 @@ public class JassClientView {
 		lblPoints3.setMinWidth(Region.USE_PREF_SIZE);
 		lblPoints4.setMinWidth(Region.USE_PREF_SIZE);
 		lblChat.setMinWidth(Region.USE_PREF_SIZE);
+		lblWait.setMinWidth(Region.USE_PREF_SIZE);
 		btnCreatePlayroomPopup.setMinWidth(Region.USE_PREF_SIZE);
 		btnCreatePlayroomPopup.setPrefWidth(140);
 		tfMessage.setMinWidth(Region.USE_PREF_SIZE);
@@ -166,9 +181,15 @@ public class JassClientView {
 		txtMessages.setMinWidth(Region.USE_PREF_SIZE);
 		txtMessages.setPrefWidth(120);
 		btnSend.setMinWidth(Region.USE_PREF_SIZE);
-		btnSend.setPrefWidth(120);
+		btnSend.setPrefWidth(100);
 		btnLeave.setMinWidth(Region.USE_PREF_SIZE);
 		btnLeave.setPrefWidth(100);
+		btnStartGame.setMinWidth(Region.USE_PREF_SIZE);
+		btnStartGame.setPrefWidth(100);
+		btnStartGamePopUp.setMinWidth(Region.USE_PREF_SIZE);
+		btnStartGamePopUp.setPrefWidth(120);
+		tfPoints.setMinWidth(Region.USE_PREF_SIZE);
+		tfPoints.setPrefWidth(120);
 	
 		root = new BorderPane();
 		root.setId("root");
@@ -190,22 +211,40 @@ public class JassClientView {
 		
 		registrationLayout.btnRegistration.setDisable(false); // changed from Jannick
 		
-		lobbyLayout.btnConfig.setDisable(true);
-		lobbyLayout.btnProfil.setDisable(true);
+		this.btnConfig.setDisable(true);
+		this.btnProfil.setDisable(true);
 		this.btnJoin.setDisable(true);
 		v1.setId("VBox");
 		
-		HBox h1 = new HBox();
-		h1.setId("HBoxRight");
-		h1.getChildren().addAll(btnJoin, btnCreatePlayroom);
+		h1.setId("HBoxTop");
+		h1.getChildren().addAll(btnProfil, btnConfig, btnLogout);
+		
+		HBox h2 = new HBox();
+		h2.setId("HBoxRight");
+		h2.getChildren().addAll(btnJoin, btnCreatePlayroom);
 		listView = new ListView<>(model.getElements());
-		v1.getChildren().addAll(listView, h1);
+		v1.getChildren().addAll(h1, listView, h2);
 		listView.setMinHeight(Region.USE_PREF_SIZE);
 		listView.setPrefHeight(440);
 		
 		createSpielraumPopUp.getContent().add(spielraumPopupLayout);
 		spielraumPopupLayout.btnCreate.disableProperty().bind(spielraumPopupLayout.tfSpielraumName.textProperty().isEmpty());
 		createSpielraumPopUp.setAutoHide(true);
+		
+		startGamePopUp.getContent().add(startGamePopupLayout);
+		startGamePopUp.setAutoHide(true);
+		
+		crcP1.setVisible(false);
+		crcP2.setVisible(false);
+		crcP3.setVisible(false);
+		crcP4.setVisible(false);
+		
+		v1.setVgrow(listView, Priority.ALWAYS);
+		
+		txtMessages.setDisable(true);
+		scrollPane.setDisable(true);
+		tfMessage.setDisable(true);
+		btnSend.setDisable(true);
 		
 		scene = new Scene(root, 850, 600);
 		scene.getStylesheets().add(
@@ -245,6 +284,8 @@ public class JassClientView {
 		spielraumLayout.lblPlayer.setText(t.getString("label.player"));
 		spielraumLayout.lblPoints.setText(t.getString("label.points"));
 		spielraumLayout.lblChat.setText(t.getString("label.chat"));
+		spielraumLayout.lblWait.setText(t.getString("label.wait"));
+		startGamePopupLayout.lblPointsLimit.setText(t.getString("label.limit"));
 		
 	    // Other controls
 		connectLayout.btnPing.setText(t.getString("button.ping"));
@@ -254,11 +295,11 @@ public class JassClientView {
 		loginLayout.btnRegistration.setText(t.getString("button.registration"));
 		registrationLayout.btnRegistration.setText(t.getString("button.registration"));
 		registrationLayout.btnBack.setText(t.getString("button.back"));
-		lobbyLayout.btnProfil.setText(t.getString("button.profil"));
-		lobbyLayout.btnConfig.setText(t.getString("button.config"));
+		this.btnProfil.setText(t.getString("button.profil"));
+		this.btnConfig.setText(t.getString("button.config"));
 		this.btnJoin.setText(t.getString("button.join"));
 		this.btnCreatePlayroom.setText(t.getString("button.createplayroom"));
-		lobbyLayout.btnLogout.setText(t.getString("button.logout"));
+		this.btnLogout.setText(t.getString("button.logout"));
 		spielraumPopupLayout.cbTrumpf.setText(t.getString("checkbox.trumpf"));
 		spielraumPopupLayout.cbUndeUfe.setText(t.getString("checkbox.undeufe"));
 		spielraumPopupLayout.cbObeAbe.setText(t.getString("checkbox.obeabe"));
@@ -267,6 +308,8 @@ public class JassClientView {
 		spielraumPopupLayout.btnCreate.setText(t.getString("button.createplayroom"));
 		spielraumLayout.btnSend.setText(t.getString("button.send"));
 		spielraumLayout.btnLeave.setText(t.getString("button.leave"));
+		spielraumLayout.btnStartGame.setText(t.getString("button.start"));
+		startGamePopupLayout.btnStartGamePopUp.setText(t.getString("button.start"));
     }
 	
 	public Stage getStage() {
@@ -485,6 +528,14 @@ public class JassClientView {
 		this.btnLeave = btnLeave;
 	}
 	
+	public Button getBtnStartGame() {
+		return btnStartGame;
+	}
+
+	public void setBtnStartGame(Button btnStartGame) {
+		this.btnStartGame = btnStartGame;
+	}
+	
 	public Popup getCreateSpielraumPopUp() {
 		return createSpielraumPopUp;
 	}
@@ -571,6 +622,14 @@ public class JassClientView {
 
 	public void setScrollPane(ScrollPane scrollPane) {
 		this.scrollPane = scrollPane;
+	}
+	
+	public TextField getTfPoints() {
+		return tfPoints;
+	}
+
+	public void setTfPoints(TextField tfPoints) {
+		this.tfPoints = tfPoints;
 	}
 
 }
