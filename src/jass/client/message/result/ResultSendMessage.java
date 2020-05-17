@@ -1,7 +1,8 @@
-package jass.message.result;
+package jass.client.message.result;
 
 import java.util.logging.Logger;
 
+import jass.client.controller.JassClientController;
 import jass.client.model.JassClientModel;
 import jass.commons.ServiceLocator;
 import jass.message.Message;
@@ -12,7 +13,7 @@ public class ResultSendMessage extends Message {
 	private String token;
 
 	public ResultSendMessage(boolean result) {
-		super(new String[] {"ResultText", Boolean.toString(result)});
+		super(new String[] {"ResultSendMessage", Boolean.toString(result)});
 	}
 	public ResultSendMessage(String[] content) {
 		super(content);
@@ -22,4 +23,8 @@ public class ResultSendMessage extends Message {
 	public void process(JassClientModel model) {
 	}
 
+	public void processIfFalse(JassClientController jassClientController) {
+		// TODO Auto-generated method stub
+		
+	}
 }

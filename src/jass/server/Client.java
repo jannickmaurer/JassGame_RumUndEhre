@@ -18,6 +18,7 @@ public class Client {
 	private String token = null;
 	private Socket socket;
 	private boolean clientReachable = true;
+	private Playroom playroom;
 	
 	
 	public Client(Socket socket) {
@@ -113,6 +114,15 @@ public class Client {
 	public String getName() {
 		return getAccount().getUsername();
 	}
+
+	public Playroom getPlayroom() {
+		return playroom;
+	}
+
+	public void setPlayroom(Playroom playroom) {
+		this.playroom = playroom;
+	}
+	
 	
 	
 

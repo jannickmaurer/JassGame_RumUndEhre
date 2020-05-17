@@ -2,8 +2,8 @@ package jass.message;
 
 import java.util.logging.Logger;
 
+import jass.client.message.result.ResultJoinPlayroom;
 import jass.commons.ServiceLocator;
-import jass.message.result.ResultJoinPlayroom;
 import jass.server.Client;
 import jass.server.Playroom;
 
@@ -27,6 +27,7 @@ public class JoinPlayroom extends Message {
 			Playroom playroom = Playroom.getPlayroom(this.name);
 			if(playroom != null) {
 				playroom.addMember(client.getName());
+				client.setPlayroom(playroom);
 				result = true;
 			}
 		}

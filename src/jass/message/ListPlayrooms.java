@@ -3,9 +3,9 @@ package jass.message;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import jass.client.message.result.Result;
+import jass.client.message.result.ResultListPlayrooms;
 import jass.commons.ServiceLocator;
-import jass.message.result.Result;
-import jass.message.result.ResultListPlayrooms;
 import jass.server.Client;
 import jass.server.Playroom;
 

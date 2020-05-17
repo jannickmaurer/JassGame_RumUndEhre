@@ -11,6 +11,7 @@ Ping: 			"Ping"
 Result: 				"Result"|result[String]	
 ResultToken:			"Result"|result[String]|token[String]
 ResultListPlayrooms:	"ResultListPlayrooms"|result[String]|playroom1[String]|playroom2...
+ResultText:				ResultText|Username|Message
 				
 								
 Login: 					"Login"|username[String]|password[String]
@@ -23,6 +24,7 @@ ListPlayrooms:			ListPlayrooms|TOKEN
 JoinPlayroom:			JoinPlayroom|TOKEN|PlayroomName
 DeleteAccount:			DeleteAccount|TOKEN
 DeletePlayroom:			DeletePlayroom|TOKEN|PlayroomName
+SendMessage: 			SendMessage|TOKEN|Message
 
 
 Create a new Message: 

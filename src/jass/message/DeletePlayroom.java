@@ -2,9 +2,10 @@ package jass.message;
 
 import java.util.logging.Logger;
 
+import jass.client.message.result.ResultDeletePlayroom;
 import jass.commons.ServiceLocator;
-import jass.message.result.ResultDeletePlayroom;
 import jass.server.Account;
+import jass.server.Chatroom;
 import jass.server.Client;
 import jass.server.Playroom;
 
@@ -25,6 +26,7 @@ public class DeletePlayroom extends Message {
 		boolean result = false;
 		if(this.token.equals(client.getToken()) && Playroom.getPlayroom(name) != null && 
 				Playroom.getPlayroom(name).getOwner().equals(client.getName())) {
+			Chatroom.remove(Playroom.getPlayroom(name).getChatroom());
 			Playroom.remove(Playroom.getPlayroom(name));
 			result = true;
 		}

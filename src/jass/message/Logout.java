@@ -2,9 +2,9 @@ package jass.message;
 
 import java.util.logging.Logger;
 
+import jass.client.message.result.ResultDeleteAccount;
+import jass.client.message.result.ResultLogout;
 import jass.commons.ServiceLocator;
-import jass.message.result.ResultDeleteAccount;
-import jass.message.result.ResultLogout;
 import jass.server.Account;
 import jass.server.Client;
 import jass.server.Playroom;
@@ -23,7 +23,8 @@ public class Logout extends Message {
 	public void process(Client client) {
 		boolean result = false;
 		if(this.token.equals(client.getToken())) {
-			Playroom.removeMemberFromAny(client.getName());
+			Playroom playroom = client.getPlayroom();
+			if(playroom != null) playroom.removeMember(client.getName());
 			client.setToken(null); 
 			client.setAccount(null); 
 			result = true;

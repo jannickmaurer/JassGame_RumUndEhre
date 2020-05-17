@@ -1,7 +1,8 @@
-package jass.message.result;
+package jass.client.message.result;
 
 import java.util.logging.Logger;
 
+import jass.client.controller.JassClientController;
 import jass.client.model.JassClientModel;
 import jass.commons.ServiceLocator;
 import jass.message.Message;
@@ -18,8 +19,13 @@ public class ResultCreatePlayroom  extends Message {
 		super(content);
 	}
 	@Override
-	public void process(JassClientModel model) {
-		model.listPlayrooms();
+	public void process(JassClientController controller) {
+		controller.listPlayrooms();
+	}
+	
+	public void processIfFalse(JassClientController jassClientController) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

@@ -1,6 +1,6 @@
 package jass.message;
 
-import jass.message.result.Result;
+import jass.client.message.result.Result;
 import jass.server.Client;
 
 public class Ping extends Message {

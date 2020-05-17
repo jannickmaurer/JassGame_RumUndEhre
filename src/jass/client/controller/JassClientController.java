@@ -1,7 +1,20 @@
 package jass.client.controller;
 
+import jass.client.message.result.Result;
+import jass.client.message.result.ResultCreateAccount;
+import jass.client.message.result.ResultCreatePlayroom;
+import jass.client.message.result.ResultDeleteAccount;
+import jass.client.message.result.ResultDeletePlayroom;
+import jass.client.message.result.ResultJoinPlayroom;
+import jass.client.message.result.ResultLeavePlayroom;
+import jass.client.message.result.ResultListPlayrooms;
+import jass.client.message.result.ResultLogin;
+import jass.client.message.result.ResultLogout;
+import jass.client.message.result.ResultSendMessage;
+import jass.client.message.result.ResultText;
 import jass.client.model.JassClientModel;
 import jass.client.view.JassClientView;
+import jass.message.Message;
 import javafx.application.Platform;
 
 public class JassClientController {
@@ -68,31 +81,116 @@ public class JassClientController {
 		});
 		
 		view.getBtnLeave().setOnAction(e ->{
+			leavePlayroonm();
 			view.getRoot().setCenter(view.lobbyLayout);
 			view.getRoot().setId("root");
 			view.getRoot().setBottom(view.v1);
 			view.getStage().setTitle("Lobby");
 		});
+		
+		view.getBtnSend().setOnAction(e -> sendMessage());
 
 	
-		model.getTokenProperty().addListener( (o, oldValue, newValue) -> {
-			this.token = newValue;
-		});
+//		model.getTokenProperty().addListener( (o, oldValue, newValue) -> {
+//			this.token = newValue;
+//		});
 		
 		model.getMessageProperty().addListener((o, oldValue, newValue) ->{
-			Platform.runLater(new Runnable() {
-				public void run() {
-					
-					view.getTxtMessages().appendText(newValue + "\n");
-					
-				}
-				});
+			System.out.println("Läuft");
+			
 		});
 		
+		model.getLastReceivedMessage().addListener( (o, oldValue, newValue) -> {
+			String[] content = newValue.split("\\|");
+			for (int i = 0; i < content.length; i++) {
+				content[i] = content[i].trim();
+			}
+			createMessage(content);
+			
+		});	
+	}
+
+	private void createMessage(String[] content) {
+		Message msg;
+		if (content[0].equals("Result")) {
+			msg = new Result(content); 
+			if (!msg.isFalse()) msg.process(JassClientController.this);
+			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+		}
+		if (content[0].equals("ResultLogin")) {
+			msg = new ResultLogin(content);
+			if (!msg.isFalse()) msg.process(JassClientController.this);
+			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+
+		}
+		if (content[0].equals("ResultListPlayrooms")) {
+			msg = new ResultListPlayrooms(content);
+			if (!msg.isFalse()) msg.process(JassClientController.this);
+			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+		}
+		if (content[0].equals("ResultCreateAccount")) {
+			msg = new ResultCreateAccount(content);
+			if (!msg.isFalse()) msg.process(JassClientController.this);
+			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+		}
+		if (content[0].equals("ResultCreatePlayroom")) {
+			msg = new ResultCreatePlayroom(content);
+			if (!msg.isFalse()) msg.process(JassClientController.this);
+			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+		}
+		if (content[0].equals("ResultJoinPlayroom")) {
+			msg = new ResultJoinPlayroom(content);
+			if (!msg.isFalse()) msg.process(JassClientController.this);
+			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+		}
+		if (content[0].equals("ResultDeleteAccount")) {
+			msg = new ResultDeleteAccount(content);
+			if (!msg.isFalse()) msg.process(JassClientController.this);
+			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+		}
+		if (content[0].equals("ResultDeletePlayroom")) {
+			msg = new ResultDeletePlayroom(content);
+			if (!msg.isFalse()) msg.process(JassClientController.this);
+			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+		}
+		if (content[0].equals("ResultLogout")) {
+			msg = new ResultLogout(content);
+			if (!msg.isFalse()) msg.process(JassClientController.this);
+			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+		}
+		if (content[0].equals("ResultSendMessage")) {
+			msg = new ResultSendMessage(content);
+			if (!msg.isFalse()) msg.process(JassClientController.this);
+			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+		}
+		if (content[0].equals("ResultText")) {
+			msg = new ResultText(content);
+			if (!msg.isFalse()) msg.process(JassClientController.this);
+			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+		}
+		if (content[0].equals("ResultLeavePlayroom")) {
+			msg = new ResultLeavePlayroom(content);
+			if (!msg.isFalse()) msg.process(JassClientController.this);
+			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+		}
+		
+	}
+
+	protected void leavePlayroonm() {
+		model.leavePlayroom();
+	}
+
+	private void sendMessage() {
+		model.sendMessage(view.getTfMessage().getText());
+		view.getTfMessage().setText("");
 	}
 	
 	private void joinPlayroom() {
 		model.joinPlayroom("Testraum");
+	}
+	
+	public void listPlayrooms() {
+		model.listPlayrooms();
 	}
 	
 	private void deletePlayroom() {
@@ -124,4 +222,22 @@ public class JassClientController {
 	public void connect() {
 		model.connect(view.getTfIP().getText(), Integer.parseInt(view.getTfPort().getText()));
 	}
+	
+	public JassClientModel getModel() {
+		return model;
+	}
+
+	public JassClientView getView() {
+		return view;
+	}
+	
+	public void updateChatText(String text) {
+		Platform.runLater(new Runnable() {
+			public void run() {
+				view.getTxtMessages().appendText(text + "\n");
+			}
+			});
+	}
+
+	
 }
