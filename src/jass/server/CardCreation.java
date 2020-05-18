@@ -38,9 +38,12 @@ public class CardCreation {
 		cards.clear();
 
 		// Add all 36 cards
+		String shortform = "";
 		for (Card.Suit suit : Card.Suit.values()) {
 			for (Card.Rank rank : Card.Rank.values()) {
-				Card card = new Card(suit, rank);
+				shortform = suit.toString()+rank.toString();
+				Card card = new Card(shortform);
+//				Card card = new Card(suit, rank);
 				cards.add(card);
 			}
 		}
