@@ -59,9 +59,24 @@ public class CardCreation {
 	 * This is an example of conditional assignment
 	 */
 
-	public Card moveCard() {
-		Card card = (cards.size() > 0) ? cards.remove(cards.size() - 1) : null;
-		return card;
+//	public Card getShuffledCard() {
+//		Card card = (cards.size() > 0) ? cards.remove(cards.size() - 1) : null;
+//		return card;
+//	}
+	
+	//return String mit 9 karten
+	
+	public String shuffledPlayerCards() {
+		String shuffledPlayerCards = "";
+		if (this.cards == null) return "No Cards";
+		for (int i = 0; i < 9; i++) {
+			Card card = (cards.size() > 0) ? cards.remove(cards.size() - 1) : null;
+			shuffledPlayerCards += card.toString() + "|";			
+		}
+		if (shuffledPlayerCards != null && shuffledPlayerCards.length() > 0) {
+			shuffledPlayerCards = shuffledPlayerCards.substring(0, shuffledPlayerCards.length() - 1);
+		}
+		return shuffledPlayerCards;
 	}
 
 }
