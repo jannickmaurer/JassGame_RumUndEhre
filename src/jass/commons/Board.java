@@ -98,7 +98,9 @@ public class Board {
 	
 	private void play() {
 		playableHandCards.clearPlayableHandCards();
+		//setGameVariety muss zuvor passieren und ist für alle Playspiele dieselbe (9 Runden)
 		if (tableCards.hasCards() == false) {
+			playableHandCards = handCards;
 			// evaluation Trumpf, UndeUfe, ObeAbe, Slalom
 //			getGameVariety(); @Sämi bitte trumpfauswahl bei spielstart implementieren
 
@@ -107,64 +109,61 @@ public class Board {
 			// select GameVariety : Auswählen was in dieser Rund gespielt wir, ob Trumpf,
 			// ObeAbe, UndeUfe oder Slalom
 
-			if (tableCards.hasCards() == true) {
-				// TODO evaluieren welche Karte gespielt werden darf anhand TableCards und
-				if (gameVariety == "Trumpf") {
-					if (tableCards.evaluateTrumpf().toString() == "Trumpf") {
-						// evaluieren ob ich Trumpf habe, sonst kann ich alles spielen
-						if (handCards.evaluateTrumpf().toString() == "Trumpf") {
-							for (int i = 0; i < handCards.hasLength(); i++) {
-								if (handCards.getCardSuit(i).toString() == trumpf) {
-									playableHandCards.add(handCards.getCardOnPlace(i));
-								};
-							}		
-						}else playableHandCards = handCards;
-					}
-					if (tableCards.evaluateTrumpf().toString() == "Stich") {
-						Card highestTableStichCard;
-						//Folgendes If fügt alle Trumpfkarten die gespielt werden können hinzu
-						//************
-						if (handCards.evaluateTrumpf().toString() == "Trumpf") {
-							highestTableStichCard = tableCards.getHighestTrumpfCard();
-							ArrayList<Card> tempHigherThanStichCards = new ArrayList<Card> ();
-							tempHigherThanStichCards = handCards.getCardHigherThanStich(highestTableStichCard);
-							for (Card card : tempHigherThanStichCards) {
-								playableHandCards.add(card);
-							}
-							//hier werden den möglichen überstechungskarten noch die restlichen 
-							//möglichen Karten hinzugefügt der ersten tischfarbe
-							for (int i = 0; i < handCards.hasLength(); i++) {
-								if(handCards.getCardSuit(i).toString() == tableCards.getFirstSuit().toString()) {
-									playableHandCards.add(handCards.getCardOnPlace(i));
-								}
-							}
-						}
-					}
+		if (tableCards.hasCards() == true) {
+			// TODO evaluieren welche Karte gespielt werden darf anhand TableCards und
+			if (gameVariety == "Trumpf") {
+				if (tableCards.evaluateTrumpf().toString() == "Trumpf") {
+					// evaluieren ob ich Trumpf habe, sonst kann ich alles spielen
+					if (handCards.evaluateTrumpf().toString() == "Trumpf") {
+						for (int i = 0; i < handCards.hasLength(); i++) {
+							if (handCards.getCardSuit(i).toString() == trumpf) {
+								playableHandCards.add(handCards.getCardOnPlace(i));
+							};
+						}		
+					}else playableHandCards = handCards;
+				}
+				if (tableCards.evaluateTrumpf().toString() == "Stich") {
+					Card highestTableStichCard;
+					//Folgendes If fügt alle Trumpfkarten die gespielt werden können hinzu
 					//************
-					if (handCards.evaluateTrumpf().toString() == "None") {
+					if (handCards.evaluateTrumpf().toString() == "Trumpf") {
+						highestTableStichCard = tableCards.getHighestTrumpfCard();
+						ArrayList<Card> tempHigherThanStichCards = new ArrayList<Card> ();
+						tempHigherThanStichCards = handCards.getCardHigherThanStich(highestTableStichCard);
+						for (Card card : tempHigherThanStichCards) {
+							playableHandCards.add(card);
+						}
+						//hier werden den möglichen überstechungskarten noch die restlichen 
+						//möglichen Karten hinzugefügt der ersten tischfarbe
 						for (int i = 0; i < handCards.hasLength(); i++) {
 							if(handCards.getCardSuit(i).toString() == tableCards.getFirstSuit().toString()) {
 								playableHandCards.add(handCards.getCardOnPlace(i));
 							}
 						}
 					}
-					if (playableHandCards.hasCards() == false) playableHandCards = handCards;			
 				}
-
-				if (gameVariety == "ObeAbe" || gameVariety == "UndeUfe" || gameVariety == "Slalom") {
+				//************
+				if (handCards.evaluateTrumpf().toString() == "None") {
 					for (int i = 0; i < handCards.hasLength(); i++) {
 						if(handCards.getCardSuit(i).toString() == tableCards.getFirstSuit().toString()) {
 							playableHandCards.add(handCards.getCardOnPlace(i));
 						}
-					}	
-					if (playableHandCards.hasCards() == false) playableHandCards = handCards;
+					}
 				}
-
-			} else {
-				// TODO KArte darf gelegt werden direkt
+				if (playableHandCards.hasCards() == false) playableHandCards = handCards;			
 			}
-		}
+
+			if (gameVariety == "ObeAbe" || gameVariety == "UndeUfe" || gameVariety == "Slalom") {
+				for (int i = 0; i < handCards.hasLength(); i++) {
+					if(handCards.getCardSuit(i).toString() == tableCards.getFirstSuit().toString()) {
+						playableHandCards.add(handCards.getCardOnPlace(i));
+					}
+				}	
+				if (playableHandCards.hasCards() == false) playableHandCards = handCards;
+			}
+		} 
 	}
+}
 
 	private void selectGameVariety() {
 		// Methode evaluieren was der Spieler als GAmeVariante gewählt hat

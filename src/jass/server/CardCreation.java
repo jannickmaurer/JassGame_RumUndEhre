@@ -19,6 +19,7 @@ import jass.commons.*;
  * deck is filled and shuffled. Later, the deck can be refilled and reshuffled
  * by calling the "shuffle" method.
  */
+
 public class CardCreation {
 	private final ArrayList<Card> cards = new ArrayList<>();
 

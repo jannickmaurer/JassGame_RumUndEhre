@@ -32,16 +32,10 @@ public enum Trumpf { Trumpf, Stich, None;
 		return found;
 	}
 	
-	public static Suit getFirstSuit(ArrayList<Card> cards) {
-		Suit searchedSuit = cards.get(0).getSuit();//Hier noch KArte mitgegeben ERT
-		return searchedSuit;
-	}
-
-	
-	public static Rank highestTrumpf(ArrayList<Card> cards) {
+	public static Card highestTrumpf(ArrayList<Card> cards) {
 		String rank = "0";
 		int place = -1;
-		for (int i = 0; i<cards.size();i++) {
+		for (int i = 0; i < cards.size(); i++) {
 			if(cards.get(i).getSuit().toString() == Board.trumpf && rank != "J") {
 				String value = cards.get(i).getRank().toString();
 				switch(value) {
@@ -57,8 +51,21 @@ public enum Trumpf { Trumpf, Stich, None;
 				}
 			}	
 		}
-		return cards.get(place).getRank();
+		return cards.get(place);
     }
+	
+	//entnimmt erste Karte, welche höchster Stich ist und 
+	public static ArrayList<Card> getCardsHigherThanStich(Card card, ArrayList<Card> cards) {
+		ArrayList<Card> returnCards = new ArrayList<>();
+		for (int i = 1; i < cards.size(); i++) {
+			if (cards.get(i).getSuit().toString() == Board.trumpf) {
+				if (isHigher(cards.get(0).getRank().toString(), cards.get(i).getRank().toString())){
+					returnCards.add(cards.get(i));
+				}
+			}
+		}
+		return returnCards;
+	}
 
 	private static boolean isHigher(String rank, String value) {
 		int rankInt = 0;
@@ -89,10 +96,15 @@ public enum Trumpf { Trumpf, Stich, None;
 		return valueInt > rankInt;
 	}
 	
+	public static Suit getFirstSuit(ArrayList<Card> cards) {
+		Suit searchedSuit = cards.get(0).getSuit();
+		return searchedSuit;
+	}
+	
 
 	//Folgend NUR Methoden zur Siegauswertung von Karten
 	//Gibt höchste Karte zurück bei gleicher Farbe
-	public static Rank getHigherCard(ArrayList<Card> cards) {  //, String suit
+	public static Rank getHigherCard(ArrayList<Card> cards) { 
 		int rank = Integer.parseInt(cards.get(0).getRank().toString());
 		int place = 0;
 		String suit = cards.get(0).getSuit().toString();		

@@ -42,7 +42,7 @@ public class Cards {
 	}
 
 	public boolean hasCards() {
-		return cards.size() != 0; // boolean evaluation ohne if direkt 0 = True
+		return cards.size() != 0; // boolean evaluation ohne if
 	}
 	
 	public int hasLength() {
