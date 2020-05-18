@@ -14,6 +14,7 @@ import jass.client.message.result.ResultSendMessage;
 import jass.client.message.result.ResultText;
 import jass.client.model.JassClientModel;
 import jass.client.view.JassClientView;
+import jass.commons.Board;
 import jass.message.Message;
 import javafx.application.Platform;
 
@@ -22,7 +23,7 @@ public class JassClientController {
 	private JassClientView view;
 	private String token;
 	private String currentPlayroom;
-
+	private Board board;
 	
 	public JassClientController(JassClientModel model, JassClientView view) {
 		this.model = model;
@@ -187,6 +188,8 @@ public class JassClientController {
 	
 	private void joinPlayroom() {
 		model.joinPlayroom("Testraum");
+		currentPlayroom = "Testraum";
+		board = new Board();
 	}
 	
 	public void listPlayrooms() {
@@ -239,5 +242,7 @@ public class JassClientController {
 			});
 	}
 
-	
+	public Board getBoard() {
+		return board;
+	}
 }

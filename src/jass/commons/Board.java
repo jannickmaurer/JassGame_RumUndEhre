@@ -38,9 +38,6 @@ public class Board {
 		// ask Server witch player iam mit dem roomName
 		imPlayer = 1;
 		
-		
-		
-
 	}
 
 	void poll() {
