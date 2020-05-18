@@ -151,11 +151,13 @@ public class Board {
 					if (playableHandCards.hasCards() == false) playableHandCards = handCards;			
 				}
 
-				if (gameVariety == "ObeAbe") {
-				}
-				if (gameVariety == "UndeUfe") {
-				}
-				if (gameVariety == "Slalom") {
+				if (gameVariety == "ObeAbe" || gameVariety == "UndeUfe" || gameVariety == "Slalom") {
+					for (int i = 0; i < handCards.hasLength(); i++) {
+						if(handCards.getCardSuit(i).toString() == tableCards.getFirstSuit().toString()) {
+							playableHandCards.add(handCards.getCardOnPlace(i));
+						}
+					}	
+					if (playableHandCards.hasCards() == false) playableHandCards = handCards;
 				}
 
 			} else {
