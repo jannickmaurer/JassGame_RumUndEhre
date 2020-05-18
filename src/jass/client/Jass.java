@@ -22,6 +22,7 @@ public class Jass extends Application {
 		launch(args);
 	}
 	
+	
 	@Override
     public void init() {
         if (jassProgram == null) {

@@ -75,6 +75,7 @@ public class Board {
 
 	}
 	
+	
 	public void cardListener(String serverTabelCards) {
 		//
 		// gettabelcards und getplayersturn beim server abrfragen
