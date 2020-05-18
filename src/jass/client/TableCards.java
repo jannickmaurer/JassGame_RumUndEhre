@@ -6,13 +6,8 @@ import jass.commons.Card;
 import jass.commons.Trumpf;
 
 public class TableCards {
-	ArrayList<Card> tableCards = new ArrayList<Card>();
+	ArrayList<Card> tableCards = new ArrayList<>();
 	private Trumpf trumpf;
-
-	public TableCards(ArrayList<Card> tableCards) {
-		super();
-		this.tableCards = tableCards;
-	}
 
 	public TableCards() {
 		super();
@@ -20,6 +15,18 @@ public class TableCards {
 
 	public ArrayList<Card> getTableCards() {
 		return tableCards;
+	}
+	
+	public String getTableCardsAsString() {
+		if(tableCards == null) return "No Cards";
+		String cards = "";
+		for(Card card : tableCards) {
+			cards += card.toString()+"|"; 
+		}
+	    if (cards != null && cards.length() > 0 ) {
+	    	cards = cards.substring(0, cards.length() - 1);
+	    }
+		return cards;
 	}
 
 	public void setTableCards(ArrayList<Card> tableCards) {
