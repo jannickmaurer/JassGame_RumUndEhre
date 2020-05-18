@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.logging.Logger;
 
 import jass.commons.ServiceLocator;
+import jass.message.Message;
 
 /* Playroom represents an abstract concept where players get together and start to play
  * Playrooms are created by a client and the client is the owner, only the owner can start the game
@@ -30,10 +31,16 @@ public abstract class Playroom implements Serializable {
 	private int MIN_MEMBER = 2;
 	private ArrayList<String> members;
 	private Chatroom chatroom;
-	private boolean gameStarted = false;
+	private boolean gameRunning = false;
 	private String playerOnTurn;
 	private String owner;
-
+	private int maxPoints;
+	
+	
+	
+	/* Constructor: Open a new playroom with playroom name and owner account as String – maxPoints set by child class
+	 * 
+	 */
 	public Playroom(String name, String owner) {
 		this.name = name;
 		this.owner = owner;
@@ -43,17 +50,62 @@ public abstract class Playroom implements Serializable {
 		addMember(owner);
 	}
 	
+	/* Constructor: Open a new playroom with playroom name, owner account as String and maxPoints set by user
+	 * 
+	 */
+	public Playroom(String name, String owner, int maxPoints) {
+		this.name = name;
+		this.owner = owner;
+		this.maxPoints = maxPoints;
+		members = new ArrayList<>();
+		this.chatroom = new Chatroom(Playroom.this);
+		Chatroom.add(this.chatroom);
+		addMember(owner);
+	}
+	
+	/*
+	 * Playing stuff:
+	 */
+	
+	public void startGame() {
+		this.gameRunning = true;
+	}
+	public void endGame() {
+		this.gameRunning = false;
+	}	
+	//Adds points to account by searching for username
+	public void addPoints(String username, int points) {
+		Account.getAccount(username).addPoints(points);
+	}
+	//Returns current points ofaccount by searching for username
+	public void getPoints(String username) {
+		Account.getAccount(username).getPoints();
+	}
+	public int getMaxPoints() {
+		return maxPoints;
+	}
+	public void setMaxPoints(int maxPoints) {
+		this.maxPoints = maxPoints;
+	}
+	
+	
+	/*Admin Stuff:
+	 * 
+	 */
+	
 	//add new member to the playroom and add the member to playroom's chatroom
 	public void addMember(String member) {
 		members.add(member);
 		this.chatroom.addMember(member);	
 	}
 	
+	//Removee member from playroom and chatroom
 	public void removeMember(String username) {
 		this.chatroom.removeMember(username);
 		members.remove(username);
 	}
 	
+	//Remove member from every playroom he's potentially logged in 
 	public static void removeMemberFromAny(String username) {
 		for(Playroom p : Playroom.getPlayrooms()) {
 			for(String s : p.getMembers()) {
@@ -70,16 +122,14 @@ public abstract class Playroom implements Serializable {
 		savePlayrooms();
 	}
 	
+	//Remove a playroom
 	public static void remove(Playroom playroom) {
 		synchronized (playrooms) {
 			playrooms.remove(playroom);
 		}
 	}
 	
-	public static void endGame() {
-		
-	}
-	
+	//Returns the playroom object when searching with playroom name
 	public static Playroom getPlayroom(String name) {
 		synchronized (playrooms) {
 			for (Playroom playroom : playrooms) {
@@ -89,9 +139,7 @@ public abstract class Playroom implements Serializable {
 		return null;
 	}
 	
-	
-	
-	
+	//Save playrooms to disk – is called everytime a new playroom gets created
 	public static void savePlayrooms() {
 		File playroomFile = new File(Server.getDirectory() + "playrooms.sav");
 		try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(playroomFile))) {
@@ -108,6 +156,7 @@ public abstract class Playroom implements Serializable {
 		}
 	}
 	
+	//Read playrooms from disk – called whenever the sever starts
 	public static void readPlayrooms() {
 		File playroomFile = new File(Server.getDirectory() + "playrooms.sav");
 		try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(playroomFile))) {
@@ -122,8 +171,28 @@ public abstract class Playroom implements Serializable {
 		}
 	}
 	
-	// Getters and Setters:
 	
+	public void send(Message msg) {
+		Iterator<String> i = members.iterator();
+		for(String s : members) {
+			System.out.println(s);
+		}
+		
+		while (i.hasNext()) {
+			String username = i.next();
+			Client user = Client.getClient(username);
+			if (user == null) i.remove();
+			else // User exists
+				user.send(msg);
+		}
+	}
+	
+	
+	
+	
+	/* Getters and Setters:
+	 * 
+	 */
 	public ArrayList<String> getMembers(){
 		return members;
 	}
@@ -161,11 +230,11 @@ public abstract class Playroom implements Serializable {
 	}
 
 	public boolean isGameStarted() {
-		return gameStarted;
+		return gameRunning;
 	}
 
 	public void setGameStarted(boolean gameStarted) {
-		this.gameStarted = gameStarted;
+		this.gameRunning = gameStarted;
 	}
 
 	public String getPlayerOnTurn() {
@@ -188,6 +257,7 @@ public abstract class Playroom implements Serializable {
 		return playrooms;
 	}
 	
+	//Returns a list of all existing playroom names as Strings
 	public static ArrayList<String> getPlayroomNames(){
 		ArrayList<String> names = new ArrayList<>();
 		for(Playroom p : playrooms) {
@@ -196,9 +266,26 @@ public abstract class Playroom implements Serializable {
 		return names;
 	}
 	
+	
+	
+	public boolean isGameRunning() {
+		return gameRunning;
+	}
+
+	public void setGameRunning(boolean gameRunning) {
+		this.gameRunning = gameRunning;
+	}
+
+	public void setMembers(ArrayList<String> members) {
+		this.members = members;
+	}
+	
+
 	public String toString() {
 		return this.name;
 	}
+
+	
 	
 	
 }

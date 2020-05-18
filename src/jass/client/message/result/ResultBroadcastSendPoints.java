@@ -7,25 +7,29 @@ import jass.client.model.JassClientModel;
 import jass.commons.ServiceLocator;
 import jass.message.Message;
 
-public class ResultText extends Message {
+/* Message to be sent to all playroom members individually 
+ * Conatins current points of each player and currentLeader
+ */
+public class ResultBroadcastSendPoints extends Message {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
-	private String name;
-	private String message;
+	private int points;
+	private String currentLeader;
 
-	public ResultText(String[] content) {
+	public ResultBroadcastSendPoints(String[] content) {
 		super(content);
-		this.name = content[1];
-		this.message = content[2];
+		if(content.length > 2) {
+			this.points = Integer.parseInt(content[1]);
+			this.currentLeader = content[2];
+		}
 	}
 	
 	@Override
 	public void process(JassClientController controller) {
-		controller.updateChatText(this.name + ": " + this.message);
+		
 	}
 
 	public void processIfFalse(JassClientController jassClientController) {
-		// TODO Auto-generated method stub
 		
 	}
 }

@@ -16,12 +16,15 @@ public class CreatePlayroom extends Message {
 	private String token;
 	private String name;
 	private String playmode;
+	private String maxPoints;
 	
 	public CreatePlayroom(String[] content) {
 		super(content);
 		this.token = content[1];
 		this.name = content[2];
 		this.playmode = content[3];
+		if(content.length > 4) this.maxPoints = content[4];
+		
 	}
 
 	@Override

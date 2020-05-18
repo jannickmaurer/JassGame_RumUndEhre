@@ -20,7 +20,7 @@ import jass.client.message.result.ResultListPlayrooms;
 import jass.client.message.result.ResultLogin;
 import jass.client.message.result.ResultLogout;
 import jass.client.message.result.ResultSendMessage;
-import jass.client.message.result.ResultText;
+import jass.client.message.result.ResultBroadcastSendMessage;
 import jass.client.model.JassClientModel;
 import jass.commons.ServiceLocator;
 import jass.server.Client;
@@ -70,19 +70,22 @@ public abstract class Message {
 			if (content[0].equals("SendMessage")) msg = new SendMessage(content);
 			if (content[0].equals("Text")) msg = new Text(content);
 			if (content[0].equals("LeavePlayroom")) msg = new LeavePlayroom(content);
+			if (content[0].equals("StartGame")) msg = new StartGame(content);
+			if (content[0].equals("EndGame")) msg = new EndGame(content);
 
-			if (content[0].equals("Result")) msg = new Result(content); 
-			if (content[0].equals("ResultLogin")) msg = new ResultLogin(content);
-			if (content[0].equals("ResultListPlayrooms")) msg = new ResultListPlayrooms(content);
-			if (content[0].equals("ResultCreateAccount")) msg = new ResultCreateAccount(content);
-			if (content[0].equals("ResultCreatePlayroom")) msg = new ResultCreatePlayroom(content);
-			if (content[0].equals("ResultJoinPlayroom")) msg = new ResultJoinPlayroom(content);
-			if (content[0].equals("ResultDeleteAccount")) msg = new ResultDeleteAccount(content);
-			if (content[0].equals("ResultDeletePlayroom")) msg = new ResultDeletePlayroom(content);
-			if (content[0].equals("ResultLogout")) msg = new ResultLogout(content);
-			if (content[0].equals("ResultSendMessage")) msg = new ResultSendMessage(content);
-			if (content[0].equals("ResultText")) msg = new ResultText(content);
-			if (content[0].equals("ResultLeavePlayroom")) msg = new ResultLeavePlayroom(content);
+
+//			if (content[0].equals("Result")) msg = new Result(content); 
+//			if (content[0].equals("ResultLogin")) msg = new ResultLogin(content);
+//			if (content[0].equals("ResultListPlayrooms")) msg = new ResultListPlayrooms(content);
+//			if (content[0].equals("ResultCreateAccount")) msg = new ResultCreateAccount(content);
+//			if (content[0].equals("ResultCreatePlayroom")) msg = new ResultCreatePlayroom(content);
+//			if (content[0].equals("ResultJoinPlayroom")) msg = new ResultJoinPlayroom(content);
+//			if (content[0].equals("ResultDeleteAccount")) msg = new ResultDeleteAccount(content);
+//			if (content[0].equals("ResultDeletePlayroom")) msg = new ResultDeletePlayroom(content);
+//			if (content[0].equals("ResultLogout")) msg = new ResultLogout(content);
+//			if (content[0].equals("ResultSendMessage")) msg = new ResultSendMessage(content);
+//			if (content[0].equals("ResultBroadcastSendMessage")) msg = new ResultBroadcastSendMessage(content);
+//			if (content[0].equals("ResultLeavePlayroom")) msg = new ResultLeavePlayroom(content);
 
 
 			

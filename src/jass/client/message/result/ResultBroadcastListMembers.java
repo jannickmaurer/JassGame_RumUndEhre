@@ -1,5 +1,6 @@
 package jass.client.message.result;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import jass.client.controller.JassClientController;
@@ -7,21 +8,19 @@ import jass.client.model.JassClientModel;
 import jass.commons.ServiceLocator;
 import jass.message.Message;
 
-public class ResultJoinPlayroom extends Message {
+public class ResultBroadcastListMembers extends Message {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
-	private String owner;
-	private String maxPoints;
+
+	private ArrayList<String> members;
 	
-	public ResultJoinPlayroom(boolean result) {
-		super(new String[] {"ResultJoinPlayroom", Boolean.toString(result)});
-	}
-	
-	public ResultJoinPlayroom(String[] content) {
+	public ResultBroadcastListMembers(String[] content) {
 		super(content);
-		if(content.length > 2) {
-			this.owner = content[2];
-			this.maxPoints = content[3];
+		if(content.length > 1) {
+			members = new ArrayList<>();
+			for(int i = 1; i < content.length; i++) {
+				this.members.add(content[i]);
+			}
 		}
 	}
 	
@@ -29,10 +28,8 @@ public class ResultJoinPlayroom extends Message {
 	public void process(JassClientController controller) {
 		
 	}
-	
+
 	public void processIfFalse(JassClientController jassClientController) {
-		// TODO Auto-generated method stub
 		
 	}
-
 }
