@@ -1,5 +1,7 @@
 package jass.client.controller;
 
+import java.io.IOException;
+
 import jass.client.message.result.Result;
 import jass.client.message.result.ResultBroadcastEndGame;
 import jass.client.message.result.ResultBroadcastSendPoints;
@@ -40,13 +42,10 @@ public class JassClientController {
 		view.getBtnPing().setOnAction(event -> model.ping());
 		view.getBtnNewRegistration().setOnAction(event ->{
 			createAccount();
-			view.getRoot().setCenter(view.v1);
-			view.getStage().setTitle("Lobby");
+			autologin();
 		});
 		view.getBtnLogin().setOnAction(event ->{
 			login();
-			view.getRoot().setCenter(view.v1);
-			view.getStage().setTitle("Lobby");
 		});
 		view.getBtnStart().setOnAction(e ->{
 			view.getRoot().setCenter(view.loginLayout);
@@ -273,6 +272,10 @@ public class JassClientController {
 		model.login(view.getTfUsername().getText(), view.getTfPassword().getText());
 	}
 	
+	public void autologin() {
+		model.login(view.getTfNewUsername().getText(), view.getTfNewPassword().getText());
+	}
+	
 	public void connect() {
 		model.connect(view.getTfIP().getText(), Integer.parseInt(view.getTfPort().getText()));
 	}
@@ -299,6 +302,24 @@ public class JassClientController {
 
 	public String getAccount() {
 		return this.account;
+	}
+	
+	public void LoginSuccess() {
+		Platform.runLater(new Runnable() {
+			public void run() {
+				view.getRoot().setCenter(view.v1);
+				view.getStage().setTitle("Lobby");
+			}
+		});
+	}
+	
+	public void SomethingFailed() {
+		System.out.println("Terrible Error!");
+		Platform.runLater(new Runnable() {
+			public void run() {
+				view.errorPopUp.show(view.getStage());
+			}
+		});
 	}
 	
 }

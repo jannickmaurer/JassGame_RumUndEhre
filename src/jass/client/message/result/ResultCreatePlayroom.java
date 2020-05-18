@@ -23,9 +23,8 @@ public class ResultCreatePlayroom  extends Message {
 		controller.listPlayrooms();
 	}
 	
-	public void processIfFalse(JassClientController jassClientController) {
-		// TODO Auto-generated method stub
-		
+	public void processIfFalse(JassClientController controller) {
+		controller.SomethingFailed();
 	}
 
 

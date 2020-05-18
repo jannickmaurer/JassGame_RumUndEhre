@@ -22,8 +22,8 @@ public class ResultLogout  extends Message {
 	public void process(JassClientModel model) {
 	}
 
-	public void processIfFalse(JassClientController jassClientController) {
+	public void processIfFalse(JassClientController controller) {
 		// TODO Auto-generated method stub
-		
+		controller.SomethingFailed();
 	}
 }
