@@ -36,7 +36,8 @@ public enum Trumpf { Trumpf, Stich, None;
 		String rank = "0";
 		int place = -1;
 		for (int i = 0; i < cards.size(); i++) {
-			if(cards.get(i).getSuit().toString() == Board.trumpf && rank != "J") {
+			//wenn von Server zugriff erfolgt geht evaluation Board.trumpf ?? besser mit Variablen??
+			if(cards.get(i).getSuit().toString() == Board.trumpf && rank != "J") { 
 				String value = cards.get(i).getRank().toString();
 				switch(value) {
 				case("6"): if(isHigher(rank, value)) rank = value; place = i; break;
