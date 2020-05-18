@@ -8,6 +8,8 @@ import jass.commons.Card.Suit;
 public class Cards {
 
 	ArrayList<Card> cards = new ArrayList<>();
+	ArrayList<Wiis> wiis = new ArrayList<>();
+
 	private Trumpf trumpf;
 	private Card highestTrumpfCard;
 
@@ -36,6 +38,14 @@ public class Cards {
 	public ArrayList<Card> getCards() {
 		return cards;
 	}
+	
+	public void setWiis(ArrayList<Wiis> wiis) {
+		this.wiis = wiis;
+	}
+	
+	public ArrayList<Wiis> getWiis() {
+		return wiis;
+	}
 
 	public void add(Card card) {
 		cards.add(card);
@@ -43,6 +53,10 @@ public class Cards {
 
 	public boolean hasCards() {
 		return cards.size() != 0; // boolean evaluation ohne if
+	}
+	
+	public boolean hasWiis () {
+		return wiis.size() != 0;
 	}
 	
 	public int hasLength() {

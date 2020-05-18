@@ -6,12 +6,15 @@ import jass.commons.Card;
 import jass.commons.Card.Suit;
 import jass.commons.Cards;
 import jass.commons.Trumpf;
+import jass.commons.Wiis;
 
 public class HandCards extends Cards{
 	ArrayList<Card> handCards = new ArrayList<Card>();
 	ArrayList<Card> remainingHandCards = new ArrayList<Card>();
 	ArrayList<Card> playableHandCards = new ArrayList<Card>();
 //	private Trumpf trumpf;
+//	ArrayList<Wiis> wiis = new ArrayList<>();
+
 
 	public HandCards(ArrayList<Card> handCards) {
 		super();
@@ -46,6 +49,7 @@ public class HandCards extends Cards{
 		returnCards = Trumpf.getCardsHigherThanStich(stichCard, handCards);
 		return returnCards;
 	}
+	
 	
 	
 }

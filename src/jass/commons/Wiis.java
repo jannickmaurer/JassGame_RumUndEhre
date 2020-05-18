@@ -7,22 +7,22 @@ import java.util.Iterator;
 import jass.commons.Card.Suit;
 
 public enum Wiis { 
-	Stöck, Dreiblatt, Vierblatt, Fünfblatt, Sechsblatt, Siebenblatt, Achtblatt, Neunblatt,
-	Viergliichi, Vierneun, Vierbuebe, NoWiis;
+	Stoeck, Dreiblatt, Vierblatt, Fuenfblatt, Sechsblatt, Siebenblatt, Achtblatt, Neunblatt,
+	Viergliichi, Vierneun, Vierbuebe, NoWiis; //evtl NoWiis entfernen
 	
 	//Trumpf importieren
 	//Wie kann ich mehrere Blätter evaluieren und prüfen das sie nicht doppelt sind und hinzufügen zum
 	//zurück geben
-	public static int evaluateWiis(ArrayList<Card> cards){
-		Wiis currentEval = NoWiis;
+	public static ArrayList<Wiis> evaluateWiis(ArrayList<Card> cards){
+		Wiis currentEval; // = NoWiis;
 		ArrayList<Wiis> wiis = new ArrayList<>();
 		int points = 0;
-		if (hasStöck(cards)) points += 20; currentEval = Stöck; wiis.add(currentEval); 
+		if (hasStoeck(cards)) points += 20; currentEval = Stoeck; wiis.add(currentEval); 
 		if (hasDreiblatt(cards)) currentEval = Dreiblatt; wiis.add(currentEval); 
 		
 		
 		if (hasVierblatt(cards)) currentEval = Vierblatt; wiis.add(currentEval);
-		if (hasFünfblatt(cards)) points += 100; currentEval = Fünfblatt; wiis.add(currentEval);
+		if (hasFünfblatt(cards)) points += 100; currentEval = Fuenfblatt; wiis.add(currentEval);
 		if (hasSechsblatt(cards)) points += 150; currentEval = Sechsblatt; wiis.add(currentEval);
 		if (hasSiebenblatt(cards)) points += 200; currentEval = Siebenblatt; wiis.add(currentEval);//Nur ein Weiss Plus Stöcke
 		if (hasAchtblatt(cards)) points += 250; currentEval = Achtblatt; wiis.add(currentEval);//Nur ein Weiss Plus Stöcke evtl.
@@ -31,7 +31,8 @@ public enum Wiis {
 		if (hasViergliichi(cards)) points += countViergliichi; currentEval = Viergliichi; wiis.add(currentEval);
 		if (hasVierneun(cards)) points += 150; currentEval = Vierneun; wiis.add(currentEval);//150
 		if (hasVierbuebe(cards)) points += 200; currentEval = Vierbuebe; wiis.add(currentEval);//200
-	return points;
+//	return points;
+	return wiis;
 	}
 
 
@@ -56,7 +57,7 @@ public enum Wiis {
 
 	
 	
-	private static boolean hasStöck(ArrayList<Card> cards) { //ös und us entfernen
+	private static boolean hasStoeck(ArrayList<Card> cards) { //ös und us entfernen
 		boolean found = false;
 	    boolean queen = false;
 	    boolean king = false;
@@ -93,14 +94,14 @@ public enum Wiis {
 		}
 	}
 	
-	private static boolean sortedCardsOnSuitQuantity(int quantity) {
-		boolean found = false;
-		if (clubCards.size() == quantity) found = true;
-		if (diamondCards.size() == quantity) found = true;
-		if (heartCards.size() == quantity) found = true;
-		if (spadeCards.size() == quantity) found = true;
-		return found;
-	}
+//	private static boolean sortedCardsOnSuitQuantity(int quantity) {
+//		boolean found = false;
+//		if (clubCards.size() == quantity) found = true;
+//		if (diamondCards.size() == quantity) found = true;
+//		if (heartCards.size() == quantity) found = true;
+//		if (spadeCards.size() == quantity) found = true;
+//		return found;
+//	}
 	
 	private static void sortCardsOnRank(ArrayList<Card> cards) {
 		Iterator<Card> c = cards.iterator();
@@ -120,15 +121,62 @@ public enum Wiis {
 		}
 	}
 	
+	
+
+	
+	private static boolean hasDreiblatt(ArrayList<Card> cards) {
+//		sortCardsOnSuit(cards);
+		return isCardSuitArrayListLongerThan(cards, 3);
+	}
+	
+	private static boolean hasVierblatt(ArrayList<Card> cards) {
+		return isCardSuitArrayListLongerThan(cards, 4);
+	}
+
+	private static boolean hasFünfblatt(ArrayList<Card> cards) {
+		return isCardSuitArrayListLongerThan(cards, 5);
+	}
+
+	private static boolean hasSechsblatt(ArrayList<Card> cards) { 
+		return isCardSuitArrayListLongerThan(cards, 6);
+	}
+
+	private static boolean hasSiebenblatt(ArrayList<Card> cards) {
+		return isCardSuitArrayListLongerThan(cards, 7);
+	}
+
+	private static boolean hasAchtblatt(ArrayList<Card> cards) {
+		return isCardSuitArrayListLongerThan(cards, 8);
+	}
+	
+	private static boolean hasNeunblatt(ArrayList<Card> cards) {
+		return isCardSuitArrayListLongerThan(cards, 9);
+	}
+	
+	private static boolean isCardSuitArrayListLongerThan (ArrayList<Card> cards, int minLength) {
+		boolean found = false;
+		sortCardsOnSuit(cards);
+		if(clubCards.size() >= minLength && !found) { 
+			found = isBlattNum(clubCards, minLength-1);
+		}
+		if(diamondCards.size() >= minLength && !found) {
+			found = isBlattNum(diamondCards, minLength-1);	
+		}
+		if(heartCards.size() >= minLength && !found) {
+			found = isBlattNum(heartCards, minLength-1);	
+		}
+		if(spadeCards.size() >= minLength && !found) {
+			found = isBlattNum(spadeCards, minLength-1);	
+		}
+		return found;
+	}
+	
     public static boolean isBlattNum(ArrayList<Card> cards, int blattlength) {   	
-    	
     	ArrayList<Card> clonedCards = (ArrayList<Card>) cards.clone();
     	boolean blattFound = false;
     	int successfulTries = 0;
     	boolean next = true;
-    	
-    	Collections.sort(clonedCards);
-
+    	Collections.sort(clonedCards); //eigentlich überflüssig da die Karten bereits sortiert sind
     		for(int i = 0; i < clonedCards.size() && next; i++) {
     			if(clonedCards.get(i).getRank().compareTo(clonedCards.get(i+1).getRank()) == -1) {
     				successfulTries++;
@@ -143,59 +191,9 @@ public enum Wiis {
     	return blattFound;
     }
 	
-	private static boolean hasDreiblatt(ArrayList<Card> cards) {
-		boolean found = false;
-		sortCardsOnSuit(cards);
-		if(clubCards.size() >= 3 && !found) {
-			found = isBlattNum(clubCards, 2);
-		}
-		if(diamondCards.size() >= 3 && !found) {
-			found = isBlattNum(diamondCards, 2);	
-		}
-		if(heartCards.size() >= 3 && !found) {
-			found = isBlattNum(heartCards, 2);	
-		}
-		if(spadeCards.size() >= 3 && !found) {
-			found = isBlattNum(spadeCards, 2);	
-		}
-		return found;
-	}
 
-	private static boolean hasVierblatt(ArrayList<Card> cards) {
-		sortCardsOnSuit(cards);
-		//TODO Evaluation 
-		return sortedCardsOnSuitQuantity(4);
-	}
-
-	private static boolean hasFünfblatt(ArrayList<Card> cards) {
-		sortCardsOnSuit(cards);
-		//TODO Evaluation 
-		return sortedCardsOnSuitQuantity(5);
-	}
-
-	private static boolean hasSechsblatt(ArrayList<Card> cards) {
-		sortCardsOnSuit(cards);
-		//TODO Evaluation 
-		return sortedCardsOnSuitQuantity(6);
-	}
-
-	private static boolean hasSiebenblatt(ArrayList<Card> cards) {
-		sortCardsOnSuit(cards);
-		//TODO Evaluation 
-		return sortedCardsOnSuitQuantity(7);
-	}
-
-	private static boolean hasAchtblatt(ArrayList<Card> cards) {
-		sortCardsOnSuit(cards);
-		//TODO Evaluation 
-		return sortedCardsOnSuitQuantity(8);
-	}
-
-	private static boolean hasNeunblatt(ArrayList<Card> cards) {
-		sortCardsOnSuit(cards);
-		return sortedCardsOnSuitQuantity(9);
-	}
-
+    
+    
 	private static boolean hasViergliichi(ArrayList<Card> cards) {
     	ArrayList<Card> clonedCards = (ArrayList<Card>) cards.clone();
 		sortCardsOnRank(clonedCards);

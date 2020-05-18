@@ -18,7 +18,7 @@ public class Board {
 	public static String trumpf;
 	public boolean wiisDone = false;
 	public Card myLastPlayedCard;
-	public static String gameVariety = "Trumpf";
+	public static String gameTyp = "Trumpf";
 	public String playableCards;
 	public HandCards playableHandCards;
 
@@ -26,13 +26,13 @@ public class Board {
 	HandCards handCards;
 	TableCards tableCards;
 
-	public Board(String roomName, String gameVariety) {
+	public Board(String roomName, String gameTyp) {
 		// Kommt von Sämi wenn spielraum einsteigt macht er ein New Board
 		this.handCards = new HandCards();
 		this.tableCards = new TableCards();
-		Board.gameVariety = gameVariety;
+		Board.gameTyp = gameTyp;
 		this.enterPlayRoom(roomName);
-		this.poll();
+//		this.poll();
 
 	}
 
@@ -55,17 +55,17 @@ public class Board {
 
 	}
 
-	void poll() {
-		Timer timer = new Timer();
-
-		timer.scheduleAtFixedRate(new TimerTask() {
-			@Override
-			public void run() {
-				// this.callServer(); entweder so callen oder als listerner
-			}
-
-		}, 100, 500); // Zeit für Anfrage aller erste Anfrageverzögerung, zweite wiederholzeitraum
-	}
+//	void poll() {
+//		Timer timer = new Timer();
+//
+//		timer.scheduleAtFixedRate(new TimerTask() {
+//			@Override
+//			public void run() {
+//				// this.callServer(); entweder so callen oder als listerner
+//			}
+//
+//		}, 100, 500); // Zeit für Anfrage aller erste Anfrageverzögerung, zweite wiederholzeitraum
+//	}
 	
 	public void callServer() { //statt call server als Listerner registrieeren
 		this.cardListener(getTableCards());
@@ -95,7 +95,7 @@ public class Board {
 		}
 	}
 
-	
+	//handCArds gegen remaining HandCards ersetzen
 	private void play() {
 		playableHandCards.clearPlayableHandCards();
 		//setGameVariety muss zuvor passieren und ist für alle Playspiele dieselbe (9 Runden)
@@ -111,7 +111,7 @@ public class Board {
 
 		if (tableCards.hasCards() == true) {
 			// TODO evaluieren welche Karte gespielt werden darf anhand TableCards und
-			if (gameVariety == "Trumpf") {
+			if (gameTyp == "Trumpf") {
 				if (tableCards.evaluateTrumpf().toString() == "Trumpf") {
 					// evaluieren ob ich Trumpf habe, sonst kann ich alles spielen
 					if (handCards.evaluateTrumpf().toString() == "Trumpf") {
@@ -153,7 +153,7 @@ public class Board {
 				if (playableHandCards.hasCards() == false) playableHandCards = handCards;			
 			}
 
-			if (gameVariety == "ObeAbe" || gameVariety == "UndeUfe" || gameVariety == "Slalom") {
+			if (gameTyp == "ObeAbe" || gameTyp == "UndeUfe" || gameTyp == "Slalom") {
 				for (int i = 0; i < handCards.hasLength(); i++) {
 					if(handCards.getCardSuit(i).toString() == tableCards.getFirstSuit().toString()) {
 						playableHandCards.add(handCards.getCardOnPlace(i));
@@ -162,26 +162,27 @@ public class Board {
 				if (playableHandCards.hasCards() == false) playableHandCards = handCards;
 			}
 		} 
+		} //remainingCards Karte entfernen welche gespielt wurde 
+		//
 	}
-}
 
 	private void selectGameVariety() {
 		// Methode evaluieren was der Spieler als GAmeVariante gewählt hat
 		// zB Trumpf, ObeAbe, UndeUfe, Slalom
 		// TODO Auto-generated method stub
-
+	//	this.gameVariety = gameVariety;
 	}
 
-	public Trumpf evaluateTrumpf() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	public Trumpf evaluateTrumpf() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 	public int winnerEval() {
 		if (!wiisDone)
 			wiisEval();
 
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method sub
 		// Jeder Client prüft selbst ob er gewonnen hat
 		// Danach gibt jeder Client den Punktestand zurück und SErver evaluiert welche
 		// Spieler zusammen
@@ -199,8 +200,11 @@ public class Board {
 
 	private void wiisEval() {
 		// TODO Auto-generated method stub
-
-		wiisDone = true;
+		if (!handCards.hasWiis()) wiisDone = true;
+		else {
+			//Server die Weisenums übergeben und den Weis an Sämi übergeben,
+			//falls die Person weisen kann
+		} wiisDone = true;
 	}
 
 	// Methode getTAbleCards und getPlayersTrun in Message auslagern
