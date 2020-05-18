@@ -32,7 +32,7 @@ public class Login extends Message {
 			token = account.getToken();
 			client.setToken(token);
 			result = true;
-			String[] content = new String[] {"ResultLogin", Boolean.toString(result), token};
+			String[] content = new String[] {"ResultLogin", Boolean.toString(result), token, this.username};
 			client.send(new ResultLogin(content));
 		} else {
 			client.send(new ResultLogin(result));

@@ -16,11 +16,14 @@ public class ResultListPlayrooms extends Message {
 	
 	public ResultListPlayrooms(String[] content) {
 		super(content);
-		playrooms = new ArrayList<>();
-		for(int i = 2; i < content.length; i++) {
-			this.playrooms.add(content[i]);
+		if(content.length > 2) {
+			playrooms = new ArrayList<>();
+			for(int i = 2; i < content.length; i++) {
+				this.playrooms.add(content[i]);
+			}
 		}
 	}
+	
 	@Override
 	public void process(JassClientController controller) {
 		for(String s : playrooms) {

@@ -1,39 +1,47 @@
 Description Message Classes 
 
-How the messages' String must look like: 
+How the messages' String must look like to create a new Object: 
 
-How to read:	"Name of Message"|variable[data type] ...				
+Result: 					Result|result
+ResultListMembers			ResultListMembers|member1|member2....
+ResultSendTableCard			ResultSendTableCard|Card
+ResultCreateAccount
+ResultCreatePlayroom
+ResultDeleteAccount
+ResultDeletePlayroom
+ResultEndGame
+ResultJoinPlayrom			ResultJoinPlayroom|result|owner|points
+ResultLeavePlayroom
+ResultListMembers
+ResultListPlayrooms			ResultListPlayrooms|result|playroom1|playroom2...
+ResultLogin
+ResultLogout
+ResultSendMessage
+ResultSendTableCard
+ResultStartGame
+ResultText
 
-CreateAccount: 	"CreateAccount|username[String]|password[String]"
+ResultBroadcastEndGame
+ResultBroadcastListMembers	ResultBroadcastListMembers|member1|member2....
+ResultBroadcastSendMessage	
+ResultBroadcastSendPoint	ResultBradcastSendPoints|Points|currentLeader
+ResultBroadcastStartGame
 
-Ping: 			"Ping"
-
-Result: 				"Result"|result[String]	
-ResultToken:			"Result"|result[String]|token[String]
-ResultListPlayrooms:	"ResultListPlayrooms"|result[String]|playroom1[String]|playroom2...
-ResultText:				ResultText|Username|Message
-
-ResultSendTableCard:	ResultSendTableCard|Card
 				
-								
-Login: 					"Login"|username[String]|password[String]
+CreateAccount		
+CreatePlayroom				CreatePlayroom|TOKEN|Name|Playmode
+DeleteAccount				DeleteAccount|TOKEN
+DeletePlayroom				DeletePlayroom|TOKEN|PlayroomName
+EnGame
+JoinPlayroom				JoinPlayroom|TOKEN|PlayroomName
+LeavePlayroom	
+ListPlayrooms				ListPlayrooms|TOKEN
+Login						Login|username|password
+Logout
+MakeTrumpf
+Ping
+SendMessage					SendMessage|TOKEN|Message
+StartGame					StartGame|TOKEN			
+Text						Text|Name|Message
 
-CreatePlayroom:			CreatePlayroom|TOKEN|Name|Playmode
-
-Text:					Text|Name|Message
-
-ListPlayrooms:			ListPlayrooms|TOKEN
-JoinPlayroom:			JoinPlayroom|TOKEN|PlayroomName
-DeleteAccount:			DeleteAccount|TOKEN
-DeletePlayroom:			DeletePlayroom|TOKEN|PlayroomName
-SendMessage: 			SendMessage|TOKEN|Message
-
-
-
-Create a new Message: 
-
-- Create Message Class
-- Connection to Button in Client Controller if needed (with new method in controller)
-- New Method named the same as the message class in client model
-- New if-statement in Message Class receive method!
 

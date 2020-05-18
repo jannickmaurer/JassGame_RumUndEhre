@@ -7,32 +7,27 @@ import jass.client.model.JassClientModel;
 import jass.commons.ServiceLocator;
 import jass.message.Message;
 
-public class ResultJoinPlayroom extends Message {
+public class ResultBroadcastSendMessage extends Message {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
-	private String owner;
-	private String maxPoints;
-	
-	public ResultJoinPlayroom(boolean result) {
-		super(new String[] {"ResultJoinPlayroom", Boolean.toString(result)});
-	}
-	
-	public ResultJoinPlayroom(String[] content) {
+	private String name;
+	private String message;
+
+	public ResultBroadcastSendMessage(String[] content) {
 		super(content);
 		if(content.length > 2) {
-			this.owner = content[2];
-			this.maxPoints = content[3];
+			this.name = content[1];
+			this.message = content[2];
 		}
 	}
 	
 	@Override
 	public void process(JassClientController controller) {
-		
+		controller.updateChatText(this.name + ": " + this.message);
 	}
-	
+
 	public void processIfFalse(JassClientController jassClientController) {
 		// TODO Auto-generated method stub
 		
 	}
-
 }

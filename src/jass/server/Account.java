@@ -97,6 +97,10 @@ public class Account implements Serializable {
 		this.points += points;
 	}
 	
+	public int getPoints() {
+		return this.points;
+	}
+	
 	//Add overall wins to account
 	public void addWin(int wins) {
 		this.wins += wins;

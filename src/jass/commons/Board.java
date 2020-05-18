@@ -45,16 +45,12 @@ public class Board {
 		handCards.add(new Card("HJ"));
 		handCards.add(new Card("HK"));
 		handCards.add(new Card("S7"));
-
-<<<<<<< HEAD
 		// ask Server witch player iam mit dem roomName
 		imPlayer = 1;
 		
-=======
 		// ask Server witch player i am
 		imPlayer = 2;
 
->>>>>>> branch 'master' of https://github.com/jannickmaurer/JassGame_RumUndEhre.git
 	}
 
 	void poll() {

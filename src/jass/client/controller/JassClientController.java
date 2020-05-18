@@ -1,17 +1,23 @@
 package jass.client.controller;
 
 import jass.client.message.result.Result;
+import jass.client.message.result.ResultBroadcastEndGame;
+import jass.client.message.result.ResultBroadcastSendPoints;
+import jass.client.message.result.ResultBroadcastStartGame;
 import jass.client.message.result.ResultCreateAccount;
 import jass.client.message.result.ResultCreatePlayroom;
 import jass.client.message.result.ResultDeleteAccount;
 import jass.client.message.result.ResultDeletePlayroom;
+import jass.client.message.result.ResultEndGame;
 import jass.client.message.result.ResultJoinPlayroom;
 import jass.client.message.result.ResultLeavePlayroom;
+import jass.client.message.result.ResultListMembers;
 import jass.client.message.result.ResultListPlayrooms;
 import jass.client.message.result.ResultLogin;
 import jass.client.message.result.ResultLogout;
 import jass.client.message.result.ResultSendMessage;
-import jass.client.message.result.ResultText;
+import jass.client.message.result.ResultStartGame;
+import jass.client.message.result.ResultBroadcastSendMessage;
 import jass.client.model.JassClientModel;
 import jass.client.view.JassClientView;
 import jass.commons.Board;
@@ -24,6 +30,7 @@ public class JassClientController {
 	private String token;
 	private String currentPlayroom;
 	private Board board;
+	private String account;
 	
 	public JassClientController(JassClientModel model, JassClientView view) {
 		this.model = model;
@@ -111,6 +118,7 @@ public class JassClientController {
 		});	
 	}
 
+	// Create Message object, called by listener on SimpleStringProperty "lastReceivedMessage"
 	private void createMessage(String[] content) {
 		Message msg;
 		if (content[0].equals("Result")) {
@@ -164,8 +172,8 @@ public class JassClientController {
 			if (!msg.isFalse()) msg.process(JassClientController.this);
 			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
 		}
-		if (content[0].equals("ResultText")) {
-			msg = new ResultText(content);
+		if (content[0].equals("ResultBroadcastSendMessage")) {
+			msg = new ResultBroadcastSendMessage(content);
 			if (!msg.isFalse()) msg.process(JassClientController.this);
 			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
 		}
@@ -174,9 +182,49 @@ public class JassClientController {
 			if (!msg.isFalse()) msg.process(JassClientController.this);
 			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
 		}
+		if (content[0].equals("ResultStartGame")) {
+			msg = new ResultStartGame(content);
+			if (!msg.isFalse()) msg.process(JassClientController.this);
+			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+		}
+		if (content[0].equals("ResultBroadcastStartGame")) {
+			msg = new ResultBroadcastStartGame(content);
+			if (!msg.isFalse()) msg.process(JassClientController.this);
+			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+		}
+		if (content[0].equals("ResultBroadcastEndGame")) {
+			msg = new ResultBroadcastEndGame(content);
+			if (!msg.isFalse()) msg.process(JassClientController.this);
+			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+		}
+		if (content[0].equals("ResultEndGame")) {
+			msg = new ResultEndGame(content);
+			if (!msg.isFalse()) msg.process(JassClientController.this);
+			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+		}
+		if (content[0].equals("ResultBroadcastSendPoints")) {
+			msg = new ResultBroadcastSendPoints(content);
+			if (!msg.isFalse()) msg.process(JassClientController.this);
+			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+		}
+		if (content[0].equals("ResultListMembers")) {
+			msg = new ResultListMembers(content);
+			if (!msg.isFalse()) msg.process(JassClientController.this);
+			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+		}
+		
+		
 		
 	}
 
+	private void endGame() {
+		model.endGame();
+	}
+	
+	private void startGame() {
+		model.startGame();
+	}
+	
 	protected void leavePlayroonm() {
 		model.leavePlayroom();
 	}
@@ -189,7 +237,6 @@ public class JassClientController {
 	private void joinPlayroom() {
 		model.joinPlayroom("Testraum");
 		currentPlayroom = "Testraum";
-		board = new Board();
 	}
 	
 	public void listPlayrooms() {
@@ -242,7 +289,12 @@ public class JassClientController {
 			});
 	}
 
-	public Board getBoard() {
-		return board;
+	public void setAccount(String account) {
+		this.account = account;
 	}
+
+	public String getAccount() {
+		return this.account;
+	}
+	
 }
