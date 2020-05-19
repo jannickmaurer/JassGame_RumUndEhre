@@ -34,12 +34,15 @@ public class WinnerEvaluation {
 				}
 			}
 		}
-		if (gameTyp == "ObeAbe") {}
+		if (gameTyp == "ObeAbe") {
+			Card tempWinnerCard;
+			
+		}
 		if (gameTyp == "UndeUfe") {}
 		if (gameTyp == "Slalom") {}
-		//plus 5 punkte, wenn alle 36 Karten gespielt wurden
 	}
 	
+	//plus 5 punkte, wenn alle 36 Karten gespielt wurden
 	public int pointsForWinner() {
 		return serverTableCards.getPoints();//alle vier Karten mit Punkte zusammenzählen
 	}
