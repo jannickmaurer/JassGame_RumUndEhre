@@ -252,10 +252,10 @@ public class JassClientView {
 		
 		v1.setVgrow(listView, Priority.ALWAYS);
 		
-		txtMessages.setDisable(true);
-		scrollPane.setDisable(true);
-		tfMessage.setDisable(true);
-		btnSend.setDisable(true);
+		txtMessages.setDisable(false);
+		scrollPane.setDisable(false);
+		tfMessage.setDisable(false);
+		btnSend.setDisable(false);
 		
 		scene = new Scene(root, 950, 600);
 		scene.getStylesheets().add(
