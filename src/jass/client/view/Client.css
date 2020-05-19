@@ -3,6 +3,11 @@
 	-fx-spacing: 10;
 }
 
+#HBoxPoints {
+	-fx-alignment: center;
+	-fx-spacing: 20;
+} 
+
 #HBoxTop {
 	-fx-alignment: baseline-right;
 	-fx-spacing: 10;
@@ -22,6 +27,7 @@
 
 #VBoxPoints {
 	-fx-padding: 0 0 0 0;
+	-fx-spacing: 15;
 	-fx-alignment: top-center;
 	-fx-background-color: rgba(255, 236, 111, 0.8);
 }
@@ -75,6 +81,12 @@
 
 #popup {
 	-fx-background-color: rgba(185, 185, 185, 0.8);
+	-fx-alignment: center;
+	-fx-padding: 20 20 20 20;
+}
+
+#popupError {
+	-fx-background-color: rgba(255, 94, 82, 0.8);
 	-fx-alignment: center;
 	-fx-padding: 20 20 20 20;
 }

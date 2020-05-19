@@ -24,6 +24,10 @@ public class SpielraumPane extends GridPane {
 	Label lblPlayer2 = new Label("P2");
 	Label lblPlayer3 = new Label("P3");
 	Label lblPlayer4 = new Label("P4");
+	Label lblName1 = new Label("P1");
+	Label lblName2 = new Label("P2");
+	Label lblName3 = new Label("P3");
+	Label lblName4 = new Label("P4");
 	Label lblPoints = new Label();
 	Label lblPoints1 = new Label("0");
 	Label lblPoints2 = new Label("0");
@@ -63,19 +67,19 @@ public class SpielraumPane extends GridPane {
 		vPoints.setPrefWidth(200);
 		
 		HBox h1 = new HBox();
-		h1.setId("HBox");
+		h1.setId("HBoxPoints");
 		h1.getChildren().addAll(lblPlayer, lblPoints);
 		HBox h2 = new HBox();
-		h2.setId("HBox");
+		h2.setId("HBoxPoints");
 		h2.getChildren().addAll(lblPlayer1, lblPoints1);
 		HBox h3 = new HBox();
-		h3.setId("HBox");
+		h3.setId("HBoxPoints");
 		h3.getChildren().addAll(lblPlayer2, lblPoints2);
 		HBox h4 = new HBox();
-		h4.setId("HBox");
+		h4.setId("HBoxPoints");
 		h4.getChildren().addAll(lblPlayer3, lblPoints3);
 		HBox h5 = new HBox();
-		h5.setId("HBox");
+		h5.setId("HBoxPoints");
 		h5.getChildren().addAll(lblPlayer4, lblPoints4);
 		
 		vPoints.getChildren().addAll(h1, h2, h3, h4, h5);
@@ -105,7 +109,7 @@ public class SpielraumPane extends GridPane {
 		crcP3.setCenterY(100.0f);
 		crcP3.setRadius(50.0f);
 		crcP3.setFill(Color.rgb(255, 236, 111, 0.8));
-		vP3.getChildren().addAll(crcP3);
+		vP3.getChildren().addAll(crcP3, lblName3);
 		this.add(vP3, 1, 0);
 		
 		VBox vP1 = new VBox();
@@ -169,7 +173,7 @@ public class SpielraumPane extends GridPane {
 		card9.setFill(Color.rgb(255, 236, 111, 0.8));
 		
 		hCards.getChildren().addAll(card1, card2, card3, card4, card5, card6, card7, card8, card9);
-		vP1.getChildren().addAll(hCards);
+		vP1.getChildren().addAll(hCards, lblName1);
 		this.add(vP1, 0, 2, 3, 1);
 		
 		VBox vP2 = new VBox();
@@ -179,7 +183,7 @@ public class SpielraumPane extends GridPane {
 		crcP2.setCenterY(100.0f);
 		crcP2.setRadius(50.0f);
 		crcP2.setFill(Color.rgb(255, 236, 111, 0.8));
-		vP2.getChildren().addAll(crcP2);
+		vP2.getChildren().addAll(crcP2, lblName2);
 		this.add(vP2, 2, 1);
 		
 		VBox vP4 = new VBox();
@@ -187,7 +191,7 @@ public class SpielraumPane extends GridPane {
 		
 		crcP4.setRadius(50.0f);
 		crcP4.setFill(Color.rgb(255, 236, 111, 0.8));
-		vP4.getChildren().addAll(crcP4);
+		vP4.getChildren().addAll(crcP4, lblName4);
 		this.add(vP4, 0, 1);
 		
 		VBox vGame = new VBox();

@@ -20,7 +20,8 @@ public class ResultStartGame extends Message {
 	}
 	
 	@Override
-	public void process(JassClientModel model) {
+	public void process(JassClientController controller) {
+		controller.StartGameSuccess();
 	}
 
 	public void processIfFalse(JassClientController controller) {

@@ -61,9 +61,6 @@ public class JassClientController {
 		});
 		view.getBtnLogout().setOnAction(e ->{
 			logout();
-			view.getRoot().setCenter(view.loginLayout);
-			view.getRoot().setBottom(null);
-			view.getStage().setTitle("Login");
 		});
 		view.getBtnCreatePlayroomPopup().setOnAction(e -> {
 			createPlayroom();
@@ -81,6 +78,22 @@ public class JassClientController {
 			if (!view.createSpielraumPopUp.isShowing()) 
 				view.createSpielraumPopUp.show(view.getStage());
 		});
+		view.getBtnBackPlayroom().setOnAction(e ->{
+			view.createSpielraumPopUp.hide();
+			view.getTfSpielraumName().setText("");
+		});
+		view.getBtnBackError().setOnAction(e ->{
+			view.errorPopUp.hide();
+		});
+		view.getBtnBackProfil().setOnAction(e ->{
+			view.profilPopUp.hide();
+		});
+		view.getBtnBackSieger().setOnAction(e ->{
+			view.siegerPopUp.hide();
+		});
+		view.getBtnBackStartGame().setOnAction(e ->{
+			view.startGamePopUp.hide();
+		});
 		view.getBtnJoin().setOnAction(e ->{
 			joinPlayroom();
 			view.getRoot().setCenter(view.spielraumLayout);
@@ -97,6 +110,42 @@ public class JassClientController {
 		view.getBtnStartGame().setOnAction(e ->{
 			if (!view.startGamePopUp.isShowing()) 
 				view.startGamePopUp.show(view.getStage());
+		});
+		
+		view.getBtnStartGamePopUp().setOnAction(e ->{
+			startGame();
+			view.startGamePopUp.hide();
+			view.trumpfPopUp.show(view.getStage());
+		});
+		
+		view.getBtnHearts().setOnAction(e ->{
+			view.trumpfPopUp.hide();
+			view.wyssPopUp.show(view.getStage());
+		});
+		view.getBtnDiamonds().setOnAction(e ->{
+			view.trumpfPopUp.hide();
+			view.wyssPopUp.show(view.getStage());
+		});
+		view.getBtnSpades().setOnAction(e ->{
+			view.trumpfPopUp.hide();
+			view.wyssPopUp.show(view.getStage());
+		});
+		view.getBtnClubs().setOnAction(e ->{
+			view.trumpfPopUp.hide();
+			view.wyssPopUp.show(view.getStage());
+		});
+		view.getBtnPush().setOnAction(e ->{
+			view.trumpfPopUp.hide();
+			view.wyssPopUp.show(view.getStage());
+		});
+		
+		view.getBtnWyss().setOnAction(e ->{
+			view.wyssPopUp.hide();
+			view.siegerPopUp.show(view.getStage());
+		});
+		view.getBtnNoWyss().setOnAction(e ->{
+			view.wyssPopUp.hide();
+			view.siegerPopUp.show(view.getStage());
 		});
 		
 		view.getBtnSend().setOnAction(e -> sendMessage());
@@ -318,13 +367,30 @@ public class JassClientController {
 		});
 	}
 	
+	public void LogoutSuccess() {
+		Platform.runLater(new Runnable() {
+			public void run() {
+				view.getRoot().setCenter(view.loginLayout);
+				view.getRoot().setBottom(null);
+				view.getStage().setTitle("Login");
+			}
+		});
+	}
+
+	public void StartGameSuccess() {
+		Platform.runLater(new Runnable() {
+			public void run() {
+				view.getLblWait().setText("");
+				view.trumpfPopUp.show(view.getStage());
+			}
+		});	
+	}
+	
 	public void SomethingFailed() {
-		System.out.println("Terrible Error!");
 		Platform.runLater(new Runnable() {
 			public void run() {
 				view.errorPopUp.show(view.getStage());
 			}
 		});
-	}
-	
+	}	
 }
