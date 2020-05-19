@@ -37,5 +37,3 @@ public class CreateAccount extends Message {
 		client.send(new ResultCreateAccount(result));
 	}
 }
-
-
