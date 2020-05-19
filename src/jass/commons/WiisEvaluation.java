@@ -24,6 +24,7 @@ public class WiisEvaluation {
 		return wiis.size() != 0;
 	}
 	
+	//Klasse Account getCurrentPlayerCards respektive set für Player Cards für wiis evaluation
 	
 	
 	

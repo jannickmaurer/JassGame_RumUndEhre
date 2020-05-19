@@ -17,6 +17,7 @@ public class TrumpfGame extends Playroom {
 	public static String trumpf;
 	public static String gameTyp = "Trumpf";
 	private ServerTableCards serverTableCards;
+	private static String slalom ;
 	
 	
 	public void addServerTableCard(String tableCard) {
@@ -41,12 +42,16 @@ public class TrumpfGame extends Playroom {
 			
 		}
 		if (gameTyp == "UndeUfe") {}
-		if (gameTyp == "Slalom") {}
+		if (gameTyp == "Slalom") {
+			if(slalom == "UndeUfe") slalom = "ObeAbe";
+			else slalom = "UndeUfe";
+		}
 	}
 	
 	//plus 5 punkte, wenn alle 36 Karten gespielt wurden
 	public int pointsForWinner() {
-		return serverTableCards.getPoints();//alle vier Karten mit Punkte zusammenzählen
+		if (gameTyp != "Slalom") return serverTableCards.getPoints();
+		return serverTableCards.getPoints(slalom);//alle vier Karten mit Punkte zusammenzählen
 	}
 	
 	
