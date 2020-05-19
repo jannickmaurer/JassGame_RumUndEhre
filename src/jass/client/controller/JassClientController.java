@@ -1,19 +1,28 @@
 package jass.client.controller;
 
+import java.io.IOException;
+
 import jass.client.message.result.Result;
+import jass.client.message.result.ResultBroadcastEndGame;
+import jass.client.message.result.ResultBroadcastSendPoints;
+import jass.client.message.result.ResultBroadcastStartGame;
 import jass.client.message.result.ResultCreateAccount;
 import jass.client.message.result.ResultCreatePlayroom;
 import jass.client.message.result.ResultDeleteAccount;
 import jass.client.message.result.ResultDeletePlayroom;
+import jass.client.message.result.ResultEndGame;
 import jass.client.message.result.ResultJoinPlayroom;
 import jass.client.message.result.ResultLeavePlayroom;
+import jass.client.message.result.ResultListMembers;
 import jass.client.message.result.ResultListPlayrooms;
 import jass.client.message.result.ResultLogin;
 import jass.client.message.result.ResultLogout;
 import jass.client.message.result.ResultSendMessage;
-import jass.client.message.result.ResultText;
+import jass.client.message.result.ResultStartGame;
+import jass.client.message.result.ResultBroadcastSendMessage;
 import jass.client.model.JassClientModel;
 import jass.client.view.JassClientView;
+import jass.commons.Board;
 import jass.message.Message;
 import javafx.application.Platform;
 
@@ -22,7 +31,8 @@ public class JassClientController {
 	private JassClientView view;
 	private String token;
 	private String currentPlayroom;
-
+	private Board board;
+	private String account;
 	
 	public JassClientController(JassClientModel model, JassClientView view) {
 		this.model = model;
@@ -32,14 +42,10 @@ public class JassClientController {
 		view.getBtnPing().setOnAction(event -> model.ping());
 		view.getBtnNewRegistration().setOnAction(event ->{
 			createAccount();
-			view.getRoot().setCenter(view.loginLayout);
-			view.getStage().setTitle("Login");
+			autologin();
 		});
 		view.getBtnLogin().setOnAction(event ->{
 			login();
-			view.getRoot().setCenter(view.lobbyLayout);
-			view.getRoot().setBottom(view.v1);
-			view.getStage().setTitle("Lobby");
 		});
 		view.getBtnStart().setOnAction(e ->{
 			view.getRoot().setCenter(view.loginLayout);
@@ -55,23 +61,39 @@ public class JassClientController {
 		});
 		view.getBtnLogout().setOnAction(e ->{
 			logout();
-			view.getRoot().setCenter(view.loginLayout);
-			view.getRoot().setBottom(null);
-			view.getStage().setTitle("Login");
 		});
 		view.getBtnCreatePlayroomPopup().setOnAction(e -> {
 			createPlayroom();
 			String name = view.getTfSpielraumName().getText();
 			view.getTfSpielraumName().setText("");
-//			model.addNewElement(name);
+			model.addNewPlayroom(name);
 			view.getBtnJoin().setDisable(false);
 			view.getCreateSpielraumPopUp().hide();
+		});
+		view.getBtnProfil().setOnAction(e ->{
+			if (!view.profilPopUp.isShowing()) 
+				view.profilPopUp.show(view.getStage());
 		});
 		view.getBtnCreatePlayroom().setOnAction(e ->{
 			if (!view.createSpielraumPopUp.isShowing()) 
 				view.createSpielraumPopUp.show(view.getStage());
 		});
-		
+		view.getBtnBackPlayroom().setOnAction(e ->{
+			view.createSpielraumPopUp.hide();
+			view.getTfSpielraumName().setText("");
+		});
+		view.getBtnBackError().setOnAction(e ->{
+			view.errorPopUp.hide();
+		});
+		view.getBtnBackProfil().setOnAction(e ->{
+			view.profilPopUp.hide();
+		});
+		view.getBtnBackSieger().setOnAction(e ->{
+			view.siegerPopUp.hide();
+		});
+		view.getBtnBackStartGame().setOnAction(e ->{
+			view.startGamePopUp.hide();
+		});
 		view.getBtnJoin().setOnAction(e ->{
 			joinPlayroom();
 			view.getRoot().setCenter(view.spielraumLayout);
@@ -79,13 +101,51 @@ public class JassClientController {
 			view.getRoot().setBottom(null);
 			view.getStage().setTitle("Spielraum");
 		});
-		
 		view.getBtnLeave().setOnAction(e ->{
 			leavePlayroonm();
-			view.getRoot().setCenter(view.lobbyLayout);
+			view.getRoot().setCenter(view.v1);
 			view.getRoot().setId("root");
-			view.getRoot().setBottom(view.v1);
 			view.getStage().setTitle("Lobby");
+		});
+		view.getBtnStartGame().setOnAction(e ->{
+			if (!view.startGamePopUp.isShowing()) 
+				view.startGamePopUp.show(view.getStage());
+		});
+		
+		view.getBtnStartGamePopUp().setOnAction(e ->{
+			startGame();
+			view.startGamePopUp.hide();
+			view.trumpfPopUp.show(view.getStage());
+		});
+		
+		view.getBtnHearts().setOnAction(e ->{
+			view.trumpfPopUp.hide();
+			view.wyssPopUp.show(view.getStage());
+		});
+		view.getBtnDiamonds().setOnAction(e ->{
+			view.trumpfPopUp.hide();
+			view.wyssPopUp.show(view.getStage());
+		});
+		view.getBtnSpades().setOnAction(e ->{
+			view.trumpfPopUp.hide();
+			view.wyssPopUp.show(view.getStage());
+		});
+		view.getBtnClubs().setOnAction(e ->{
+			view.trumpfPopUp.hide();
+			view.wyssPopUp.show(view.getStage());
+		});
+		view.getBtnPush().setOnAction(e ->{
+			view.trumpfPopUp.hide();
+			view.wyssPopUp.show(view.getStage());
+		});
+		
+		view.getBtnWyss().setOnAction(e ->{
+			view.wyssPopUp.hide();
+			view.siegerPopUp.show(view.getStage());
+		});
+		view.getBtnNoWyss().setOnAction(e ->{
+			view.wyssPopUp.hide();
+			view.siegerPopUp.show(view.getStage());
 		});
 		
 		view.getBtnSend().setOnAction(e -> sendMessage());
@@ -110,6 +170,7 @@ public class JassClientController {
 		});	
 	}
 
+	// Create Message object, called by listener on SimpleStringProperty "lastReceivedMessage"
 	private void createMessage(String[] content) {
 		Message msg;
 		if (content[0].equals("Result")) {
@@ -163,8 +224,8 @@ public class JassClientController {
 			if (!msg.isFalse()) msg.process(JassClientController.this);
 			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
 		}
-		if (content[0].equals("ResultText")) {
-			msg = new ResultText(content);
+		if (content[0].equals("ResultBroadcastSendMessage")) {
+			msg = new ResultBroadcastSendMessage(content);
 			if (!msg.isFalse()) msg.process(JassClientController.this);
 			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
 		}
@@ -173,9 +234,49 @@ public class JassClientController {
 			if (!msg.isFalse()) msg.process(JassClientController.this);
 			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
 		}
+		if (content[0].equals("ResultStartGame")) {
+			msg = new ResultStartGame(content);
+			if (!msg.isFalse()) msg.process(JassClientController.this);
+			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+		}
+		if (content[0].equals("ResultBroadcastStartGame")) {
+			msg = new ResultBroadcastStartGame(content);
+			if (!msg.isFalse()) msg.process(JassClientController.this);
+			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+		}
+		if (content[0].equals("ResultBroadcastEndGame")) {
+			msg = new ResultBroadcastEndGame(content);
+			if (!msg.isFalse()) msg.process(JassClientController.this);
+			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+		}
+		if (content[0].equals("ResultEndGame")) {
+			msg = new ResultEndGame(content);
+			if (!msg.isFalse()) msg.process(JassClientController.this);
+			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+		}
+		if (content[0].equals("ResultBroadcastSendPoints")) {
+			msg = new ResultBroadcastSendPoints(content);
+			if (!msg.isFalse()) msg.process(JassClientController.this);
+			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+		}
+		if (content[0].equals("ResultListMembers")) {
+			msg = new ResultListMembers(content);
+			if (!msg.isFalse()) msg.process(JassClientController.this);
+			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+		}
+		
+		
 		
 	}
 
+	private void endGame() {
+		model.endGame();
+	}
+	
+	private void startGame() {
+		model.startGame();
+	}
+	
 	protected void leavePlayroonm() {
 		model.leavePlayroom();
 	}
@@ -187,6 +288,7 @@ public class JassClientController {
 	
 	private void joinPlayroom() {
 		model.joinPlayroom("Testraum");
+		currentPlayroom = "Testraum";
 	}
 	
 	public void listPlayrooms() {
@@ -219,6 +321,10 @@ public class JassClientController {
 		model.login(view.getTfUsername().getText(), view.getTfPassword().getText());
 	}
 	
+	public void autologin() {
+		model.login(view.getTfNewUsername().getText(), view.getTfNewPassword().getText());
+	}
+	
 	public void connect() {
 		model.connect(view.getTfIP().getText(), Integer.parseInt(view.getTfPort().getText()));
 	}
@@ -239,5 +345,47 @@ public class JassClientController {
 			});
 	}
 
+	public void setAccount(String account) {
+		this.account = account;
+	}
+
+	public String getAccount() {
+		return this.account;
+	}
 	
+	public void LoginSuccess() {
+		Platform.runLater(new Runnable() {
+			public void run() {
+				view.getRoot().setCenter(view.v1);
+				view.getStage().setTitle("Lobby");
+			}
+		});
+	}
+	
+	public void LogoutSuccess() {
+		Platform.runLater(new Runnable() {
+			public void run() {
+				view.getRoot().setCenter(view.loginLayout);
+				view.getRoot().setBottom(null);
+				view.getStage().setTitle("Login");
+			}
+		});
+	}
+
+	public void StartGameSuccess() {
+		Platform.runLater(new Runnable() {
+			public void run() {
+				view.getLblWait().setText("");
+				view.trumpfPopUp.show(view.getStage());
+			}
+		});	
+	}
+	
+	public void SomethingFailed() {
+		Platform.runLater(new Runnable() {
+			public void run() {
+				view.errorPopUp.show(view.getStage());
+			}
+		});
+	}	
 }

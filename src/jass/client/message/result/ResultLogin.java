@@ -11,22 +11,28 @@ public class ResultLogin extends Message {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
 	private String token;
+	private String username;
 
 	public ResultLogin(boolean result) {
 		super(new String[] {"ResultLogin", Boolean.toString(result)});
 	}
 	public ResultLogin(String[] content) {
 		super(content);
-		this.token = content[2];
+		if(content.length > 2) {
+			this.token = content[2];
+			this.username = content[3];
+		}
 	}
 	
 	@Override
 	public void process(JassClientController controller) {
+		controller.LoginSuccess();
 		controller.getModel().setToken(this.token);
+		controller.setAccount(username);
 	}
 	
-	public void processIfFalse(JassClientController jassClientController) {
+	public void processIfFalse(JassClientController controller) {
 		// TODO Auto-generated method stub
-		
+		controller.SomethingFailed();
 	}
 }

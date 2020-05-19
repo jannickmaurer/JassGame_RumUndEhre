@@ -10,6 +10,8 @@ import jass.message.Message;
 public class ResultJoinPlayroom extends Message {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
+	private String owner;
+	private String maxPoints;
 	
 	public ResultJoinPlayroom(boolean result) {
 		super(new String[] {"ResultJoinPlayroom", Boolean.toString(result)});
@@ -17,15 +19,20 @@ public class ResultJoinPlayroom extends Message {
 	
 	public ResultJoinPlayroom(String[] content) {
 		super(content);
+		if(content.length > 2) {
+			this.owner = content[2];
+			this.maxPoints = content[3];
+		}
 	}
 	
 	@Override
-	public void process(JassClientModel model) {
+	public void process(JassClientController controller) {
+		
 	}
 	
-	public void processIfFalse(JassClientController jassClientController) {
+	public void processIfFalse(JassClientController controller) {
 		// TODO Auto-generated method stub
-		
+		controller.SomethingFailed();
 	}
 
 }

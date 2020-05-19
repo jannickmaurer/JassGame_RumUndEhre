@@ -7,17 +7,18 @@ import jass.client.model.JassClientModel;
 import jass.commons.ServiceLocator;
 import jass.message.Message;
 
-public class ResultDeleteAccount  extends Message {
+public class ResultEndGame extends Message {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
+	private String token;
 
-	public ResultDeleteAccount(boolean result) {
-		super(new String[] {"ResultDeleteAccount", Boolean.toString(result)});
+	public ResultEndGame(boolean result) {
+		super(new String[] {"ResultEndGame", Boolean.toString(result)});
 	}
-	
-	public ResultDeleteAccount(String[] content) {
+	public ResultEndGame(String[] content) {
 		super(content);
 	}
+	
 	@Override
 	public void process(JassClientModel model) {
 	}
@@ -26,5 +27,4 @@ public class ResultDeleteAccount  extends Message {
 		// TODO Auto-generated method stub
 		controller.SomethingFailed();
 	}
-
 }

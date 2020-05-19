@@ -7,25 +7,24 @@ import jass.client.model.JassClientModel;
 import jass.commons.ServiceLocator;
 import jass.message.Message;
 
-public class ResultText extends Message {
+public class ResultSendTableCard extends Message {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
-	private String name;
-	private String message;
+	private String tableCard;
 
-	public ResultText(String[] content) {
+	public ResultSendTableCard(String[] content) {
 		super(content);
-		this.name = content[1];
-		this.message = content[2];
+		this.tableCard = content[1];
 	}
 	
 	@Override
 	public void process(JassClientController controller) {
-		controller.updateChatText(this.name + ": " + this.message);
-	}
-
-	public void processIfFalse(JassClientController jassClientController) {
-		// TODO Auto-generated method stub
 		
 	}
+
+	public void processIfFalse(JassClientController controller) {
+		// TODO Auto-generated method stub
+		controller.SomethingFailed();
+	}
 }
+

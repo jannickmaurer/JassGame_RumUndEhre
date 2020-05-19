@@ -7,24 +7,27 @@ import jass.client.model.JassClientModel;
 import jass.commons.ServiceLocator;
 import jass.message.Message;
 
-public class ResultDeleteAccount  extends Message {
+public class ResultBroadcastSendMessage extends Message {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
+	private String name;
+	private String message;
 
-	public ResultDeleteAccount(boolean result) {
-		super(new String[] {"ResultDeleteAccount", Boolean.toString(result)});
+	public ResultBroadcastSendMessage(String[] content) {
+		super(content);
+		if(content.length > 2) {
+			this.name = content[1];
+			this.message = content[2];
+		}
 	}
 	
-	public ResultDeleteAccount(String[] content) {
-		super(content);
-	}
 	@Override
-	public void process(JassClientModel model) {
+	public void process(JassClientController controller) {
+		controller.updateChatText(this.name + ": " + this.message);
 	}
 
 	public void processIfFalse(JassClientController controller) {
 		// TODO Auto-generated method stub
 		controller.SomethingFailed();
 	}
-
 }

@@ -8,6 +8,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 
 public class RegistrationPane extends GridPane {
 	private JassClientView view;
@@ -20,12 +21,12 @@ public class RegistrationPane extends GridPane {
 	Button btnBack = new Button();
 	
 	public RegistrationPane() {
-		this.add(lblTitelRegistration, 1, 0);
+		
+		VBox v1 = new VBox();
+		v1.setId("VBox");
+		
 		lblTitelRegistration.setId("titel");
-		this.add(lblSubtitelRegistration, 1, 1);
 		lblSubtitelRegistration.setId("subtitel");
-		this.add(tfUsername, 1, 3);
-		this.add(tfPassword, 1, 5);
 		
 		HBox h1 = new HBox();
 		Region spacer1 = new Region();
@@ -33,7 +34,9 @@ public class RegistrationPane extends GridPane {
 		h1.setId("HBox");
 		h1.getChildren().addAll(btnRegistration, spacer1, btnBack);
 		
-		this.add(h1, 1, 6);
+		v1.getChildren().addAll(lblTitelRegistration, lblSubtitelRegistration, tfUsername, tfPassword, h1);
+		
+		this.add(v1, 0, 0);
 		
 		this.setId("root");
 		this.setAlignment(Pos.TOP_LEFT);

@@ -1,5 +1,6 @@
 package jass.client.message.result;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import jass.client.controller.JassClientController;
@@ -7,24 +8,28 @@ import jass.client.model.JassClientModel;
 import jass.commons.ServiceLocator;
 import jass.message.Message;
 
-public class ResultDeleteAccount  extends Message {
+public class ResultBroadcastListMembers extends Message {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
 
-	public ResultDeleteAccount(boolean result) {
-		super(new String[] {"ResultDeleteAccount", Boolean.toString(result)});
+	private ArrayList<String> members;
+	
+	public ResultBroadcastListMembers(String[] content) {
+		super(content);
+		if(content.length > 1) {
+			members = new ArrayList<>();
+			for(int i = 1; i < content.length; i++) {
+				this.members.add(content[i]);
+			}
+		}
 	}
 	
-	public ResultDeleteAccount(String[] content) {
-		super(content);
-	}
 	@Override
-	public void process(JassClientModel model) {
+	public void process(JassClientController controller) {
+		
 	}
 
 	public void processIfFalse(JassClientController controller) {
-		// TODO Auto-generated method stub
 		controller.SomethingFailed();
 	}
-
 }

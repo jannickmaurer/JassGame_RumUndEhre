@@ -15,6 +15,7 @@ import jass.commons.ServiceLocator;
 import jass.commons.Translator;
 import jass.message.CreateAccount;
 import jass.message.CreatePlayroom;
+import jass.message.EndGame;
 import jass.message.JoinPlayroom;
 import jass.message.LeavePlayroom;
 import jass.message.ListPlayrooms;
@@ -24,6 +25,7 @@ import jass.message.MakeTrumpf;
 import jass.message.Message;
 import jass.message.Ping;
 import jass.message.SendMessage;
+import jass.message.StartGame;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,7 +39,6 @@ public class JassClientModel {
 
 	private static ServiceLocator serviceLocator = ServiceLocator.getServiceLocator();
 	private static Logger logger = serviceLocator.getClientLogger();
-	private final ObservableList<String> elements = FXCollections.observableArrayList();
 	private ObservableList<String> playrooms = FXCollections.observableArrayList();
 	
 	public void connect(String ipAdress, int port) {
@@ -180,19 +181,30 @@ public class JassClientModel {
 		}
 	}
 	
-
-
-    
-    public void addNewElement(String element) {
-		elements.add(element);
+	public void startGame() {
+		String[] content = new String[] {"StartGame", this.token.getValue()};
+		Message msg = new StartGame(content);
+		try {
+			msg.send(socket);
+			logger.info("Client tries to send message: " + msg.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
-    
-    public void removeElement(String element) {
-		elements.remove(element);
+	
+	public void endGame() {
+		String[] content = new String[] {"EndGame", this.token.getValue()};
+		Message msg = new EndGame(content);
+		try {
+			msg.send(socket);
+			logger.info("Client tries to send message: " + msg.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
     
     public void addNewPlayroom(String playroom) {
-		elements.add(playroom);
+		playrooms.add(playroom);
 	}
     
     public void removePlayroom(String playroom) {
@@ -200,7 +212,7 @@ public class JassClientModel {
 	}
 	
 	public ObservableList<String> getElements() {
-		return elements;
+		return playrooms;
 	}
 	public SimpleStringProperty getTokenProperty() {
 		return token;
@@ -286,6 +298,8 @@ public class JassClientModel {
 
         return ourLogger;
     }
+
+	
 
 	
 }

@@ -13,7 +13,6 @@ public class MakeTrumpf extends Message{
 
 	@Override
 	public void process(Client client) {
-		Playroom.endGame();	
 	}
 	
 	

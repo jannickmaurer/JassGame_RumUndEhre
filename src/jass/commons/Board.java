@@ -49,7 +49,9 @@ public class Board {
 		handCards.add(new Card("HJ"));
 		handCards.add(new Card("HK"));
 		handCards.add(new Card("S7"));
-
+		// ask Server witch player iam mit dem roomName
+		imPlayer = 1;
+		
 		// ask Server witch player i am
 		imPlayer = 2;
 
@@ -71,6 +73,7 @@ public class Board {
 		this.cardListener(getTableCards());
 		this.playerListener(getPlayersTurn());
 	}
+	
 	
 	public void cardListener(String serverTabelCards) {
 		//

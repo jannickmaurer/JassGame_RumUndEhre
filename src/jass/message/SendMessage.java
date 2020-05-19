@@ -1,7 +1,7 @@
 package jass.message;
 
 import jass.client.message.result.ResultSendMessage;
-import jass.client.message.result.ResultText;
+import jass.client.message.result.ResultBroadcastSendMessage;
 import jass.server.Client;
 import jass.server.Playroom;
 
@@ -22,8 +22,8 @@ public class SendMessage extends Message {
 		if(this.token.equals(client.getToken())) {
 			Playroom targetPlayroom = client.getPlayroom();
 			if(targetPlayroom != null) {
-				String[] content = new String[] {"ResultText", client.getAccount().getUsername(), this.message};
-				Message msg = new ResultText(content);
+				String[] content = new String[] {"ResultBroadcastSendMessage", client.getAccount().getUsername(), this.message};
+				Message msg = new ResultBroadcastSendMessage(content);
 				targetPlayroom.getChatroom().send(msg);
 				result = true;
 			}
