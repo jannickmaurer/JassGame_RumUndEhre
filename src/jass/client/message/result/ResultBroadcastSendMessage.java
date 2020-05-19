@@ -15,7 +15,7 @@ public class ResultBroadcastSendMessage extends Message {
 
 	public ResultBroadcastSendMessage(String[] content) {
 		super(content);
-		if(content.length > 2) {
+		if(content.length > 1) {
 			this.name = content[1];
 			this.message = content[2];
 		}

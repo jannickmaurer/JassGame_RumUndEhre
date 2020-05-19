@@ -10,8 +10,7 @@ import jass.message.Message;
 public class ResultEndGame extends Message {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
-	private String token;
-
+	
 	public ResultEndGame(boolean result) {
 		super(new String[] {"ResultEndGame", Boolean.toString(result)});
 	}

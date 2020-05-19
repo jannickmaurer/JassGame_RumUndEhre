@@ -34,13 +34,13 @@ public class StartGame extends Message {
 				client.getPlayroom().send(new ResultBroadcastStartGame(content));
 				
 				for(String s : playroom.getMembers()) {
-					String tableCards = playroom.getNinePlayerCards();
-					String[] content2 = new String[] {"ResultShuffle", tableCards};
+					String tableCardsAsString = playroom.getNinePlayerCards();
+					String[] content2 = new String[] {"ResultShuffle", tableCardsAsString};
 					Message msg = new ResultShuffle(content2);
 					Client.getClient(s).send(msg);
+					Client.getClient(s).getAccount().setCurrentTableCards(tableCardsAsString);
+					
 				}
-				
-				
 				result = true;
 				
 			}

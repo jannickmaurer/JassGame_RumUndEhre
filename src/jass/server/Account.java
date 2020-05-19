@@ -33,6 +33,7 @@ public class Account implements Serializable {
 		this.username = username;
 		this.password = password;
 		logger.info("Account created: " + this.toString());
+		currentTableCards = new ArrayList<>();
 	}
 	
 	//add account into list of accounts
@@ -153,7 +154,19 @@ public class Account implements Serializable {
 	}
 
 	public void setCurrentTableCards(ArrayList<String> currentTableCards) {
-		this.currentTableCards = currentTableCards;
+		for(String s : currentTableCards) {
+			this.currentTableCards.add(s);
+		}
+	}
+	
+	public void setCurrentTableCards(String currentTableCardsAsString) {
+		String[] temp = currentTableCardsAsString.split("\\|");
+		for (int i = 0; i < temp.length; i++) {
+			temp[i] = temp[i].trim();
+		}
+		for (int i = 0; i < temp.length; i++) {
+			currentTableCards.add(temp[i]);
+		}
 	}
 	
 	public void addTableCard(String tableCard) {
@@ -168,8 +181,5 @@ public class Account implements Serializable {
 		}
 		
 	}
-	
-	
-	
 	
 }

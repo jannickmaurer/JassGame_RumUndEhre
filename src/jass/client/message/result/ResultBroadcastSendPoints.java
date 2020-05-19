@@ -1,5 +1,6 @@
 package jass.client.message.result;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import jass.client.controller.JassClientController;
@@ -13,14 +14,19 @@ import jass.message.Message;
 public class ResultBroadcastSendPoints extends Message {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
-	private int points;
 	private String currentLeader;
+	private ArrayList<String> players;
+	private ArrayList<Integer> points;
 
 	public ResultBroadcastSendPoints(String[] content) {
 		super(content);
-		if(content.length > 2) {
-			this.points = Integer.parseInt(content[1]);
-			this.currentLeader = content[2];
+		if(content.length > 1) {
+			this.currentLeader = content[1];
+			for(int i = 2; i < content.length; i++) {
+				String[] temp = content[i].split("\\:");
+				players.add(temp[0]);
+				points.add(Integer.parseInt(temp[1]));
+			}
 		}
 	}
 	

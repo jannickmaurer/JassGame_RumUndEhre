@@ -19,7 +19,7 @@ public class ResultLogout  extends Message {
 		super(content);
 	}
 	@Override
-	public void process(JassClientController controller) { //Changed from JassClientModel model to controller
+	public void process(JassClientController controller) {
 		controller.LogoutSuccess();
 	}
 
