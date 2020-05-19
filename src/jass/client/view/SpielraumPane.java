@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -13,6 +14,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
@@ -54,6 +56,11 @@ public class SpielraumPane extends GridPane {
     Rectangle card7 = new Rectangle();
     Rectangle card8 = new Rectangle();
     Rectangle card9 = new Rectangle();
+    
+    Rectangle cardP1 = new Rectangle();
+    Rectangle cardP2 = new Rectangle();
+    Rectangle cardP3 = new Rectangle();
+    Rectangle cardP4 = new Rectangle();
     
     Label lblWait = new Label();
   
@@ -118,59 +125,86 @@ public class SpielraumPane extends GridPane {
 		HBox hCards = new HBox();
 		hCards.setId("HBox");
 		
+		Image img1 = new Image("/jass/image/Rückseite.jpg");
+		card1.setId("Card");
+		card1.setFill(new ImagePattern(img1));
 		card1.setWidth(90);
 		card1.setHeight(130);
 		card1.setArcWidth(5);
 		card1.setArcHeight(5);
-		card1.setFill(Color.rgb(255, 236, 111, 0.8));
+		card1.setDisable(false); //muss wieder zurückgestellt werden
 		
+		card2.setId("Card");
 		card2.setWidth(90);
 		card2.setHeight(130);
 		card2.setArcWidth(5);
 		card2.setArcHeight(5);
-		card2.setFill(Color.rgb(255, 236, 111, 0.8));
+		Image img2 = new Image("/jass/image/Rückseite.jpg");
+		card2.setFill(new ImagePattern(img2));
+		card2.setDisable(true);
 		
+		card3.setId("Card");
 		card3.setWidth(90);
 		card3.setHeight(130);
 		card3.setArcWidth(5);
 		card3.setArcHeight(5);
-		card3.setFill(Color.rgb(255, 236, 111, 0.8));
+		Image img3 = new Image("/jass/image/Rückseite.jpg");
+		card3.setFill(new ImagePattern(img3));
+		card3.setDisable(true);
 		
+		card4.setId("Card");
 		card4.setWidth(90);
 		card4.setHeight(130);
 		card4.setArcWidth(5);
 		card4.setArcHeight(5);
-		card4.setFill(Color.rgb(255, 236, 111, 0.8));
+		Image img4 = new Image("/jass/image/Rückseite.jpg");
+		card4.setFill(new ImagePattern(img4));
+		card4.setDisable(true);
 		
+		card5.setId("Card");
 		card5.setWidth(90);
 		card5.setHeight(130);
 		card5.setArcWidth(5);
 		card5.setArcHeight(5);
-		card5.setFill(Color.rgb(255, 236, 111, 0.8));
+		Image img5 = new Image("/jass/image/Rückseite.jpg");
+		card5.setFill(new ImagePattern(img5));
+		card5.setDisable(true);
 		
+		card6.setId("Card");
 		card6.setWidth(90);
 		card6.setHeight(130);
 		card6.setArcWidth(5);
 		card6.setArcHeight(5);
-		card6.setFill(Color.rgb(255, 236, 111, 0.8));
+		Image img6 = new Image("/jass/image/Rückseite.jpg");
+		card6.setFill(new ImagePattern(img6));
+		card6.setDisable(true);
 		
+		card7.setId("Card");
 		card7.setWidth(90);
 		card7.setHeight(130);
 		card7.setArcWidth(5);
 		card7.setArcHeight(5);
-		card7.setFill(Color.rgb(255, 236, 111, 0.8));
+		Image img7 = new Image("/jass/image/Rückseite.jpg");
+		card7.setFill(new ImagePattern(img7));
+		card7.setDisable(true);
 		
+		card8.setId("Card");
 		card8.setWidth(90);
 		card8.setHeight(130);
 		card8.setArcWidth(5);
 		card8.setArcHeight(5);
-		card8.setFill(Color.rgb(255, 236, 111, 0.8));
+		Image img8 = new Image("/jass/image/Rückseite.jpg");
+		card8.setFill(new ImagePattern(img8));
+		card8.setDisable(true);
 		
+		card9.setId("Card");
 		card9.setWidth(90);
 		card9.setHeight(130);
 		card9.setArcWidth(5);
 		card9.setArcHeight(5);
-		card9.setFill(Color.rgb(255, 236, 111, 0.8));
+		Image img9 = new Image("/jass/image/Rückseite.jpg");
+		card9.setFill(new ImagePattern(img9));
+		card9.setDisable(true);
 		
 		hCards.getChildren().addAll(card1, card2, card3, card4, card5, card6, card7, card8, card9);
 		vP1.getChildren().addAll(hCards, lblName1);
@@ -194,11 +228,49 @@ public class SpielraumPane extends GridPane {
 		vP4.getChildren().addAll(crcP4, lblName4);
 		this.add(vP4, 0, 1);
 		
-		VBox vGame = new VBox();
-		vGame.setId("VBoxP4");
+		HBox hGame = new HBox();
+		hGame.setId("HBoxCards");
+		
+		VBox vCardsGame = new VBox();
+		vCardsGame.setId("VBoxCards");
+		
+		cardP1.setWidth(40);
+		cardP1.setHeight(58);
+		cardP1.setArcWidth(2);
+		cardP1.setArcHeight(2);
+		Image imgP1 = new Image("/jass/image/Rückseite.jpg");
+		cardP1.setFill(new ImagePattern(imgP1));
+		cardP1.setVisible(false);
+		
+		cardP2.setWidth(40);
+		cardP2.setHeight(58);
+		cardP2.setArcWidth(2);
+		cardP2.setArcHeight(2);
+		Image imgP2 = new Image("/jass/image/Rückseite.jpg");
+		cardP2.setFill(new ImagePattern(imgP2));
+		cardP2.setVisible(false);
+		
+		cardP3.setWidth(40);
+		cardP3.setHeight(58);
+		cardP3.setArcWidth(2);
+		cardP3.setArcHeight(2);
+		Image imgP3 = new Image("/jass/image/Rückseite.jpg");
+		cardP3.setFill(new ImagePattern(imgP3));
+		cardP3.setVisible(false);
+		
+		cardP4.setWidth(40);
+		cardP4.setHeight(58);
+		cardP4.setArcWidth(2);
+		cardP4.setArcHeight(2);
+		Image imgP4 = new Image("/jass/image/Rückseite.jpg");
+		cardP4.setFill(new ImagePattern(imgP4));
+		cardP4.setVisible(false);
+		
 		lblWait.setId("LabelWait");
-		vGame.getChildren().addAll(lblWait);
-		this.add(vGame, 1, 1);
+		vCardsGame.getChildren().addAll(cardP3, cardP1);
+		
+		hGame.getChildren().addAll(cardP4, vCardsGame, cardP2);
+		this.add(hGame, 1, 1);
 		
 		HBox h6 = new HBox();
 		h6.setId("HBox");
