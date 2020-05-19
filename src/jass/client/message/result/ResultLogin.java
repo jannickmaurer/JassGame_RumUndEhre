@@ -26,12 +26,13 @@ public class ResultLogin extends Message {
 	
 	@Override
 	public void process(JassClientController controller) {
+		controller.LoginSuccess();
 		controller.getModel().setToken(this.token);
 		controller.setAccount(username);
 	}
 	
-	public void processIfFalse(JassClientController jassClientController) {
+	public void processIfFalse(JassClientController controller) {
 		// TODO Auto-generated method stub
-		
+		controller.SomethingFailed();
 	}
 }

@@ -29,8 +29,8 @@ public class ResultBroadcastListMembers extends Message {
 		
 	}
 
-	public void processIfFalse(JassClientController jassClientController) {
-		
+	public void processIfFalse(JassClientController controller) {
+		controller.SomethingFailed();
 	}
 }
 

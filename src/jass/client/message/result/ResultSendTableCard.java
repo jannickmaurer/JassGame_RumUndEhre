@@ -22,9 +22,9 @@ public class ResultSendTableCard extends Message {
 		
 	}
 
-	public void processIfFalse(JassClientController jassClientController) {
+	public void processIfFalse(JassClientController controller) {
 		// TODO Auto-generated method stub
-		
+		controller.SomethingFailed();
 	}
 }
 

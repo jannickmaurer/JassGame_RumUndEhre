@@ -46,10 +46,12 @@ public class JassClientView {
 	public SpielraumPane spielraumLayout = new SpielraumPane();
 	public StartGamePopupPane startGamePopupLayout = new StartGamePopupPane();
 	public ProfilPopUpPane profilPopupLayout = new ProfilPopUpPane();
+	public ErrorPopupPane errorPopupLayout = new ErrorPopupPane();
 	
 	public Popup profilPopUp = new Popup();
 	public Popup createSpielraumPopUp = new Popup();
 	public Popup startGamePopUp = new Popup();
+	public Popup errorPopUp = new Popup();
 	
 	Label lblPort = connectLayout.lblPort;
 	Label lblIP = connectLayout.lblIP;
@@ -234,6 +236,9 @@ public class JassClientView {
 		v1.getChildren().addAll(h1, listView, h2);
 		listView.setMinHeight(Region.USE_PREF_SIZE);
 		listView.setPrefHeight(440);
+		
+		errorPopUp.getContent().add(errorPopupLayout);
+		errorPopUp.setAutoHide(true);
 		
 		profilPopUp.getContent().add(profilPopupLayout);
 		profilPopUp.setAutoHide(true);
