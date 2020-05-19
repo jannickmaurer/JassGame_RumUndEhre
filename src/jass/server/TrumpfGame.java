@@ -9,6 +9,7 @@ public class TrumpfGame extends Playroom {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
 	
+	
 	public TrumpfGame(String name, String owner) {
 		super(name, owner);
 	}
