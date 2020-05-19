@@ -284,6 +284,16 @@ public abstract class Playroom implements Serializable {
 	public String toString() {
 		return this.name;
 	}
+	
+	public String getNinePlayerCards() {
+//		CardCreation cc = new CardCreation();
+		
+		
+		
+		
+		return "AC|BD|8D";
+		
+	}
 
 	
 	

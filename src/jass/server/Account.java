@@ -21,6 +21,7 @@ public class Account implements Serializable {
 	private static Logger logger = sl.getServerLogger(); 
 	
 	private static final ArrayList<Account> accounts = new ArrayList<>();	
+	private ArrayList<String> currentTableCards;
 	
 	private final String username;
 	private final String password;
@@ -146,6 +147,28 @@ public class Account implements Serializable {
 	public String getUsername() {
 		return this.username;
 	}
+
+	public ArrayList<String> getCurrentTableCards() {
+		return currentTableCards;
+	}
+
+	public void setCurrentTableCards(ArrayList<String> currentTableCards) {
+		this.currentTableCards = currentTableCards;
+	}
+	
+	public void addTableCard(String tableCard) {
+		this.currentTableCards.add(tableCard);
+	}
+	
+	public void removeTableCard(String tableCard) {
+		for(String s : this.currentTableCards) {
+			if(s.equals(tableCard)) {
+				this.currentTableCards.remove(s);
+			}
+		}
+		
+	}
+	
 	
 	
 	

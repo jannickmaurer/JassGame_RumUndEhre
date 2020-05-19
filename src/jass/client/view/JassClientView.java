@@ -25,6 +25,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
@@ -128,6 +129,15 @@ public class JassClientView {
 	Circle crcP2 = spielraumLayout.crcP2;
 	Circle crcP3 = spielraumLayout.crcP3;
 	Circle crcP4 = spielraumLayout.crcP4;
+	Rectangle card1 = spielraumLayout.card1;
+    Rectangle card2 = spielraumLayout.card2;
+    Rectangle card3 = spielraumLayout.card3;
+    Rectangle card4 = spielraumLayout.card4;
+    Rectangle card5 = spielraumLayout.card5;
+    Rectangle card6 = spielraumLayout.card6;
+    Rectangle card7 = spielraumLayout.card7;
+    Rectangle card8 = spielraumLayout.card8;
+    Rectangle card9 = spielraumLayout.card9;
 	Button btnLeave = spielraumLayout.btnLeave;
 	Button btnStartGame = spielraumLayout.btnStartGame;
 	
@@ -855,6 +865,78 @@ public class JassClientView {
 
 	public void setBtnNoWyss(Button btnNoWyss) {
 		this.btnNoWyss = btnNoWyss;
+	}
+	
+	public Rectangle getCard1() {
+		return card1;
+	}
+
+	public void setCard1(Rectangle card1) {
+		this.card1 = card1;
+	}
+	
+	public Rectangle getCard2() {
+		return card2;
+	}
+
+	public void setCard2(Rectangle card2) {
+		this.card2 = card2;
+	}
+	
+	public Rectangle getCard3() {
+		return card3;
+	}
+
+	public void setCard3(Rectangle card3) {
+		this.card3 = card3;
+	}
+	
+	public Rectangle getCard4() {
+		return card4;
+	}
+
+	public void setCard4(Rectangle card4) {
+		this.card4 = card4;
+	}
+	
+	public Rectangle getCard5() {
+		return card5;
+	}
+
+	public void setCard5(Rectangle card5) {
+		this.card5 = card5;
+	}
+	
+	public Rectangle getCard6() {
+		return card6;
+	}
+
+	public void setCard6(Rectangle card6) {
+		this.card6 = card6;
+	}
+	
+	public Rectangle getCard7() {
+		return card7;
+	}
+
+	public void setCard7(Rectangle card7) {
+		this.card7 = card7;
+	}
+	
+	public Rectangle getCard8() {
+		return card8;
+	}
+
+	public void setCard8(Rectangle card8) {
+		this.card8 = card8;
+	}
+	
+	public Rectangle getCard9() {
+		return card9;
+	}
+
+	public void setCard9(Rectangle card9) {
+		this.card9 = card9;
 	}
 
 }

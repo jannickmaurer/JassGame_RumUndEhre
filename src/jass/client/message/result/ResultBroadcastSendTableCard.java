@@ -7,18 +7,18 @@ import jass.client.model.JassClientModel;
 import jass.commons.ServiceLocator;
 import jass.message.Message;
 
-public class ResultSendTableCard extends Message {
+public class ResultBroadcastSendTableCard extends Message {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
+	private String name;
 	private String tableCard;
-	private String player;
 
-	public ResultSendTableCard(boolean result) {
-		super(new String[] {"ResultSendTableCard", Boolean.toString(result)});
-	}
-	
-	public ResultSendTableCard(String[] content) {
+	public ResultBroadcastSendTableCard(String[] content) {
 		super(content);
+		if(content.length > 2) {
+			this.name = content[1];
+			this.tableCard = content[2];
+		}
 	}
 	
 	@Override
@@ -31,4 +31,3 @@ public class ResultSendTableCard extends Message {
 		controller.SomethingFailed();
 	}
 }
-

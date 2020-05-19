@@ -25,6 +25,7 @@ import jass.message.MakeTrumpf;
 import jass.message.Message;
 import jass.message.Ping;
 import jass.message.SendMessage;
+import jass.message.SendTableCard;
 import jass.message.StartGame;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -202,6 +203,18 @@ public class JassClientModel {
 			e.printStackTrace();
 		}
 	}
+	
+	public void sendTableCard(String tableCard) {
+		String[] content = new String[] {"SendTableCard", this.token.getValue(), tableCard};
+		Message msg = new SendTableCard(content);
+		try {
+			msg.send(socket);
+			logger.info("Client tries to send message: " + msg.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
     
     public void addNewPlayroom(String playroom) {
 		playrooms.add(playroom);
@@ -298,6 +311,8 @@ public class JassClientModel {
 
         return ourLogger;
     }
+
+
 
 	
 
