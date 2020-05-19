@@ -72,6 +72,7 @@ public abstract class Message {
 			if (content[0].equals("LeavePlayroom")) msg = new LeavePlayroom(content);
 			if (content[0].equals("StartGame")) msg = new StartGame(content);
 			if (content[0].equals("EndGame")) msg = new EndGame(content);
+			if (content[0].equals("SendTableCard")) msg = new SendTableCard(content);
 
 
 //			if (content[0].equals("Result")) msg = new Result(content); 

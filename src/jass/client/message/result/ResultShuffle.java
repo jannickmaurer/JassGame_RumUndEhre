@@ -7,28 +7,32 @@ import jass.client.model.JassClientModel;
 import jass.commons.ServiceLocator;
 import jass.message.Message;
 
-public class ResultSendTableCard extends Message {
+public class ResultShuffle extends Message {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
-	private String tableCard;
-	private String player;
+	private String token;
+	private String username;
 
-	public ResultSendTableCard(boolean result) {
-		super(new String[] {"ResultSendTableCard", Boolean.toString(result)});
+	public ResultShuffle(boolean result) {
+		super(new String[] {"ResultLogin", Boolean.toString(result)});
 	}
-	
-	public ResultSendTableCard(String[] content) {
+	public ResultShuffle(String[] content) {
 		super(content);
+		if(content.length > 2) {
+			this.token = content[2];
+			this.username = content[3];
+		}
 	}
 	
 	@Override
 	public void process(JassClientController controller) {
-		
+		controller.LoginSuccess();
+		controller.getModel().setToken(this.token);
+		controller.setAccount(username);
 	}
-
+	
 	public void processIfFalse(JassClientController controller) {
 		// TODO Auto-generated method stub
 		controller.SomethingFailed();
 	}
 }
-

@@ -268,6 +268,11 @@ public class JassClientController {
 		
 		
 	}
+	
+	private void sendTableCard() {
+		String tableCard = "";
+		model.sendTableCard(tableCard);
+	}
 
 	private void endGame() {
 		model.endGame();

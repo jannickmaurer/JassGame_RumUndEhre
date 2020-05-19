@@ -2,46 +2,50 @@ Description Message Classes
 
 How the messages' String must look like to create a new Object: 
 
-Result: 					Result|result
-ResultListMembers			ResultListMembers|member1|member2....
-ResultSendTableCard			ResultSendTableCard|Card
+Result: 						Result|result
+ResultListMembers				ResultListMembers|member1|member2....
+ResultSendTableCard				ResultSendTableCard|Card
 ResultCreateAccount
 ResultCreatePlayroom
 ResultDeleteAccount
 ResultDeletePlayroom
 ResultEndGame
-ResultJoinPlayrom			ResultJoinPlayroom|result|owner|points
+ResultJoinPlayrom				ResultJoinPlayroom|result|owner|points
 ResultLeavePlayroom
 ResultListMembers
-ResultListPlayrooms			ResultListPlayrooms|result|playroom1|playroom2...
+ResultListPlayrooms				ResultListPlayrooms|result|playroom1|playroom2...
 ResultLogin
 ResultLogout
+ResultMakeeTrumpf
 ResultSendMessage
 ResultSendTableCard
 ResultStartGame
 ResultText
 
 ResultBroadcastEndGame
-ResultBroadcastListMembers	ResultBroadcastListMembers|member1|member2....
+ResultBroadcastListMembers		ResultBroadcastListMembers|member1|member2....
+ResultBroadcastMakeTrumpf	
 ResultBroadcastSendMessage	
-ResultBroadcastSendPoint	ResultBradcastSendPoints|Points|currentLeader
+ResultBroadcastSendPoint		ResultBradcastSendPoints|Points|currentLeader
+ResultBroadcastSendTableCard	ResultSendTableCard|
 ResultBroadcastStartGame
 
 				
 CreateAccount		
-CreatePlayroom				CreatePlayroom|TOKEN|Name|Playmode
-DeleteAccount				DeleteAccount|TOKEN
-DeletePlayroom				DeletePlayroom|TOKEN|PlayroomName
+CreatePlayroom					CreatePlayroom|TOKEN|Name|Playmode
+DeleteAccount					DeleteAccount|TOKEN
+DeletePlayroom					DeletePlayroom|TOKEN|PlayroomName
 EnGame
-JoinPlayroom				JoinPlayroom|TOKEN|PlayroomName
+JoinPlayroom					JoinPlayroom|TOKEN|PlayroomName
 LeavePlayroom	
-ListPlayrooms				ListPlayrooms|TOKEN
-Login						Login|username|password
+ListPlayrooms					ListPlayrooms|TOKEN
+Login							Login|username|password
 Logout
-MakeTrumpf
+MakeTrumpf						MakeTrumpf|TOKEN|Trumpf
 Ping
-SendMessage					SendMessage|TOKEN|Message
-StartGame					StartGame|TOKEN			
-Text						Text|Name|Message
+SendMessage						SendMessage|TOKEN|Message
+SendTableCard					SendTableCard|TOKEN|Tablecard
+StartGame						StartGame|TOKEN			
+Text							Text|Name|Message
 
 
