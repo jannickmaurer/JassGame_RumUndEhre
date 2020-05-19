@@ -150,6 +150,10 @@ public class JassClientController {
 			view.wyssPopUp.hide();
 			view.siegerPopUp.show(view.getStage());
 		});
+		view.getCard1().setOnMouseClicked(e ->{
+			view.getCard1().setVisible(false);
+			view.getCardP1().setVisible(true);
+		});
 		
 		view.getBtnSend().setOnAction(e -> sendMessage());
 

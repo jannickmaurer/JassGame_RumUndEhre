@@ -138,6 +138,7 @@ public class JassClientView {
     Rectangle card7 = spielraumLayout.card7;
     Rectangle card8 = spielraumLayout.card8;
     Rectangle card9 = spielraumLayout.card9;
+    Rectangle cardP1 = spielraumLayout.cardP1;
 	Button btnLeave = spielraumLayout.btnLeave;
 	Button btnStartGame = spielraumLayout.btnStartGame;
 	
@@ -937,6 +938,14 @@ public class JassClientView {
 
 	public void setCard9(Rectangle card9) {
 		this.card9 = card9;
+	}
+	
+	public Rectangle getCardP1() {
+		return cardP1;
+	}
+
+	public void setCardP1(Rectangle cardP1) {
+		this.cardP1 = cardP1;
 	}
 
 }
