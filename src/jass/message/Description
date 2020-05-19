@@ -50,3 +50,38 @@ StartGame						StartGame|TOKEN
 Text							Text|Name|Message
 
 
+
+
+
+
+PlayerView.getplayerView(username)
+
+
+
+
+public class playerView extends VBOX {
+
+	privtae static ArrayList<playerView>
+	
+	
+	public class playerView(String username)
+	
+
+
+	public static playerView getPlayerView(String username){
+	
+	
+
+
+
+
+}
+
+
+
+
+
+
+
+
+

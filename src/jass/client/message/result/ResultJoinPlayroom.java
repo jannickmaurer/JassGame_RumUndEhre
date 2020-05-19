@@ -35,4 +35,5 @@ public class ResultJoinPlayroom extends Message {
 		controller.SomethingFailed();
 	}
 
+	
 }

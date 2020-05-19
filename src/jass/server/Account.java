@@ -33,6 +33,7 @@ public class Account implements Serializable {
 		this.username = username;
 		this.password = password;
 		logger.info("Account created: " + this.toString());
+		currentTableCards = new ArrayList<>();
 	}
 	
 	//add account into list of accounts
@@ -180,8 +181,5 @@ public class Account implements Serializable {
 		}
 		
 	}
-	
-	
-	
 	
 }

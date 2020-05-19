@@ -27,7 +27,7 @@ public class CreateAccount extends Message {
 	//Server checks for username and password, then opens a new account and adds it to the list of accounts
 	public void process(Client client) {
 		boolean result = false;
-		if(username != null && username.length() >= MINUNLENGTH) {
+		if(username != null && Account.getAccount(username) == null && username.length() >= MINUNLENGTH) {
 			if(password != null && password.length() >= MINPWLENGTH) {
 				Account newAccount = new Account(username, password);
 				Account.add(newAccount);

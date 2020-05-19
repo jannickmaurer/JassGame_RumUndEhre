@@ -41,8 +41,6 @@ public class StartGame extends Message {
 					Client.getClient(s).getAccount().setCurrentTableCards(tableCardsAsString);
 					
 				}
-				
-				
 				result = true;
 				
 			}

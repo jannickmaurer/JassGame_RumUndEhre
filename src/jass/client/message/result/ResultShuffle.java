@@ -19,7 +19,7 @@ public class ResultShuffle extends Message {
 	}
 	public ResultShuffle(String[] content) {
 		super(content);
-		if(content.length > 2) {			
+		if(content.length > 1) {			
 			this.tableCardsAsString = content[1];
 		}
 	}
@@ -33,6 +33,8 @@ public class ResultShuffle extends Message {
 		for (int i = 0; i < temp.length; i++) {
 			tableCards.add(temp[i]);
 		}
+		
+		
 	}
 	
 	public void processIfFalse(JassClientController controller) {
@@ -40,3 +42,4 @@ public class ResultShuffle extends Message {
 		controller.SomethingFailed();
 	}
 }
+
