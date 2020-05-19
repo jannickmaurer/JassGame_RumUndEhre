@@ -44,7 +44,7 @@ public class Card implements Comparable<Card>{
                 str = "Q";
         	} else if (ordinal == 7) { 
         		str = "K";
-        	} else if (ordinal == 7) { 
+        	} else if (ordinal == 8) { 
         		str = "A";
         }
             return str;

@@ -15,7 +15,7 @@ import jass.commons.Card.Suit;
 public class Board {
 	public static int playersTurn = 1;
 	public int imPlayer;
-	public static String trumpf;
+	public static String trumpf = "C";//gestzt für test
 	public boolean wiisDone = false;
 	public Card myLastPlayedCard;
 	public static String gameTyp = "Trumpf";
@@ -130,7 +130,7 @@ public class Board {
 						highestTableStichCard = tableCards.getHighestTrumpfCard();
 						ArrayList<Card> tempHigherThanStichCards = new ArrayList<Card> ();
 						tempHigherThanStichCards = handCards.getCardHigherThanStich(highestTableStichCard);
-						for (Card card : tempHigherThanStichCards) {
+						for (Card card : tempHigherThanStichCards) {//was wenn tempHigherThanStichCards = null??
 							playableHandCards.add(card);
 						}
 						//hier werden den möglichen überstechungskarten noch die restlichen 

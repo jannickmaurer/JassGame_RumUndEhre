@@ -34,4 +34,13 @@ public class ServerTableCards extends Cards{
 		return firstSuit;
 	}
 	
+	public Card getCard(int place) {
+		Card card = serverTableCards.get(place);
+		return card;
+	}
+	
+	public int getPoints() {
+		return Trumpf.getPoints(serverTableCards);
+	}
+	
 }

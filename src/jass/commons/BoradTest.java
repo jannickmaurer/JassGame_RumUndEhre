@@ -29,5 +29,4 @@ class BoradTest {
 		assertEquals("D6|D7|DA|SQ|CT|S6|HJ|HK|S7", samstingsJass.handCards.toString());
 	}
 	
-	//play check
 }

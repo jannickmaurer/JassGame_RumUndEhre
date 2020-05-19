@@ -28,18 +28,21 @@ public class WinnerEvaluation {
 	
 	//Sieger bekommt alle Punkte und kann Anfangen
 	public void winnerIsPlayer() {
+		int playerWinnerNr;
+		int points;
 		if (gameTyp == "Trumpf") {
-			//Punkte von Karten evaluieren
 			Card tempWinnerCard;
 			tempWinnerCard = serverTableCards.getHighestTrumpfCard();
-			
-			
-			
-			
+			for (int i = 0; i < serverTableCards.hasLength(); i++) {
+				if(serverTableCards.getCard(i).toString() == tempWinnerCard.toString()) {
+					playerWinnerNr = i;
+				}
+			}
+			points = serverTableCards.getPoints();//alle vier Karten mit Punkte zusammenzählen
 		}
 		if (gameTyp == "ObeAbe") {}
 		if (gameTyp == "UndeUfe") {}
 		if (gameTyp == "Slalom") {}
-
+		//plus 5 punkte, wenn alle 36 Karten gespielt wurden
 	}
 }
