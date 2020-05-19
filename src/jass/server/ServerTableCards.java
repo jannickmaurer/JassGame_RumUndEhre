@@ -43,4 +43,8 @@ public class ServerTableCards extends Cards{
 		return Trumpf.getPoints(serverTableCards);
 	}
 	
+	public int getPoints(String slalom) {
+		return Trumpf.getPoints(serverTableCards, slalom);
+	}
+	
 }
