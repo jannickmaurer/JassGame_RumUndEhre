@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import jass.commons.Card.Rank;
 import jass.commons.Card.Suit;
+import jass.server.WinnerEvaluation;
 
 public enum Trumpf { Trumpf, Stich, None;
 
@@ -32,17 +33,12 @@ public enum Trumpf { Trumpf, Stich, None;
 		return found;
 	}
 	
-	public static Suit getFirstSuit(ArrayList<Card> cards) {
-		Suit searchedSuit = cards.get(0).getSuit();//Hier noch KArte mitgegeben ERT
-		return searchedSuit;
-	}
-
-	
-	public static Rank highestTrumpf(ArrayList<Card> cards) {
+	public static Card highestTrumpf(ArrayList<Card> cards) {
 		String rank = "0";
 		int place = -1;
-		for (int i = 0; i<cards.size();i++) {
-			if(cards.get(i).getSuit().toString() == Board.trumpf && rank != "J") {
+		for (int i = 0; i < cards.size(); i++) {
+			//wenn von Server zugriff erfolgt geht evaluation Board.trumpf ?? besser mit Variablen??
+			if(cards.get(i).getSuit().toString() == Board.trumpf && rank != "J") { 
 				String value = cards.get(i).getRank().toString();
 				switch(value) {
 				case("6"): if(isHigher(rank, value)) rank = value; place = i; break;
@@ -57,8 +53,21 @@ public enum Trumpf { Trumpf, Stich, None;
 				}
 			}	
 		}
-		return cards.get(place).getRank();
+		return cards.get(place);
     }
+	
+	//entnimmt erste Karte, welche höchster Stich ist und 
+	public static ArrayList<Card> getCardsHigherThanStich(Card card, ArrayList<Card> cards) {
+		ArrayList<Card> returnCards = new ArrayList<>();
+		for (int i = 1; i < cards.size(); i++) {
+			if (cards.get(i).getSuit().toString() == Board.trumpf) {
+				if (isHigher(cards.get(0).getRank().toString(), cards.get(i).getRank().toString())){
+					returnCards.add(cards.get(i));
+				}
+			}
+		}
+		return returnCards;
+	}
 
 	private static boolean isHigher(String rank, String value) {
 		int rankInt = 0;
@@ -89,10 +98,15 @@ public enum Trumpf { Trumpf, Stich, None;
 		return valueInt > rankInt;
 	}
 	
+	public static Suit getFirstSuit(ArrayList<Card> cards) {
+		Suit searchedSuit = cards.get(0).getSuit();
+		return searchedSuit;
+	}
+	
 
 	//Folgend NUR Methoden zur Siegauswertung von Karten
 	//Gibt höchste Karte zurück bei gleicher Farbe
-	public static Rank getHigherCard(ArrayList<Card> cards) {  //, String suit
+	public static Rank getHigherCard(ArrayList<Card> cards) { 
 		int rank = Integer.parseInt(cards.get(0).getRank().toString());
 		int place = 0;
 		String suit = cards.get(0).getSuit().toString();		
@@ -110,4 +124,25 @@ public enum Trumpf { Trumpf, Stich, None;
 		return cards.get(place).getRank();
 	}
 		
+	
+	public static int getPoints(ArrayList<Card> cards) {
+		int points = 0;
+		//Achtung Slalom noch nicht gelöst....
+		for (Card card : cards) {				
+			switch(card.getRank().toString()) {
+				case("6"): if (WinnerEvaluation.gameTyp == "UndeUfe") points += 11; break;
+				case("7"): points += 0; break;
+				case("8"): if (WinnerEvaluation.gameTyp == "ObeAbe") points += 8; 
+						   if (WinnerEvaluation.gameTyp == "UndeUfe") points += 8; break;
+				case("9"): if (card.getSuit().toString() == Board.trumpf) points += 14; break; 
+				case("T"): points += 10; break; 
+				case("J"): if (card.getSuit().toString() == Board.trumpf) points += 20; 
+						   else points += 2; break;
+				case("Q"): points += 3; break; 
+				case("K"): points += 4; break; 
+				case("A"): if (WinnerEvaluation.gameTyp != "UndeUfe") points += 11; break;
+			}
+		}
+		return points;
+	}
 }

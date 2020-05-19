@@ -1,5 +1,7 @@
 package jass.commons;
 
+import static org.junit.jupiter.api.Assumptions.assumingThat;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Timer;
@@ -13,27 +15,29 @@ import jass.commons.Card.Suit;
 public class Board {
 	public static int playersTurn = 1;
 	public int imPlayer;
-	public static String trumpf;
+	public static String trumpf = "C";//gestzt für test
 	public boolean wiisDone = false;
 	public Card myLastPlayedCard;
-	public static String gameVariety = "Trumpf";
+	public static String gameTyp = "Trumpf";
+	public String playableCards;
+	public HandCards playableHandCards;
+
 
 	HandCards handCards;
 	TableCards tableCards;
 
-	public Board(String roomName, String gameVariety) {
+	public Board(String roomName, String gameTyp) {
 		// Kommt von Sämi wenn spielraum einsteigt macht er ein New Board
 		this.handCards = new HandCards();
 		this.tableCards = new TableCards();
-		Board.gameVariety = gameVariety;
+		Board.gameTyp = gameTyp;
 		this.enterPlayRoom(roomName);
-		this.poll();
+//		this.poll();
 
 	}
 
 	public void enterPlayRoom(String roomName) {
 		// TODO server abfragen, wenn beigetretten wird
-		// ev als string kette 6d;6h;9d;th split(";") trennen googlen
 		// identisch wie tabelCArdsFrom SErver adden für imPlayer und
 		handCards.add(new Card("D6"));
 		handCards.add(new Card("D7"));
@@ -53,22 +57,21 @@ public class Board {
 
 	}
 
-	void poll() {
-		Timer timer = new Timer();
-
-		timer.scheduleAtFixedRate(new TimerTask() {
-			@Override
-			public void run() {
-				// this.callServer(); entweder so callen oder als listerner
-			}
-
-		}, 100, 500); // Zeit für Anfrage aller erste Anfrageverzögerung, zweite wiederholzeitraum
-	}
+//	void poll() {
+//		Timer timer = new Timer();
+//
+//		timer.scheduleAtFixedRate(new TimerTask() {
+//			@Override
+//			public void run() {
+//				// this.callServer(); entweder so callen oder als listerner
+//			}
+//
+//		}, 100, 500); // Zeit für Anfrage aller erste Anfrageverzögerung, zweite wiederholzeitraum
+//	}
 	
 	public void callServer() { //statt call server als Listerner registrieeren
 		this.cardListener(getTableCards());
 		this.playerListener(getPlayersTurn());
-
 	}
 	
 	
@@ -77,7 +80,6 @@ public class Board {
 		// gettabelcards und getplayersturn beim server abrfragen
 		// über message server anfrage und rückmeldung der aktuellen karten
 //
-		
 		String[] tableCardList = serverTabelCards.split("\\|");
 		for (int i = 0; i < tableCardList.length; i++) {
 			this.tableCards.add(new Card(tableCardList[i]));
@@ -96,9 +98,12 @@ public class Board {
 		}
 	}
 
-	
+	//handCArds gegen remaining HandCards ersetzen
 	private void play() {
+		playableHandCards.clearPlayableHandCards();
+		//setGameVariety muss zuvor passieren und ist für alle Playspiele dieselbe (9 Runden)
 		if (tableCards.hasCards() == false) {
+			playableHandCards = handCards;
 			// evaluation Trumpf, UndeUfe, ObeAbe, Slalom
 //			getGameVariety(); @Sämi bitte trumpfauswahl bei spielstart implementieren
 
@@ -107,67 +112,80 @@ public class Board {
 			// select GameVariety : Auswählen was in dieser Rund gespielt wir, ob Trumpf,
 			// ObeAbe, UndeUfe oder Slalom
 
-			if (tableCards.hasCards() == true) {
-				// evaluieren was ich legen darf
-				// TODO evaluieren welche Karte gespielt werden darf anhand TableCards und
-				// HandCards
-				if (gameVariety == "Trumpf") {
-					if (tableCards.evaluateTrumpf().toString() == "Trumpf") {
-						// evaluieren ob ich Trumpf habe, sonst kann ich alles spielen
-						if (handCards.evaluateTrumpf().toString() == "Trumpf") {
-							// Play Trumpf if you have
-
+		if (tableCards.hasCards() == true) {
+			// TODO evaluieren welche Karte gespielt werden darf anhand TableCards und
+			if (gameTyp == "Trumpf") {
+				if (tableCards.evaluateTrumpf().toString() == "Trumpf") {
+					// evaluieren ob ich Trumpf habe, sonst kann ich alles spielen
+					if (handCards.evaluateTrumpf().toString() == "Trumpf") {
+						for (int i = 0; i < handCards.hasLength(); i++) {
+							if (handCards.getCardSuit(i).toString() == trumpf) {
+								playableHandCards.add(handCards.getCardOnPlace(i));
+							};
+						}		
+					}else playableHandCards = handCards;
+				}
+				if (tableCards.evaluateTrumpf().toString() == "Stich") {
+					Card highestTableStichCard;
+					//Folgendes If fügt alle Trumpfkarten die gespielt werden können hinzu
+					//************
+					if (handCards.evaluateTrumpf().toString() == "Trumpf") {
+						highestTableStichCard = tableCards.getHighestTrumpfCard();
+						ArrayList<Card> tempHigherThanStichCards = new ArrayList<Card> ();
+						tempHigherThanStichCards = handCards.getCardHigherThanStich(highestTableStichCard);
+						for (Card card : tempHigherThanStichCards) {//was wenn tempHigherThanStichCards = null??
+							playableHandCards.add(card);
+						}
+						//hier werden den möglichen überstechungskarten noch die restlichen 
+						//möglichen Karten hinzugefügt der ersten tischfarbe
+						for (int i = 0; i < handCards.hasLength(); i++) {
+							if(handCards.getCardSuit(i).toString() == tableCards.getFirstSuit().toString()) {
+								playableHandCards.add(handCards.getCardOnPlace(i));
+							}
 						}
 					}
-					if (tableCards.evaluateTrumpf().toString() == "Stich") {
-						// play all cards without lower Trumpf
-
+				}
+				//************
+				if (handCards.evaluateTrumpf().toString() == "None") {
+					for (int i = 0; i < handCards.hasLength(); i++) {
+						if(handCards.getCardSuit(i).toString() == tableCards.getFirstSuit().toString()) {
+							playableHandCards.add(handCards.getCardOnPlace(i));
+						}
 					}
-					if (tableCards.evaluateTrumpf().toString() == "None") {
-						// play all cards
-					}
-
-					boolean test = true;
-//				Player p = new Player("i weis au ned welle das i bin HAHA");
-//				p.evaluateTrumpf();
-					if (Trumpf.isTrumpf(null))
-						test = false;
-					{
-
-					}
-
 				}
-
-				if (gameVariety == "ObeAbe") {
-				}
-				if (gameVariety == "UndeUfe") {
-				}
-				if (gameVariety == "Slalom") {
-				}
-
-			} else {
-				// TODO KArte darf gelegt werden direkt
+				if (playableHandCards.hasCards() == false) playableHandCards = handCards;			
 			}
-		}
+
+			if (gameTyp == "ObeAbe" || gameTyp == "UndeUfe" || gameTyp == "Slalom") {
+				for (int i = 0; i < handCards.hasLength(); i++) {
+					if(handCards.getCardSuit(i).toString() == tableCards.getFirstSuit().toString()) {
+						playableHandCards.add(handCards.getCardOnPlace(i));
+					}
+				}	
+				if (playableHandCards.hasCards() == false) playableHandCards = handCards;
+			}
+		} 
+		} //remainingCards Karte entfernen welche gespielt wurde 
+		//
 	}
 
 	private void selectGameVariety() {
 		// Methode evaluieren was der Spieler als GAmeVariante gewählt hat
 		// zB Trumpf, ObeAbe, UndeUfe, Slalom
 		// TODO Auto-generated method stub
-
+	//	this.gameVariety = gameVariety;
 	}
 
-	public Trumpf evaluateTrumpf() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	public Trumpf evaluateTrumpf() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 	public int winnerEval() {
 		if (!wiisDone)
 			wiisEval();
 
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method sub
 		// Jeder Client prüft selbst ob er gewonnen hat
 		// Danach gibt jeder Client den Punktestand zurück und SErver evaluiert welche
 		// Spieler zusammen
@@ -185,8 +203,11 @@ public class Board {
 
 	private void wiisEval() {
 		// TODO Auto-generated method stub
-
-		wiisDone = true;
+		if (!handCards.hasWiis()) wiisDone = true;
+		else {
+			//Server die Weisenums übergeben und den Weis an Sämi übergeben,
+			//falls die Person weisen kann
+		} wiisDone = true;
 	}
 
 	// Methode getTAbleCards und getPlayersTrun in Message auslagern
@@ -202,5 +223,35 @@ public class Board {
 		// dito wie bei getTableCards
 		return 1;
 	}
+	
+	public String getPlayableCards() {//Mehoden mit playableCards werden 
+		//momentan nicht verwendet, die anderen drei unten auch nicht
+		return playableCards;
+	}
+
+	public void setPlayableCards(String playableCards) {
+		this.playableCards = playableCards;
+	}
+	
+	private String playableCardsAre() {
+		
+		return playableCards;
+	}
+
+	//@Override
+//	public int compareTo(Card highestStich) {
+////		if (this.Card.getRank().compareTo(highestStich.getRank()) > 0) {
+//			
+//		}
+//		return 0;
+//	}
+//	public int compareTo(Card o) {
+//		if(this.getRank().compareTo(o.getRank()) > 0 ) {
+//			return 1;
+//		} else if(this.getRank().compareTo(o.getRank()) < 0) {
+//				return -1;
+//			} 
+//		return 0;
+//	}
 
 }

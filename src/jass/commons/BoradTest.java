@@ -13,16 +13,14 @@ class BoradTest {
 		
 		assertEquals(1, Board.playersTurn);
 		samstingsJass.playerListener(3);
-		assertEquals(3, Board.playersTurn);
-		
+		assertEquals(3, Board.playersTurn);		
 	}
-	
 	
 	@Test
 	public void checkCardListener() {
 		Board samstingsJass = new Board("samistigsJass", "Trumpf");
 		samstingsJass.cardListener("6D|8H|TD");
-		assertEquals("6D|8H|TD", samstingsJass.tableCards.getTableCardsAsString());
+		assertEquals("6D|8H|TD", samstingsJass.tableCards.toString());
 	}
 
 	@Test
@@ -30,6 +28,5 @@ class BoradTest {
 		Board samstingsJass = new Board("samistigsJass", "Trumpf");
 		assertEquals("D6|D7|DA|SQ|CT|S6|HJ|HK|S7", samstingsJass.handCards.toString());
 	}
-	
 	
 }

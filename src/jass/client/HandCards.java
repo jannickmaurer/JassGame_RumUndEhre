@@ -3,12 +3,18 @@ package jass.client;
 import java.util.ArrayList;
 
 import jass.commons.Card;
+import jass.commons.Card.Suit;
+import jass.commons.Cards;
 import jass.commons.Trumpf;
+import jass.commons.Wiis;
 
-public class HandCards {
+public class HandCards extends Cards{
 	ArrayList<Card> handCards = new ArrayList<Card>();
 	ArrayList<Card> remainingHandCards = new ArrayList<Card>();
-	private Trumpf trumpf;
+	ArrayList<Card> playableHandCards = new ArrayList<Card>();
+//	private Trumpf trumpf;
+//	ArrayList<Wiis> wiis = new ArrayList<>();
+
 
 	public HandCards(ArrayList<Card> handCards) {
 		super();
@@ -19,21 +25,8 @@ public class HandCards {
 		super();
 	}
 
-	public ArrayList<Card> getHandCards() {
-		return handCards;
-	}
-	
 	public ArrayList<Card> getRemainingHandCards() {
 		return remainingHandCards;
-	}
-
-	public void setHandCards(ArrayList<Card> handCards) {
-		this.handCards = handCards;
-	}
-
-	public void add(Card card) {
-		handCards.add(card);
-		remainingHandCards.add(card);
 	}
 	
 	public void cardPlayed(Card card) {
@@ -41,21 +34,22 @@ public class HandCards {
 		remainingHandCards.remove(i);
 	}
 
-	public Trumpf evaluateTrumpf() {
-		trumpf = Trumpf.evaluateTrumpf(handCards);
-		return trumpf;
+//	public Trumpf evaluateTrumpf() {
+//		trumpf = Trumpf.evaluateTrumpf(handCards);
+//		return trumpf;
+//	}
+
+	public void clearPlayableHandCards() {
+		playableHandCards.clear();
 	}
 	
-	public String toString() {
-		if(handCards == null) return "No Cards";
-		String cards = "";
-		for(Card card : handCards) {
-			cards += card.toString()+"|"; 
-		}
-	    if (cards != null && cards.length() > 0 ) {
-	    	cards = cards.substring(0, cards.length() - 1);
-	    }
-		return cards;
+	//methode um höhere Karten als Stich zurück zu geben
+	public ArrayList<Card> getCardHigherThanStich(Card stichCard){ //ArrayList<Card> cards
+		ArrayList<Card> returnCards = new ArrayList<>();
+		returnCards = Trumpf.getCardsHigherThanStich(stichCard, handCards);
+		return returnCards;
 	}
-
+	
+	
+	
 }

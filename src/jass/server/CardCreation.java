@@ -19,6 +19,7 @@ import jass.commons.*;
  * deck is filled and shuffled. Later, the deck can be refilled and reshuffled
  * by calling the "shuffle" method.
  */
+
 public class CardCreation {
 	private final ArrayList<Card> cards = new ArrayList<>();
 
@@ -38,9 +39,12 @@ public class CardCreation {
 		cards.clear();
 
 		// Add all 36 cards
+		String shortform = "";
 		for (Card.Suit suit : Card.Suit.values()) {
 			for (Card.Rank rank : Card.Rank.values()) {
-				Card card = new Card(suit, rank);
+				shortform = suit.toString()+rank.toString();
+				Card card = new Card(shortform);
+//				Card card = new Card(suit, rank);
 				cards.add(card);
 			}
 		}
@@ -55,9 +59,24 @@ public class CardCreation {
 	 * This is an example of conditional assignment
 	 */
 
-	public Card moveCard() {
-		Card card = (cards.size() > 0) ? cards.remove(cards.size() - 1) : null;
-		return card;
+//	public Card getShuffledCard() {
+//		Card card = (cards.size() > 0) ? cards.remove(cards.size() - 1) : null;
+//		return card;
+//	}
+	
+	//return String mit 9 karten
+	
+	public String shuffledPlayerCards() {
+		String shuffledPlayerCards = "";
+		if (this.cards == null) return "No Cards";
+		for (int i = 0; i < 9; i++) {
+			Card card = (cards.size() > 0) ? cards.remove(cards.size() - 1) : null;
+			shuffledPlayerCards += card.toString() + "|";			
+		}
+		if (shuffledPlayerCards != null && shuffledPlayerCards.length() > 0) {
+			shuffledPlayerCards = shuffledPlayerCards.substring(0, shuffledPlayerCards.length() - 1);
+		}
+		return shuffledPlayerCards;
 	}
 
 }

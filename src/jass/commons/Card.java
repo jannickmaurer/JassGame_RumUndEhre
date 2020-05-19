@@ -32,8 +32,6 @@ public class Card implements Comparable<Card>{
     public enum Rank { Six, Seven, Eight, Nine, Ten, Jack, Queen, King, Ace;
         @Override
         public String toString() {
-//        	String str = Integer.toString(this.ordinal()+6); //Gibt Rank als Zahl von 1 bis 9 zurück
-//            return str;
             String str = "";
             int ordinal = this.ordinal();
             if (ordinal <= 3) {
@@ -46,7 +44,7 @@ public class Card implements Comparable<Card>{
                 str = "Q";
         	} else if (ordinal == 7) { 
         		str = "K";
-        	} else if (ordinal == 7) { 
+        	} else if (ordinal == 8) { 
         		str = "A";
         }
             return str;
@@ -54,8 +52,6 @@ public class Card implements Comparable<Card>{
     };
     
     private Suit suit;
-
-
 	private Rank rank;
     private String shortForm;
     
@@ -64,7 +60,6 @@ public class Card implements Comparable<Card>{
         this.setSuit();
         this.setRank();
     }
-    
     
     public Suit getSuit() {
 		return suit;
