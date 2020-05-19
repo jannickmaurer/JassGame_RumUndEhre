@@ -21,6 +21,7 @@ public class SpielraumPopupPane extends GridPane {
 	CheckBox cbSlalom = new CheckBox();
 	CheckBox cbWyss = new CheckBox();
 	Button btnCreate = new Button();
+	Button btnBack = new Button();
 	
 	public SpielraumPopupPane() {		
 		this.add(tfSpielraumName, 0, 0);
@@ -33,7 +34,7 @@ public class SpielraumPopupPane extends GridPane {
 		Region spacer1 = new Region();
 		HBox.setHgrow(spacer1, Priority.ALWAYS);
 		h1.setId("HBox");
-		h1.getChildren().addAll(cbWyss, spacer1, btnCreate);
+		h1.getChildren().addAll(cbWyss, spacer1, btnCreate, btnBack);
 		
 		this.add(h1, 0, 5);
 		

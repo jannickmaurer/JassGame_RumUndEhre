@@ -17,11 +17,13 @@ public class StartGamePopupPane extends GridPane {
 	Label lblPointsLimit = new Label();
 	TextField tfPoints = new TextField("2500");
 	Button btnStartGamePopUp = new Button();
+	Button btnBack = new Button();
 	
 	public StartGamePopupPane() {
 		this.add(lblPointsLimit, 0, 0);
 		this.add(tfPoints, 0, 1);
 		this.add(btnStartGamePopUp, 0, 3);
+		this.add(btnBack, 0, 4);
 		
 		this.setId("popup");
 		this.setAlignment(Pos.TOP_CENTER);

@@ -10,9 +10,11 @@ public class ProfilPopUpPane extends GridPane {
 	private JassClientView view;
 	
 	Button btnDeleteAccount = new Button();
+	Button btnBack = new Button();
 	
 	public ProfilPopUpPane() {
 		this.add(btnDeleteAccount, 0, 0);
+		this.add(btnBack, 0, 1);
 		
 		this.setId("popup");
 		this.setAlignment(Pos.TOP_CENTER);
