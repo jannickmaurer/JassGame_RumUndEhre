@@ -5,6 +5,7 @@ import java.io.IOException;
 import jass.client.message.result.Result;
 import jass.client.message.result.ResultBroadcastEndGame;
 import jass.client.message.result.ResultBroadcastSendPoints;
+import jass.client.message.result.ResultBroadcastSendTableCard;
 import jass.client.message.result.ResultBroadcastStartGame;
 import jass.client.message.result.ResultCreateAccount;
 import jass.client.message.result.ResultCreatePlayroom;
@@ -18,6 +19,8 @@ import jass.client.message.result.ResultListPlayrooms;
 import jass.client.message.result.ResultLogin;
 import jass.client.message.result.ResultLogout;
 import jass.client.message.result.ResultSendMessage;
+import jass.client.message.result.ResultSendTableCard;
+import jass.client.message.result.ResultShuffle;
 import jass.client.message.result.ResultStartGame;
 import jass.client.message.result.ResultBroadcastSendMessage;
 import jass.client.model.JassClientModel;
@@ -261,6 +264,21 @@ public class JassClientController {
 		}
 		if (content[0].equals("ResultListMembers")) {
 			msg = new ResultListMembers(content);
+			if (!msg.isFalse()) msg.process(JassClientController.this);
+			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+		}
+		if (content[0].equals("ResultSendTableCard")) {
+			msg = new ResultSendTableCard(content);
+			if (!msg.isFalse()) msg.process(JassClientController.this);
+			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+		}
+		if (content[0].equals("ResultBroadcastSendTableCard")) {
+			msg = new ResultBroadcastSendTableCard(content);
+			if (!msg.isFalse()) msg.process(JassClientController.this);
+			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+		}
+		if (content[0].equals("ResultShuffle")) {
+			msg = new ResultShuffle(content);
 			if (!msg.isFalse()) msg.process(JassClientController.this);
 			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
 		}

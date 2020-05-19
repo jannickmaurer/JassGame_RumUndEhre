@@ -1,5 +1,6 @@
 package jass.client.message.result;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import jass.client.controller.JassClientController;
@@ -10,25 +11,28 @@ import jass.message.Message;
 public class ResultShuffle extends Message {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
-	private String token;
-	private String username;
+	private String tableCardsAsString;
+	private ArrayList<String> tableCards;
 
 	public ResultShuffle(boolean result) {
-		super(new String[] {"ResultLogin", Boolean.toString(result)});
+		super(new String[] {"ResultShuffle", Boolean.toString(result)});
 	}
 	public ResultShuffle(String[] content) {
 		super(content);
-		if(content.length > 2) {
-			this.token = content[2];
-			this.username = content[3];
+		if(content.length > 2) {			
+			this.tableCardsAsString = content[1];
 		}
 	}
 	
 	@Override
 	public void process(JassClientController controller) {
-		controller.LoginSuccess();
-		controller.getModel().setToken(this.token);
-		controller.setAccount(username);
+		String[] temp = tableCardsAsString.split("\\|");
+		for (int i = 0; i < temp.length; i++) {
+			temp[i] = temp[i].trim();
+		}
+		for (int i = 0; i < temp.length; i++) {
+			tableCards.add(temp[i]);
+		}
 	}
 	
 	public void processIfFalse(JassClientController controller) {

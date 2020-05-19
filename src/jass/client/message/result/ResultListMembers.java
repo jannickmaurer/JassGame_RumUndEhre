@@ -15,9 +15,9 @@ public class ResultListMembers extends Message {
 	
 	public ResultListMembers(String[] content) {
 		super(content);
-		if(content.length > 1) {
+		if(content.length > 2) {
 			members = new ArrayList<>();
-			for(int i = 1; i < content.length; i++) {
+			for(int i = 2; i < content.length; i++) {
 				this.members.add(content[i]);
 			}
 		}	

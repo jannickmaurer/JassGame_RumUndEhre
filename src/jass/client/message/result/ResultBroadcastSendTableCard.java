@@ -11,13 +11,13 @@ public class ResultBroadcastSendTableCard extends Message {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
 	private String name;
-	private String tableCard;
+	private String tableCardAsString;
 
 	public ResultBroadcastSendTableCard(String[] content) {
 		super(content);
-		if(content.length > 2) {
+		if(content.length > 1) {
 			this.name = content[1];
-			this.tableCard = content[2];
+			this.tableCardAsString = content[2];
 		}
 	}
 	

@@ -18,9 +18,13 @@ public class ResultBroadcastSendPoints extends Message {
 
 	public ResultBroadcastSendPoints(String[] content) {
 		super(content);
-		if(content.length > 2) {
-			this.points = Integer.parseInt(content[1]);
-			this.currentLeader = content[2];
+		if(content.length > 1) {
+			this.currentLeader = content[1];
+			
+			
+			
+			
+			
 		}
 	}
 	

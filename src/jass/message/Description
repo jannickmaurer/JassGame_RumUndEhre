@@ -4,31 +4,32 @@ How the messages' String must look like to create a new Object:
 
 Result: 						Result|result
 ResultListMembers				ResultListMembers|member1|member2....
-ResultSendTableCard				ResultSendTableCard|Card
-ResultCreateAccount
-ResultCreatePlayroom
-ResultDeleteAccount
-ResultDeletePlayroom
-ResultEndGame
+ResultSendTableCard				ResultSendTableCard|card
+ResultCreateAccount				ResultCreateAccount|result
+ResultCreatePlayroom			ResultCreatePlayroom|result
+ResultDeleteAccount				ResultDeleteAccount|result
+ResultDeletePlayroom			ResultDeletePlayroom|result
+ResultEndGame					ResultEndGame|result
 ResultJoinPlayrom				ResultJoinPlayroom|result|owner|points
-ResultLeavePlayroom
-ResultListMembers
+ResultLeavePlayroom				ResultLeavePlayroom|result
+ResultListMembers				ResultListMembers|result|member1|member2...
 ResultListPlayrooms				ResultListPlayrooms|result|playroom1|playroom2...
-ResultLogin
-ResultLogout
-ResultMakeeTrumpf
-ResultSendMessage
-ResultSendTableCard
-ResultStartGame
-ResultText
+ResultLogin						ResultLogin|TOKEN|username
+ResultLogout					ResultLogout|result
+ResultMakeeTrumpf				ResultMakeeTrumpf|result
+ResultSendMessage				ResultSendMessage|result
+ResultSendTableCard				ResultSendTableCard|result
+ResultShuffle					ResultShuffle|tableCardsAsString
+ResultStartGame					ResultStartGame|result
 
-ResultBroadcastEndGame
+
+ResultBroadcastEndGame			ResultBroadcastEndGame|result
 ResultBroadcastListMembers		ResultBroadcastListMembers|member1|member2....
 ResultBroadcastMakeTrumpf	
-ResultBroadcastSendMessage	
-ResultBroadcastSendPoint		ResultBradcastSendPoints|Points|currentLeader
-ResultBroadcastSendTableCard	ResultSendTableCard|
-ResultBroadcastStartGame
+ResultBroadcastSendMessage		ResultBroadcastSendMessage|username|message
+ResultBroadcastSendPoint		ResultBradcastSendPoints|currentLeader|username:points|username:points
+ResultBroadcastSendTableCard	ResultSendTableCard|username|tableCardAsString
+ResultBroadcastStartGame		ResultBroadcastStartGame|result
 
 				
 CreateAccount		
