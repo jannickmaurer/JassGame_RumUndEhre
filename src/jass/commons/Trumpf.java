@@ -104,26 +104,39 @@ public enum Trumpf { Trumpf, Stich, None;
 	}
 	
 
-	//Folgend NUR Methoden zur Siegauswertung von Karten
-	//Gibt höchste Karte zurück bei gleicher Farbe
-	public static Rank getHigherCard(ArrayList<Card> cards) { 
-		int rank = Integer.parseInt(cards.get(0).getRank().toString());
-		int place = 0;
-		String suit = cards.get(0).getSuit().toString();		
-//		for (int i = 0; i < cards.size(); i++) {
-//			if (cards.get(i).getSuit().toString() != suit) cards.remove(i);
+//	//Folgend NUR Methoden zur Siegauswertung von Karten
+//	//Gibt höchste Karte zurück bei gleicher Farbe
+//	public static Rank getHigherCard(ArrayList<Card> cards) { 
+//		int rank = Integer.parseInt(cards.get(0).getRank().toString());
+//		int place = 0;
+//		String suit = cards.get(0).getSuit().toString();		
+////		for (int i = 0; i < cards.size(); i++) {
+////			if (cards.get(i).getSuit().toString() != suit) cards.remove(i);
+////		}
+//		for (int i = 1; i < cards.size(); i++) {
+//			if (cards.get(i).getSuit().toString() == suit) {
+//				if (Integer.parseInt(cards.get(i).getRank().toString()) > rank ) {
+//					rank = Integer.parseInt(cards.get(i).getRank().toString());
+//					place = i;
+//				}
+//			}
 //		}
-		for (int i = 1; i < cards.size(); i++) {
-			if (cards.get(i).getSuit().toString() == suit) {
-				if (Integer.parseInt(cards.get(i).getRank().toString()) > rank ) {
-					rank = Integer.parseInt(cards.get(i).getRank().toString());
-					place = i;
-				}
-			}
-		}
-		return cards.get(place).getRank();
+//		return cards.get(place).getRank();
+//	}
+	
+	public static Card highestUfeAbeSlalom(ArrayList<Card> cards, String gameTyp) {
+		if (gameTyp == "ObeAbe") {}
+		//zuerst immer erste Karte ansehen welche farbe sie hat und gameTyp	
+		
+		
+		
+		if (gameTyp == "UndeUfe") {}
+		if (gameTyp == "Slalom") {}
+		return null;
 	}
 		
+	
+	
 	
 	public static int getPoints(ArrayList<Card> cards) {
 		int points = 0;
