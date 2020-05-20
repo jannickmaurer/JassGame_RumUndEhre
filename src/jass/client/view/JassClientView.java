@@ -282,6 +282,7 @@ public class JassClientView {
 		
 		registrationLayout.btnRegistration.setDisable(false); // changed from Jannick
 		
+	
 		this.btnConfig.setDisable(true);
 		this.btnJoin.setDisable(false);
 		this.btnDeletePlayroom.setDisable(true);

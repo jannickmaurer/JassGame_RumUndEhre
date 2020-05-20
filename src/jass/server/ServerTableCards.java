@@ -10,7 +10,7 @@ import jass.commons.Card.Suit;
 public class ServerTableCards extends Cards{
 
 	ArrayList<Card> serverTableCards = new ArrayList<>();
-//	private Trumpf trumpf;
+	private Trumpf trumpf;
 	private Suit firstSuit;
 
 	public ServerTableCards() {
@@ -42,6 +42,7 @@ public class ServerTableCards extends Cards{
 	public int getPoints() {
 		return Trumpf.getPoints(serverTableCards);
 	}
+	
 	
 	//Add a card to severTable in format: Jannick:D9
 	public void addClientCard(String clientCard) {

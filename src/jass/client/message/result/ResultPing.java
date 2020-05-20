@@ -32,6 +32,7 @@ public class ResultPing extends Message {
 	@Override
 	public void process(JassClientController controller) {
 		controller.getModel().setConnected(true);
+		controller.getView().getBtnStart().setDisable(false);
 	}
 	
 	public void processIfFalse(JassClientController jassClientController) {

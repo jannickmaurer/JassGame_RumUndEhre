@@ -32,6 +32,7 @@ public enum Trumpf { Trumpf, Stich, None;
 		return found;
 	}
 	
+	
 	public static Card highestTrumpf(ArrayList<Card> cards) {
 		String rank = "0";
 		int place = -1;

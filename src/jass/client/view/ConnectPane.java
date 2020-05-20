@@ -19,6 +19,7 @@ public class ConnectPane extends GridPane {
 	Button btnStart = new Button();
 	
 	public ConnectPane() {
+		btnStart.setDisable(true);
 		this.add(lblPort, 1, 1);
 		this.add(tfPort, 2, 1);
 		this.add(lblIP, 3, 1);
@@ -33,3 +34,4 @@ public class ConnectPane extends GridPane {
 	}
 	
 }
+

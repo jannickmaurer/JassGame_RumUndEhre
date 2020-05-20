@@ -36,3 +36,4 @@ public class SendMessage extends Message {
 		client.send(new ResultSendMessage(result));
 	}
 }
+

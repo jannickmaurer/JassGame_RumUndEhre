@@ -48,6 +48,7 @@ public class Account implements Serializable {
 		}
 	}
 	
+	
 	public static void remove(Account account) {
 		synchronized (accounts) {
 			for (Iterator<Account> i = accounts.iterator(); i.hasNext();) {

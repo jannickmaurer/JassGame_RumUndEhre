@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import jass.client.message.result.ResultPing;
 import jass.client.message.result.ResultBroadcastEndGame;
+import jass.client.message.result.ResultBroadcastListMembers;
 import jass.client.message.result.ResultBroadcastSendPoints;
 import jass.client.message.result.ResultBroadcastSendTableCard;
 import jass.client.message.result.ResultBroadcastSendTrumpf;
@@ -340,6 +341,11 @@ public class JassClientController {
 		}
 		if (content[0].equals("ResultBroadcastSendTrumpf")) {
 			msg = new ResultBroadcastSendTrumpf(content);
+			if (!msg.isFalse()) msg.process(JassClientController.this);
+			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+		}
+		if (content[0].equals("ResultBroadcastListMembers")) {
+			msg = new ResultBroadcastListMembers(content);
 			if (!msg.isFalse()) msg.process(JassClientController.this);
 			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
 		}

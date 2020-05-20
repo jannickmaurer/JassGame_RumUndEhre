@@ -32,6 +32,7 @@ public class LoginPane extends GridPane {
 		lblTitelLogin.setId("titel");
 		lblSubtitelLogin.setId("subtitel");
 
+
 		HBox h1 = new HBox();
 		Region spacer1 = new Region();
 		HBox.setHgrow(spacer1, Priority.ALWAYS);
@@ -47,3 +48,4 @@ public class LoginPane extends GridPane {
 
 	}
 }
+

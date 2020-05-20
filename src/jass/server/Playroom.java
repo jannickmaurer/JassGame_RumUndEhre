@@ -39,6 +39,7 @@ public class Playroom implements Serializable {
 	private int maxPoints;
 	private int playedCards;
 	private String gameType;
+	private EvaluationRuleSet evaluationRuleSet;
 	
 	
 	/* Constructor: Open a new playroom with playroom name and owner account as String – maxPoints set by child class
@@ -48,11 +49,36 @@ public class Playroom implements Serializable {
 		this.name = name;
 		this.owner = owner;
 		this.gameType = gameType;
-		members = new ArrayList<>();
+		this.evaluationRuleSet = new EvaluationRuleSet(gameType);
+		this.members = new ArrayList<>();
 		this.chatroom = new Chatroom(Playroom.this);
 		Chatroom.add(this.chatroom);
 	}
 	
+	public int getPlayedCards() {
+		return playedCards;
+	}
+
+	public void setPlayedCards(int playedCards) {
+		this.playedCards = playedCards;
+	}
+
+	public String getGameType() {
+		return gameType;
+	}
+
+	public void setGameType(String gameType) {
+		this.gameType = gameType;
+	}
+
+	public EvaluationRuleSet getEvaluationRuleSet() {
+		return evaluationRuleSet;
+	}
+
+	public void setEvaluationRuleSet(EvaluationRuleSet evaluationRuleSet) {
+		this.evaluationRuleSet = evaluationRuleSet;
+	}
+
 	/* Constructor: Open a new playroom with playroom name, owner account as String and maxPoints set by user
 	 * 
 	 */
@@ -89,18 +115,19 @@ public class Playroom implements Serializable {
 	public void setMaxPoints(int maxPoints) {
 		this.maxPoints = maxPoints;
 	}
-//	public void addClientCard(String clientCard) {
-//		if (playedCards < this.getMembers().size()) {
-//			logger.info("ClientCard added to ServerTableCards: " + clientCard);
-//			serverTableCards.addClientCard(clientCard);
-//			playedCards++;
-//		}
-//		if (playedCards == this.getMembers().size()) {
-//			serverTableCards.addClientCard(clientCard);
-//			winnerIsPlayer();
-//			playedCards = 0;
-//			serverTableCards.clearServerTableCards();
-//		}
+	public void addClientCard(String clientCard) {
+		if (playedCards < this.getMembers().size()) {
+			logger.info("ClientCard added to ServerTableCards: " + clientCard);
+			evaluationRuleSet.addClientCard(clientCard);
+			playedCards++;
+		}
+		if (playedCards == this.getMembers().size()) {
+			evaluationRuleSet.addClientCard(clientCard);
+			evaluationRuleSet.winnerIsPlayer();
+			playedCards = 0;
+			evaluationRuleSet.getServerTableCards().clearServerTableCards();
+		}
+	}
 
 	
 	
