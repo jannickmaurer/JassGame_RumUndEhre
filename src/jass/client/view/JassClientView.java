@@ -66,7 +66,6 @@ public class JassClientView {
 	TextField tfPort = connectLayout.tfPort;
 	TextField tfIP = connectLayout.tfIP;
 	Button btnRun = connectLayout.btnRun;
-	Button btnPing = connectLayout.btnPing;
 	Button btnStart = connectLayout.btnStart;
 	
 	Label lblTitelLogin = loginLayout.lblTitelLogin;
@@ -172,8 +171,6 @@ public class JassClientView {
 		tfIP.setPrefWidth(120);
 		btnRun.setMinWidth(Region.USE_PREF_SIZE);
 		btnRun.setPrefWidth(100);
-		btnPing.setMinWidth(Region.USE_PREF_SIZE);
-		btnPing.setPrefWidth(100);
 		btnStart.setMinWidth(Region.USE_PREF_SIZE);
 		btnStart.setPrefWidth(100);
 		lblTitelLogin.setMinWidth(Region.USE_PREF_SIZE);
@@ -378,7 +375,6 @@ public class JassClientView {
 		wyssPopupLayout.lblWyss.setText(t.getString("label.wyss"));
 		
 	    // Other controls
-		connectLayout.btnPing.setText(t.getString("button.ping"));
 		connectLayout.btnRun.setText(t.getString("button.run"));
 		connectLayout.btnStart.setText(t.getString("button.start"));
 		loginLayout.btnLogin.setText(t.getString("button.login"));
@@ -448,13 +444,7 @@ public class JassClientView {
 		this.btnRun = btnRun;
 	}
 
-	public Button getBtnPing() {
-		return btnPing;
-	}
-
-	public void setBtnPing(Button btnPing) {
-		this.btnPing = btnPing;
-	}
+	
 	
 	public Button getBtnStart() {
 		return btnStart;

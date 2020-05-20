@@ -16,7 +16,6 @@ public class ConnectPane extends GridPane {
 	TextField tfPort = new TextField("1111");
 	TextField tfIP = new TextField("127.0.0.1");
 	Button btnRun = new Button();
-	Button btnPing = new Button();
 	Button btnStart = new Button();
 	
 	public ConnectPane() {
@@ -25,7 +24,6 @@ public class ConnectPane extends GridPane {
 		this.add(lblIP, 3, 1);
 		this.add(tfIP, 4, 1);
 		this.add(btnRun, 5, 1);
-		this.add(btnPing, 6, 1);
 		this.add(btnStart, 7, 1);
 		
 		this.setId("root");

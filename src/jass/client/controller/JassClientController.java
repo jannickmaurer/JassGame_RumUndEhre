@@ -62,7 +62,6 @@ public class JassClientController {
 		this.view = view;
 		
 		view.getBtnRun().setOnAction(event -> connect());
-		view.getBtnPing().setOnAction(event -> model.ping());
 		view.getBtnNewRegistration().setOnAction(event ->{
 			createAccount();
 		});
