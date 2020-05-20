@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import jass.commons.Card.Rank;
 import jass.commons.Card.Suit;
-import jass.server.WinnerEvaluation;
+import jass.server.TrumpfGame;
 
 public enum Trumpf { Trumpf, Stich, None;
 
@@ -124,38 +124,75 @@ public enum Trumpf { Trumpf, Stich, None;
 //		return cards.get(place).getRank();
 //	}
 	
-	public static Card highestUfeAbeSlalom(ArrayList<Card> cards, String gameTyp) {
-		if (gameTyp == "ObeAbe") {}
-		//zuerst immer erste Karte ansehen welche farbe sie hat und gameTyp	
-		
-		
-		
-		if (gameTyp == "UndeUfe") {}
-		if (gameTyp == "Slalom") {}
-		return null;
+	public static String highestUfeAbeSlalom(ArrayList<Card> cards, String gameTyp) {
+		Card winnerCard = cards.get(0);
+		if (gameTyp == "ObeAbe") {
+			for (int i = 0; i < cards.size()-1; i++) {
+				if (getFirstSuit(cards) == cards.get(i+1).getSuit()) {
+					if (winnerCard.getRank().compareTo(cards.get(i+1).getRank()) < 0) {
+						winnerCard = cards.get(i+1);
+					}
+				}
+			}
+		}
+		if (gameTyp == "UndeUfe") {
+			for (int i = 0; i < cards.size()-1; i++) {
+				if (getFirstSuit(cards) == cards.get(i+1).getSuit()) {
+					if (winnerCard.getRank().compareTo(cards.get(i+1).getRank()) > 0) {
+						winnerCard = cards.get(i+1);
+					}
+				}
+			}
+		}
+		if (gameTyp == "Slalom") {
+			//muss wissen was erste Karte war, obeAbe oder undeUfe
+			//evtl. Boolean zum evaluieren ob obeabe oder unde ufe
+
+		}
+		return winnerCard.toString();
 	}
-		
 	
 	
 	
 	public static int getPoints(ArrayList<Card> cards) {
 		int points = 0;
-		//Achtung Slalom noch nicht gelöst....
 		for (Card card : cards) {				
 			switch(card.getRank().toString()) {
-				case("6"): if (WinnerEvaluation.gameTyp == "UndeUfe") points += 11; break;
+				case("6"): if (TrumpfGame.gameTyp == "UndeUfe") points += 11; break;
 				case("7"): points += 0; break;
-				case("8"): if (WinnerEvaluation.gameTyp == "ObeAbe") points += 8; 
-						   if (WinnerEvaluation.gameTyp == "UndeUfe") points += 8; break;
+				case("8"): if (TrumpfGame.gameTyp == "ObeAbe") points += 8; 
+						   if (TrumpfGame.gameTyp == "UndeUfe") points += 8; break;
 				case("9"): if (card.getSuit().toString() == Board.trumpf) points += 14; break; 
 				case("T"): points += 10; break; 
 				case("J"): if (card.getSuit().toString() == Board.trumpf) points += 20; 
 						   else points += 2; break;
 				case("Q"): points += 3; break; 
 				case("K"): points += 4; break; 
-				case("A"): if (WinnerEvaluation.gameTyp != "UndeUfe") points += 11; break;
+				case("A"): if (TrumpfGame.gameTyp != "UndeUfe") points += 11; break;
+			}
+		}
+		return points;
+	}
+	
+	//Methode überladen, hier nur für Slalom, welcher zusatzparameter braucht
+	public static int getPoints(ArrayList<Card> cards, String slalom) {
+		int points = 0;
+		for (Card card : cards) {				
+			switch(card.getRank().toString()) {
+				case("6"): if (slalom == "UndeUfe") points += 11; break;
+				case("7"): break;
+				case("8"): points += 8; break;
+				case("9"): break; 
+				case("T"): points += 10; break; 
+				case("J"): points += 2; break;
+				case("Q"): points += 3; break; 
+				case("K"): points += 4; break; 
+				case("A"): if (slalom != "UndeUfe") points += 11; break;
 			}
 		}
 		return points;
 	}
 }
+
+
+	

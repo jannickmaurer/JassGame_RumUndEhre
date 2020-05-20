@@ -15,6 +15,9 @@ public class HandCards extends Cards{
 //	private Trumpf trumpf;
 //	ArrayList<Wiis> wiis = new ArrayList<>();
 
+	
+	//!!!!!!!!ResultSendTableCArd an Board übergeben und dann handcards removen
+//	Controller.getBoard.METHODE welche Karte entfernt in void Process methode
 
 	public HandCards(ArrayList<Card> handCards) {
 		super();

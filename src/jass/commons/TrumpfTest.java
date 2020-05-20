@@ -26,17 +26,27 @@ class TrumpfTest {
 //	}
 
 	@Test
-	public void checkGetPoints() {
+	public void checkHighestUfeAbeSlalom() {
 		ArrayList<Card> cards = new ArrayList<Card>();
-		cards.add(new Card("D6"));
-		cards.add(new Card("C9"));
+		cards.add(new Card("CT"));
+		cards.add(new Card("C6"));
 		cards.add(new Card("CA"));
-		cards.add(new Card("CJ"));
+		cards.add(new Card("CK"));
+		String gameTyp = "UndeUfe";
 		
-//		int points = Trumpf.getPoints(cards);
-		
-//		Board samstingsJass = new Board("samistigsJass", "Trumpf");
-		assertEquals(24, Trumpf.getPoints(cards));
+		assertEquals("CJ", Trumpf.highestUfeAbeSlalom(cards, gameTyp));
 	}
+	
+	
+//	@Test
+//	public void checkGetPoints() {
+//		ArrayList<Card> cards = new ArrayList<Card>();
+//		cards.add(new Card("D6"));
+//		cards.add(new Card("C9"));
+//		cards.add(new Card("CA"));
+//		cards.add(new Card("CJ"));
+//
+//		assertEquals(24, Trumpf.getPoints(cards));
+//	}
 	
 }

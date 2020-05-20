@@ -48,4 +48,8 @@ public class ServerTableCards extends Cards{
 		String[] temp = clientCard.split("\\|");
 		
 	}
+	public int getPoints(String slalom) {
+		return Trumpf.getPoints(serverTableCards, slalom);
+	}
+	
 }

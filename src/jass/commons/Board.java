@@ -21,7 +21,7 @@ public class Board {
 	public static String gameTyp = "Trumpf";
 	public String playableCards;
 	public HandCards playableHandCards;
-
+	public HandCards remainingHandCards; //allefalls direkt zugriff
 
 	HandCards handCards;
 	TableCards tableCards;
@@ -75,6 +75,8 @@ public class Board {
 	}
 	
 	
+//!!!!!!!!! Achtung hier kommen die gshuffleten Karten vonm Server am anfang.
+//	!!!!!!!!!!!!!!!!!!!!!!!!! anstatt serverTableCards dann HandCards
 	public void cardListener(String serverTabelCards) {
 		//
 		// gettabelcards und getplayersturn beim server abrfragen
@@ -166,6 +168,7 @@ public class Board {
 			}
 		} 
 		} //remainingCards Karte entfernen welche gespielt wurde 
+		//und an Jannick übergeben. 
 		//
 	}
 
