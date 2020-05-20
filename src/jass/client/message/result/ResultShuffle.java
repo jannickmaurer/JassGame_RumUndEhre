@@ -26,20 +26,19 @@ public class ResultShuffle extends Message {
 	
 	@Override
 	public void process(JassClientController controller) {
-		String[] temp = tableCardsAsString.split("\\|");
-		for (int i = 0; i < temp.length; i++) {
-			temp[i] = temp[i].trim();
-		}
-		for (int i = 0; i < temp.length; i++) {
-			tableCards.add(temp[i]);
-		}
-		
-		
+//		String[] temp = tableCardsAsString.split("\\|");
+//		for (int i = 0; i < temp.length; i++) {
+//			temp[i] = temp[i].trim();
+//		}
+//		for (int i = 0; i < temp.length; i++) {
+//			tableCards.add(temp[i]);
+//		}
+		controller.getBoard().cardListener(tableCardsAsString);
 	}
 	
 	public void processIfFalse(JassClientController controller) {
 		// TODO Auto-generated method stub
-		controller.SomethingFailed();
+		controller.somethingFailed();
 	}
 }
 

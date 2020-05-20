@@ -10,7 +10,7 @@ ResultCreatePlayroom			ResultCreatePlayroom|result
 ResultDeleteAccount				ResultDeleteAccount|result
 ResultDeletePlayroom			ResultDeletePlayroom|result
 ResultEndGame					ResultEndGame|result
-ResultJoinPlayrom				ResultJoinPlayroom|result|owner|points
+ResultJoinPlayrom				ResultJoinPlayroom|result|owner|name|gameType
 ResultLeavePlayroom				ResultLeavePlayroom|result
 ResultListMembers				ResultListMembers|result|member1|member2...
 ResultListPlayrooms				ResultListPlayrooms|result|playroom1|playroom2...

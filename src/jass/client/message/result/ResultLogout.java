@@ -20,11 +20,12 @@ public class ResultLogout  extends Message {
 	}
 	@Override
 	public void process(JassClientController controller) {
-		controller.LogoutSuccess();
+		controller.setAccount(null);
+		controller.logoutSuccess();
 	}
 
 	public void processIfFalse(JassClientController controller) {
 		// TODO Auto-generated method stub
-		controller.SomethingFailed();
+		controller.somethingFailed();
 	}
 }

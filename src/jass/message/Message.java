@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import jass.client.controller.JassClientController;
-import jass.client.message.result.Result;
+import jass.client.message.result.ResultPing;
 import jass.client.message.result.ResultCreateAccount;
 import jass.client.message.result.ResultCreatePlayroom;
 import jass.client.message.result.ResultDeleteAccount;
@@ -73,9 +73,10 @@ public abstract class Message {
 			if (content[0].equals("StartGame")) msg = new StartGame(content);
 			if (content[0].equals("EndGame")) msg = new EndGame(content);
 			if (content[0].equals("SendTableCard")) msg = new SendTableCard(content);
+			if (content[0].equals("Disconnect")) msg = new Disconnect(content);
 
 
-//			if (content[0].equals("Result")) msg = new Result(content); 
+//			if (content[0].equals("ResultPing")) msg = new ResultPing(content); 
 //			if (content[0].equals("ResultLogin")) msg = new ResultLogin(content);
 //			if (content[0].equals("ResultListPlayrooms")) msg = new ResultListPlayrooms(content);
 //			if (content[0].equals("ResultCreateAccount")) msg = new ResultCreateAccount(content);

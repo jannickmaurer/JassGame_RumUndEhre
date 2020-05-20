@@ -1,6 +1,6 @@
 package jass.message;
 
-import jass.client.message.result.Result;
+import jass.client.message.result.ResultPing;
 import jass.server.Client;
 
 public class Ping extends Message {
@@ -12,7 +12,7 @@ public class Ping extends Message {
 
 	@Override
 	public void process(Client client) {
-		client.send(new Result(true));
+		client.send(new ResultPing(true));
 	}
 	
 }

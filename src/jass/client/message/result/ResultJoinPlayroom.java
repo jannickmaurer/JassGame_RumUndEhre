@@ -6,12 +6,14 @@ import jass.client.controller.JassClientController;
 import jass.client.model.JassClientModel;
 import jass.commons.ServiceLocator;
 import jass.message.Message;
+import javafx.application.Platform;
 
 public class ResultJoinPlayroom extends Message {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
 	private String owner;
-	private String maxPoints;
+	private String name;
+	private String gameType;
 	
 	public ResultJoinPlayroom(boolean result) {
 		super(new String[] {"ResultJoinPlayroom", Boolean.toString(result)});
@@ -21,18 +23,22 @@ public class ResultJoinPlayroom extends Message {
 		super(content);
 		if(content.length > 2) {
 			this.owner = content[2];
-			this.maxPoints = content[3];
+			this.name = content[3];
+			this.gameType = content[4];
 		}
 	}
 	
 	@Override
 	public void process(JassClientController controller) {
+		controller.setCurrentPlayroom(name);
+		controller.setCurrentGameType(gameType);
+		controller.joinSuccess();
 		
 	}
 	
 	public void processIfFalse(JassClientController controller) {
 		// TODO Auto-generated method stub
-		controller.SomethingFailed();
+		controller.somethingFailed();
 	}
 
 	

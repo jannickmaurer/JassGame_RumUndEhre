@@ -1,11 +1,12 @@
 package jass.commons;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import jass.commons.Card;
 import jass.commons.Card.Suit;
 
-public class Cards {
+public class Cards implements Serializable {
 
 	ArrayList<Card> cards = new ArrayList<>();
 	ArrayList<Wiis> wiis = new ArrayList<>();

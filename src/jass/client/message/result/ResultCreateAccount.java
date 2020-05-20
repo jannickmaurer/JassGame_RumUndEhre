@@ -21,13 +21,13 @@ public class ResultCreateAccount extends Message {
 	}
 	
 	@Override
-	public void process(JassClientModel model) {
-		
+	public void process(JassClientController controller) {
+		controller.autologin();
 	}
 	
 	public void processIfFalse(JassClientController controller) {
 		// TODO Auto-generated method stub
-		controller.SomethingFailed();
+		controller.somethingFailed();
 	}
 
 }

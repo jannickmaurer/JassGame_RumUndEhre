@@ -36,7 +36,7 @@ public abstract class Playroom implements Serializable {
 	private String owner;
 	private int maxPoints;
 	
-	
+
 	
 	/* Constructor: Open a new playroom with playroom name and owner account as String – maxPoints set by child class
 	 * 
@@ -47,7 +47,6 @@ public abstract class Playroom implements Serializable {
 		members = new ArrayList<>();
 		this.chatroom = new Chatroom(Playroom.this);
 		Chatroom.add(this.chatroom);
-		addMember(owner);
 	}
 	
 	/* Constructor: Open a new playroom with playroom name, owner account as String and maxPoints set by user
@@ -60,7 +59,6 @@ public abstract class Playroom implements Serializable {
 		members = new ArrayList<>();
 		this.chatroom = new Chatroom(Playroom.this);
 		Chatroom.add(this.chatroom);
-		addMember(owner);
 	}
 	
 	/*
@@ -86,6 +84,9 @@ public abstract class Playroom implements Serializable {
 	}
 	public void setMaxPoints(int maxPoints) {
 		this.maxPoints = maxPoints;
+	}
+	public void addClientCard(String clientCard) {
+		
 	}
 	
 	
@@ -285,11 +286,15 @@ public abstract class Playroom implements Serializable {
 		return this.name;
 	}
 	
-	public String getNinePlayerCards() {
-		CardCreation cc = new CardCreation();
-		String tableCardsAsString = cc.shuffledPlayerCards();
-		return "AC|BD|8D|AC|BD|8D|3H|9J|D4";
-		
+//	public String getNinePlayerCards() {
+//		CardCreation cc = new CardCreation();
+//		String tableCardsAsString = cc.shuffledPlayerCards();
+//		return "AC|BD|8D|AC|BD|8D|3H|9J|D4";
+//		
+//	}
+	
+	public String getGameType() {
+		return this.getGameType();
 	}
 
 	

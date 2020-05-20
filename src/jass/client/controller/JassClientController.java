@@ -1,8 +1,9 @@
 package jass.client.controller;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
-import jass.client.message.result.Result;
+import jass.client.message.result.ResultPing;
 import jass.client.message.result.ResultBroadcastEndGame;
 import jass.client.message.result.ResultBroadcastSendPoints;
 import jass.client.message.result.ResultBroadcastSendTableCard;
@@ -11,6 +12,7 @@ import jass.client.message.result.ResultCreateAccount;
 import jass.client.message.result.ResultCreatePlayroom;
 import jass.client.message.result.ResultDeleteAccount;
 import jass.client.message.result.ResultDeletePlayroom;
+import jass.client.message.result.ResultDisconnect;
 import jass.client.message.result.ResultEndGame;
 import jass.client.message.result.ResultJoinPlayroom;
 import jass.client.message.result.ResultLeavePlayroom;
@@ -26,17 +28,35 @@ import jass.client.message.result.ResultBroadcastSendMessage;
 import jass.client.model.JassClientModel;
 import jass.client.view.JassClientView;
 import jass.commons.Board;
+import jass.commons.ServiceLocator;
 import jass.message.Message;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 
 public class JassClientController {
+
+	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
+	private static Logger logger = sl.getServerLogger();
 	private JassClientModel model;
 	private JassClientView view;
 	private String token;
 	private String currentPlayroom;
 	private Board board;
 	private String account;
+	private String currentGameType;
+	private ObservableList<String> playrooms = FXCollections.observableArrayList();
+
 	
+	public String getCurrentGameType() {
+		return currentGameType;
+	}
+
+	public void setCurrentGameType(String currentGameType) {
+		this.currentGameType = currentGameType;
+	}
+
 	public JassClientController(JassClientModel model, JassClientView view) {
 		this.model = model;
 		this.view = view;
@@ -45,7 +65,6 @@ public class JassClientController {
 		view.getBtnPing().setOnAction(event -> model.ping());
 		view.getBtnNewRegistration().setOnAction(event ->{
 			createAccount();
-			autologin();
 		});
 		view.getBtnLogin().setOnAction(event ->{
 			login();
@@ -69,7 +88,6 @@ public class JassClientController {
 			createPlayroom();
 			String name = view.getTfSpielraumName().getText();
 			view.getTfSpielraumName().setText("");
-			model.addNewPlayroom(name);
 			view.getBtnJoin().setDisable(false);
 			view.getCreateSpielraumPopUp().hide();
 		});
@@ -99,10 +117,7 @@ public class JassClientController {
 		});
 		view.getBtnJoin().setOnAction(e ->{
 			joinPlayroom();
-			view.getRoot().setCenter(view.spielraumLayout);
-			view.spielraumLayout.setId("rootleft");
-			view.getRoot().setBottom(null);
-			view.getStage().setTitle("Spielraum");
+			
 		});
 		view.getBtnLeave().setOnAction(e ->{
 			leavePlayroonm();
@@ -155,8 +170,17 @@ public class JassClientController {
 			view.getCardP1().setVisible(true);
 		});
 		
-		view.getBtnSend().setOnAction(e -> sendMessage());
-
+		view.getBtnSend().setOnAction(e -> sendTableCard());
+		
+		model.getPlayrooms().addListener((ListChangeListener<String>) change -> {
+			Platform.runLater(new Runnable() {
+				public void run() {
+					while (change.next()) {
+						view.getListView().scrollTo(change.getFrom());
+						}
+				}
+			});
+		});
 	
 //		model.getTokenProperty().addListener( (o, oldValue, newValue) -> {
 //			this.token = newValue;
@@ -175,13 +199,27 @@ public class JassClientController {
 			createMessage(content);
 			
 		});	
+		
+		view.getStage().setOnCloseRequest((event) -> { 
+			if(model.isConnected()) {
+				model.disconnect();
+			}
+		});
+	}
+
+	public ObservableList<String> getPlayrooms() {
+		return playrooms;
+	}
+
+	public void setPlayrooms(ObservableList<String> playrooms) {
+		this.playrooms = playrooms;
 	}
 
 	// Create Message object, called by listener on SimpleStringProperty "lastReceivedMessage"
 	private void createMessage(String[] content) {
 		Message msg;
-		if (content[0].equals("Result")) {
-			msg = new Result(content); 
+		if (content[0].equals("ResultPing")) {
+			msg = new ResultPing(content); 
 			if (!msg.isFalse()) msg.process(JassClientController.this);
 			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
 		}
@@ -286,13 +324,19 @@ public class JassClientController {
 			if (!msg.isFalse()) msg.process(JassClientController.this);
 			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
 		}
+		if (content[0].equals("ResultDisconnect")) {
+			msg = new ResultDisconnect(content);
+			if (!msg.isFalse()) msg.process(JassClientController.this);
+			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+		}
 		
 		
 		
 	}
 	
+	
 	private void sendTableCard() {
-		String tableCard = "";
+		String tableCard = "H7";
 		model.sendTableCard(tableCard);
 	}
 
@@ -301,7 +345,7 @@ public class JassClientController {
 	}
 	
 	private void startGame() {
-		model.startGame();
+		model.startGame(view.getTfPoints().getText());
 	}
 	
 	protected void leavePlayroonm() {
@@ -314,8 +358,8 @@ public class JassClientController {
 	}
 	
 	private void joinPlayroom() {
-		model.joinPlayroom("Testraum");
-		currentPlayroom = "Testraum";
+		model.joinPlayroom(view.getListView().getSelectionModel().getSelectedItem());
+
 	}
 	
 	public void listPlayrooms() {
@@ -380,7 +424,7 @@ public class JassClientController {
 		return this.account;
 	}
 	
-	public void LoginSuccess() {
+	public void loginSuccess() {
 		Platform.runLater(new Runnable() {
 			public void run() {
 				view.getRoot().setCenter(view.v1);
@@ -389,7 +433,7 @@ public class JassClientController {
 		});
 	}
 	
-	public void LogoutSuccess() {
+	public void logoutSuccess() {
 		Platform.runLater(new Runnable() {
 			public void run() {
 				view.getRoot().setCenter(view.loginLayout);
@@ -398,8 +442,18 @@ public class JassClientController {
 			}
 		});
 	}
+	
+	public void joinSuccess() {
+		Platform.runLater(new Runnable() {
+			public void run() {
+				view.getRoot().setCenter(view.spielraumLayout);
+				view.spielraumLayout.setId("rootleft");
+				view.getRoot().setBottom(null);
+				view.getStage().setTitle("Spielraum");			}
+		});
+	}
 
-	public void StartGameSuccess() {
+	public void startGameSuccess() {
 		Platform.runLater(new Runnable() {
 			public void run() {
 				view.getLblWait().setText("");
@@ -408,11 +462,63 @@ public class JassClientController {
 		});	
 	}
 	
-	public void SomethingFailed() {
+	public void somethingFailed() {
 		Platform.runLater(new Runnable() {
 			public void run() {
 				view.errorPopUp.show(view.getStage());
 			}
 		});
 	}	
+	
+	public void createBoard() {
+		board = new Board(currentPlayroom, currentGameType);
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	public String getCurrentPlayroom() {
+		return currentPlayroom;
+	}
+
+	public void setCurrentPlayroom(String currentPlayroom) {
+		this.currentPlayroom = currentPlayroom;
+	}
+
+	public Board getBoard() {
+		return board;
+	}
+
+	public void setBoard(Board board) {
+		this.board = board;
+	}
+
+	public void setModel(JassClientModel model) {
+		this.model = model;
+	}
+
+	public void setView(JassClientView view) {
+		this.view = view;
+	}
+	
+	public void addNewPlayroom(String playroom) {
+		playrooms.add(playroom);
+	}
+	
+	public void clearListView() {
+		if(!view.getListView().getItems().isEmpty()) {
+
+			Platform.runLater(new Runnable() {
+				public void run() {
+					view.getListView().getItems().clear();
+				}			
+			});
+		}
+	}
+	
 }

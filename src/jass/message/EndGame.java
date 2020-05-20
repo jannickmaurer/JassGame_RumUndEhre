@@ -2,7 +2,7 @@ package jass.message;
 
 import java.util.logging.Logger;
 
-import jass.client.message.result.Result;
+import jass.client.message.result.ResultPing;
 import jass.client.message.result.ResultBroadcastEndGame;
 import jass.client.message.result.ResultBroadcastStartGame;
 import jass.client.message.result.ResultEndGame;

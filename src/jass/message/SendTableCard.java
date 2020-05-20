@@ -22,16 +22,16 @@ public class SendTableCard extends Message {
 		boolean result = false;
 		
 		if(this.token.equals(client.getToken())) {
-			Playroom targetPlayroom = client.getPlayroom();
-			if(targetPlayroom != null) {
+			Playroom playroom = client.getPlayroom();
+			if(playroom != null) {
+				String clientCard = client.getName() + ":" + tableCard;
+				playroom.addClientCard(clientCard);
 				String[] content = new String[] {"ResultBroadcastSendTableCard", client.getAccount().getUsername(), this.tableCard};
 				Message msg = new ResultBroadcastSendTableCard(content);
-				targetPlayroom.send(msg);
+				playroom.send(msg);
 				result = true;
-				
-				
 			}
 		}
-		client.send(new ResultSendTableCard(result));
-	}
+		String[] content2 = new String[] {"ResultSendTableCard", Boolean.toString(result), tableCard};
+		client.send(new ResultSendTableCard(content2));	}
 }

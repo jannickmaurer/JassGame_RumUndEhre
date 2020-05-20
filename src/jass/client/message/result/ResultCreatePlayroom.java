@@ -24,7 +24,7 @@ public class ResultCreatePlayroom  extends Message {
 	}
 	
 	public void processIfFalse(JassClientController controller) {
-		controller.SomethingFailed();
+		controller.somethingFailed();
 	}
 
 

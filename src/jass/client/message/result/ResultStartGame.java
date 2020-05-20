@@ -21,11 +21,11 @@ public class ResultStartGame extends Message {
 	
 	@Override
 	public void process(JassClientController controller) {
-		controller.StartGameSuccess();
+		controller.startGameSuccess();
 	}
 
 	public void processIfFalse(JassClientController controller) {
 		// TODO Auto-generated method stub
-		controller.SomethingFailed();
+		controller.somethingFailed();
 	}
 }

@@ -15,6 +15,7 @@ import jass.commons.ServiceLocator;
 import jass.commons.Translator;
 import jass.message.CreateAccount;
 import jass.message.CreatePlayroom;
+import jass.message.Disconnect;
 import jass.message.EndGame;
 import jass.message.JoinPlayroom;
 import jass.message.LeavePlayroom;
@@ -27,6 +28,8 @@ import jass.message.Ping;
 import jass.message.SendMessage;
 import jass.message.SendTableCard;
 import jass.message.StartGame;
+import javafx.application.Platform;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,6 +40,8 @@ public class JassClientModel {
 	private SimpleStringProperty token = new SimpleStringProperty();
 	private SimpleStringProperty message = new SimpleStringProperty();
 	private SimpleStringProperty lastReceivedMessage = new SimpleStringProperty();
+	private Thread t;
+	private SimpleBooleanProperty connected = new SimpleBooleanProperty(false);
 
 	private static ServiceLocator serviceLocator = ServiceLocator.getServiceLocator();
 	private static Logger logger = serviceLocator.getClientLogger();
@@ -48,19 +53,25 @@ public class JassClientModel {
 			
 			Runnable r = new Runnable() {
 				public void run() {
-					while (true) {
-						BufferedReader in;
+					Message msg = new Ping(new String[] {"Ping", null});
+					try {
+						msg.send(socket);
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+					while (!socket.isClosed()) {
 						try {
-							in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+							BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 							String msgText = in.readLine(); // Will wait here for complete line
 							lastReceivedMessage.setValue(msgText);
 						} catch (IOException e) {
 							e.printStackTrace();
-						}
+						} 
 					}
+					
 //						Message msg = Message.receive(socket);
 //						
-//						// Only "Result" messages got sent to Client. Therefore, we use process method from Result class and
+//						// Only "ResultPing" messages got sent to Client. Therefore, we use process method from ResultPing class and
 //						// provide the model to the method in order for it to able to use model's methods
 //						
 //						if(msg != null) {
@@ -72,7 +83,7 @@ public class JassClientModel {
 //						}
 				}
 			};
-			Thread t = new Thread(r);
+			t = new Thread(r);
 			t.start();
 			logger.info("Client Connected");
 			
@@ -182,8 +193,8 @@ public class JassClientModel {
 		}
 	}
 	
-	public void startGame() {
-		String[] content = new String[] {"StartGame", this.token.getValue()};
+	public void startGame(String maxPoints) {
+		String[] content = new String[] {"StartGame", this.token.getValue(), maxPoints};
 		Message msg = new StartGame(content);
 		try {
 			msg.send(socket);
@@ -217,14 +228,30 @@ public class JassClientModel {
 	}
     
     public void addNewPlayroom(String playroom) {
-		playrooms.add(playroom);
+    	Platform.runLater(new Runnable() {
+			public void run() {
+				playrooms.add(playroom);
+					}			
+		});
+		
+	}
+    
+    public void disconnect() {
+		String[] content = new String[] {"Disconnect", null};
+		Message msg = new Disconnect(content);
+		try {
+			msg.send(socket);
+			logger.info("Client tries to send message: " + msg.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
     
     public void removePlayroom(String playroom) {
 		playrooms.remove(playroom);
 	}
 	
-	public ObservableList<String> getElements() {
+	public ObservableList<String> getPlayrooms() {
 		return playrooms;
 	}
 	public SimpleStringProperty getTokenProperty() {
@@ -312,7 +339,22 @@ public class JassClientModel {
         return ourLogger;
     }
 
+    public void closeSocket() {
+		if (socket != null)
+			try {
+				socket.close();
+			} catch (IOException e) {
+				// Uninteresting
+			}
+	}
 
+    public Boolean isConnected() {
+		return connected.getValue();
+	}
+
+	public void setConnected(Boolean connected) {
+		this.connected.set(connected);
+	}
 
 	
 

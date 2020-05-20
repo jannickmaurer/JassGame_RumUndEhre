@@ -5,6 +5,7 @@ import java.util.Locale;
 import jass.client.model.JassClientModel;
 import jass.commons.ServiceLocator;
 import jass.commons.Translator;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -89,6 +90,7 @@ public class JassClientView {
 	Button btnDeletePlayroom = new Button();
 	Button btnLogout = new Button();
 	ListView<String> listView;
+	
 	public VBox v1 = new VBox();
 	public HBox h1 = new HBox();
 	
@@ -284,7 +286,7 @@ public class JassClientView {
 		registrationLayout.btnRegistration.setDisable(false); // changed from Jannick
 		
 		this.btnConfig.setDisable(true);
-		this.btnJoin.setDisable(true);
+		this.btnJoin.setDisable(false);
 		this.btnDeletePlayroom.setDisable(true);
 		v1.setId("VBox");
 		
@@ -294,7 +296,7 @@ public class JassClientView {
 		HBox h2 = new HBox();
 		h2.setId("HBoxRight");
 		h2.getChildren().addAll(btnJoin, btnCreatePlayroom, btnDeletePlayroom);
-		listView = new ListView<>(model.getElements());
+		listView = new ListView<>(model.getPlayrooms());
 		v1.getChildren().addAll(h1, listView, h2);
 		listView.setMinHeight(Region.USE_PREF_SIZE);
 		listView.setPrefHeight(440);
@@ -344,6 +346,8 @@ public class JassClientView {
 	
 	public void stop() {
 		primaryStage.hide();
+		Platform.exit();
+		System.exit(0);
 	}
 	
 	protected void updateTexts() {
@@ -946,6 +950,15 @@ public class JassClientView {
 
 	public void setCardP1(Rectangle cardP1) {
 		this.cardP1 = cardP1;
+	}
+
+
+	public ListView<String> getListView() {
+		return listView;
+	}
+
+	public void setListView(ListView<String> listView) {
+		this.listView = listView;
 	}
 
 }

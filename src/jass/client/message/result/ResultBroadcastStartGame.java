@@ -10,17 +10,19 @@ import jass.message.Message;
 public class ResultBroadcastStartGame extends Message {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
+	private String maxPoints;
 
 	public ResultBroadcastStartGame(String[] content) {
 		super(content);
+		this.maxPoints = content[1];
 	}
 	
 	@Override
 	public void process(JassClientController controller) {
-		
+		controller.createBoard();
 	}
 
 	public void processIfFalse(JassClientController controller) {
-		controller.SomethingFailed();
+		controller.somethingFailed();
 	}
 }

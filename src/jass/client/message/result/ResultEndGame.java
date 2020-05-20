@@ -24,6 +24,6 @@ public class ResultEndGame extends Message {
 
 	public void processIfFalse(JassClientController controller) {
 		// TODO Auto-generated method stub
-		controller.SomethingFailed();
+		controller.somethingFailed();
 	}
 }

@@ -32,7 +32,7 @@ public class JoinPlayroom extends Message {
 				playroom.addMember(client.getName());
 				client.setPlayroom(playroom);
 				result = true;
-				String[] content = new String[] {"ResultJoinPlayroom", Boolean.toString(result), playroom.getOwner(), Integer.toString(playroom.getMaxPoints())};
+				String[] content = new String[] {"ResultJoinPlayroom", Boolean.toString(result), playroom.getOwner(), playroom.getName(), playroom.getGameType()};
 				client.send(new ResultJoinPlayroom(content));
 				String[] temp = new String[] {"ResultBroadcastListMembers"};
 				String[] content2 = this.combineArrayAndArrayList(temp, playroom.getMembers());

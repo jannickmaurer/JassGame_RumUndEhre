@@ -3,7 +3,7 @@ package jass.message;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
-import jass.client.message.result.Result;
+import jass.client.message.result.ResultPing;
 import jass.client.message.result.ResultListPlayrooms;
 import jass.commons.ServiceLocator;
 import jass.server.Client;
@@ -39,7 +39,7 @@ public class ListPlayrooms extends Message {
 //			result = true;
 //			String content = this.combineArrayAndArrayList(array, list)
 ////			String[] content = new String[] {"ResultListPlayrooms", Boolean.toString(result)};
-//			client.send(new Result(content, names));
+//			client.send(new ResultPing(content, names));
 		} else {
 			client.send(new ResultListPlayrooms(result));
 		}

@@ -3,7 +3,7 @@ package jass.message;
 
 import java.util.logging.Logger;
 
-import jass.client.message.result.Result;
+import jass.client.message.result.ResultPing;
 import jass.client.message.result.ResultCreateAccount;
 import jass.commons.ServiceLocator;
 import jass.server.Account;
@@ -37,3 +37,4 @@ public class CreateAccount extends Message {
 		client.send(new ResultCreateAccount(result));
 	}
 }
+ 

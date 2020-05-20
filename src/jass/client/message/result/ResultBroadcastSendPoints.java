@@ -36,6 +36,6 @@ public class ResultBroadcastSendPoints extends Message {
 	}
 
 	public void processIfFalse(JassClientController controller) {
-		controller.SomethingFailed();
+		controller.somethingFailed();
 	}
 }

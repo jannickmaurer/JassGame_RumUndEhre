@@ -2,7 +2,7 @@ package jass.message;
 
 import java.util.logging.Logger;
 
-import jass.client.message.result.Result;
+import jass.client.message.result.ResultPing;
 import jass.client.message.result.ResultCreatePlayroom;
 import jass.commons.ServiceLocator;
 import jass.server.Client;
@@ -30,13 +30,13 @@ public class CreatePlayroom extends Message {
 	@Override
 	public void process(Client client) {
 		boolean result = false;
-		if(this.token.equals(client.getToken())) {
+		if(this.token.equals(client.getToken()) && Playroom.getPlayroom(name) == null) {
 			if(this.playmode.equals("Trumpf")) {
 				Playroom playroom = new TrumpfGame(this.name, client.getName());
 				Playroom.add(playroom);
 				result = true;
 			}
-			client.send(new ResultCreatePlayroom(result));
 		}
-	}
+		client.send(new ResultCreatePlayroom(result));
+	}  
 }
