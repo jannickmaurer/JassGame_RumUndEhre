@@ -43,4 +43,9 @@ public class ServerTableCards extends Cards{
 		return Trumpf.getPoints(serverTableCards);
 	}
 	
+	//Add a card to severTable in format: Jannick|D9
+	public void addClientCard(String clientCard) {
+		String[] temp = clientCard.split("\\|");
+		
+	}
 }

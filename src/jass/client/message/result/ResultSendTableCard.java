@@ -10,7 +10,7 @@ import jass.message.Message;
 public class ResultSendTableCard extends Message {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
-	
+	private String playedCard;
 
 	public ResultSendTableCard(boolean result) {
 		super(new String[] {"ResultSendTableCard", Boolean.toString(result)});
@@ -18,6 +18,7 @@ public class ResultSendTableCard extends Message {
 	
 	public ResultSendTableCard(String[] content) {
 		super(content);
+		this.playedCard = content[2];
 	}
 	
 	@Override

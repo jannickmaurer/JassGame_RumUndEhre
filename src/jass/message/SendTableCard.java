@@ -26,8 +26,10 @@ public class SendTableCard extends Message {
 			if(targetPlayroom != null) {
 				String[] content = new String[] {"ResultBroadcastSendTableCard", client.getAccount().getUsername(), this.tableCard};
 				Message msg = new ResultBroadcastSendTableCard(content);
-				targetPlayroom.getChatroom().send(msg);
+				targetPlayroom.send(msg);
 				result = true;
+				
+				
 			}
 		}
 		client.send(new ResultSendTableCard(result));

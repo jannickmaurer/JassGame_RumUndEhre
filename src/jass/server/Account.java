@@ -21,7 +21,7 @@ public class Account implements Serializable {
 	private static Logger logger = sl.getServerLogger(); 
 	
 	private static final ArrayList<Account> accounts = new ArrayList<>();	
-	private ArrayList<String> currentTableCards;
+	private ArrayList<String> currentPlayerCards;
 	
 	private final String username;
 	private final String password;
@@ -33,7 +33,7 @@ public class Account implements Serializable {
 		this.username = username;
 		this.password = password;
 		logger.info("Account created: " + this.toString());
-		currentTableCards = new ArrayList<>();
+		currentPlayerCards = new ArrayList<>();
 	}
 	
 	//add account into list of accounts
@@ -149,37 +149,35 @@ public class Account implements Serializable {
 		return this.username;
 	}
 
-	public ArrayList<String> getCurrentTableCards() {
-		return currentTableCards;
+	public ArrayList<String> getCurrentPlayerCards() {
+		return currentPlayerCards;
 	}
 
-	public void setCurrentTableCards(ArrayList<String> currentTableCards) {
+	public void setCurrentPlayerCards(ArrayList<String> currentTableCards) {
 		for(String s : currentTableCards) {
-			this.currentTableCards.add(s);
+			this.currentPlayerCards.add(s);
 		}
 	}
 	
-	public void setCurrentTableCards(String currentTableCardsAsString) {
+	public void setCurrentPlayerCards(String currentTableCardsAsString) {
 		String[] temp = currentTableCardsAsString.split("\\|");
 		for (int i = 0; i < temp.length; i++) {
 			temp[i] = temp[i].trim();
 		}
 		for (int i = 0; i < temp.length; i++) {
-			currentTableCards.add(temp[i]);
+			currentPlayerCards.add(temp[i]);
 		}
 	}
 	
-	public void addTableCard(String tableCard) {
-		this.currentTableCards.add(tableCard);
+	public void addPlayerCard(String tableCard) {
+		this.currentPlayerCards.add(tableCard);
 	}
 	
-	public void removeTableCard(String tableCard) {
-		for(String s : this.currentTableCards) {
+	public void removePlayerCard(String tableCard) {
+		for(String s : this.currentPlayerCards) {
 			if(s.equals(tableCard)) {
-				this.currentTableCards.remove(s);
+				this.currentPlayerCards.remove(s);
 			}
 		}
-		
 	}
-	
 }

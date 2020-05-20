@@ -38,15 +38,11 @@ public class StartGame extends Message {
 					String[] content2 = new String[] {"ResultShuffle", tableCardsAsString};
 					Message msg = new ResultShuffle(content2);
 					Client.getClient(s).send(msg);
-					Client.getClient(s).getAccount().setCurrentTableCards(tableCardsAsString);
-					
+					Client.getClient(s).getAccount().setCurrentPlayerCards(tableCardsAsString);
 				}
 				result = true;
-				
 			}
 		}
 		client.send(new ResultStartGame(result));
 	}
-	
-
 }
