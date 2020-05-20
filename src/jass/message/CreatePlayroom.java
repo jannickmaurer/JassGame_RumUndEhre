@@ -9,6 +9,11 @@ import jass.server.Client;
 import jass.server.Playroom;
 import jass.server.TrumpfGame;
 
+/*
+ * Class developed by Jannick
+ * Individual message client -> server
+ * Triggers events in client
+ */
 public class CreatePlayroom extends Message {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();

@@ -7,6 +7,12 @@ import jass.client.model.JassClientModel;
 import jass.commons.ServiceLocator;
 import jass.message.Message;
 
+/*
+ * Class developed by Jannick
+ * Message sent to all members in a playroom
+ * Chat (text) message
+ * Sent everytime a member sends a chatmessage
+ */
 public class ResultBroadcastSendMessage extends Message {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();

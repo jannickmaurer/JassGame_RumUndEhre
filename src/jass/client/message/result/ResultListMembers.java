@@ -6,6 +6,11 @@ import jass.client.controller.JassClientController;
 import jass.client.model.JassClientModel;
 import jass.message.Message;
 
+/*
+ * Class developed by Jannick
+ * Individual message as response for client -> server message
+ * Triggers events in controller depending on message success (true/false)
+ */
 public class ResultListMembers extends Message {
 	private ArrayList<String> members;
 

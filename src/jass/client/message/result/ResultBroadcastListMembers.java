@@ -8,6 +8,12 @@ import jass.client.model.JassClientModel;
 import jass.commons.ServiceLocator;
 import jass.message.Message;
 
+/*
+ * Class developed by Jannick
+ * Message sent to all members in a playroom
+ * List all members in a playroom
+ * Sent everytime a new member joins a playroom
+ */
 public class ResultBroadcastListMembers extends Message {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();

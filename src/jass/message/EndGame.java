@@ -11,6 +11,11 @@ import jass.commons.ServiceLocator;
 import jass.server.Account;
 import jass.server.Client;
 
+/*
+ * Class developed by Jannick
+ * Individual message client -> server
+ * Triggers events in client
+ */
 public class EndGame extends Message {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();

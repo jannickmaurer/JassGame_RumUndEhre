@@ -2,6 +2,11 @@ package jass.message;
 
 import jass.server.Client;
 
+/*
+ * Class developed by Jannick
+ * Individual message client -> server
+ * Triggers events in client
+ */
 public class Text extends Message {
 	private String name;
 	private String message;

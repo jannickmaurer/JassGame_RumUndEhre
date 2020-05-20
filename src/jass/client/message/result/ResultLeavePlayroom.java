@@ -7,6 +7,11 @@ import jass.client.model.JassClientModel;
 import jass.commons.ServiceLocator;
 import jass.message.Message;
 
+/*
+ * Class developed by Jannick
+ * Individual message as response for client -> server message
+ * Triggers events in controller depending on message success (true/false)
+ */
 public class ResultLeavePlayroom extends Message {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();

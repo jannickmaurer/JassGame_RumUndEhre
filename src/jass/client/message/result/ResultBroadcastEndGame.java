@@ -7,6 +7,11 @@ import jass.client.model.JassClientModel;
 import jass.commons.ServiceLocator;
 import jass.message.Message;
 
+/*
+ * Class developed by Jannick
+ * Message sent to all members in a playroom
+ * Normal ending of a game when maxPoints are earned
+ */
 public class ResultBroadcastEndGame extends Message {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
@@ -24,3 +29,4 @@ public class ResultBroadcastEndGame extends Message {
 		controller.somethingFailed();
 	}
 }
+

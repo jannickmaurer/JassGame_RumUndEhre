@@ -13,6 +13,11 @@ import jass.server.CardCreation;
 import jass.server.Client;
 import jass.server.Playroom;
 
+/*
+ * Class developed by Jannick
+ * Individual message client -> server
+ * Triggers events in client
+ */
 public class StartGame extends Message {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();

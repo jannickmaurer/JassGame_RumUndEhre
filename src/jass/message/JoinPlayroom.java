@@ -10,6 +10,11 @@ import jass.commons.ServiceLocator;
 import jass.server.Client;
 import jass.server.Playroom;
 
+/*
+ * Class developed by Jannick
+ * Individual message client -> server
+ * Triggers events in client
+ */
 public class JoinPlayroom extends Message {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();

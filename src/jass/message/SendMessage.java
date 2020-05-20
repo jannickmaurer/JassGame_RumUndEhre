@@ -5,6 +5,11 @@ import jass.client.message.result.ResultBroadcastSendMessage;
 import jass.server.Client;
 import jass.server.Playroom;
 
+/*
+ * Class developed by Jannick
+ * Individual message client -> server
+ * Triggers events in client
+ */
 public class SendMessage extends Message {
 	private String token;
 	private String message;

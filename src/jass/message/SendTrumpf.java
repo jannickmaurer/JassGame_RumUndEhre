@@ -9,6 +9,11 @@ import jass.client.message.result.ResultBroadcastSendTrumpf;
 import jass.server.Client;
 import jass.server.Playroom;
 
+/*
+ * Class developed by Jannick
+ * Individual message client -> server
+ * Triggers events in client
+ */
 public class SendTrumpf extends Message {
 	private String token;
 	private String trumpf;

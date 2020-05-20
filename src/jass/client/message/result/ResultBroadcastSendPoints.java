@@ -8,8 +8,11 @@ import jass.client.model.JassClientModel;
 import jass.commons.ServiceLocator;
 import jass.message.Message;
 
-/* Message to be sent to all playroom members individually 
- * Conatins current points of each player and currentLeader
+/*
+ * Class developed by Jannick
+ * Message sent to all members in a playroom
+ * Send points from each member to each member
+ * Sent everytim a Stich has happened
  */
 public class ResultBroadcastSendPoints extends Message {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();

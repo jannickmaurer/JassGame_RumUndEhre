@@ -7,6 +7,11 @@ import jass.client.message.result.ResultBroadcastSendTableCard;
 import jass.server.Client;
 import jass.server.Playroom;
 
+/*
+ * Class developed by Jannick
+ * Individual message client -> server
+ * Triggers events in client
+ */
 public class SendTableCard extends Message {
 	private String token;
 	private String tableCard;

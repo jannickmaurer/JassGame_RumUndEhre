@@ -7,6 +7,12 @@ import jass.client.model.JassClientModel;
 import jass.commons.ServiceLocator;
 import jass.message.Message;
 
+/*
+ * Class developed by Jannick
+ * Message sent to all members in a playroom
+ * Sent everytime a member sends ("Spielt") a card
+ * Sends the played card to each member
+ */
 public class ResultBroadcastSendTableCard extends Message {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
