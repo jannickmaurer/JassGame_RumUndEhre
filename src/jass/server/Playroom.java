@@ -89,7 +89,6 @@ public abstract class Playroom implements Serializable {
 		
 	}
 	
-	
 	/*Admin Stuff:
 	 * 
 	 */
@@ -296,11 +295,5 @@ public abstract class Playroom implements Serializable {
 	public String getGameType() {
 		return this.getGameType();
 	}
-
-	
-	
 	
 }
-	
-	
-

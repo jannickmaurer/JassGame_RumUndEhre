@@ -1,12 +1,14 @@
 package jass.client.controller;
 
 import java.io.IOException;
+import java.net.ConnectException;
 import java.util.logging.Logger;
 
 import jass.client.message.result.ResultPing;
 import jass.client.message.result.ResultBroadcastEndGame;
 import jass.client.message.result.ResultBroadcastSendPoints;
 import jass.client.message.result.ResultBroadcastSendTableCard;
+import jass.client.message.result.ResultBroadcastSendTrumpf;
 import jass.client.message.result.ResultBroadcastStartGame;
 import jass.client.message.result.ResultCreateAccount;
 import jass.client.message.result.ResultCreatePlayroom;
@@ -22,6 +24,7 @@ import jass.client.message.result.ResultLogin;
 import jass.client.message.result.ResultLogout;
 import jass.client.message.result.ResultSendMessage;
 import jass.client.message.result.ResultSendTableCard;
+import jass.client.message.result.ResultSendTrumpf;
 import jass.client.message.result.ResultShuffle;
 import jass.client.message.result.ResultStartGame;
 import jass.client.message.result.ResultBroadcastSendMessage;
@@ -191,12 +194,14 @@ public class JassClientController {
 		});
 		
 		model.getLastReceivedMessage().addListener( (o, oldValue, newValue) -> {
-			String[] content = newValue.split("\\|");
-			for (int i = 0; i < content.length; i++) {
-				content[i] = content[i].trim();
+			if(!newValue.equals("")) {
+				String[] content = newValue.split("\\|");
+				for (int i = 0; i < content.length; i++) {
+					content[i] = content[i].trim();
+				}
+				createMessage(content);
+				model.getLastReceivedMessage().setValue("");
 			}
-			createMessage(content);
-			
 		});	
 		
 		view.getStage().setOnCloseRequest((event) -> { 
@@ -328,11 +333,22 @@ public class JassClientController {
 			if (!msg.isFalse()) msg.process(JassClientController.this);
 			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
 		}
-		
-		
+		if (content[0].equals("ResultSendTrumpf")) {
+			msg = new ResultSendTrumpf(content);
+			if (!msg.isFalse()) msg.process(JassClientController.this);
+			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+		}
+		if (content[0].equals("ResultBroadcastSendTrumpf")) {
+			msg = new ResultBroadcastSendTrumpf(content);
+			if (!msg.isFalse()) msg.process(JassClientController.this);
+			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+		}
 		
 	}
 	
+	private void sendTrumpf() {
+		model.sendTrumpf("Hearts");
+	}
 	
 	private void sendTableCard() {
 		String tableCard = "H7";
@@ -396,7 +412,12 @@ public class JassClientController {
 	}
 	
 	public void connect() {
+		try {
 		model.connect(view.getTfIP().getText(), Integer.parseInt(view.getTfPort().getText()));
+		} catch (Exception e) {
+			logger.info("Server down");
+			somethingFailed();
+		}
 	}
 	
 	public JassClientModel getModel() {

@@ -25,17 +25,19 @@ public class Server {
 		
 		
 		System.out.println("Welcome to our Jass Game");
-		System.out.println("Let's set up the server");
 		
-		while(port < 1024 || port > 65535) {
-			try(Scanner scan = new Scanner(System.in)) {
-				System.out.println("Please enter the port number (1024 - 65535): ");
+		
+		try(Scanner scan = new Scanner(System.in)) {
+			
+			while(port < 1024 || port > 65535) {
+				System.out.println("Please enter the port number");
+				System.out.println("-> Port number has to be between 1024 and 65535");
+				System.out.println("-> Only numbers allowed");
 				String input = scan.nextLine();
-				
 				try {
 					port = Integer.parseInt(input);
 				} catch (NumberFormatException e) {
-					e.printStackTrace();
+					System.out.println("Only numbers allowed");
 				}
 			}	
 		}

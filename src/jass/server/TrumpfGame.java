@@ -8,9 +8,10 @@ import jass.commons.ServiceLocator;
 public class TrumpfGame extends Playroom {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
-	private final String gameType = "Trumpf";
+	protected final String gameType = "Trumpf";
 	
 	public static String trumpf;
+	
 	public static String gameTyp = "Trumpf";
 	private ServerTableCards serverTableCards;
 ;
@@ -76,6 +77,7 @@ public class TrumpfGame extends Playroom {
 		
 	}
 	
-	
+
+
 
 }

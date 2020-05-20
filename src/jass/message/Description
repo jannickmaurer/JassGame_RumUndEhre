@@ -19,6 +19,7 @@ ResultLogout					ResultLogout|result
 ResultMakeeTrumpf				ResultMakeeTrumpf|result
 ResultSendMessage				ResultSendMessage|result
 ResultSendTableCard				ResultSendTableCard|result
+ResultSetTrumpf					ResultSetTrumpf|result
 ResultShuffle					ResultShuffle|tableCardsAsString
 ResultStartGame					ResultStartGame|result
 
@@ -29,6 +30,7 @@ ResultBroadcastMakeTrumpf
 ResultBroadcastSendMessage		ResultBroadcastSendMessage|username|message
 ResultBroadcastSendPoint		ResultBradcastSendPoints|currentLeader|username:points|username:points
 ResultBroadcastSendTableCard	ResultSendTableCard|username|tableCardAsString
+ResultBroadcastSetTrumpf		ResultBroadcastSetTrumpf|Trumpf
 ResultBroadcastStartGame		ResultBroadcastStartGame|result
 
 				
@@ -42,10 +44,10 @@ LeavePlayroom
 ListPlayrooms					ListPlayrooms|TOKEN
 Login							Login|username|password
 Logout
-MakeTrumpf						MakeTrumpf|TOKEN|Trumpf
 Ping
 SendMessage						SendMessage|TOKEN|Message
 SendTableCard					SendTableCard|TOKEN|Tablecard
+SetTrumpf						SetTrumpf|TOKEN|Trumpf
 StartGame						StartGame|TOKEN			
 Text							Text|Name|Message
 

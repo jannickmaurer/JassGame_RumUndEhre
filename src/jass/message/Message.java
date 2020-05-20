@@ -74,7 +74,7 @@ public abstract class Message {
 			if (content[0].equals("EndGame")) msg = new EndGame(content);
 			if (content[0].equals("SendTableCard")) msg = new SendTableCard(content);
 			if (content[0].equals("Disconnect")) msg = new Disconnect(content);
-
+			if (content[0].equals("SendTrumpf")) msg = new SendTrumpf(content);
 
 //			if (content[0].equals("ResultPing")) msg = new ResultPing(content); 
 //			if (content[0].equals("ResultLogin")) msg = new ResultLogin(content);

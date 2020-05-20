@@ -18,7 +18,7 @@ public class Board {
 	public static String trumpf = "C";//gestzt für test
 	public boolean wiisDone = false;
 	public Card myLastPlayedCard;
-	public static String gameTyp = "Trumpf";
+	public static String gameTyp;
 	public String playableCards;
 	public HandCards playableHandCards;
 	public HandCards remainingHandCards; //allefalls direkt zugriff
@@ -30,7 +30,7 @@ public class Board {
 		// Kommt von Sämi wenn spielraum einsteigt macht er ein New Board
 		this.handCards = new HandCards();
 		this.tableCards = new TableCards();
-		Board.gameTyp = gameTyp;
+		this.gameTyp = gameTyp;
 		this.enterPlayRoom(roomName);
 //		this.poll();
 
@@ -239,6 +239,78 @@ public class Board {
 	private String playableCardsAre() {
 		
 		return playableCards;
+	}
+
+	public int getImPlayer() {
+		return imPlayer;
+	}
+
+	public void setImPlayer(int imPlayer) {
+		this.imPlayer = imPlayer;
+	}
+
+	public static String getTrumpf() {
+		return trumpf;
+	}
+
+	public static void setTrumpf(String trumpf) {
+		Board.trumpf = trumpf;
+	}
+
+	public boolean isWiisDone() {
+		return wiisDone;
+	}
+
+	public void setWiisDone(boolean wiisDone) {
+		this.wiisDone = wiisDone;
+	}
+
+	public Card getMyLastPlayedCard() {
+		return myLastPlayedCard;
+	}
+
+	public void setMyLastPlayedCard(Card myLastPlayedCard) {
+		this.myLastPlayedCard = myLastPlayedCard;
+	}
+
+	public static String getGameTyp() {
+		return gameTyp;
+	}
+
+	public static void setGameTyp(String gameTyp) {
+		Board.gameTyp = gameTyp;
+	}
+
+	public HandCards getPlayableHandCards() {
+		return playableHandCards;
+	}
+
+	public void setPlayableHandCards(HandCards playableHandCards) {
+		this.playableHandCards = playableHandCards;
+	}
+
+	public HandCards getRemainingHandCards() {
+		return remainingHandCards;
+	}
+
+	public void setRemainingHandCards(HandCards remainingHandCards) {
+		this.remainingHandCards = remainingHandCards;
+	}
+
+	public HandCards getHandCards() {
+		return handCards;
+	}
+
+	public void setHandCards(HandCards handCards) {
+		this.handCards = handCards;
+	}
+
+	public static void setPlayersTurn(int playersTurn) {
+		Board.playersTurn = playersTurn;
+	}
+
+	public void setTableCards(TableCards tableCards) {
+		this.tableCards = tableCards;
 	}
 
 	//@Override

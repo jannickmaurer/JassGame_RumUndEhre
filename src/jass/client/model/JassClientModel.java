@@ -4,7 +4,9 @@ package jass.client.model;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.ConnectException;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -22,11 +24,11 @@ import jass.message.LeavePlayroom;
 import jass.message.ListPlayrooms;
 import jass.message.Login;
 import jass.message.Logout;
-import jass.message.MakeTrumpf;
 import jass.message.Message;
 import jass.message.Ping;
 import jass.message.SendMessage;
 import jass.message.SendTableCard;
+import jass.message.SendTrumpf;
 import jass.message.StartGame;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -47,8 +49,8 @@ public class JassClientModel {
 	private static Logger logger = serviceLocator.getClientLogger();
 	private ObservableList<String> playrooms = FXCollections.observableArrayList();
 	
-	public void connect(String ipAdress, int port) {
-		try {
+	public void connect(String ipAdress, int port) throws Exception, IOException {
+//		try {
 			socket = new Socket(ipAdress, port);
 			
 			Runnable r = new Runnable() {
@@ -87,9 +89,9 @@ public class JassClientModel {
 			t.start();
 			logger.info("Client Connected");
 			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 	}
 	
 	public void ping() {
@@ -247,6 +249,18 @@ public class JassClientModel {
 		}
 	}
     
+    public void sendTrumpf(String string) {
+    	String[] content = new String[] {"SendTrumpf", null};
+		Message msg = new SendTrumpf(content);
+		try {
+			msg.send(socket);
+			logger.info("Client tries to send message: " + msg.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+    
     public void removePlayroom(String playroom) {
 		playrooms.remove(playroom);
 	}
@@ -355,6 +369,8 @@ public class JassClientModel {
 	public void setConnected(Boolean connected) {
 		this.connected.set(connected);
 	}
+
+	
 
 	
 
