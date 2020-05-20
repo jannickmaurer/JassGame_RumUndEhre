@@ -15,6 +15,10 @@ import java.util.logging.Logger;
 
 import jass.commons.ServiceLocator;
 
+/*
+ * Class developed by Jannick
+ * Some concepts are inspired by 
+ */
 public class Account implements Serializable {
 
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();

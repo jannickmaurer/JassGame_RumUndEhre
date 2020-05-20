@@ -30,7 +30,7 @@ public class SendTableCard extends Message {
 			Playroom playroom = client.getPlayroom();
 			if(playroom != null) {
 				String clientCard = client.getName() + ":" + tableCard;
-				playroom.addClientCard(clientCard);
+//				playroom.addClientCard(clientCard);
 				String[] content = new String[] {"ResultBroadcastSendTableCard", client.getAccount().getUsername(), this.tableCard};
 				Message msg = new ResultBroadcastSendTableCard(content);
 				playroom.send(msg);
@@ -40,3 +40,4 @@ public class SendTableCard extends Message {
 		String[] content2 = new String[] {"ResultSendTableCard", Boolean.toString(result), tableCard};
 		client.send(new ResultSendTableCard(content2));	}
 }
+

@@ -7,7 +7,6 @@ import jass.client.message.result.ResultCreatePlayroom;
 import jass.commons.ServiceLocator;
 import jass.server.Client;
 import jass.server.Playroom;
-import jass.server.TrumpfGame;
 
 /*
  * Class developed by Jannick
@@ -20,24 +19,25 @@ public class CreatePlayroom extends Message {
 	
 	private String token;
 	private String name;
-	private String playmode;
+	private String gameType;
 	private String maxPoints;
 	
 	public CreatePlayroom(String[] content) {
 		super(content);
 		this.token = content[1];
 		this.name = content[2];
-		this.playmode = content[3];
+		this.gameType = content[3];
 		if(content.length > 4) this.maxPoints = content[4];
 		
 	}
+
 
 	@Override
 	public void process(Client client) {
 		boolean result = false;
 		if(this.token.equals(client.getToken()) && Playroom.getPlayroom(name) == null) {
-			if(this.playmode.equals("Trumpf")) {
-				Playroom playroom = new TrumpfGame(this.name, client.getName());
+			if(this.gameType.equals("Trumpf")) {
+				Playroom playroom = new Playroom(this.name, client.getName(), this.gameType);
 				Playroom.add(playroom);
 				result = true;
 			}

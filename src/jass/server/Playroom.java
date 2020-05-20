@@ -1,5 +1,6 @@
 package jass.server;
 
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Logger;
 
+import jass.commons.Card;
 import jass.commons.ServiceLocator;
 import jass.message.Message;
 
@@ -20,7 +22,7 @@ import jass.message.Message;
  * This concept contains all information, variables and methods that all the gametypes share
  */
 
-public abstract class Playroom implements Serializable {
+public class Playroom implements Serializable {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
 	
@@ -35,15 +37,17 @@ public abstract class Playroom implements Serializable {
 	private String playerOnTurn;
 	private String owner;
 	private int maxPoints;
+	private int playedCards;
+	private String gameType;
 	
-
 	
 	/* Constructor: Open a new playroom with playroom name and owner account as String – maxPoints set by child class
 	 * 
 	 */
-	public Playroom(String name, String owner) {
+	public Playroom(String name, String owner, String gameType) {
 		this.name = name;
 		this.owner = owner;
+		this.gameType = gameType;
 		members = new ArrayList<>();
 		this.chatroom = new Chatroom(Playroom.this);
 		Chatroom.add(this.chatroom);
@@ -85,9 +89,21 @@ public abstract class Playroom implements Serializable {
 	public void setMaxPoints(int maxPoints) {
 		this.maxPoints = maxPoints;
 	}
-	public void addClientCard(String clientCard) {
-		
-	}
+//	public void addClientCard(String clientCard) {
+//		if (playedCards < this.getMembers().size()) {
+//			logger.info("ClientCard added to ServerTableCards: " + clientCard);
+//			serverTableCards.addClientCard(clientCard);
+//			playedCards++;
+//		}
+//		if (playedCards == this.getMembers().size()) {
+//			serverTableCards.addClientCard(clientCard);
+//			winnerIsPlayer();
+//			playedCards = 0;
+//			serverTableCards.clearServerTableCards();
+//		}
+
+	
+	
 	
 	/*Admin Stuff:
 	 * 
@@ -292,8 +308,6 @@ public abstract class Playroom implements Serializable {
 //		
 //	}
 	
-	public String getGameType() {
-		return this.getGameType();
-	}
+	
 	
 }

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import jass.commons.Card.Rank;
 import jass.commons.Card.Suit;
-import jass.server.TrumpfGame;
 
 public enum Trumpf { Trumpf, Stich, None;
 
@@ -18,7 +17,7 @@ public enum Trumpf { Trumpf, Stich, None;
 	//zum lösche erste zwei zeilen und ersetzen
 	//public static String trumpf = "C";
 //	public String suit = "H";
-	
+
 	
 	public static boolean isTrumpf(ArrayList<Card> cards) {
 		boolean found = false;
@@ -158,17 +157,17 @@ public enum Trumpf { Trumpf, Stich, None;
 		int points = 0;
 		for (Card card : cards) {				
 			switch(card.getRank().toString()) {
-				case("6"): if (TrumpfGame.gameTyp == "UndeUfe") points += 11; break;
+				case("6"): if (TrumpfGame.gameType == "UndeUfe") points += 11; break;
 				case("7"): points += 0; break;
-				case("8"): if (TrumpfGame.gameTyp == "ObeAbe") points += 8; 
-						   if (TrumpfGame.gameTyp == "UndeUfe") points += 8; break;
+				case("8"): if (TrumpfGame.gameType == "ObeAbe") points += 8; 
+						   if (TrumpfGame.gameType == "UndeUfe") points += 8; break;
 				case("9"): if (card.getSuit().toString() == Board.trumpf) points += 14; break; 
 				case("T"): points += 10; break; 
 				case("J"): if (card.getSuit().toString() == Board.trumpf) points += 20; 
 						   else points += 2; break;
 				case("Q"): points += 3; break; 
 				case("K"): points += 4; break; 
-				case("A"): if (TrumpfGame.gameTyp != "UndeUfe") points += 11; break;
+				case("A"): if (TrumpfGame.gameType != "UndeUfe") points += 11; break;
 			}
 		}
 		return points;
