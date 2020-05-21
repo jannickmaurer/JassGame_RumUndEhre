@@ -33,8 +33,8 @@ public class TableCards extends Cards{
 //		return trumpf;
 //	}
 	
-	public Suit getFirstSuit() {
-		firstSuit  = Trumpf.getFirstSuit(tableCards);
-		return firstSuit;
-	}
+//	public Suit getFirstSuit() {
+//		firstSuit  = Trumpf.getFirstSuit(tableCards);
+//		return firstSuit;
+//	}
 }

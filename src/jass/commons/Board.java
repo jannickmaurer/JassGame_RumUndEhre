@@ -88,7 +88,7 @@ public class Board {
 						//hier werden den möglichen überstechungskarten noch die restlichen 
 						//möglichen Karten hinzugefügt der ersten tischfarbe
 						for (int i = 0; i < remainingHandCards.hasLength(); i++) {
-							if(remainingHandCards.getCardSuit(i).toString() == tableCards.getFirstSuit().toString()) {
+							if(remainingHandCards.getCardSuit(i).toString() == tableCards.getCardSuit(0).toString()) {
 								playableHandCards.add(remainingHandCards.getCard(i));
 							}
 						}
@@ -96,7 +96,7 @@ public class Board {
 				}
 				if (remainingHandCards.evaluateTrumpf().toString() == "None") {
 					for (int i = 0; i < remainingHandCards.hasLength(); i++) {
-						if(remainingHandCards.getCardSuit(i).toString() == tableCards.getFirstSuit().toString()) {
+						if(remainingHandCards.getCardSuit(i).toString() == tableCards.getCardSuit(0).toString()) {
 							playableHandCards.add(remainingHandCards.getCard(i));
 						}
 					}
@@ -106,7 +106,7 @@ public class Board {
 
 			if (gameTyp == "ObeAbe" || gameTyp == "UndeUfe" || gameTyp == "Slalom") {
 				for (int i = 0; i < remainingHandCards.hasLength(); i++) {
-					if(remainingHandCards.getCardSuit(i).toString() == tableCards.getFirstSuit().toString()) {
+					if(remainingHandCards.getCardSuit(i).toString() == tableCards.getCardSuit(0).toString()) {
 						playableHandCards.add(remainingHandCards.getCard(i));
 					}
 				}	

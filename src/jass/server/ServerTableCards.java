@@ -15,9 +15,9 @@ public class ServerTableCards extends Cards{
 		super();
 	}
 
-	public ArrayList<Card> getServerTableCards() {
-		return serverTableCards;
-	}
+//	public ArrayList<Card> getServerTableCards() {
+//		return serverTableCards;
+//	}
 	
 	public boolean hasServerTableCards() {
 		return serverTableCards.size() != 0; 
