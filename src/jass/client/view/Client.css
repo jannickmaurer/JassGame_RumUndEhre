@@ -90,6 +90,12 @@
 	-fx-alignment: top-left;
 }
 
+#playerArea {
+	-fx-alignment: center;
+	-fx-padding: 10 10 10 10;
+	-fx-spacing: 5;
+}
+
 #popup {
 	-fx-background-color: rgba(185, 185, 185, 0.8);
 	-fx-alignment: center;

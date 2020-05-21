@@ -173,7 +173,10 @@ public class JassClientController {
 			view.getCardP1().setVisible(true);
 		});
 		
-		view.getBtnSend().setOnAction(e -> sendTableCard());
+		view.getBtnSend().setOnAction(e ->{
+			sendTableCard();
+			sendMessage();
+		});
 		
 		model.getPlayrooms().addListener((ListChangeListener<String>) change -> {
 			Platform.runLater(new Runnable() {

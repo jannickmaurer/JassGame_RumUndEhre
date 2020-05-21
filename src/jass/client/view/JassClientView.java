@@ -52,6 +52,7 @@ public class JassClientView {
 	public SiegerPopupPane siegerPopupLayout = new SiegerPopupPane();
 	public TrumpfPopupPane trumpfPopupLayout = new TrumpfPopupPane();
 	public WyssPopupPane wyssPopupLayout = new WyssPopupPane();
+	public OtherPlayerPane otherPlayerLayout = new OtherPlayerPane();
 	
 	public Popup profilPopUp = new Popup();
 	public Popup createSpielraumPopUp = new Popup();
@@ -109,6 +110,8 @@ public class JassClientView {
 	
 	Label lblWinner = siegerPopupLayout.lblWinner;
 	Button btnBackSieger = siegerPopupLayout.btnBack;
+	
+	Label lblPointsOtherPlayer = otherPlayerLayout.lblPoints;
 	
 	Label lblPlayer = spielraumLayout.lblPlayer;
 	Label lblPlayer1 = spielraumLayout.lblPlayer1;
@@ -230,7 +233,7 @@ public class JassClientView {
 		txtMessages.setMinWidth(Region.USE_PREF_SIZE);
 		txtMessages.setPrefWidth(250);
 		btnSend.setMinWidth(Region.USE_PREF_SIZE);
-		btnSend.setPrefWidth(140);
+		btnSend.setPrefWidth(250);
 		btnLeave.setMinWidth(Region.USE_PREF_SIZE);
 		btnLeave.setPrefWidth(100);
 		btnStartGame.setMinWidth(Region.USE_PREF_SIZE);
@@ -321,10 +324,7 @@ public class JassClientView {
 		startGamePopUp.getContent().add(startGamePopupLayout);
 		startGamePopUp.setAutoHide(true);
 		
-		crcP1.setVisible(false);
-		crcP2.setVisible(false);
-		crcP3.setVisible(false);
-		crcP4.setVisible(false);
+		txtMessages.setEditable(false);
 		
 		v1.setVgrow(listView, Priority.ALWAYS);
 		
@@ -366,6 +366,7 @@ public class JassClientView {
 		registrationLayout.tfPassword.setPromptText(t.getString("label.password"));
 		spielraumPopupLayout.tfSpielraumName.setPromptText(t.getString("label.spielraumname"));
 		spielraumLayout.lblPlayer.setText(t.getString("label.player"));
+		otherPlayerLayout.lblPoints.setText(t.getString("label.points"));
 		spielraumLayout.lblPoints.setText(t.getString("label.points"));
 		spielraumLayout.lblChat.setText(t.getString("label.chat"));
 		spielraumLayout.lblWait.setText(t.getString("label.wait"));
