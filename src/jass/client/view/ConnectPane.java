@@ -25,7 +25,7 @@ public class ConnectPane extends GridPane {
 		this.add(lblIP, 3, 1);
 		this.add(tfIP, 4, 1);
 		this.add(btnRun, 5, 1);
-		this.add(btnStart, 7, 1);
+		this.add(btnStart, 6, 1);
 		
 		this.setId("root");
 		this.setAlignment(Pos.TOP_LEFT);

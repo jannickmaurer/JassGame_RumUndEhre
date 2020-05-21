@@ -38,7 +38,7 @@ public class LoginPane extends GridPane {
 		HBox.setHgrow(spacer1, Priority.ALWAYS);
 		h1.setId("HBox");
 		h1.getChildren().addAll(btnLogin, spacer1, btnRegistration);		
-		
+		btnLogin.disableProperty().bind(tfUsername.textProperty().isEmpty() .or(tfPassword.textProperty().isEmpty()));
 		v1.getChildren().addAll(lblTitelLogin, lblSubtitelLogin, tfUsername, tfPassword, h1);
 		
 		this.add(v1, 0, 0);
