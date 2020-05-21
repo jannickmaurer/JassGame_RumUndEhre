@@ -27,67 +27,24 @@ public class Board {
 	TableCards tableCards;
 
 	public Board(String roomName, String gameTyp) {
-		// Kommt von Sämi wenn spielraum einsteigt macht er ein New Board
 		this.handCards = new HandCards();
 		this.tableCards = new TableCards();
 		this.gameTyp = gameTyp;
-		this.enterPlayRoom(roomName);
-//		this.poll();
-
+//		this.enterPlayRoom(roomName);
 	}
 
 	public void enterPlayRoom(String roomName) {
 		// TODO server abfragen, wenn beigetretten wird
 		// identisch wie tabelCArdsFrom SErver adden für imPlayer und
-		handCards.add(new Card("D6"));
-		handCards.add(new Card("D7"));
-		handCards.add(new Card("DA"));
-		handCards.add(new Card("SQ"));
-		handCards.add(new Card("CT"));
-
-		handCards.add(new Card("S6"));
-		handCards.add(new Card("HJ"));
-		handCards.add(new Card("HK"));
-		handCards.add(new Card("S7"));
-		// ask Server witch player iam mit dem roomName
-		imPlayer = 1;
-		
+		imPlayer = 1;	
 		// ask Server witch player i am
 		imPlayer = 2;
-
-	}
-
-//	void poll() {
-//		Timer timer = new Timer();
-//
-//		timer.scheduleAtFixedRate(new TimerTask() {
-//			@Override
-//			public void run() {
-//				// this.callServer(); entweder so callen oder als listerner
-//			}
-//
-//		}, 100, 500); // Zeit für Anfrage aller erste Anfrageverzögerung, zweite wiederholzeitraum
-//	}
-	
-	public void callServer() { //statt call server als Listerner registrieeren
-		this.cardListener(getTableCards());
-		this.playerListener(getPlayersTurn());
 	}
 	
-	
-//!!!!!!!!! Achtung hier kommen die gshuffleten Karten vonm Server am anfang.
-//	!!!!!!!!!!!!!!!!!!!!!!!!! anstatt serverTableCards dann HandCards
-	public void cardListener(String serverTabelCards) {
-		//
-		// gettabelcards und getplayersturn beim server abrfragen
-		// über message server anfrage und rückmeldung der aktuellen karten
-//
-		String[] tableCardList = serverTabelCards.split("\\|");
-		for (int i = 0; i < tableCardList.length; i++) {
-			this.tableCards.add(new Card(tableCardList[i]));
-		}
-		if (this.tableCards.isComplete()) {
-			winnerEval();
+	public void shuffledCardListener(String newHandCards) {
+		String[] handCardList = newHandCards.split("\\|");
+		for (int i = 0; i < handCardList.length; i++) {
+			this.handCards.add(new Card(handCardList[i]));
 		}
 	}
 	
@@ -100,76 +57,62 @@ public class Board {
 		}
 	}
 
-	//handCArds gegen remaining HandCards ersetzen
+	//Methode play evaluiert nur welche Karten gespielt werden dürfen und welche nicht
 	private void play() {
 		playableHandCards.clearPlayableHandCards();
-		//setGameVariety muss zuvor passieren und ist für alle Playspiele dieselbe (9 Runden)
 		if (tableCards.hasCards() == false) {
-			playableHandCards = handCards;
-			// evaluation Trumpf, UndeUfe, ObeAbe, Slalom
-//			getGameVariety(); @Sämi bitte trumpfauswahl bei spielstart implementieren
-
-			selectGameVariety();
-			// Karte ziehen
-			// select GameVariety : Auswählen was in dieser Rund gespielt wir, ob Trumpf,
-			// ObeAbe, UndeUfe oder Slalom
-
+			playableHandCards = remainingHandCards;
+		}
 		if (tableCards.hasCards() == true) {
-			// TODO evaluieren welche Karte gespielt werden darf anhand TableCards und
 			if (gameTyp == "Trumpf") {
 				if (tableCards.evaluateTrumpf().toString() == "Trumpf") {
-					// evaluieren ob ich Trumpf habe, sonst kann ich alles spielen
-					if (handCards.evaluateTrumpf().toString() == "Trumpf") {
-						for (int i = 0; i < handCards.hasLength(); i++) {
-							if (handCards.getCardSuit(i).toString() == trumpf) {
-								playableHandCards.add(handCards.getCardOnPlace(i));
-							};
+					if (remainingHandCards.hasTrumpfCards()) {
+						for (int i = 0; i < remainingHandCards.hasLength(); i++) {
+							if (remainingHandCards.getCardSuit(i).toString() == trumpf) {
+								playableHandCards.add(remainingHandCards.getCardOnPlace(i));
+							}
 						}		
-					}else playableHandCards = handCards;
+					}else playableHandCards = remainingHandCards;
 				}
 				if (tableCards.evaluateTrumpf().toString() == "Stich") {
 					Card highestTableStichCard;
-					//Folgendes If fügt alle Trumpfkarten die gespielt werden können hinzu
-					//************
-					if (handCards.evaluateTrumpf().toString() == "Trumpf") {
+					if (remainingHandCards.hasTrumpfCards()) {
 						highestTableStichCard = tableCards.getHighestTrumpfCard();
 						ArrayList<Card> tempHigherThanStichCards = new ArrayList<Card> ();
-						tempHigherThanStichCards = handCards.getCardHigherThanStich(highestTableStichCard);
-						for (Card card : tempHigherThanStichCards) {//was wenn tempHigherThanStichCards = null??
-							playableHandCards.add(card);
+						tempHigherThanStichCards = remainingHandCards.getCardHigherThanStich(highestTableStichCard);
+						if (tempHigherThanStichCards != null) {
+							for (Card card : tempHigherThanStichCards) {
+								playableHandCards.add(card);
+							}
 						}
 						//hier werden den möglichen überstechungskarten noch die restlichen 
 						//möglichen Karten hinzugefügt der ersten tischfarbe
-						for (int i = 0; i < handCards.hasLength(); i++) {
-							if(handCards.getCardSuit(i).toString() == tableCards.getFirstSuit().toString()) {
-								playableHandCards.add(handCards.getCardOnPlace(i));
+						for (int i = 0; i < remainingHandCards.hasLength(); i++) {
+							if(remainingHandCards.getCardSuit(i).toString() == tableCards.getFirstSuit().toString()) {
+								playableHandCards.add(remainingHandCards.getCardOnPlace(i));
 							}
 						}
 					}
 				}
-				//************
-				if (handCards.evaluateTrumpf().toString() == "None") {
-					for (int i = 0; i < handCards.hasLength(); i++) {
-						if(handCards.getCardSuit(i).toString() == tableCards.getFirstSuit().toString()) {
-							playableHandCards.add(handCards.getCardOnPlace(i));
+				if (remainingHandCards.evaluateTrumpf().toString() == "None") {
+					for (int i = 0; i < remainingHandCards.hasLength(); i++) {
+						if(remainingHandCards.getCardSuit(i).toString() == tableCards.getFirstSuit().toString()) {
+							playableHandCards.add(remainingHandCards.getCardOnPlace(i));
 						}
 					}
 				}
-				if (playableHandCards.hasCards() == false) playableHandCards = handCards;			
+				if (playableHandCards.hasCards() == false) playableHandCards = remainingHandCards;			
 			}
 
 			if (gameTyp == "ObeAbe" || gameTyp == "UndeUfe" || gameTyp == "Slalom") {
-				for (int i = 0; i < handCards.hasLength(); i++) {
-					if(handCards.getCardSuit(i).toString() == tableCards.getFirstSuit().toString()) {
-						playableHandCards.add(handCards.getCardOnPlace(i));
+				for (int i = 0; i < remainingHandCards.hasLength(); i++) {
+					if(remainingHandCards.getCardSuit(i).toString() == tableCards.getFirstSuit().toString()) {
+						playableHandCards.add(remainingHandCards.getCardOnPlace(i));
 					}
 				}	
-				if (playableHandCards.hasCards() == false) playableHandCards = handCards;
+				if (playableHandCards.hasCards() == false) playableHandCards = remainingHandCards;
 			}
 		} 
-		} //remainingCards Karte entfernen welche gespielt wurde 
-		//und an Jannick übergeben. 
-		//
 	}
 
 	private void selectGameVariety() {
@@ -285,9 +228,11 @@ public class Board {
 		return playableHandCards;
 	}
 
-	public void setPlayableHandCards(HandCards playableHandCards) {
-		this.playableHandCards = playableHandCards;
-	}
+// David auskommentiert, da meiner Meinung nach nicht gebruacht!!!
+	
+//	public void setPlayableHandCards(HandCards playableHandCards) {
+//		this.playableHandCards = playableHandCards;
+//	}
 
 	public HandCards getRemainingHandCards() {
 		return remainingHandCards;
@@ -312,21 +257,5 @@ public class Board {
 	public void setTableCards(TableCards tableCards) {
 		this.tableCards = tableCards;
 	}
-
-	//@Override
-//	public int compareTo(Card highestStich) {
-////		if (this.Card.getRank().compareTo(highestStich.getRank()) > 0) {
-//			
-//		}
-//		return 0;
-//	}
-//	public int compareTo(Card o) {
-//		if(this.getRank().compareTo(o.getRank()) > 0 ) {
-//			return 1;
-//		} else if(this.getRank().compareTo(o.getRank()) < 0) {
-//				return -1;
-//			} 
-//		return 0;
-//	}
 
 }

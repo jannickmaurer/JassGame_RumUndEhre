@@ -48,9 +48,7 @@ public class HandCards extends Cards{
 	
 	//methode um höhere Karten als Stich zurück zu geben
 	public ArrayList<Card> getCardHigherThanStich(Card stichCard){ //ArrayList<Card> cards
-		ArrayList<Card> returnCards = new ArrayList<>();
-		returnCards = Trumpf.getCardsHigherThanStich(stichCard, handCards);
-		return returnCards;
+		return Trumpf.getCardsHigherThanStich(stichCard, handCards);
 	}
 	
 	

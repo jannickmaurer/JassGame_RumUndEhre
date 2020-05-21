@@ -83,4 +83,8 @@ public class Cards implements Serializable {
 		return highestTrumpfCard;
 	}
 	
+	public boolean hasTrumpfCards() {
+		return Trumpf.hasTrumpfCards(cards);
+	}
+	
 }
