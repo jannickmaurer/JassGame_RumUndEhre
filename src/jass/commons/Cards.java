@@ -69,7 +69,7 @@ public class Cards implements Serializable {
 		return suit;
 	}
 	
-	public Card getCardOnPlace(int i) {
+	public Card getCard(int i) {
 		return cards.get(i);
 	}
 	

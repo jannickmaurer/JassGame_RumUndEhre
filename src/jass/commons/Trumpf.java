@@ -14,10 +14,6 @@ public enum Trumpf { Trumpf, Stich, None;
 			if (isStich(cards)) trumpfevaluation = Stich;			
 		return trumpfevaluation;
 	}
-	
-	//zum lösche erste zwei zeilen und ersetzen
-	//public static String trumpf = "C";
-//	public String suit = "H";
 
 	
 	public static boolean isTrumpf(ArrayList<Card> cards) {
@@ -106,37 +102,40 @@ public enum Trumpf { Trumpf, Stich, None;
 		return cardTwoRank > cardOneRank;
 	}
 	
-	public static Suit getFirstSuit(ArrayList<Card> cards) {
-		Suit searchedSuit = cards.get(0).getSuit();
-		return searchedSuit;
-	}
-	
-
-//	//Folgend NUR Methoden zur Siegauswertung von Karten
-//	//Gibt höchste Karte zurück bei gleicher Farbe
-//	public static Rank getHigherCard(ArrayList<Card> cards) { 
-//		int rank = Integer.parseInt(cards.get(0).getRank().toString());
-//		int place = 0;
-//		String suit = cards.get(0).getSuit().toString();		
-////		for (int i = 0; i < cards.size(); i++) {
-////			if (cards.get(i).getSuit().toString() != suit) cards.remove(i);
-////		}
-//		for (int i = 1; i < cards.size(); i++) {
-//			if (cards.get(i).getSuit().toString() == suit) {
-//				if (Integer.parseInt(cards.get(i).getRank().toString()) > rank ) {
-//					rank = Integer.parseInt(cards.get(i).getRank().toString());
-//					place = i;
+//	public static Card getHigherCard(ArrayList<Card> cards) {
+//		Card card;
+//		for (int i = 1; i < cards.size()-1; i++) {
+//			if (cards.get(i).getSuit() == cards.get(0).getSuit()) {
+//				if (isHigher(card.getRank().toString(), cards.get(i).getRank().toString())){
+//	//				returnCards.add(cards.get(i));
 //				}
 //			}
 //		}
-//		return cards.get(place).getRank();
+//		
+//		return null;
 //	}
 	
-	public static String highestUfeAbeSlalom(ArrayList<Card> cards, String gameTyp) {
+//	public static Suit getFirstSuit(ArrayList<Card> cards) { //evtl löschen, wird nur 2mal verwendet aktuell
+//		return cards.get(0).getSuit();
+//	}
+	
+	public static Card higherSameSuitCard(ArrayList<Card> cards) {
+		Card winnerCard = cards.get(0);
+		for (int i = 0; i < cards.size()-1; i++) {
+			if (cards.get(0).getSuit() == cards.get(i+1).getSuit()) {
+				if (winnerCard.getRank().compareTo(cards.get(i+1).getRank()) < 0) {
+					winnerCard = cards.get(i+1);
+				}
+			}
+		}
+		return winnerCard;
+	}
+	
+	public static Card highestUfeAbeSlalomCard(ArrayList<Card> cards, String gameTyp) {
 		Card winnerCard = cards.get(0);
 		if (gameTyp == "ObeAbe") {
 			for (int i = 0; i < cards.size()-1; i++) {
-				if (getFirstSuit(cards) == cards.get(i+1).getSuit()) {
+				if (cards.get(0).getSuit() == cards.get(i+1).getSuit()) {
 					if (winnerCard.getRank().compareTo(cards.get(i+1).getRank()) < 0) {
 						winnerCard = cards.get(i+1);
 					}
@@ -145,7 +144,7 @@ public enum Trumpf { Trumpf, Stich, None;
 		}
 		if (gameTyp == "UndeUfe") {
 			for (int i = 0; i < cards.size()-1; i++) {
-				if (getFirstSuit(cards) == cards.get(i+1).getSuit()) {
+				if (cards.get(0).getSuit() == cards.get(i+1).getSuit()) {
 					if (winnerCard.getRank().compareTo(cards.get(i+1).getRank()) > 0) {
 						winnerCard = cards.get(i+1);
 					}
@@ -157,7 +156,7 @@ public enum Trumpf { Trumpf, Stich, None;
 			//evtl. Boolean zum evaluieren ob obeabe oder unde ufe
 
 		}
-		return winnerCard.toString();
+		return winnerCard;
 	}
 	
 	

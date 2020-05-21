@@ -29,15 +29,12 @@ public class ServerTableCards extends Cards{
 		return serverTableCards.size() == 4;
 	}
 	
-	public Suit getFirstSuitOnServerTable() {
-		firstSuit  = Trumpf.getFirstSuit(serverTableCards);
-		return firstSuit;
-	}
+
 	
-	public Card getCard(int place) {
-		Card card = serverTableCards.get(place);
-		return card;
-	}
+//	public Suit getFirstSuitOnServerTable() {
+//		firstSuit  = Trumpf.getFirstSuit(serverTableCards);
+//		return firstSuit;
+//	}
 	
 	public int getPoints() {
 		return Trumpf.getPoints(serverTableCards);
@@ -55,6 +52,14 @@ public class ServerTableCards extends Cards{
 	}
 	public int getPoints(String slalom) {
 		return Trumpf.getPoints(serverTableCards, slalom);
+	}
+	
+	public Card getHighestUfeAbeSlalomCard(String gameType) {
+		return Trumpf.highestUfeAbeSlalomCard(serverTableCards, gameType);
+	}
+	
+	public Card getHigherSameSuitCard() {
+		return Trumpf.higherSameSuitCard(serverTableCards);
 	}
 	
 }

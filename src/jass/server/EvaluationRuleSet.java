@@ -24,17 +24,20 @@ public class EvaluationRuleSet implements Serializable {
 		logger.info("Validate winner...");
 		int playerWinnerNr;
 		if (gameType == "Trumpf") {
-			Card tempWinnerCard;
-			tempWinnerCard = serverTableCards.getHighestTrumpfCard();
-			for (int i = 0; i < serverTableCards.hasLength(); i++) {
-				if (serverTableCards.getCard(i).toString() == tempWinnerCard.toString()) {
-					playerWinnerNr = i;
-				}
+			if (serverTableCards.evaluateTrumpf().toString() != "None") {
+				Card tempWinnerCard = serverTableCards.getHighestTrumpfCard();
+				playerWinnerNr = isCardNumber(tempWinnerCard);
+			}
+			if (serverTableCards.evaluateTrumpf().toString() == "None") {
+				Card tempWinnerCard = serverTableCards.getHigherSameSuitCard();
+				playerWinnerNr = isCardNumber(tempWinnerCard);
 			}
 		}
+		
+		
 		if (gameType == "ObeAbe") {
 			Card tempWinnerCard;
-
+			
 		}
 		if (gameType == "UndeUfe") {
 		}
@@ -80,6 +83,13 @@ public class EvaluationRuleSet implements Serializable {
 
 	public static void setGameType(String gameType) {
 		EvaluationRuleSet.gameType = gameType;
+	}
+	
+	public int isCardNumber(Card card) {
+		for (int i = 0; i < serverTableCards.hasLength(); i++) {
+			if (serverTableCards.getCard(i).toString() == card.toString()) return i;
+		}
+		return 0;
 	}
 
 }

@@ -69,7 +69,7 @@ public class Board {
 					if (remainingHandCards.hasTrumpfCards()) {
 						for (int i = 0; i < remainingHandCards.hasLength(); i++) {
 							if (remainingHandCards.getCardSuit(i).toString() == trumpf) {
-								playableHandCards.add(remainingHandCards.getCardOnPlace(i));
+								playableHandCards.add(remainingHandCards.getCard(i));
 							}
 						}		
 					}else playableHandCards = remainingHandCards;
@@ -89,7 +89,7 @@ public class Board {
 						//möglichen Karten hinzugefügt der ersten tischfarbe
 						for (int i = 0; i < remainingHandCards.hasLength(); i++) {
 							if(remainingHandCards.getCardSuit(i).toString() == tableCards.getFirstSuit().toString()) {
-								playableHandCards.add(remainingHandCards.getCardOnPlace(i));
+								playableHandCards.add(remainingHandCards.getCard(i));
 							}
 						}
 					}
@@ -97,7 +97,7 @@ public class Board {
 				if (remainingHandCards.evaluateTrumpf().toString() == "None") {
 					for (int i = 0; i < remainingHandCards.hasLength(); i++) {
 						if(remainingHandCards.getCardSuit(i).toString() == tableCards.getFirstSuit().toString()) {
-							playableHandCards.add(remainingHandCards.getCardOnPlace(i));
+							playableHandCards.add(remainingHandCards.getCard(i));
 						}
 					}
 				}
@@ -107,7 +107,7 @@ public class Board {
 			if (gameTyp == "ObeAbe" || gameTyp == "UndeUfe" || gameTyp == "Slalom") {
 				for (int i = 0; i < remainingHandCards.hasLength(); i++) {
 					if(remainingHandCards.getCardSuit(i).toString() == tableCards.getFirstSuit().toString()) {
-						playableHandCards.add(remainingHandCards.getCardOnPlace(i));
+						playableHandCards.add(remainingHandCards.getCard(i));
 					}
 				}	
 				if (playableHandCards.hasCards() == false) playableHandCards = remainingHandCards;
