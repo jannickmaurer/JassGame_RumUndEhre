@@ -15,7 +15,7 @@ public class ServerTableCards extends Cards{
 		super();
 	}
 
-	public ArrayList<Card> getSercerTableCards() {
+	public ArrayList<Card> getServerTableCards() {
 		return serverTableCards;
 	}
 	

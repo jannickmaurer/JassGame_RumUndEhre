@@ -19,7 +19,7 @@ class BoradTest {
 	@Test
 	public void checkCardListener() {
 		Board samstingsJass = new Board("samistigsJass", "Trumpf");
-		samstingsJass.cardListener("6D|8H|TD");
+//		samstingsJass.cardListener("6D|8H|TD");
 		assertEquals("6D|8H|TD", samstingsJass.tableCards.toString());
 	}
 

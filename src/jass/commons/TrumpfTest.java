@@ -34,7 +34,7 @@ class TrumpfTest {
 		cards.add(new Card("CK"));
 		String gameTyp = "UndeUfe";
 		
-		assertEquals("CJ", Trumpf.highestUfeAbeSlalom(cards, gameTyp));
+		assertEquals("CJ", Trumpf.highestUfeAbeCard(cards, gameTyp));
 	}
 	
 	
