@@ -9,9 +9,7 @@ import jass.commons.Trumpf;
 public class ServerTableCards extends Cards{
 
 	ArrayList<Card> serverTableCards = new ArrayList<>();
-	ArrayList<String> usernames = new ArrayList<>();
-	private Trumpf trumpf;
-	
+	ArrayList<String> usernames = new ArrayList<>();	
 
 	public ServerTableCards() {
 		super();
@@ -22,7 +20,7 @@ public class ServerTableCards extends Cards{
 	}
 	
 	public boolean hasServerTableCards() {
-		return serverTableCards.size() != 0; //boolean evaluation ohne if direkt 0 = True
+		return serverTableCards.size() != 0; 
 	}
 
 	public boolean isComplete() { // brauchts die hier???
@@ -33,7 +31,6 @@ public class ServerTableCards extends Cards{
 		return Trumpf.getPoints(serverTableCards);
 	}
 	
-	//Add a card to severTable in format: Jannick:D9
 	public void addClientCard(String clientCard) {
 		String[] temp = clientCard.split("\\:");
 		usernames.add(temp[0]);
