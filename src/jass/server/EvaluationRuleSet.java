@@ -13,6 +13,7 @@ public class EvaluationRuleSet implements Serializable {
 	public static String gameType;
 	private ServerTableCards serverTableCards;;
 	private static String slalom = "UndeUfe";
+	private int playedRounds = 0;
 
 	public EvaluationRuleSet(String gameType) {
 		this.gameType = gameType;
@@ -22,6 +23,7 @@ public class EvaluationRuleSet implements Serializable {
 	// Sieger bekommt alle Punkte und kann Anfangen
 	public void winnerIsPlayer() {
 		logger.info("Validate winner...");
+		playedRounds++;
 		int playerWinnerNr;
 		if (gameType == "Trumpf") {
 			if (serverTableCards.evaluateTrumpf().toString() != "None") {
@@ -45,11 +47,15 @@ public class EvaluationRuleSet implements Serializable {
 		}
 	}
 
-	// plus 5 punkte, wenn alle 36 Karten gespielt wurden
 	public int pointsForWinner() {
-		if (gameType != "Slalom")
-			return serverTableCards.getPoints();
-		return serverTableCards.getPoints(slalom);// alle vier Karten mit Punkte zusammenzählen
+		if (playedRounds != 9) {//evtl modulo
+			if (gameType != "Slalom") return serverTableCards.getPoints();
+			return serverTableCards.getPoints(slalom);
+			}
+		else {
+			if (gameType != "Slalom") return serverTableCards.getPoints()+5;
+			return serverTableCards.getPoints(slalom)+5;
+		}
 	}
 
 	public String getGameType() {
