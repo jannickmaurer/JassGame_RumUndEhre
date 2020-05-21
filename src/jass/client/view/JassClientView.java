@@ -318,7 +318,12 @@ public class JassClientView {
 		profilPopUp.setAutoHide(true);
 		
 		createSpielraumPopUp.getContent().add(spielraumPopupLayout);
-		spielraumPopupLayout.btnCreate.disableProperty().bind(spielraumPopupLayout.tfSpielraumName.textProperty().isEmpty());
+		spielraumPopupLayout.btnCreate.disableProperty().bind(spielraumPopupLayout.tfSpielraumName.textProperty().isEmpty()
+				.or(spielraumPopupLayout.cbTrumpf.selectedProperty().not()
+						.and(spielraumPopupLayout.cbObeAbe.selectedProperty().not()
+								.and(spielraumPopupLayout.cbUndeUfe.selectedProperty().not()
+										.and(spielraumPopupLayout.cbSlalom.selectedProperty().not()
+												.and(spielraumPopupLayout.cbWyss.selectedProperty().not()))))));
 		createSpielraumPopUp.setAutoHide(true);
 		
 		startGamePopUp.getContent().add(startGamePopupLayout);

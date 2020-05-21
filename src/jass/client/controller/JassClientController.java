@@ -109,6 +109,16 @@ public class JassClientController {
 		view.getBtnBackPlayroom().setOnAction(e ->{
 			view.createSpielraumPopUp.hide();
 			view.getTfSpielraumName().setText("");
+			if (view.getCbTrumpf().isSelected()) 
+				view.getCbTrumpf().setSelected(false);
+			if (view.getCbObeAbe().isSelected()) 
+				view.getCbObeAbe().setSelected(false);
+			if (view.getCbSlalom().isSelected()) 
+				view.getCbSlalom().setSelected(false);
+			if (view.getCbUndeUfe().isSelected()) 
+				view.getCbUndeUfe().setSelected(false);
+			if (view.getCbWyss().isSelected()) 
+				view.getCbWyss().setSelected(false);
 		});
 		view.getBtnBackError().setOnAction(e ->{
 			view.errorPopUp.hide();
