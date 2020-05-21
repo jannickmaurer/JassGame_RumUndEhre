@@ -87,6 +87,10 @@ public class JassClientController {
 		view.getBtnLogout().setOnAction(e ->{
 			logout();
 		});
+		view.getBtnDeleteAccount().setOnAction(e ->{
+			logout();
+			view.profilPopUp.hide();
+		});
 		view.getBtnCreatePlayroomPopup().setOnAction(e -> {
 			createPlayroom();
 			String name = view.getTfSpielraumName().getText();

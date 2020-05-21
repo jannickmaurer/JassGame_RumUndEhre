@@ -24,7 +24,9 @@ public class ResultDeleteAccount  extends Message {
 		super(content);
 	}
 	@Override
-	public void process(JassClientModel model) {
+	public void process(JassClientController controller) {
+		controller.setAccount(null);
+		controller.logoutSuccess();
 	}
 
 	public void processIfFalse(JassClientController controller) {
