@@ -54,8 +54,8 @@ public class ServerTableCards extends Cards{
 		return Trumpf.getPoints(serverTableCards, slalom);
 	}
 	
-	public Card getHighestUfeAbeSlalomCard(String gameType) {
-		return Trumpf.highestUfeAbeSlalomCard(serverTableCards, gameType);
+	public Card getHighestUfeAbeCard(String gameType) {
+		return Trumpf.highestUfeAbeCard(serverTableCards, gameType);
 	}
 	
 	public Card getHigherSameSuitCard() {

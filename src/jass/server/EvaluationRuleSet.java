@@ -12,7 +12,7 @@ public class EvaluationRuleSet implements Serializable {
 	public static String trumpf;
 	public static String gameType;
 	private ServerTableCards serverTableCards;;
-	private static String slalom;
+	private static String slalom = "UndeUfe";
 
 	public EvaluationRuleSet(String gameType) {
 		this.gameType = gameType;
@@ -33,19 +33,15 @@ public class EvaluationRuleSet implements Serializable {
 				playerWinnerNr = isCardNumber(tempWinnerCard);
 			}
 		}
-		
-		
-		if (gameType == "ObeAbe") {
-			Card tempWinnerCard;
-			
-		}
-		if (gameType == "UndeUfe") {
+		if (gameType == "ObeAbe" || gameType == "UndeUfe") {
+			Card tempWinnerCard = serverTableCards.getHighestUfeAbeCard(gameType);
+			playerWinnerNr = isCardNumber(tempWinnerCard);
 		}
 		if (gameType == "Slalom") {
-			if (slalom == "UndeUfe")
-				slalom = "ObeAbe";
-			else
-				slalom = "UndeUfe";
+			if (slalom == "UndeUfe") slalom = "ObeAbe";
+			else slalom = "UndeUfe";
+			Card tempWinnerCard = serverTableCards.getHighestUfeAbeCard(slalom);
+			playerWinnerNr = isCardNumber(tempWinnerCard);	
 		}
 	}
 

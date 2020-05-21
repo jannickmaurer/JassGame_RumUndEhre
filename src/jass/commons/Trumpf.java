@@ -131,7 +131,7 @@ public enum Trumpf { Trumpf, Stich, None;
 		return winnerCard;
 	}
 	
-	public static Card highestUfeAbeSlalomCard(ArrayList<Card> cards, String gameTyp) {
+	public static Card highestUfeAbeCard(ArrayList<Card> cards, String gameTyp) {
 		Card winnerCard = cards.get(0);
 		if (gameTyp == "ObeAbe") {
 			for (int i = 0; i < cards.size()-1; i++) {
@@ -150,11 +150,6 @@ public enum Trumpf { Trumpf, Stich, None;
 					}
 				}
 			}
-		}
-		if (gameTyp == "Slalom") {
-			//muss wissen was erste Karte war, obeAbe oder undeUfe
-			//evtl. Boolean zum evaluieren ob obeabe oder unde ufe
-
 		}
 		return winnerCard;
 	}
