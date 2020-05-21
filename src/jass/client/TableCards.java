@@ -20,9 +20,9 @@ public class TableCards extends Cards{
 		return tableCards;
 	}
 	
-	public boolean hasCards() {
-		return tableCards.size() != 0; //boolean evaluation ohne if direkt 0 = True
-	}
+//	public boolean hasCards() {
+//		return tableCards.size() != 0; //boolean evaluation ohne if direkt 0 = True
+//	}
 
 	public boolean isComplete() { // brauchts die hier???
 		return tableCards.size() == 4;

@@ -19,9 +19,9 @@ public class ServerTableCards extends Cards{
 //		return serverTableCards;
 //	}
 	
-	public boolean hasServerTableCards() {
-		return serverTableCards.size() != 0; 
-	}
+//	public boolean hasServerTableCards() {
+//		return serverTableCards.size() != 0; 
+//	}
 
 	public boolean isComplete() { // brauchts die hier???
 		return serverTableCards.size() == 4;

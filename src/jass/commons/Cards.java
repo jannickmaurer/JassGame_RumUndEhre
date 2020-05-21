@@ -53,7 +53,7 @@ public class Cards implements Serializable {
 	}
 
 	public boolean hasCards() {
-		return cards.size() != 0; // boolean evaluation ohne if
+		return cards.size() != 0; 
 	}
 	
 	public boolean hasWiis () {
