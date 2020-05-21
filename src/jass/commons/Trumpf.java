@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import jass.commons.Card.Rank;
 import jass.commons.Card.Suit;
+import jass.server.EvaluationRuleSet;
 
 public enum Trumpf { Trumpf, Stich, None;
 
@@ -25,13 +26,20 @@ public enum Trumpf { Trumpf, Stich, None;
 		return found;
 	}
 	
+	//anpassung for schleife startet bei 1 , da vorher kein Stich möglich sondern trumpf
 	public static boolean isStich(ArrayList<Card> cards) {
 		boolean found = false;
-		for (int i = 0; i < cards.size() && !found; i++) {
+		for (int i = 1; i < cards.size() && !found; i++) {
 			if (cards.get(i).getSuit().toString() == Board.trumpf) found = true;}
 		return found;
 	}
 	
+	public static boolean hasTrumpfCards(ArrayList<Card> cards) {
+		for (int i = 0; i < cards.size(); i++) {
+			if (cards.get(i).getSuit().toString() == Board.trumpf) return true;
+		}
+		return false;
+	}
 	
 	public static Card highestTrumpf(ArrayList<Card> cards) {
 		String rank = "0";
@@ -39,17 +47,17 @@ public enum Trumpf { Trumpf, Stich, None;
 		for (int i = 0; i < cards.size(); i++) {
 			//wenn von Server zugriff erfolgt geht evaluation Board.trumpf ?? besser mit Variablen??
 			if(cards.get(i).getSuit().toString() == Board.trumpf && rank != "J") { 
-				String value = cards.get(i).getRank().toString();
-				switch(value) {
-				case("6"): if(isHigher(rank, value)) rank = value; place = i; break;
-				case("7"): if(isHigher(rank, value)) rank = value; place = i; break;
-				case("8"): if(isHigher(rank, value)) rank = value; place = i; break;
-				case("9"): if(isHigher(rank, value)) rank = value; place = i; break;
-				case("T"): if(isHigher(rank, value)) rank = value; place = i; break;
-				case("J"): if(isHigher(rank, value)) rank = value; place = i; break;
-				case("Q"): if(isHigher(rank, value)) rank = value; place = i; break;
-				case("K"): if(isHigher(rank, value)) rank = value; place = i; break;
-				case("A"): if(isHigher(rank, value)) rank = value; place = i; break;
+				String cardRank = cards.get(i).getRank().toString();
+				switch(cardRank) {
+				case("6"): if(isHigher(rank, cardRank)) rank = cardRank; place = i; break;
+				case("7"): if(isHigher(rank, cardRank)) rank = cardRank; place = i; break;
+				case("8"): if(isHigher(rank, cardRank)) rank = cardRank; place = i; break;
+				case("9"): if(isHigher(rank, cardRank)) rank = cardRank; place = i; break;
+				case("T"): if(isHigher(rank, cardRank)) rank = cardRank; place = i; break;
+				case("J"): if(isHigher(rank, cardRank)) rank = cardRank; place = i; break;
+				case("Q"): if(isHigher(rank, cardRank)) rank = cardRank; place = i; break;
+				case("K"): if(isHigher(rank, cardRank)) rank = cardRank; place = i; break;
+				case("A"): if(isHigher(rank, cardRank)) rank = cardRank; place = i; break;
 				}
 			}	
 		}
@@ -59,9 +67,9 @@ public enum Trumpf { Trumpf, Stich, None;
 	//entnimmt erste Karte, welche höchster Stich ist und 
 	public static ArrayList<Card> getCardsHigherThanStich(Card card, ArrayList<Card> cards) {
 		ArrayList<Card> returnCards = new ArrayList<>();
-		for (int i = 1; i < cards.size(); i++) {
+		for (int i = 0; i < cards.size(); i++) {
 			if (cards.get(i).getSuit().toString() == Board.trumpf) {
-				if (isHigher(cards.get(0).getRank().toString(), cards.get(i).getRank().toString())){
+				if (isHigher(card.getRank().toString(), cards.get(i).getRank().toString())){
 					returnCards.add(cards.get(i));
 				}
 			}
@@ -69,33 +77,33 @@ public enum Trumpf { Trumpf, Stich, None;
 		return returnCards;
 	}
 
-	private static boolean isHigher(String rank, String value) {
-		int rankInt = 0;
-		int valueInt = 0;
-		switch(rank) {
-			case("0"): rankInt = 0; break;
-			case("6"): rankInt = 1; break;
-			case("7"): rankInt = 2; break;
-			case("8"): rankInt = 3; break;
-			case("9"): rankInt = 8; break;
-			case("T"): rankInt = 4; break;
-			case("J"): rankInt = 9; break;
-			case("Q"): rankInt = 5; break;
-			case("K"): rankInt = 6; break;
-			case("A"): rankInt = 7; break;
+	private static boolean isHigher(String cardOne, String cardTwo) {
+		int cardOneRank = 0;
+		int cardTwoRank = 0;
+		switch(cardOne) {
+			case("0"): cardOneRank = 0; break;
+			case("6"): cardOneRank = 1; break;
+			case("7"): cardOneRank = 2; break;
+			case("8"): cardOneRank = 3; break;
+			case("9"): cardOneRank = 8; break;
+			case("T"): cardOneRank = 4; break;
+			case("J"): cardOneRank = 9; break;
+			case("Q"): cardOneRank = 5; break;
+			case("K"): cardOneRank = 6; break;
+			case("A"): cardOneRank = 7; break;
 		}
-		switch(value) {
-			case("6"): valueInt = 1; break;
-			case("7"): valueInt = 2; break;
-			case("8"): valueInt = 3; break;
-			case("9"): valueInt = 8; break;
-			case("T"): valueInt = 4; break;
-			case("J"): valueInt = 9; break;
-			case("Q"): valueInt = 5; break;
-			case("K"): valueInt = 6; break;
-			case("A"): valueInt = 7; break;
+		switch(cardTwo) {
+			case("6"): cardTwoRank = 1; break;
+			case("7"): cardTwoRank = 2; break;
+			case("8"): cardTwoRank = 3; break;
+			case("9"): cardTwoRank = 8; break;
+			case("T"): cardTwoRank = 4; break;
+			case("J"): cardTwoRank = 9; break;
+			case("Q"): cardTwoRank = 5; break;
+			case("K"): cardTwoRank = 6; break;
+			case("A"): cardTwoRank = 7; break;
 		}
-		return valueInt > rankInt;
+		return cardTwoRank > cardOneRank;
 	}
 	
 	public static Suit getFirstSuit(ArrayList<Card> cards) {
@@ -158,17 +166,17 @@ public enum Trumpf { Trumpf, Stich, None;
 		int points = 0;
 		for (Card card : cards) {				
 			switch(card.getRank().toString()) {
-				case("6"): if (TrumpfGame.gameType == "UndeUfe") points += 11; break;
+				case("6"): if (EvaluationRuleSet.gameType == "UndeUfe") points += 11; break;
 				case("7"): points += 0; break;
-				case("8"): if (TrumpfGame.gameType == "ObeAbe") points += 8; 
-						   if (TrumpfGame.gameType == "UndeUfe") points += 8; break;
+				case("8"): if (EvaluationRuleSet.gameType == "ObeAbe") points += 8; 
+						   if (EvaluationRuleSet.gameType == "UndeUfe") points += 8; break;
 				case("9"): if (card.getSuit().toString() == Board.trumpf) points += 14; break; 
 				case("T"): points += 10; break; 
 				case("J"): if (card.getSuit().toString() == Board.trumpf) points += 20; 
 						   else points += 2; break;
 				case("Q"): points += 3; break; 
 				case("K"): points += 4; break; 
-				case("A"): if (TrumpfGame.gameType != "UndeUfe") points += 11; break;
+				case("A"): if (EvaluationRuleSet.gameType != "UndeUfe") points += 11; break;
 			}
 		}
 		return points;
