@@ -13,17 +13,17 @@ import jass.client.Player;
 import jass.commons.Card.Suit;
 
 public class Board {
-	public static int playersTurn = 1;
+	public static int playersTurn;
 	public int imPlayer;
-	public static String trumpf = "C";//gestzt für test
+	public static String trumpf;
 	public boolean wiisDone = false;
 	public Card myLastPlayedCard;
 	public static String gameTyp;
 	public String playableCards;
 	public HandCards playableHandCards;
-	public HandCards remainingHandCards; //allefalls direkt zugriff
+	public HandCards handCards; //allefalls direkt zugriff
 
-	HandCards handCards;
+//	HandCards handCards;
 	TableCards tableCards;
 
 	public Board(String roomName, String gameTyp) {
@@ -61,56 +61,63 @@ public class Board {
 	private void play() {
 		playableHandCards.clearPlayableHandCards();
 		if (tableCards.hasCards() == false) {
-			playableHandCards = remainingHandCards;
+			playableHandCards = handCards;
 		}
 		if (tableCards.hasCards() == true) {
 			if (gameTyp == "Trumpf") {
 				if (tableCards.evaluateTrumpf().toString() == "Trumpf") {
-					if (remainingHandCards.hasTrumpfCards()) {
-						for (int i = 0; i < remainingHandCards.hasLength(); i++) {
-							if (remainingHandCards.getCardSuit(i).toString() == trumpf) {
-								playableHandCards.add(remainingHandCards.getCard(i));
+					if (handCards.hasTrumpfCards()) {
+						for (int i = 0; i < handCards.hasLength(); i++) {
+							if (handCards.getCardSuit(i).toString() == trumpf) {
+								playableHandCards.add(handCards.getCard(i));
 							}
 						}		
-					}else playableHandCards = remainingHandCards;
+					}else playableHandCards = handCards;
 				}
 				if (tableCards.evaluateTrumpf().toString() == "Stich") {
 					Card highestTableStichCard;
-					if (remainingHandCards.hasTrumpfCards()) {
+					if (handCards.hasTrumpfCards()) {
 						highestTableStichCard = tableCards.getHighestTrumpfCard();
 						ArrayList<Card> tempHigherThanStichCards = new ArrayList<Card> ();
-						tempHigherThanStichCards = remainingHandCards.getCardHigherThanStich(highestTableStichCard);
+						tempHigherThanStichCards = handCards.getCardHigherThanStich(highestTableStichCard);
 						if (tempHigherThanStichCards != null) {
 							for (Card card : tempHigherThanStichCards) {
 								playableHandCards.add(card);
 							}
 						}
-						//hier werden den möglichen überstechungskarten noch die restlichen 
-						//möglichen Karten hinzugefügt der ersten tischfarbe
-						for (int i = 0; i < remainingHandCards.hasLength(); i++) {
-							if(remainingHandCards.getCardSuit(i).toString() == tableCards.getCardSuit(0).toString()) {
-								playableHandCards.add(remainingHandCards.getCard(i));
+						if (handCards.hasSameSuitCard(tableCards.getCard(0))) {
+							for (int i = 0; i < handCards.hasLength(); i++) {
+								if(handCards.getCardSuit(i) == tableCards.getCardSuit(0)) {
+									playableHandCards.add(handCards.getCard(i));
+								}
+							}
+						} else {
+							for (int i = 0; i < handCards.hasLength(); i++) {
+								if(handCards.getCardSuit(i) != tableCards.getCardSuit(0) &&
+							 	   handCards.getCardSuit(i).toString() != trumpf) {
+									playableHandCards.add(handCards.getCard(i));
+								}
 							}
 						}
-					}
+					}							
 				}
-				if (remainingHandCards.evaluateTrumpf().toString() == "None") {
-					for (int i = 0; i < remainingHandCards.hasLength(); i++) {
-						if(remainingHandCards.getCardSuit(i).toString() == tableCards.getCardSuit(0).toString()) {
-							playableHandCards.add(remainingHandCards.getCard(i));
+				if (handCards.evaluateTrumpf().toString() == "None") {
+					for (int i = 0; i < handCards.hasLength(); i++) {
+						if(handCards.getCardSuit(i) == tableCards.getCardSuit(0)) {
+							playableHandCards.add(handCards.getCard(i));
 						}
 					}
 				}
-				if (playableHandCards.hasCards() == false) playableHandCards = remainingHandCards;			
+				if (playableHandCards.hasCards() == false) playableHandCards = handCards;			
 			}
 
 			if (gameTyp == "ObeAbe" || gameTyp == "UndeUfe" || gameTyp == "Slalom") {
-				for (int i = 0; i < remainingHandCards.hasLength(); i++) {
-					if(remainingHandCards.getCardSuit(i).toString() == tableCards.getCardSuit(0).toString()) {
-						playableHandCards.add(remainingHandCards.getCard(i));
+				for (int i = 0; i < handCards.hasLength(); i++) {
+					if(handCards.getCardSuit(i) == tableCards.getCardSuit(0)) {
+						playableHandCards.add(handCards.getCard(i));
 					}
 				}	
-				if (playableHandCards.hasCards() == false) playableHandCards = remainingHandCards;
+				if (playableHandCards.hasCards() == false) playableHandCards = handCards;
 			}
 		} 
 	}
@@ -178,11 +185,6 @@ public class Board {
 	public void setPlayableCards(String playableCards) {
 		this.playableCards = playableCards;
 	}
-	
-	private String playableCardsAre() {
-		
-		return playableCards;
-	}
 
 	public int getImPlayer() {
 		return imPlayer;
@@ -208,13 +210,13 @@ public class Board {
 		this.wiisDone = wiisDone;
 	}
 
-	public Card getMyLastPlayedCard() {
-		return myLastPlayedCard;
-	}
-
-	public void setMyLastPlayedCard(Card myLastPlayedCard) {
-		this.myLastPlayedCard = myLastPlayedCard;
-	}
+//	public Card getMyLastPlayedCard() {
+//		return myLastPlayedCard;
+//	}
+//
+//	public void setMyLastPlayedCard(Card myLastPlayedCard) {
+//		this.myLastPlayedCard = myLastPlayedCard;
+//	}
 
 	public static String getGameTyp() {
 		return gameTyp;
@@ -235,27 +237,29 @@ public class Board {
 //	}
 
 	public HandCards getRemainingHandCards() {
-		return remainingHandCards;
+		return handCards;
 	}
 
-	public void setRemainingHandCards(HandCards remainingHandCards) {
-		this.remainingHandCards = remainingHandCards;
-	}
+//	public void setRemainingHandCards(HandCards remainingHandCards) {
+//		this.remainingHandCards = remainingHandCards;
+//	}
 
+	
+//Getter und Setter
 	public HandCards getHandCards() {
 		return handCards;
 	}
 
-	public void setHandCards(HandCards handCards) {
-		this.handCards = handCards;
-	}
+//	public void setHandCards(HandCards handCards) {
+//		this.handCards = handCards;
+//	}
 
 	public static void setPlayersTurn(int playersTurn) {
 		Board.playersTurn = playersTurn;
 	}
 
-	public void setTableCards(TableCards tableCards) {
-		this.tableCards = tableCards;
-	}
+//	public void setTableCards(TableCards tableCards) {
+//		this.tableCards = tableCards;
+//	}
 
 }

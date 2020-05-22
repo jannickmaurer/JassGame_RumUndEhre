@@ -10,7 +10,8 @@ import jass.commons.Wiis;
 
 public class HandCards extends Cards{
 	ArrayList<Card> handCards = new ArrayList<Card>();
-	ArrayList<Card> remainingHandCards = new ArrayList<Card>();
+//	ArrayList<Card> remainingHandCards = new ArrayList<Card>();
+	ArrayList<Card> startHandCards = new ArrayList<Card>();
 	ArrayList<Card> playableHandCards = new ArrayList<Card>();
 //	private Trumpf trumpf;
 //	ArrayList<Wiis> wiis = new ArrayList<>();
@@ -22,6 +23,7 @@ public class HandCards extends Cards{
 	public HandCards(ArrayList<Card> handCards) {
 		super();
 		this.handCards = handCards;
+		this.startHandCards = handCards;
 	}
 
 	public HandCards() {
@@ -29,28 +31,25 @@ public class HandCards extends Cards{
 	}
 
 	public ArrayList<Card> getRemainingHandCards() {
-		return remainingHandCards;
+		return handCards;  //remainingHandCards
 	}
 	
 	public void cardPlayed(Card card) {
-		int i = remainingHandCards.indexOf(card);
-		remainingHandCards.remove(i);
+		int i = handCards.indexOf(card);  //remainingHandCards
+		handCards.remove(i);  //remainingHandCards
 	}
-
-//	public Trumpf evaluateTrumpf() {
-//		trumpf = Trumpf.evaluateTrumpf(handCards);
-//		return trumpf;
-//	}
 
 	public void clearPlayableHandCards() {
 		playableHandCards.clear();
 	}
 	
-	//methode um höhere Karten als Stich zurück zu geben
-	public ArrayList<Card> getCardHigherThanStich(Card stichCard){ //ArrayList<Card> cards
+	public ArrayList<Card> getCardHigherThanStich(Card stichCard){ 
 		return Trumpf.getCardsHigherThanStich(stichCard, handCards);
 	}
 	
+	public boolean hasSameSuitCard(Card firstTableCard) {
+		return Trumpf.hasSameSuitCard(handCards, firstTableCard);
+	}
 	
 	
 	

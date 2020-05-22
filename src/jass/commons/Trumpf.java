@@ -118,6 +118,12 @@ public enum Trumpf { Trumpf, Stich, None;
 //	public static Suit getFirstSuit(ArrayList<Card> cards) { //evtl löschen, wird nur 2mal verwendet aktuell
 //		return cards.get(0).getSuit();
 //	}
+	public static boolean hasSameSuitCard(ArrayList<Card> cards, Card firstTableCard) {
+		for (Card card : cards) {
+			if (card.getSuit() == firstTableCard.getSuit()) return true;
+		}
+		return false;
+	}
 	
 	public static Card higherSameSuitCard(ArrayList<Card> cards) {
 		Card winnerCard = cards.get(0);
