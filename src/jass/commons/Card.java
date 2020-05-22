@@ -12,8 +12,6 @@ import javafx.scene.image.ImageView;
 
 public class Card implements Comparable<Card>{
 	
-//getter und setter für Bild der Karte mit if drinnen für Spracheinstellung
-	
 
     public enum Suit { Clubs, Diamonds, Hearts, Spades;
         @Override        
@@ -27,7 +25,7 @@ public class Card implements Comparable<Card>{
             }
             return suit;
         }
-    };
+    }
     
     public enum Rank { Six, Seven, Eight, Nine, Ten, Jack, Queen, King, Ace;
         @Override
@@ -49,7 +47,7 @@ public class Card implements Comparable<Card>{
         }
             return str;
         }
-    };
+    }
     
     private Suit suit;
 	private Rank rank;
@@ -69,26 +67,17 @@ public class Card implements Comparable<Card>{
 		return rank;
 	}
 	
-    public void setSuit() { //String card
-//    	//TODO converntieren zu enums
-//    	//string splitten mit 1 und zweite zahl/buchstabe -> googlen 
-//    	//Danach mit Case auf neum matchen
-//    	//case (shortForm.fistLetter()) case c = suit.Clubs
- //   	String card = new String("6D");
-
+    public void setSuit() { 
     	switch(shortForm.charAt(0)){
     		case('C'): suit = Suit.Clubs; break;
     		case('D'): suit = Suit.Diamonds; break;
     		case('H'): suit = Suit.Hearts; break;
     		case('S'): suit = Suit.Spades; break;
     	}
-        this.suit = suit;
+  //      this.suit = suit;
     }
-//    
-    public void setRank() {// String card
-//    	//TODO converntieren zu enums
-//    	//string splitten mit 1 und zweite zahl/buchstabe -> googlen 
-//    	//Danach mit Case auf enum matchen
+  
+    public void setRank() {
     	switch(shortForm.charAt(1)){
     		case('6'): rank = Rank.Six; break;
     		case('7'): rank = Rank.Seven; break;
@@ -100,39 +89,13 @@ public class Card implements Comparable<Card>{
     		case('K'): rank = Rank.King; break;
     		case('A'): rank = Rank.Ace; break;
     	}
-    	this.rank = rank;
-    }
-    
-    public Image getCardPicture(Card card) {
-    	//TODO sprache finden und individuell De oder FR karte zurück geben
-    	
-    			String fileName = cardToFileName(card);
-    			Image image = new Image(this.getClass().getClassLoader().getResourceAsStream("jass/image/" + fileName));
-//    			ImageView imv = new ImageView(image);
-//    			imv.fitWidthProperty().bind(this.widthProperty());
-//    			imv.fitHeightProperty().bind(this.heightProperty());
-//    			imv.setPreserveRatio(true);
-//    			this.setGraphic(imv);
-//    		} else {
-//    			this.setGraphic(null);
-//    		}
-    		return image;
-    }
-    
-	private String cardToFileName(Card card) {
-		String rank = card.getRank().toString();
-		String suit = card.getSuit().toString();
-		String locale = "FR";  //Wie greife ich aud eine Locale zu?????
-		return rank + "_of_" + suit + "_" + locale +".jpg";
-	}
-
-    
-    @Override
-    public String toString() {
-        return shortForm;
+ //   	this.rank = rank;
     }
 
-    
+//    public String toString() {
+//        return shortForm;
+//    }
+ 
    	public int compareTo(Card card) {
 		if(this.getRank().compareTo(card.getRank()) > 0 ) {
 			return 1;

@@ -51,7 +51,7 @@ public class EvaluationRuleSet implements Serializable {
 	}
 //***********
 	public String getWinnerUsername(int winnerNr) {
-		return usernames.getUsername(winnerNr);
+		return usernames.getUsername(winnerNr);//an Stelle winnerNr winnerIsPLayer aufrufen
 	}
 //***********
 
@@ -100,6 +100,15 @@ public class EvaluationRuleSet implements Serializable {
 			if (serverTableCards.getCard(i).toString() == card.toString()) return i;
 		}
 		return 0;
+	}
+	
+	public void wiisWinnerIsPlayer() {
+		//spieler vergeleichen welcher den höchsten Wiis WErt hat
+		//bei gleichem Wiiswert kommt der spieler dran der zuerst seine karte legte
+		//Wiis wiisPlayerOne = hasTrumpf
+		
+		
+		
 	}
 
 }

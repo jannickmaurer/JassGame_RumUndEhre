@@ -29,6 +29,7 @@ public class CardCreation {
 	 */
 	public CardCreation() {
 		shuffle();
+//		WiisCards.setAllPlayersCards(cards);
 	}
 
 	/**
