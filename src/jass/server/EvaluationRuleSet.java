@@ -11,13 +11,15 @@ public class EvaluationRuleSet implements Serializable {
 	private static Logger logger = sl.getServerLogger();
 	public static String trumpf;
 	public static String gameType;
-	private ServerTableCards serverTableCards;;
+	private ServerTableCards serverTableCards;
+	private ServerTableCards usernames;
 	private static String slalom = "UndeUfe";
 	private int playedRounds = 0;
 
 	public EvaluationRuleSet(String gameType) {
 		this.gameType = gameType;
 		serverTableCards = new ServerTableCards();
+		usernames = new ServerTableCards();
 	}
 
 	// Sieger bekommt alle Punkte und kann Anfangen
@@ -45,10 +47,16 @@ public class EvaluationRuleSet implements Serializable {
 			Card tempWinnerCard = serverTableCards.getHighestUfeAbeCard(slalom);
 			playerWinnerNr = isCardNumber(tempWinnerCard);	
 		}
+		//eventuell hier noch username von serverTableCards holen
 	}
+//***********
+	public String getWinnerUsername(int winnerNr) {
+		return usernames.getUsername(winnerNr);
+	}
+//***********
 
 	public int pointsForWinner() {
-		if (playedRounds != 9) {//evtl modulo
+		if (playedRounds != 9) {//evtl modulo falls nach einer rund emit 9 karten danach weiter gezählt wird
 			if (gameType != "Slalom") return serverTableCards.getPoints();
 			return serverTableCards.getPoints(slalom);
 			}

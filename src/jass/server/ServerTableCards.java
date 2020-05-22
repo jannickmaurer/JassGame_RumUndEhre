@@ -9,7 +9,7 @@ import jass.commons.Trumpf;
 public class ServerTableCards extends Cards{
 
 	ArrayList<Card> serverTableCards = new ArrayList<>();
-	ArrayList<String> usernames = new ArrayList<>();	
+	ArrayList<String> usernames = new ArrayList<>();
 
 	public ServerTableCards() {
 		super();
@@ -52,4 +52,10 @@ public class ServerTableCards extends Cards{
 		return Trumpf.higherSameSuitCard(serverTableCards);
 	}
 	
+//*********
+	public String getUsername(int ordinal) {
+		return usernames.get(ordinal);
+	}
+//*********
+
 }
