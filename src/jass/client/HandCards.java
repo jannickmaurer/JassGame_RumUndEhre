@@ -30,9 +30,9 @@ public class HandCards extends Cards{
 		super();
 	}
 	
-	public void addCard(Card card) {
+	public void add(Card card) {
 		handCards.add(card);
-		startHandCards.add(card);
+//		startHandCards.add(card);
 	}
 
 	public ArrayList<Card> getRemainingHandCards() {

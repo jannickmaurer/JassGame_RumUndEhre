@@ -76,8 +76,7 @@ public class PlayerPane extends VBox {
     	   ArrayList<Card> handCardsList = new ArrayList<>();
     	   handCardsList = handCards.getHandCards();
     	   
-    	   for (Card c : handCardsList) {
-    	   
+      	  for (Card c : handCardsList) {   
        		CardLabel cl = new CardLabel();
        		cl.setCard(c);
        		cl.setCardNameAsString(c.toString());
