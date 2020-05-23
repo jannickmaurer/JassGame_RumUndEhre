@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Logger;
 
+import jass.client.message.result.ResultBroadcastSendPoints;
 import jass.commons.Card;
 import jass.commons.ServiceLocator;
 import jass.message.Message;
@@ -40,6 +41,8 @@ public class Playroom implements Serializable {
 	private int playedCards;
 	private String gameType;
 	private EvaluationRuleSet evaluationRuleSet;
+	private String tempLeader;
+	private String[] content;
 	
 	
 	/* Constructor: Open a new playroom with playroom name and owner account as String – maxPoints set by child class
@@ -49,7 +52,7 @@ public class Playroom implements Serializable {
 		this.name = name;
 		this.owner = owner;
 		this.gameType = gameType;
-		this.evaluationRuleSet = new EvaluationRuleSet(gameType);
+		this.evaluationRuleSet = new EvaluationRuleSet();
 		this.members = new ArrayList<>();
 		this.chatroom = new Chatroom(Playroom.this);
 		Chatroom.add(this.chatroom);
@@ -123,7 +126,10 @@ public class Playroom implements Serializable {
 		}
 		if (playedCards == this.getMembers().size()) {
 			evaluationRuleSet.addClientCard(clientCard);
-			evaluationRuleSet.winnerIsPlayer();
+			tempLeader = evaluationRuleSet.winnerIsPlayer();
+			int points = evaluationRuleSet.pointsForWinner();
+			content = new String[] {"ResultBroadcastSendPoints", tempLeader, Integer.toString(points)};
+			this.send(new ResultBroadcastSendPoints(content));
 			playedCards = 0;
 			evaluationRuleSet.getServerTableCards().clearServerTableCards();
 		}

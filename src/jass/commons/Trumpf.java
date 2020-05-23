@@ -200,6 +200,13 @@ public enum Trumpf { Trumpf, Stich, None;
 		}
 		return points;
 	}
+	
+	public String toString() {
+		if(this == Trumpf) return "Trumpf";
+		if(this == Stich) return "Stich";
+		if(this == None) return "None";
+		return null;
+	}
 }
 
 

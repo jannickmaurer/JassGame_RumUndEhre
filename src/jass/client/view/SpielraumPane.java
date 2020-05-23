@@ -36,6 +36,8 @@ public class SpielraumPane extends GridPane {
     Rectangle cardP3 = new Rectangle();
     Rectangle cardP4 = new Rectangle();
     
+    PlayerPane playerPane;
+    
     Label lblWait = new Label();
   
 	Button btnLeave = new Button();
@@ -74,8 +76,8 @@ public class SpielraumPane extends GridPane {
 		vMessage.getChildren().addAll(lblChat, scrollPane, tfMessage, btnSend);
 		this.add(vMessage, 3, 0, 1, 4);
 		
-		PlayerPane p1 = new PlayerPane();
-		this.add(p1, 0, 2, 3, 1);
+		playerPane = new PlayerPane();
+		this.add(playerPane, 0, 2, 3, 1);
 		
 		HBox hGame = new HBox();
 		hGame.setId("HBoxCards");
@@ -136,5 +138,14 @@ public class SpielraumPane extends GridPane {
 		
 		this.setId("root");
 	}
+
+	public PlayerPane getPlayerPane() {
+		return playerPane;
+	}
+
+	public void setPlayerPane(PlayerPane playerPane) {
+		this.playerPane = playerPane;
+	}
+	
 	
 }

@@ -16,7 +16,7 @@ import jass.message.Message;
 public class ResultShuffle extends Message {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
-	private String handCardsAsString; //Name Changed by David
+	private String handCardsAsString; 
 	private ArrayList<String> tableCards;
 
 	public ResultShuffle(boolean result) {
@@ -24,8 +24,10 @@ public class ResultShuffle extends Message {
 	}
 	public ResultShuffle(String[] content) {
 		super(content);
-		if(content.length > 1) {			
+		if(content.length > 1) {
 			this.handCardsAsString = content[1];
+			for(int i = 2; i < content.length; i++)
+			this.handCardsAsString += "|" + content[i];
 		}
 	}
 	
@@ -39,7 +41,6 @@ public class ResultShuffle extends Message {
 //			tableCards.add(temp[i]);
 //		}
 		controller.getBoard().shuffledCardListener(handCardsAsString);
-
 		controller.updatePlayerPane();
 
 		

@@ -816,5 +816,13 @@ public class JassClientView {
 		this.listView = listView;
 	}
 
+	public SpielraumPane getSpielraumLayout() {
+		return spielraumLayout;
+	}
+
+	public void setSpielraumLayout(SpielraumPane spielraumLayout) {
+		this.spielraumLayout = spielraumLayout;
+	}
+
 }
 

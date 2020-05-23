@@ -30,6 +30,7 @@ public enum Wiis {
 		return straightWiisEval;
 	}
 	
+	//gibt die höchste 4 gleichen Karten zurück
 	public static Wiis evaluateFourOfAKindWiis(ArrayList<Card> cards) {
 		//	FourOfAKindWiis fourOfAKindWiisEval = null;
 		Wiis fourOfAKindWiisEval = null;
@@ -46,6 +47,20 @@ public enum Wiis {
 		if (hasFour(cards, "J")) fourOfAKindWiisEval = FourPuur;
 
 		return fourOfAKindWiisEval;
+	}
+	
+	public static Wiis getHighestPlayerWiis(ArrayList<Card> cards) {
+		Wiis highestPlayerWiis = null;
+		Wiis straightWiis = evaluateStraightWiis(cards);
+		Wiis fourOfAKindWiis = evaluateStraightWiis(cards);
+		if (straightWiis == null && fourOfAKindWiis ==null) return null;
+		else if(straightWiis != null && fourOfAKindWiis !=null){
+			
+			
+		}
+		
+
+		return null;
 	}
 	
 	public static boolean hasStoeck(ArrayList<Card> cards) { 

@@ -31,6 +31,7 @@ import jass.client.message.result.ResultStartGame;
 import jass.client.message.result.ResultBroadcastSendMessage;
 import jass.client.model.JassClientModel;
 import jass.client.view.JassClientView;
+import jass.client.view.PlayerPane;
 import jass.commons.Board;
 import jass.commons.ServiceLocator;
 import jass.message.Message;
@@ -150,7 +151,6 @@ public class JassClientController {
 		view.getBtnStartGamePopUp().setOnAction(e ->{
 			startGame();
 			view.startGamePopUp.hide();
-			view.trumpfPopUp.show(view.getStage());
 		});
 		
 		view.getBtnHearts().setOnAction(e ->{
@@ -185,7 +185,7 @@ public class JassClientController {
 		
 		view.getBtnSend().setOnAction(e ->{
 			sendTableCard();
-			sendMessage();
+//			sendMessage();
 		});
 		
 		model.getPlayrooms().addListener((ListChangeListener<String>) change -> {
@@ -370,7 +370,7 @@ public class JassClientController {
 	}
 	
 	private void sendTableCard() {
-		String tableCard = "H7";
+		String tableCard = "C8";
 		model.sendTableCard(tableCard);
 	}
 
@@ -495,8 +495,8 @@ public class JassClientController {
 	public void startGameSuccess() {
 		Platform.runLater(new Runnable() {
 			public void run() {
-				view.getLblWait().setText("");
-				view.trumpfPopUp.show(view.getStage());
+//				view.getLblWait().setText("");
+//				view.trumpfPopUp.show(view.getStage());
 			}
 		});	
 	}
@@ -511,6 +511,7 @@ public class JassClientController {
 	
 	public void createBoard() {
 		board = new Board(currentPlayroom, currentGameType);
+		logger.info("Client board created: " + currentPlayroom + " / " + currentGameType);
 	}
 
 	public String getToken() {
@@ -561,8 +562,15 @@ public class JassClientController {
 	}
 	
 	public void updatePlayerPane() {
+		logger.info("Update PlayerPane: " + board.getHandCards().toString());
+		Platform.runLater(new Runnable() {
+			public void run() {
+				PlayerPane pp = view.getSpielraumLayout().getPlayerPane();
+				pp.updatePlayerDisplay(board.getHandCards());
+			}			
+		});
 		
-		view.getPlayerPane().updatePlayerDisplay(board.getHandCards());
+//		view.getRoot().setCenter(view.spielraumLayout);
 	}
 	
 }

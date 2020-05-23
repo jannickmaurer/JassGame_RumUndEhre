@@ -9,24 +9,23 @@ import jass.commons.ServiceLocator;
 public class EvaluationRuleSet implements Serializable {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
-	public static String trumpf;
-	public static String gameType;
+	public static String trumpf = "H";
+	public static String gameType = "Trumpf";
 	private ServerTableCards serverTableCards;
 	private ServerTableCards usernames;
 	private static String slalom = "UndeUfe";
 	private int playedRounds = 0;
 
-	public EvaluationRuleSet(String gameType) {
-		this.gameType = gameType;
+	public EvaluationRuleSet() {
 		serverTableCards = new ServerTableCards();
 		usernames = new ServerTableCards();
 	}
 
 	// Sieger bekommt alle Punkte und kann Anfangen
-	public void winnerIsPlayer() {
+	public String winnerIsPlayer() {
 		logger.info("Validate winner...");
 		playedRounds++;
-		int playerWinnerNr;
+		int playerWinnerNr = 0;
 		if (gameType == "Trumpf") {
 			if (serverTableCards.evaluateTrumpf().toString() != "None") {
 				Card tempWinnerCard = serverTableCards.getHighestTrumpfCard();
@@ -47,8 +46,8 @@ public class EvaluationRuleSet implements Serializable {
 			Card tempWinnerCard = serverTableCards.getHighestUfeAbeCard(slalom);
 			playerWinnerNr = isCardNumber(tempWinnerCard);	
 		}
-		//eventuell hier noch username von serverTableCards holen
-	}
+		return serverTableCards.getUsername(playerWinnerNr);
+}
 //***********
 	public String getWinnerUsername(int winnerNr) {
 		return usernames.getUsername(winnerNr);//an Stelle winnerNr winnerIsPLayer aufrufen
