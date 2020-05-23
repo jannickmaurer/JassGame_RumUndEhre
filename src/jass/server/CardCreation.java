@@ -68,6 +68,24 @@ public class CardCreation {
 	//return String mit 9 karten
 	
 	public String shuffledPlayerCards() {
+//		String shuffledPlayerCards = "";
+//		if (this.cards == null) return "No Cards";
+//		
+//		ArrayList<Card> tempPlayerCard = new ArrayList<Card>();
+//		for (int i = 0; i < 9; i++) {
+//			Card card = (cards.size() > 0) ? cards.remove(cards.size() - 1) : null;
+//			tempPlayerCard.add(card);
+//		}
+//		
+//		for (int i = 0; i < 9; i++) {
+//		Card card = (cards.size() > 0) ? cards.remove(cards.size() - 1) : null;
+//		shuffledPlayerCards += card.toString() + "|";			
+//		}
+//		if (shuffledPlayerCards != null && shuffledPlayerCards.length() > 0) {
+//		shuffledPlayerCards = shuffledPlayerCards.substring(0, shuffledPlayerCards.length() - 1);
+//		}
+//		return shuffledPlayerCards;
+		
 		String shuffledPlayerCards = "";
 		if (this.cards == null) return "No Cards";
 		for (int i = 0; i < 9; i++) {

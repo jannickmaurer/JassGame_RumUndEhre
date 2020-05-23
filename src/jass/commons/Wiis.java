@@ -258,11 +258,11 @@ public enum Wiis {
 			case ("H"): heartCards.add(card); break;			
 			case ("S"): spadeCards.add(card); break;			
 			}
+		}
 		Collections.sort(clubCards);
 		Collections.sort(diamondCards);
 		Collections.sort(heartCards);
 		Collections.sort(spadeCards);
-		}
 	}
 	
     public static boolean isBlattNum(ArrayList<Card> cards, int blattlength) {   	
