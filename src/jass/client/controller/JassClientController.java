@@ -415,7 +415,7 @@ public class JassClientController {
 	}
 	
 	public void createAccount() {
-		model.createAccount(view.getTfNewUsername().getText(), view.getTfNewPassword().getText());
+		model.createAccount(view.getTfNewUsername().getText(), view.getPfNewPassword().getText());
 	}
 
 	private void logout() {
@@ -423,11 +423,11 @@ public class JassClientController {
 	}
 	
 	public void login() {
-		model.login(view.getTfUsername().getText(), view.getTfPassword().getText());
+		model.login(view.getTfUsername().getText(), view.getPfPassword().getText());
 	}
 	
 	public void autologin() {
-		model.login(view.getTfNewUsername().getText(), view.getTfNewPassword().getText());
+		model.login(view.getTfNewUsername().getText(), view.getPfNewPassword().getText());
 	}
 	
 	public void connect() {

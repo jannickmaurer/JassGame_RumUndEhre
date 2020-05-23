@@ -14,6 +14,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
@@ -73,14 +74,14 @@ public class JassClientView {
 	Label lblTitelLogin = loginLayout.lblTitelLogin;
 	Label lblSubtitelLogin = loginLayout.lblSubtitelLogin;
 	TextField tfUsername = loginLayout.tfUsername;
-	TextField tfPassword = loginLayout.tfPassword;
+	PasswordField pfPassword = loginLayout.pfPassword;
 	Button btnLogin = loginLayout.btnLogin;
 	Button btnRegistration = loginLayout.btnRegistration;
 	
 	Label lblTitelRegistration = registrationLayout.lblTitelRegistration;
 	Label lblSubtitelRegistration = registrationLayout.lblSubtitelRegistration;
-	TextField tfNewUsername = registrationLayout.tfUsername;
-	TextField tfNewPassword = registrationLayout.tfPassword;
+	TextField tfNewUsername = registrationLayout.tfNewUsername;
+	PasswordField pfNewPassword = registrationLayout.pfNewPassword;
 	Button btnNewRegistration = registrationLayout.btnRegistration;
 	Button btnBack = registrationLayout.btnBack;
 	
@@ -158,8 +159,8 @@ public class JassClientView {
 		lblSubtitelLogin.setMinWidth(Region.USE_PREF_SIZE);
 		tfUsername.setMinWidth(Region.USE_PREF_SIZE);
 		tfUsername.setPrefWidth(240);
-		tfPassword.setMinWidth(Region.USE_PREF_SIZE);
-		tfPassword.setPrefWidth(240);
+		pfPassword.setMinWidth(Region.USE_PREF_SIZE);
+		pfPassword.setPrefWidth(240);
 		btnLogin.setMinWidth(Region.USE_PREF_SIZE);
 		btnLogin.setPrefWidth(100);
 		btnRegistration.setMinWidth(Region.USE_PREF_SIZE);
@@ -168,8 +169,8 @@ public class JassClientView {
 		lblSubtitelRegistration.setMinWidth(Region.USE_PREF_SIZE);
 		tfNewUsername.setMinWidth(Region.USE_PREF_SIZE);
 		tfNewUsername.setPrefWidth(240);
-		tfNewPassword.setMinWidth(Region.USE_PREF_SIZE);
-		tfNewPassword.setPrefWidth(240);
+		pfNewPassword.setMinWidth(Region.USE_PREF_SIZE);
+		pfNewPassword.setPrefWidth(240);
 		btnNewRegistration.setMinWidth(Region.USE_PREF_SIZE);
 		btnNewRegistration.setPrefWidth(100);
 		btnBack.setMinWidth(Region.USE_PREF_SIZE);
@@ -285,6 +286,8 @@ public class JassClientView {
 		profilPopUp.getContent().add(profilPopupLayout);
 		profilPopUp.setAutoHide(true);
 		
+		btnNewRegistration.disableProperty().bind(tfNewUsername.textProperty().isEmpty() .or(pfNewPassword.textProperty().isEmpty()));
+		
 		createSpielraumPopUp.getContent().add(spielraumPopupLayout);
 		spielraumPopupLayout.btnCreate.disableProperty().bind(spielraumPopupLayout.tfSpielraumName.textProperty().isEmpty()
 				.or(spielraumPopupLayout.cbTrumpf.selectedProperty().not()
@@ -302,8 +305,11 @@ public class JassClientView {
 		v1.setVgrow(listView, Priority.ALWAYS);
 		
 		scene = new Scene(root, 950, 635);
+		
 		scene.getStylesheets().add(
                 getClass().getResource("Client.css").toExternalForm());
+		primaryStage.setMaximized(true);
+		primaryStage.setResizable(false);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Connect to Server");
 	}
@@ -332,11 +338,11 @@ public class JassClientView {
 		loginLayout.lblTitelLogin.setText(t.getString("text.titel.jass"));
 		loginLayout.lblSubtitelLogin.setText(t.getString("text.untertitel.login"));
 		loginLayout.tfUsername.setPromptText(t.getString("label.username"));
-		loginLayout.tfPassword.setPromptText(t.getString("label.password"));
+		loginLayout.pfPassword.setPromptText(t.getString("label.password"));
 		registrationLayout.lblTitelRegistration.setText(t.getString("text.titel.jass"));
 		registrationLayout.lblSubtitelRegistration.setText(t.getString("text.untertitel.registration"));
-		registrationLayout.tfUsername.setPromptText(t.getString("label.username"));
-		registrationLayout.tfPassword.setPromptText(t.getString("label.password"));
+		registrationLayout.tfNewUsername.setPromptText(t.getString("label.username"));
+		registrationLayout.pfNewPassword.setPromptText(t.getString("label.password"));
 		spielraumPopupLayout.tfSpielraumName.setPromptText(t.getString("label.spielraumname"));
 		otherPlayerLayout.lblPoints.setText(t.getString("label.points"));
 		spielraumLayout.lblChat.setText(t.getString("label.chat"));
@@ -439,12 +445,12 @@ public class JassClientView {
 		this.tfUsername = tfUsername;
 	}
 	
-	public TextField getTfPassword() {
-		return tfPassword;
+	public PasswordField getPfPassword() {
+		return pfPassword;
 	}
 
-	public void setTfPassword(TextField tfPassword) {
-		this.tfPassword = tfPassword;
+	public void setPfPassword(PasswordField pfPassword) {
+		this.pfPassword = pfPassword;
 	}
 	
 	public Button getBtnLogin() {
@@ -471,12 +477,12 @@ public class JassClientView {
 		this.tfNewUsername = tfNewUsername;
 	}
 	
-	public TextField getTfNewPassword() {
-		return tfNewPassword;
+	public PasswordField getPfNewPassword() {
+		return pfNewPassword;
 	}
 
-	public void setTfNewPassword(TextField tfNewPassword) {
-		this.tfNewPassword = tfNewPassword;
+	public void setPfNewPassword(PasswordField pfNewPassword) {
+		this.pfNewPassword = pfNewPassword;
 	}
 	
 	public Button getBtnBack() {

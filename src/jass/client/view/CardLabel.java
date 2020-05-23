@@ -24,10 +24,10 @@ public class CardLabel extends Label {
 		logger.info("Looking for card: " + fileName);
 		Image image = new Image(this.getClass().getClassLoader().getResourceAsStream("jass/image/" + fileName));
 		ImageView imv = new ImageView(image);
-		imv.setFitWidth(60);
-		imv.maxWidth(60);
-		imv.setFitHeight(86);
-		imv.maxHeight(86);
+		imv.setFitWidth(80);
+		imv.maxWidth(80);
+		imv.setFitHeight(115);
+		imv.maxHeight(115);
 		imv.setPreserveRatio(true);
 		this.setGraphic(imv);
 	}

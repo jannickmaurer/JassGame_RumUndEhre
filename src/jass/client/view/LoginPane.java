@@ -5,6 +5,7 @@ import javafx.animation.Timeline;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -20,7 +21,7 @@ public class LoginPane extends GridPane {
 	Label lblTitelLogin = new Label();
 	Label lblSubtitelLogin = new Label();
 	TextField tfUsername = new TextField();
-	TextField tfPassword = new TextField();
+	PasswordField pfPassword = new PasswordField();
 	Button btnLogin = new Button();
 	Button btnRegistration = new Button();
 	
@@ -38,8 +39,8 @@ public class LoginPane extends GridPane {
 		HBox.setHgrow(spacer1, Priority.ALWAYS);
 		h1.setId("HBox");
 		h1.getChildren().addAll(btnLogin, spacer1, btnRegistration);		
-		btnLogin.disableProperty().bind(tfUsername.textProperty().isEmpty() .or(tfPassword.textProperty().isEmpty()));
-		v1.getChildren().addAll(lblTitelLogin, lblSubtitelLogin, tfUsername, tfPassword, h1);
+		btnLogin.disableProperty().bind(tfUsername.textProperty().isEmpty() .or(pfPassword.textProperty().isEmpty()));
+		v1.getChildren().addAll(lblTitelLogin, lblSubtitelLogin, tfUsername, pfPassword, h1);
 		
 		this.add(v1, 0, 0);
 		

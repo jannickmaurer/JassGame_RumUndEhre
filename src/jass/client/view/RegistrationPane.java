@@ -3,6 +3,7 @@ package jass.client.view;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -15,8 +16,8 @@ public class RegistrationPane extends GridPane {
 	
 	Label lblTitelRegistration = new Label();
 	Label lblSubtitelRegistration = new Label();
-	TextField tfUsername = new TextField();
-	TextField tfPassword = new TextField();
+	TextField tfNewUsername = new TextField();
+	PasswordField pfNewPassword = new PasswordField();
 	Button btnRegistration = new Button();
 	Button btnBack = new Button();
 	
@@ -33,15 +34,12 @@ public class RegistrationPane extends GridPane {
 		HBox.setHgrow(spacer1, Priority.ALWAYS);
 		h1.setId("HBox");
 		h1.getChildren().addAll(btnRegistration, spacer1, btnBack);
-		
-		v1.getChildren().addAll(lblTitelRegistration, lblSubtitelRegistration, tfUsername, tfPassword, h1);
+		v1.getChildren().addAll(lblTitelRegistration, lblSubtitelRegistration, tfNewUsername, pfNewPassword, h1);
 		
 		this.add(v1, 0, 0);
 		
 		this.setId("root");
 		this.setAlignment(Pos.TOP_LEFT);
-		this.setHgap(20);
-		this.setVgap(10);
 	}
 	
 }
