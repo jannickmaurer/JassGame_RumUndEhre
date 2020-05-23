@@ -92,9 +92,9 @@ public class Card implements Comparable<Card>{
  //   	this.rank = rank;
     }
 
-//    public String toString() {
-//        return shortForm;
-//    }
+    public String toString() {
+        return shortForm;
+    }
  
    	public int compareTo(Card card) {
 		if(this.getRank().compareTo(card.getRank()) > 0 ) {

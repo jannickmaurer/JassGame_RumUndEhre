@@ -39,6 +39,7 @@ public class ResultShuffle extends Message {
 //			tableCards.add(temp[i]);
 //		}
 		controller.getBoard().shuffledCardListener(handCardsAsString);
+		
 	}
 	
 	public void processIfFalse(JassClientController controller) {
