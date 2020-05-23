@@ -26,6 +26,7 @@ public class Board {
 	public HandCards playableHandCards;
 	public HandCards handCards; //allefalls direkt zugriff
 //	public HandCards startHandCards;
+	private String playerOnTurn;
 	
 //	HandCards handCards;
 	TableCards tableCards;
