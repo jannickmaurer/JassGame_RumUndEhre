@@ -117,7 +117,7 @@ public class Board {
 						}
 					}
 				}
-				if (playableHandCards.hasCards() == false) playableHandCards = handCards;			
+				if (playableHandCards.hasPlayableCards() == false) playableHandCards = handCards;			
 			}
 
 			if (gameTyp == "ObeAbe" || gameTyp == "UndeUfe" || gameTyp == "Slalom") {
@@ -126,7 +126,7 @@ public class Board {
 						playableHandCards.add(handCards.getCard(i));
 					}
 				}	
-				if (playableHandCards.hasCards() == false) playableHandCards = handCards;
+				if (playableHandCards.hasPlayableCards() == false) playableHandCards = handCards;
 			}
 		} 
 	}

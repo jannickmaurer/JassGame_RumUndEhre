@@ -3,8 +3,11 @@ package jass.client;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import com.sun.nio.sctp.HandlerResult;
+
 import jass.commons.Card;
 import jass.commons.Card.Suit;
+import sun.print.resources.serviceui;
 import jass.commons.Cards;
 import jass.commons.ServiceLocator;
 import jass.commons.Trumpf;
@@ -80,8 +83,24 @@ public class HandCards extends Cards{
 		this.handCards.add(card);
 	}
 	
-
+	public boolean hasTrumpfCards() {
+		return Trumpf.hasTrumpfCards(handCards);
+	}
 	
+	public int hasLength() {
+		return handCards.size();
+	}
 	
+	public Suit getCardSuit(int i) {
+		return handCards.get(i).getSuit();
+	}
+	
+	public Card getCard(int i) {
+		return handCards.get(i);
+	}
+	
+	public boolean hasPlayableCards() {
+		return playableHandCards.size() != 0; 
+	}
 	
 }

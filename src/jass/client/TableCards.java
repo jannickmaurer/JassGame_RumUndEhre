@@ -28,13 +28,25 @@ public class TableCards extends Cards{
 		return tableCards.size() == 4;
 	}
 	
-//	public Trumpf evaluateTrumpf() {
-//		trumpf = Trumpf.evaluateTrumpf(tableCards);
-//		return trumpf;
-//	}
+	public Trumpf evaluateTrumpf() {
+		return Trumpf.evaluateTrumpf(tableCards);
+	}
 	
 //	public Suit getFirstSuit() {
 //		firstSuit  = Trumpf.getFirstSuit(tableCards);
 //		return firstSuit;
 //	}
+	
+	public boolean hasCards() {
+		return tableCards.size() != 0; 
+	}
+	
+	public Card getHighestTrumpfCard() {
+		return Trumpf.highestTrumpf(tableCards);
+	}
+	
+	public Suit getCardSuit(int i) {
+		return tableCards.get(i).getSuit();
+	}
+	
 }
