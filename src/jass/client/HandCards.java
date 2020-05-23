@@ -29,6 +29,11 @@ public class HandCards extends Cards{
 	public HandCards() {
 		super();
 	}
+	
+	public void addCard(Card card) {
+		handCards.add(card);
+		startHandCards.add(card);
+	}
 
 	public ArrayList<Card> getRemainingHandCards() {
 		return handCards;  //remainingHandCards
