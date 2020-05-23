@@ -1,5 +1,8 @@
 package jass.client.view;
 
+import java.util.ArrayList;
+
+import jass.client.HandCards;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBase;
@@ -17,6 +20,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import jass.commons.Card;
 
 public class PlayerPane extends VBox {
 	private Label lblName = new Label("Name");
@@ -55,8 +59,7 @@ public class PlayerPane extends VBox {
             hboxCards.getChildren().add(lblCard);
             hboxCards.setSpacing(10);
         }
-        
-        updatePlayerDisplay();
+       
         hboxCards.setId("HBox");
         this.getChildren().addAll(lblName, hboxCards, pointsGrid);
         this.setId("playerArea");
@@ -68,15 +71,18 @@ public class PlayerPane extends VBox {
   //---> anpassen:        	updatePlayerDisplay(); // Immediately display the player information
   //---> anpassen:        }
     
-       public void updatePlayerDisplay() {
+       public void updatePlayerDisplay(HandCards handCards) {
   //---> anpassen:        	lblName.setText(player.getPlayerName());
-
-    	   for (int i = 0; i < 9; i++) {
-       		Card card = null;
+    	   ArrayList<Card> handCardsList = new ArrayList<>();
+    	   handCardsList = handCards.getHandCards();
+    	   
+    	   for (Card c : handCardsList) {
+    	   
      		
-       		CardLabel cl = (CardLabel) hboxCards.getChildren().get(i);
-       		cl.setCard(card);
- 	
+       		CardLabel cl = new CardLabel();
+       		cl.setCard(c);
+       		cl.setCardNameAsString(c.toString());
+       		hboxCards.getChildren().add(cl);
        	}
        
        }

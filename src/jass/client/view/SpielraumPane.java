@@ -25,41 +25,11 @@ public class SpielraumPane extends GridPane {
 	
 	private GridPane players;
 	
-	Label lblPlayer = new Label();
-	Label lblPlayer1 = new Label("P1");
-	Label lblPlayer2 = new Label("P2");
-	Label lblPlayer3 = new Label("P3");
-	Label lblPlayer4 = new Label("P4");
-	Label lblName1 = new Label("P1");
-	Label lblName2 = new Label("P2");
-	Label lblName3 = new Label("P3");
-	Label lblName4 = new Label("P4");
-	Label lblPoints = new Label();
-	Label lblPoints1 = new Label("0");
-	Label lblPoints2 = new Label("0");
-	Label lblPoints3 = new Label("0");
-	Label lblPoints4 = new Label("0");
-	
 	Label lblChat = new Label();
 	TextArea txtMessages = new TextArea();
 	TextField tfMessage = new TextField();
     Button btnSend = new Button();
     ScrollPane scrollPane = new ScrollPane();
-    
-    Circle crcP1 = new Circle();
-    Circle crcP2 = new Circle();
-    Circle crcP3 = new Circle();
-    Circle crcP4 = new Circle();
-    
-    Rectangle card1 = new Rectangle();
-    Rectangle card2 = new Rectangle();
-    Rectangle card3 = new Rectangle();
-    Rectangle card4 = new Rectangle();
-    Rectangle card5 = new Rectangle();
-    Rectangle card6 = new Rectangle();
-    Rectangle card7 = new Rectangle();
-    Rectangle card8 = new Rectangle();
-    Rectangle card9 = new Rectangle();
     
     Rectangle cardP1 = new Rectangle();
     Rectangle cardP2 = new Rectangle();

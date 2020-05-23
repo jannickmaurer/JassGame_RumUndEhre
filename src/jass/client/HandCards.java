@@ -50,6 +50,22 @@ public class HandCards extends Cards{
 	public boolean hasSameSuitCard(Card firstTableCard) {
 		return Trumpf.hasSameSuitCard(handCards, firstTableCard);
 	}
+
+	public ArrayList<Card> getHandCards() {
+		return handCards;
+	}
+
+	public void setHandCards(ArrayList<Card> handCards) {
+		this.handCards = handCards;
+	}
+
+	public ArrayList<Card> getPlayableHandCards() {
+		return playableHandCards;
+	}
+
+	public void setPlayableHandCards(ArrayList<Card> playableHandCards) {
+		this.playableHandCards = playableHandCards;
+	}
 	
 	
 	

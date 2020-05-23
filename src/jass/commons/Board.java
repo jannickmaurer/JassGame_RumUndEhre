@@ -249,6 +249,10 @@ public class Board {
 	public HandCards getHandCards() {
 		return handCards;
 	}
+	
+	public ArrayList<Card> getHandCardsList() {
+		return handCards.getHandCards();
+	}
 
 //	public void setHandCards(HandCards handCards) {
 //		this.handCards = handCards;
