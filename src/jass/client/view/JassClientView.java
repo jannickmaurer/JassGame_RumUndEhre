@@ -306,7 +306,7 @@ public class JassClientView {
 		spielraumLayout.btnSend.disableProperty().bind(spielraumLayout.tfMessage.textProperty().isEmpty());
 		v1.setVgrow(listView, Priority.ALWAYS);
 		
-		scene = new Scene(root, 950, 635);
+		scene = new Scene(root, 960, 635);
 		
 		scene.getStylesheets().add(
                 getClass().getResource("Client.css").toExternalForm());
