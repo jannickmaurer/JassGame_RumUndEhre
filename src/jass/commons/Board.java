@@ -22,7 +22,8 @@ public class Board {
 	public String playableCards;
 	public HandCards playableHandCards;
 	public HandCards handCards; //allefalls direkt zugriff
-
+	public HandCards startHandCards;
+	
 //	HandCards handCards;
 	TableCards tableCards;
 
@@ -33,18 +34,19 @@ public class Board {
 //		this.enterPlayRoom(roomName);
 	}
 
-	public void enterPlayRoom(String roomName) {
-		// TODO server abfragen, wenn beigetretten wird
-		// identisch wie tabelCArdsFrom SErver adden für imPlayer und
-		imPlayer = 1;	
-		// ask Server witch player i am
-		imPlayer = 2;
-	}
-	
+//	public void enterPlayRoom(String roomName) {
+//		// TODO server abfragen, wenn beigetretten wird
+//		// identisch wie tabelCArdsFrom SErver adden für imPlayer und
+//		imPlayer = 1;	
+//		// ask Server witch player i am
+//		imPlayer = 2;
+//	}
+//	
 	public void shuffledCardListener(String newHandCards) {
 		String[] handCardList = newHandCards.split("\\|");
 		for (int i = 0; i < handCardList.length; i++) {
 			this.handCards.add(new Card(handCardList[i]));
+			this.startHandCards.add(new Card (handCardList[i]));
 		}
 	}
 	
@@ -122,12 +124,12 @@ public class Board {
 		} 
 	}
 
-	private void selectGameVariety() {
+//	private void selectGameVariety() {
 		// Methode evaluieren was der Spieler als GAmeVariante gewählt hat
 		// zB Trumpf, ObeAbe, UndeUfe, Slalom
 		// TODO Auto-generated method stub
 	//	this.gameVariety = gameVariety;
-	}
+//	}
 
 //	public Trumpf evaluateTrumpf() {
 //		// TODO Auto-generated method stub
@@ -230,7 +232,6 @@ public class Board {
 		return playableHandCards;
 	}
 
-// David auskommentiert, da meiner Meinung nach nicht gebruacht!!!
 	
 //	public void setPlayableHandCards(HandCards playableHandCards) {
 //		this.playableHandCards = playableHandCards;
