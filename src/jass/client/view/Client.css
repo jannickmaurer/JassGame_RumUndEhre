@@ -47,7 +47,7 @@
 	-fx-padding: 0 0 0 0;
 	-fx-alignment: top-center;
 	-fx-spacing: 2;
-	-fx-background-color: rgba(255, 236, 111, 0.8);
+	-fx-background-color: rgba(255, 236, 111, 1);
 }
 
 #VBoxP1 {
@@ -163,6 +163,17 @@
 	-fx-text-fill: rgba(255, 255, 255, 1);
 }
 
+.text-area{
+    -fx-background-color: #fff, #fff;
+}
+
+.text-area .content {
+    -fx-background-color: #fff;
+}
+
+.text-area:focused .content {
+    -fx-background-color: #fff;
+}
 .text-field {
 	-fx-background-radius: 15px;
 	-fx-alignment: center;
