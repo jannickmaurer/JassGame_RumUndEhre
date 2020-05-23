@@ -105,4 +105,16 @@ public class PlayerPane extends VBox {
 	// lblPointsPlayer.setText(Integer.toString(Integer.parseInt(lblPointsPlayer.getText())
 	// + 1));
 	// ---> anpassen: }
+    
+    
+  //---> anpassen:        public void setPlayer(Player player) {
+  //---> anpassen:        	this.player = player;
+  //---> anpassen:        	updatePlayerDisplay(); // Immediately display the player information
+  //---> anpassen:        }
+    
+     
+    
+  //---> anpassen:        public void updatePointsLabel() {
+  //---> anpassen:        	lblPointsPlayer.setText(Integer.toString(Integer.parseInt(lblPointsPlayer.getText()) + 1)); 	
+  //---> anpassen:        }
 }

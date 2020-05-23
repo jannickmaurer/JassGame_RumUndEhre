@@ -34,6 +34,8 @@ public class HandCards extends Cards{
 	public HandCards() {
 		super();
 	}
+	
+	
 
 	public ArrayList<Card> getRemainingHandCards() {
 		return handCards;  //remainingHandCards

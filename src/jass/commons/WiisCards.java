@@ -44,13 +44,8 @@ public class WiisCards {
 	//Klasse Account getCurrentPlayerCards respektive set für Player Cards für wiis evaluation
 	
 //***************************Ab hier neue befehle programmiert, obere noch checken ob ich sie brauche
-//	public Wiis getStraightWiis() {
-//		return evaluateStraightWiis(cards);
-//	}
+
 	
-//	public boolean hasStoeck() {
-//	return Wiis.hasStoeck(allPlayersCards);
-//	}
 	
 	//gibt punktewert des maximalen weises des spielers zurück
 	public int playerWiisPoints(int playerNr) {
