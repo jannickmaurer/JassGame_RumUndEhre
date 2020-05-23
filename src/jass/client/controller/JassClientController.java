@@ -372,7 +372,7 @@ public class JassClientController {
 	}
 	
 	private void sendTableCard() {
-		String tableCard = "C8";
+		String tableCard = "CQ";
 		model.sendTableCard(tableCard);
 	}
 

@@ -39,11 +39,11 @@ public class Playroom implements Serializable {
 	private String owner;
 	private int maxPoints;
 	private int playedCards;
-	private String gameType;
+	private String gameType = "Trumpf";
 	private EvaluationRuleSet evaluationRuleSet;
 	private String tempLeader;
 	private String[] content;
-	private String trumpf;
+	private String trumpf = "H";
 	
 	
 	/* Constructor: Open a new playroom with playroom name and owner account as String – maxPoints set by child class
@@ -55,6 +55,7 @@ public class Playroom implements Serializable {
 		this.evaluationRuleSet = new EvaluationRuleSet();
 		this.members = new ArrayList<>();
 		this.chatroom = new Chatroom(Playroom.this);
+		this.playedCards = 0;
 		Chatroom.add(this.chatroom);
 	}
 	
@@ -120,10 +121,11 @@ public class Playroom implements Serializable {
 		this.maxPoints = maxPoints;
 	}
 	public void addClientCard(String clientCard) {
+		logger.info("Game Playroom: " + this.gameType + " & " + this.trumpf);
+		playedCards++;
 		if (playedCards < this.getMembers().size()) {
 			logger.info("ClientCard added to ServerTableCards: " + clientCard);
 			evaluationRuleSet.addClientCard(clientCard);
-			playedCards++;
 		}
 		if (playedCards == this.getMembers().size()) {
 			evaluationRuleSet.addClientCard(clientCard);

@@ -21,7 +21,7 @@ public class Board {
 	public static String trumpf = "H";
 	public boolean wiisDone = false;
 	public Card myLastPlayedCard;
-	public static String gameTyp;
+	public static String gameTyp = "Trumpf";
 	public String playableCards;
 	public HandCards playableHandCards;
 	public HandCards handCards; //allefalls direkt zugriff

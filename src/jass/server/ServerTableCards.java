@@ -1,12 +1,16 @@
 package jass.server;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import jass.commons.Card;
 import jass.commons.Cards;
+import jass.commons.ServiceLocator;
 import jass.commons.Trumpf;
 
 public class ServerTableCards extends Cards{
+	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
+	private static Logger logger = sl.getServerLogger();
 
 	ArrayList<Card> serverTableCards = new ArrayList<>();
 	ArrayList<String> usernames = new ArrayList<>();
@@ -28,6 +32,7 @@ public class ServerTableCards extends Cards{
 	}
 	
 	public int getPoints() {
+		logger.info("Getting points for: " + serverTableCards.toString());
 		return Trumpf.getPoints(serverTableCards);
 	}
 	
