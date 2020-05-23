@@ -57,7 +57,7 @@ public class Board {
 //			this.startHandCards.add(new Card (handCardList[i]));
 			//this.startHandCards.add(new Card (handCardList[i]));
 		}
-		this.handCards.setCards(tempHandCards);
+		this.handCards.setHandCards(tempHandCards);
 		logger.info("HandCards added: " + handCards.toString());
 		
 	}

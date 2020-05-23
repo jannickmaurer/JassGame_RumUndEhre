@@ -34,6 +34,7 @@ import jass.client.message.result.ResultBroadcastSendMessage;
 import jass.client.model.JassClientModel;
 import jass.client.view.JassClientView;
 import jass.client.view.PlayerPane;
+import jass.client.view.OtherPlayerPane;
 import jass.commons.Board;
 import jass.commons.ServiceLocator;
 import jass.message.Message;
@@ -489,7 +490,7 @@ public class JassClientController {
 
 	private void joinPlayroom() {
 		model.joinPlayroom(view.getListView().getSelectionModel().getSelectedItem());
-
+		view.getSpielraumLayout().getPlayerPane().getLblName().setText(view.getTfUsername().getText());
 	}
 
 	public void listPlayrooms() {
@@ -679,4 +680,13 @@ public class JassClientController {
 			});
 		}
 	}
+	public void createOtherPlayerPane(int countMembers, String username) {
+		// TODO Auto-generated method stub
+		Platform.runLater(new Runnable() {
+			public void run() {
+				view.getSpielraumLayout().createOtherPlayerPane(countMembers, username);
+			}			
+		});
+	}
+	
 }

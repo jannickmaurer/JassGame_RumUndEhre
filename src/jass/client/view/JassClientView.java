@@ -55,7 +55,7 @@ public class JassClientView {
 	public SiegerPopupPane siegerPopupLayout = new SiegerPopupPane();
 	public TrumpfPopupPane trumpfPopupLayout = new TrumpfPopupPane();
 	public WyssPopupPane wyssPopupLayout = new WyssPopupPane();
-	public OtherPlayerPane otherPlayerLayout = new OtherPlayerPane();
+	//public OtherPlayerPane otherPlayerLayout = new OtherPlayerPane(null);
 	public PlayerPane playerPane = new PlayerPane();
 	public GameTypePopupPane gameTypePopupLayout = new GameTypePopupPane();
 
@@ -118,7 +118,7 @@ public class JassClientView {
 	Label lblWinner = siegerPopupLayout.lblWinner;
 	Button btnBackSieger = siegerPopupLayout.btnBack;
 	
-	Label lblPointsOtherPlayer = otherPlayerLayout.lblPoints;
+	//Label lblPointsOtherPlayer = otherPlayerLayout.lblPoints;
 	
 	Label lblChat = spielraumLayout.lblChat;
 	Label lblWait = spielraumLayout.lblWait;
@@ -367,7 +367,7 @@ public class JassClientView {
 		registrationLayout.tfNewUsername.setPromptText(t.getString("label.username"));
 		registrationLayout.pfNewPassword.setPromptText(t.getString("label.password"));
 		spielraumPopupLayout.tfSpielraumName.setPromptText(t.getString("label.spielraumname"));
-		otherPlayerLayout.lblPoints.setText(t.getString("label.points"));
+		//otherPlayerLayout.lblPoints.setText(t.getString("label.points"));
 		spielraumLayout.lblChat.setText(t.getString("label.chat"));
 		spielraumLayout.lblWait.setText(t.getString("label.wait"));
 		startGamePopupLayout.lblPointsLimit.setText(t.getString("label.limit"));

@@ -1,5 +1,7 @@
 package jass.client.view;
 
+import java.util.ArrayList;
+
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -37,28 +39,18 @@ public class SpielraumPane extends GridPane {
     Rectangle cardP4 = new Rectangle();
     
     PlayerPane playerPane;
+    OtherPlayerPane otherPlayerPane;
+    
+    ArrayList<OtherPlayerPane> otherPlayerPaneList;
     
     Label lblWait = new Label();
   
 	Button btnLeave = new Button();
 	Button btnStartGame = new Button();
+	int i = 0;
 	
 	public SpielraumPane() {
-		for (int i = 0; i < 3; i++) {
-			OtherPlayerPane pp = new OtherPlayerPane();
-//---> anpassen: 			pp.setPlayer(model.getPlayer(i)); // link to player object in the logic
-			switch(i) {
-			case 0:
-				this.add(pp, 1, 0);
-				break;
-			case 1:
-				this.add(pp, 2, 1);
-				break;
-			case 2:
-				this.add(pp, 0, 1);
-				break;
-			}			
-		}
+		otherPlayerPaneList = new ArrayList<>();
 		
 		VBox vMessage = new VBox();
 		vMessage.setId("VBoxMessage");
@@ -138,6 +130,39 @@ public class SpielraumPane extends GridPane {
 		
 		this.setId("root");
 	}
+	
+	public void createOtherPlayerPane(int countMembers, String username) {
+		System.out.println("Members:" + countMembers + "ArrayList: " + otherPlayerPaneList.size());
+			
+			
+			for(int i = otherPlayerPaneList.size(); i < countMembers; i++) {
+				
+				if (i == 0) {
+					OtherPlayerPane otherPlayerPane1 = new OtherPlayerPane(username);
+					otherPlayerPaneList.add(otherPlayerPane1);
+					otherPlayerPane1.getLblName().setText(username);
+					this.add(otherPlayerPane1, 1, 0);
+				}
+				if (i == 1) {
+					OtherPlayerPane otherPlayerPane2 = new OtherPlayerPane(username);
+					otherPlayerPaneList.add(otherPlayerPane2);
+					otherPlayerPane2.getLblName().setText(username);
+					this.add(otherPlayerPane2, 2, 1);
+				}
+				if (i == 2) {
+					OtherPlayerPane otherPlayerPane3 = new OtherPlayerPane(username);
+					otherPlayerPaneList.add(otherPlayerPane3);
+					otherPlayerPane3.getLblName().setText(username);
+					this.add(otherPlayerPane3, 0, 1);
+				}
+			}
+		
+		//---> anpassen: 			pp.setPlayer(model.getPlayer(i)); // link to player object in the logic
+	}
+	
+	public void clearPlayerPaneList() {
+		otherPlayerPaneList.clear();
+	}
 
 	public PlayerPane getPlayerPane() {
 		return playerPane;
@@ -145,6 +170,14 @@ public class SpielraumPane extends GridPane {
 
 	public void setPlayerPane(PlayerPane playerPane) {
 		this.playerPane = playerPane;
+	}
+
+	public OtherPlayerPane getOtherPlayerPane() {
+		return otherPlayerPane;
+	}
+
+	public void setOtherPlayerPane(OtherPlayerPane otherPlayerPane) {
+		this.otherPlayerPane = otherPlayerPane;
 	}
 	
 	
