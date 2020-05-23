@@ -52,6 +52,10 @@ public class ServerTableCards extends Cards{
 		return Trumpf.higherSameSuitCard(serverTableCards);
 	}
 	
+	public Trumpf evaluateTrumpf() {
+		return Trumpf.evaluateTrumpf(serverTableCards);
+	}
+	
 //*********
 	public String getUsername(int place) {
 		return usernames.get(place);
