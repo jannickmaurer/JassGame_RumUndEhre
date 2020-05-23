@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
+import jass.server.EvaluationRuleSet;
+import jass.server.ServerTableCards;
+
 class TrumpfTest {
 	
 //	@Test //brauchts für linke seite
@@ -37,6 +40,21 @@ class TrumpfTest {
 		assertEquals("CJ", Trumpf.highestUfeAbeCard(cards, gameTyp));
 	}
 	
+	
+	@Test
+	public void checkPointsForWinner() {
+
+		ArrayList<Card> cards = new ArrayList<Card>();
+		cards.add(new Card("HJ"));
+		cards.add(new Card("CA"));
+//		cards.add(new Card("CA"));
+//		cards.add(new Card("CK"));
+		String gameTyp = "Trumpf";
+	
+		
+	//	assertEquals("CJ", EvaluationRuleSet.pointsForWinner(cards));
+
+	}
 	
 //	@Test
 //	public void checkGetPoints() {
