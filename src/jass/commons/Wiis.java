@@ -55,14 +55,24 @@ public enum Wiis {
 		Wiis fourOfAKindWiis = evaluateStraightWiis(cards);
 		if (straightWiis == null && fourOfAKindWiis ==null) return null;
 		else if(straightWiis != null && fourOfAKindWiis !=null){
+			//hier vergleich, da beide etwas haben!!!!
+			if(straightWiis.getPoints() == fourOfAKindWiis.getPoints()) {
+				
+			}
 			
-			
-		}
-		
-
-		return null;
+			return null;
+			}else {
+				if (straightWiis == null) return fourOfAKindWiis;
+				return straightWiis;
+			}
 	}
 	
+	
+	private Object getPoints() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	public static boolean hasStoeck(ArrayList<Card> cards) { 
 	    if (EvaluationRuleSet.gameType == "Trumpf") {
 	    	boolean queen = false;    
