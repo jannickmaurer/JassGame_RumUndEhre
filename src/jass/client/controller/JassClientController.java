@@ -511,6 +511,7 @@ public class JassClientController {
 	
 	public void createBoard() {
 		board = new Board(currentPlayroom, currentGameType);
+		logger.info("Client board created: " + currentPlayroom + " / " + currentGameType);
 	}
 
 	public String getToken() {

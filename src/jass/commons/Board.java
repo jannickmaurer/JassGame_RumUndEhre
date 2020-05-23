@@ -6,6 +6,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Logger;
 
 import jass.client.TableCards;
 import jass.client.HandCards;
@@ -13,6 +14,8 @@ import jass.client.Player;
 import jass.commons.Card.Suit;
 
 public class Board {
+	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
+	private static Logger logger = sl.getServerLogger();
 	public static int playersTurn;
 	public int imPlayer;
 	public static String trumpf;
@@ -43,11 +46,13 @@ public class Board {
 //	}
 //	
 	public void shuffledCardListener(String newHandCards) {
+		logger.info(newHandCards);
 		String[] handCardList = newHandCards.split("\\|");
 		for (int i = 0; i < handCardList.length; i++) {
 			this.handCards.add(new Card(handCardList[i]));
-			this.startHandCards.add(new Card (handCardList[i]));
+//			this.startHandCards.add(new Card (handCardList[i]));
 		}
+		logger.info("HandCards added: " + handCards.toString());
 	}
 	
 	public void playerListener(int playersTurn) {
