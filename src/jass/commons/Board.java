@@ -53,11 +53,11 @@ public class Board {
 		for (int i = 0; i < handCardList.length; i++) {
 			tempHandCards.add(new Card(handCardList[i]));
 
-			this.handCards.add(new Card(handCardList[i]));
-
+	//		this.handCards.add(new Card(handCardList[i]));
 //			this.startHandCards.add(new Card (handCardList[i]));
 			//this.startHandCards.add(new Card (handCardList[i]));
 		}
+		this.handCards.setCards(tempHandCards);
 		logger.info("HandCards added: " + handCards.toString());
 		
 	}
