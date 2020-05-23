@@ -78,7 +78,6 @@ public class PlayerPane extends VBox {
     	   
     	   for (Card c : handCardsList) {
     	   
-     		
        		CardLabel cl = new CardLabel();
        		cl.setCard(c);
        		cl.setCardNameAsString(c.toString());
