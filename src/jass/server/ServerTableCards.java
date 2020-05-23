@@ -27,9 +27,18 @@ public class ServerTableCards extends Cards{
 		return serverTableCards.size() == 4;
 	}
 	
-	public int getPoints() {
-		return Trumpf.getPoints(serverTableCards);
+	public int getPoints(String handType) {
+		return Trumpf.getPoints(serverTableCards, handType);
 	}
+	
+	public int getTrumpfPoints(String trumpf) {
+		return Trumpf.getTrumpfPoints(serverTableCards, trumpf);
+	}
+	
+	
+//	public int getPoints(String handType, String trumpf) {
+//		return Trumpf.getPoints(serverTableCards, handType, trumpf);
+//	}
 	
 	public Card getCard(int i) {
 		return serverTableCards.get(i);
@@ -43,9 +52,6 @@ public class ServerTableCards extends Cards{
 	
 	public void clearServerTableCards() {
 		serverTableCards.clear();
-	}
-	public int getPoints(String slalom) {
-		return Trumpf.getPoints(serverTableCards, slalom);
 	}
 	
 	public Card getHighestUfeAbeCard(String gameType) {
@@ -73,5 +79,9 @@ public class ServerTableCards extends Cards{
 		return usernames.get(place);
 	}
 //*********
+
+
+
+
 
 }

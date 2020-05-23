@@ -5,15 +5,19 @@ import java.util.logging.Logger;
 
 import jass.commons.Card;
 import jass.commons.ServiceLocator;
+import jass.commons.Trumpf;
+
+//result broadcast startRound message zurück an client wenn die runde startet
+//andere startRound karte hier kommt gameTyp rein, welcher ich in Trumpf übergeben muss
+//Allepunkte zusammenzählen für maxximale üunkte um spiel zu benden
 
 public class EvaluationRuleSet implements Serializable {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
-	public static String trumpf = "H";
-	public static String gameType = "Trumpf";
+	public String trumpf = "H"; //nicht mehr statisch
+	public String gameType = "Trumpf"; //nicht mehr statisch
 	private ServerTableCards serverTableCards;
 	private ServerTableCards usernames;
-	private static String slalom = "UndeUfe";
 	private int playedRounds = 0;
 
 	public EvaluationRuleSet() {
@@ -41,27 +45,32 @@ public class EvaluationRuleSet implements Serializable {
 			playerWinnerNr = isCardNumber(tempWinnerCard);
 		}
 		if (gameType == "Slalom") {
-			if (slalom == "UndeUfe") slalom = "ObeAbe";
-			else slalom = "UndeUfe";
-			Card tempWinnerCard = serverTableCards.getHighestUfeAbeCard(slalom);
+			if (trumpf == "UndeUfe") trumpf = "ObeAbe";
+			else trumpf = "UndeUfe";
+			Card tempWinnerCard = serverTableCards.getHighestUfeAbeCard(trumpf);
 			playerWinnerNr = isCardNumber(tempWinnerCard);	
 		}
 		return serverTableCards.getUsername(playerWinnerNr);
-}
-//***********
-	public String getWinnerUsername(int winnerNr) {
-		return usernames.getUsername(winnerNr);//an Stelle winnerNr winnerIsPLayer aufrufen
 	}
-//***********
+
+	public String getWinnerUsername(int winnerNr) {
+		return usernames.getUsername(winnerNr);
+	}
 
 	public int pointsForWinner() {
-		if (playedRounds != 9) {//evtl modulo falls nach einer rund emit 9 karten danach weiter gezählt wird
-			if (gameType != "Slalom") return serverTableCards.getPoints();
-			return serverTableCards.getPoints(slalom);
+		if ((playedRounds % 9) != 0) {//evtl modulo falls nach einer rund emit 9 karten danach weiter gezählt wird
+			switch(gameType) {
+			case("Trumpf"): return serverTableCards.getTrumpfPoints(trumpf);
+			case("Slalom"): return serverTableCards.getPoints(trumpf);
+			default: return serverTableCards.getPoints(gameType);
 			}
+		}
 		else {
-			if (gameType != "Slalom") return serverTableCards.getPoints()+5;
-			return serverTableCards.getPoints(slalom)+5;
+			switch(gameType) {
+			case("Trumpf"): return serverTableCards.getTrumpfPoints(trumpf) + 5;
+			case("Slalom"): return serverTableCards.getPoints(trumpf) + 5;
+			default: return serverTableCards.getPoints(gameType) + 5;
+			}
 		}
 	}
 
@@ -74,12 +83,12 @@ public class EvaluationRuleSet implements Serializable {
 		logger.info("Client Card added: " + clientCard) ;
 	}
 
-	public static String getTrumpf() {
+	public String getTrumpf() { // nicht mehr static
 		return trumpf;
 	}
 
-	public static void setTrumpf(String trumpf) {
-		EvaluationRuleSet.trumpf = trumpf;
+	public void setTrumpf(String trumpf) {
+		this.trumpf = trumpf; //nicht mehr EvaluationRuleSet
 	}
 
 	public ServerTableCards getServerTableCards() {
@@ -90,8 +99,9 @@ public class EvaluationRuleSet implements Serializable {
 		this.serverTableCards = serverTableCards;
 	}
 
-	public static void setGameType(String gameType) {
-		EvaluationRuleSet.gameType = gameType;
+	public void setGameType(String gameType) {
+		this.gameType = gameType;
+	//	Trumpf.setGameType(gameType);
 	}
 	
 	public int isCardNumber(Card card) {

@@ -1,6 +1,8 @@
 package jass.client;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.logging.Logger;
 
 import com.sun.nio.sctp.HandlerResult;
@@ -21,8 +23,7 @@ public class HandCards extends Cards{
 //	ArrayList<Card> remainingHandCards = new ArrayList<Card>();
 	ArrayList<Card> startHandCards = new ArrayList<Card>();
 	ArrayList<Card> playableHandCards = new ArrayList<Card>();
-//	private Trumpf trumpf;
-//	ArrayList<Wiis> wiis = new ArrayList<>();
+
 
 	
 	//!!!!!!!!ResultSendTableCArd an Board übergeben und dann handcards removen
@@ -38,7 +39,10 @@ public class HandCards extends Cards{
 		super();
 	}
 	
-	
+	/**
+	 * WIICHTIG!!!!!!!!!! Hier nachdem die Handkarten der ArrayList hinzugefügt wurden Karten sortieren.
+	 * @return
+	 */
 
 	public ArrayList<Card> getRemainingHandCards() {
 		return handCards;  //remainingHandCards
@@ -61,12 +65,14 @@ public class HandCards extends Cards{
 		return Trumpf.hasSameSuitCard(handCards, firstTableCard);
 	}
 
-	public ArrayList<Card> getHandCards() {
+	public ArrayList<Card> getHandCards() {  //////////////////////////
 		return handCards;
 	}
 
 	public void setHandCards(ArrayList<Card> handCards) {
-		this.handCards = handCards;
+//		ArrayList<Card> tempHandCards = new ArrayList<>();
+//		tempHandCards = Trumpf.sortHandCards(handCards);
+		this.handCards = Trumpf.sortHandCards(handCards);
 	}
 
 	public ArrayList<Card> getPlayableHandCards() {
@@ -77,11 +83,14 @@ public class HandCards extends Cards{
 		this.playableHandCards = playableHandCards;
 	}
 	
-	@Override
-	public void add(Card card) {
-		logger.info("Handcard added: " + card.toString());
-		this.handCards.add(card);
-	}
+//	@Override
+//	public void add(Card card) {
+//		logger.info("Handcard added: " + card.toString());
+//		this.handCards.add(card);
+//		
+//		////////
+//		if(handCards.size() == 9) sortHandCards(handCards);
+//	}
 	
 	public boolean hasTrumpfCards() {
 		return Trumpf.hasTrumpfCards(handCards);
@@ -102,5 +111,7 @@ public class HandCards extends Cards{
 	public boolean hasPlayableCards() {
 		return playableHandCards.size() != 0; 
 	}
+	
+
 	
 }

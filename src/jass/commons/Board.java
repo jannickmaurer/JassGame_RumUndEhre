@@ -47,15 +47,19 @@ public class Board {
 //	}
 //	
 	public void shuffledCardListener(String newHandCards) {
+		ArrayList<Card> tempHandCards = new ArrayList<>();
 		logger.info(newHandCards);
 		String[] handCardList = newHandCards.split("\\|");
 		for (int i = 0; i < handCardList.length; i++) {
-			this.handCards.add(new Card(handCardList[i]));
+			tempHandCards.add(new Card(handCardList[i]));
 
+	//		this.handCards.add(new Card(handCardList[i]));
 //			this.startHandCards.add(new Card (handCardList[i]));
 			//this.startHandCards.add(new Card (handCardList[i]));
 		}
+		this.handCards.setHandCards(tempHandCards);
 		logger.info("HandCards added: " + handCards.toString());
+		
 	}
 	
 	public void playerListener(int playersTurn) {
