@@ -330,7 +330,7 @@ public class JassClientView {
 		startGamePopUp.setAutoHide(true);
 		
 		txtMessages.setEditable(false);
-		
+		spielraumLayout.btnSend.disableProperty().bind(spielraumLayout.tfMessage.textProperty().isEmpty());
 		v1.setVgrow(listView, Priority.ALWAYS);
 		
 		scene = new Scene(root, 950, 635);
