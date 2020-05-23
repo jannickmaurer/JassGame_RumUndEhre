@@ -52,6 +52,7 @@ public class JassClientController {
 	private String account;
 	private String currentGameType;
 	private ObservableList<String> playrooms = FXCollections.observableArrayList();
+	private String playerOnTurn;
 
 	
 	public String getCurrentGameType() {
@@ -60,6 +61,7 @@ public class JassClientController {
 
 	public void setCurrentGameType(String currentGameType) {
 		this.currentGameType = currentGameType;
+		this.board.setGameTyp(currentGameType);
 	}
 
 	public JassClientController(JassClientModel model, JassClientView view) {

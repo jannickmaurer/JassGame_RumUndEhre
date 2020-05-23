@@ -43,15 +43,15 @@ public class Playroom implements Serializable {
 	private EvaluationRuleSet evaluationRuleSet;
 	private String tempLeader;
 	private String[] content;
+	private String trumpf;
 	
 	
 	/* Constructor: Open a new playroom with playroom name and owner account as String – maxPoints set by child class
 	 * 
 	 */
-	public Playroom(String name, String owner, String gameType) {
+	public Playroom(String name, String owner) {
 		this.name = name;
 		this.owner = owner;
-		this.gameType = gameType;
 		this.evaluationRuleSet = new EvaluationRuleSet();
 		this.members = new ArrayList<>();
 		this.chatroom = new Chatroom(Playroom.this);
@@ -72,6 +72,7 @@ public class Playroom implements Serializable {
 
 	public void setGameType(String gameType) {
 		this.gameType = gameType;
+		evaluationRuleSet.setGameType(gameType);
 	}
 
 	public EvaluationRuleSet getEvaluationRuleSet() {
@@ -317,6 +318,24 @@ public class Playroom implements Serializable {
 	
 	
 	
+	
+	public String getTempLeader() {
+		return tempLeader;
+	}
+
+	public void setTempLeader(String tempLeader) {
+		this.tempLeader = tempLeader;
+	}
+
+	public String getTrumpf() {
+		return trumpf;
+	}
+
+	public void setTrumpf(String trumpf) {
+		this.trumpf = trumpf;
+		evaluationRuleSet.setTrumpf(trumpf);
+	}
+
 	public boolean isGameRunning() {
 		return gameRunning;
 	}
