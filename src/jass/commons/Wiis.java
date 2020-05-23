@@ -9,70 +9,49 @@ import com.sun.xml.internal.bind.v2.model.core.MaybeElement;
 import jass.commons.Card.Suit;
 import jass.server.EvaluationRuleSet;
 
-public class Wiis {
+public enum Wiis { 
+	Dreiblatt, Vierblatt, Fuenfblatt, Sechsblatt, Siebenblatt, Achtblatt, Neunblatt, 
+	FourSix, FourSeven, FourEight, FourTen, FourQueen, FourKing, FourAss, FourNaell, FourPuur;
 	
 	//
 	//
 	//
 	//
-	
-	public enum StraightWiis { Dreiblatt, Vierblatt, Fuenfblatt, Sechsblatt, Siebenblatt, Achtblatt, Neunblatt;
-		//gibt höchsten Wiis bei Blättern zurück
-		public static StraightWiis evaluateStraightWiis(ArrayList<Card> cards){
-			StraightWiis straightWiisEval = null;
-			if (hasDreiblatt(cards)) straightWiisEval = Dreiblatt; 
-			if (hasVierblatt(cards)) straightWiisEval = Vierblatt;
-			if (hasFünfblatt(cards)) straightWiisEval = Fuenfblatt; 
-			if (hasSechsblatt(cards)) straightWiisEval = Sechsblatt; 
-			if (hasSiebenblatt(cards)) straightWiisEval = Siebenblatt; 
-			if (hasAchtblatt(cards)) straightWiisEval = Achtblatt; 
-			if (hasNeunblatt(cards)) straightWiisEval = Neunblatt; 
+	public static Wiis evaluateStraightWiis(ArrayList<Card> cards) {
+		Wiis straightWiisEval = null;
+		if (hasDreiblatt(cards)) straightWiisEval = Dreiblatt; 
+		if (hasVierblatt(cards)) straightWiisEval = Vierblatt; 
+		if (hasFuenfblatt(cards)) straightWiisEval = Fuenfblatt; 
+		if (hasSechsblatt(cards)) straightWiisEval = Sechsblatt; 
+		if (hasSiebenblatt(cards)) straightWiisEval = Siebenblatt; 
+		if (hasAchtblatt(cards)) straightWiisEval = Achtblatt; 
+		if (hasNeunblatt(cards)) straightWiisEval = Neunblatt; 
+		
 		return straightWiisEval;
-		}
 	}
 	
-	public enum FourOfAKindWiis { Four6, Four7, Four8, FourT, FourQ, FourK, FourA, Four9, FourJ;
-	//Gibt höchsten Wiis bei vier gleichen zurück
-		public static FourOfAKindWiis evaluateFourOfAKindWiis(ArrayList<Card> cards){
-			FourOfAKindWiis fourOfAKindWiisEval = null;
-			if (hasFour(cards, "6")) fourOfAKindWiisEval = Four6;
-			if (hasFour(cards, "7")) fourOfAKindWiisEval = Four7;
-			if (hasFour(cards, "8")) fourOfAKindWiisEval = Four8;
-			if (hasFour(cards, "T")) fourOfAKindWiisEval = FourT;
-			if (hasFour(cards, "Q")) fourOfAKindWiisEval = FourQ;
-			if (hasFour(cards, "K")) fourOfAKindWiisEval = FourK;
-			if (hasFour(cards, "A")) fourOfAKindWiisEval = FourA;
-			if (hasFour(cards, "9")) fourOfAKindWiisEval = Four9;
-			if (hasFour(cards, "J")) fourOfAKindWiisEval = FourJ;
+	public static Wiis evaluateFourOfAKindWiis(ArrayList<Card> cards) {
+		//	FourOfAKindWiis fourOfAKindWiisEval = null;
+		Wiis fourOfAKindWiisEval = null;
+		if (hasFour(cards, "6")) fourOfAKindWiisEval = FourSix;
+		if (hasFour(cards, "7")) fourOfAKindWiisEval = FourSeven;
+		if (hasFour(cards, "8")) fourOfAKindWiisEval = FourEight;
+//		if (hasFour(cards, "9")) fourOfAKindWiisEval = FourNine;
+		if (hasFour(cards, "T")) fourOfAKindWiisEval = FourTen;
+//		if (hasFour(cards, "J")) fourOfAKindWiisEval = FourJack;
+		if (hasFour(cards, "Q")) fourOfAKindWiisEval = FourQueen;
+		if (hasFour(cards, "K")) fourOfAKindWiisEval = FourKing;
+		if (hasFour(cards, "A")) fourOfAKindWiisEval = FourAss;
+		if (hasFour(cards, "9")) fourOfAKindWiisEval = FourNaell;
+		if (hasFour(cards, "J")) fourOfAKindWiisEval = FourPuur;
+
 		return fourOfAKindWiisEval;
-		}
 	}
-	
-	
-	public static int evaluateMaxWiisPoints(ArrayList<Card> cards) {
-		int maxWiisPoints = 0;
-		if (hasStoeck(cards))		maxWiisPoints = 20;
-		if (hasDreiblatt(cards)) 	maxWiisPoints = 30;
-		if (hasVierblatt(cards)) 	maxWiisPoints = 50;
-		if (hasFünfblatt(cards)) 	maxWiisPoints = 100;
-		if (hasFourSameRank(cards)) maxWiisPoints = 100;
-		if (hasSechsblatt(cards))	maxWiisPoints = 150; 
-		if (hasVierneun(cards)) 	maxWiisPoints = 150;
-		if (hasSiebenblatt(cards))	maxWiisPoints = 200; 
-		if (hasVierbuebe(cards)) 	maxWiisPoints = 200;
-		if (hasAchtblatt(cards)) 	maxWiisPoints = 250;
-		if (hasNeunblatt(cards))  	maxWiisPoints = 300;	
-		return maxWiisPoints;
-	}
-	
-	
-	
 	
 	public static boolean hasStoeck(ArrayList<Card> cards) { 
 	    if (EvaluationRuleSet.gameType == "Trumpf") {
 	    	boolean queen = false;    
 	    	boolean king = false;
-//		ArrayList<Card> clonedCards = (ArrayList<Card>) cards.clone();
 	    	Iterator<Card> c = cards.iterator();
 	    	while(c.hasNext()){
 	    		Card card = c.next();
@@ -88,6 +67,68 @@ public class Wiis {
 	    }
 	    return false;
 	}
+	
+	
+//	public enum StraightWiis { Dreiblatt, Vierblatt, Fuenfblatt, Sechsblatt, Siebenblatt, Achtblatt, Neunblatt;
+//		//gibt höchsten Wiis bei Blättern zurück
+//		public static StraightWiis evaluateStraightWiis(ArrayList<Card> cards){
+//			StraightWiis straightWiisEval = null;
+//			if (hasDreiblatt(cards)) straightWiisEval = Dreiblatt; 
+//			if (hasVierblatt(cards)) straightWiisEval = Vierblatt;
+//			if (hasFünfblatt(cards)) straightWiisEval = Fuenfblatt; 
+//			if (hasSechsblatt(cards)) straightWiisEval = Sechsblatt; 
+//			if (hasSiebenblatt(cards)) straightWiisEval = Siebenblatt; 
+//			if (hasAchtblatt(cards)) straightWiisEval = Achtblatt; 
+//			if (hasNeunblatt(cards)) straightWiisEval = Neunblatt; 
+//		return straightWiisEval;
+//		}
+//	}
+//	
+//	public enum FourOfAKindWiis { Four6, Four7, Four8, FourT, FourQ, FourK, FourA, Four9, FourJ;
+//	//Gibt höchsten Wiis bei vier gleichen zurück
+//		public static FourOfAKindWiis evaluateFourOfAKindWiis(ArrayList<Card> cards){
+//			ArrayList<Wiis> fourOfAKindWiisEval = new ArrayList<>();
+//		//	FourOfAKindWiis fourOfAKindWiisEval = null;
+//			if (hasFour(cards, "6")) fourOfAKindWiisEval.add(Four6);
+//			if (hasFour(cards, "7")) fourOfAKindWiisEval = Four7;
+//			if (hasFour(cards, "8")) fourOfAKindWiisEval = Four8;
+//			if (hasFour(cards, "T")) fourOfAKindWiisEval = FourT;
+//			if (hasFour(cards, "Q")) fourOfAKindWiisEval = FourQ;
+//			if (hasFour(cards, "K")) fourOfAKindWiisEval = FourK;
+//			if (hasFour(cards, "A")) fourOfAKindWiisEval = FourA;
+//			if (hasFour(cards, "9")) fourOfAKindWiisEval = Four9;
+//			if (hasFour(cards, "J")) fourOfAKindWiisEval = FourJ;
+//		return fourOfAKindWiisEval;
+//		}
+//	}
+	
+	public ArrayList<Wiis> getPlayerWiis(ArrayList<Card> cards){
+		ArrayList<Wiis> currentPlayerWiis = new ArrayList<>();
+		
+		return null;
+	}
+	
+	
+	public static int evaluateMaxWiisPoints(ArrayList<Card> cards) {
+		int maxWiisPoints = 0;
+		if (hasStoeck(cards))		maxWiisPoints = 20;
+		if (hasDreiblatt(cards)) 	maxWiisPoints = 30;
+		if (hasVierblatt(cards)) 	maxWiisPoints = 50;
+	//	if (hasFünfblatt(cards)) 	maxWiisPoints = 100;
+		if (hasFourSameRank(cards)) maxWiisPoints = 100;
+		if (hasSechsblatt(cards))	maxWiisPoints = 150; 
+		if (hasVierneun(cards)) 	maxWiisPoints = 150;
+		if (hasSiebenblatt(cards))	maxWiisPoints = 200; 
+		if (hasVierbuebe(cards)) 	maxWiisPoints = 200;
+		if (hasAchtblatt(cards)) 	maxWiisPoints = 250;
+		if (hasNeunblatt(cards))  	maxWiisPoints = 300;	
+		return maxWiisPoints;
+	}
+	
+	
+	
+	
+
 
 
 	private static ArrayList<Card> clubCards = new ArrayList<Card>();
@@ -144,7 +185,7 @@ public class Wiis {
 		return isCardSuitArrayListLongerThan(cards, 4);
 	}
 
-	private static boolean hasFünfblatt(ArrayList<Card> cards) {
+	private static boolean hasFuenfblatt(ArrayList<Card> cards) {
 		return isCardSuitArrayListLongerThan(cards, 5);
 	}
 
@@ -236,8 +277,8 @@ public class Wiis {
     
     
 	private static boolean hasFourSameRank(ArrayList<Card> cards) {
-    	ArrayList<Card> clonedCards = (ArrayList<Card>) cards.clone();
-		sortCardsOnRank(clonedCards);
+//    	ArrayList<Card> clonedCards = (ArrayList<Card>) cards.clone();
+		sortCardsOnRank(cards); //clonedCards
 	//	countViergliichi = 0;
 		boolean found = false;
 		if (sixCards.size() == 4)  found = true; //countViergliichi+= 100;

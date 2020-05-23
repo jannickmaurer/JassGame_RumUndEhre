@@ -107,8 +107,13 @@ public class EvaluationRuleSet implements Serializable {
 		//bei gleichem Wiiswert kommt der spieler dran der zuerst seine karte legte
 		//Wiis wiisPlayerOne = hasTrumpf
 		
+	}
+	
+	public void pointsForWiisWinner() {
 		
 		
 	}
+	
+	//Achtung: Stoeck kann jeder immer haben, obwohl ein anderer gewiesen hat!!!!
 
 }

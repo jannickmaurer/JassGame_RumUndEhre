@@ -53,8 +53,8 @@ public class ServerTableCards extends Cards{
 	}
 	
 //*********
-	public String getUsername(int ordinal) {
-		return usernames.get(ordinal);
+	public String getUsername(int place) {
+		return usernames.get(place);
 	}
 //*********
 

@@ -48,9 +48,9 @@ public class WiisCards {
 //		return evaluateStraightWiis(cards);
 //	}
 	
-	public boolean hasStoeck() {
-	return Wiis.hasStoeck(allPlayersCards);
-	}
+//	public boolean hasStoeck() {
+//	return Wiis.hasStoeck(allPlayersCards);
+//	}
 	
 	//gibt punktewert des maximalen weises des spielers zurück
 	public int playerWiisPoints(int playerNr) {
