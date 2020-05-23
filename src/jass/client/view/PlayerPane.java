@@ -79,6 +79,14 @@ public class PlayerPane extends VBox {
 	// information
 	// ---> anpassen: }
 
+	public Label getLblName() {
+		return lblName;
+	}
+
+	public void setLblName(Label lblName) {
+		this.lblName = lblName;
+	}
+
 	public void updatePlayerDisplay(HandCards handCards) {
 		// ---> anpassen: lblName.setText(player.getPlayerName());
 		ArrayList<Card> handCardsList = new ArrayList<>();
