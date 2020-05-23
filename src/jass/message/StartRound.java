@@ -25,13 +25,13 @@ public class StartRound extends Message {
 	private static Logger logger = sl.getServerLogger();
 	private String token;
 	private String gameType;
-	private String addInfo;
+	private String additionalInfo;
 
 	public StartRound(String[] content) {
 		super(content);	
 		this.token = content[1];
 		this.gameType = content[2];
-		if(content.length > 3) this.addInfo = content[3];
+		if(content.length > 3) this.additionalInfo = content[3];
 	}
 
 	@Override
@@ -41,8 +41,8 @@ public class StartRound extends Message {
 		if(this.token.equals(client.getToken())) {
 			Playroom playroom = client.getPlayroom();
 			playroom.setGameType(gameType);
-			if(gameType.equals("Trumpf")) playroom.setTrumpf(addInfo);
-			String[] content = new String[] {"ResultBroadcastStartRound", gameType, addInfo};
+			if(gameType.equals("Trumpf")) playroom.setTrumpf(additionalInfo);
+			String[] content = new String[] {"ResultBroadcastStartRound", gameType, additionalInfo};
 			playroom.send(new ResultBroadcastStartRound(content));
 			result = true;
 		}

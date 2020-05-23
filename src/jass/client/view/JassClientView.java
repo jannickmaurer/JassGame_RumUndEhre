@@ -57,6 +57,8 @@ public class JassClientView {
 	public WyssPopupPane wyssPopupLayout = new WyssPopupPane();
 	public OtherPlayerPane otherPlayerLayout = new OtherPlayerPane();
 	public PlayerPane playerPane = new PlayerPane();
+	public GameTypePopupPane gameTypePopupLayout = new GameTypePopupPane();
+
 	
 	public Popup profilPopUp = new Popup();
 	public Popup createSpielraumPopUp = new Popup();
@@ -65,6 +67,7 @@ public class JassClientView {
 	public Popup siegerPopUp = new Popup();
 	public Popup trumpfPopUp = new Popup();
 	public Popup wyssPopUp = new Popup();
+	public Popup gameTypePopup = new Popup();
 	
 	Label lblPort = connectLayout.lblPort;
 	Label lblIP = connectLayout.lblIP;
@@ -138,6 +141,14 @@ public class JassClientView {
 	Button btnSpades = trumpfPopupLayout.btnSpades;
 	Button btnClubs = trumpfPopupLayout.btnClubs;
 	Button btnPush = trumpfPopupLayout.btnPush;
+	
+	// Initialize GameTypePopup Buttons
+	private Button btnTrumpf = gameTypePopupLayout.btnTrumpf;
+	private Button btnUndeUfe = gameTypePopupLayout.btnUndeUfe;
+	private Button btnObeAbe = gameTypePopupLayout.btnObeAbe;
+	private Button btnSlalomUndeUfe = gameTypePopupLayout.btnSlalomUndeUfe;
+	private Button btnSlalomObeAbe = gameTypePopupLayout.btnObeAbe;
+	
 	
 	Label lblWyss = wyssPopupLayout.lblWyss;
 	Button btnWyss = wyssPopupLayout.btnWyss;
@@ -279,6 +290,9 @@ public class JassClientView {
 		trumpfPopUp.getContent().add(trumpfPopupLayout);
 		trumpfPopUp.setAutoHide(false);
 		
+		gameTypePopup.getContent().add(gameTypePopupLayout);
+		gameTypePopup.setAutoHide(false);
+		
 		wyssPopUp.getContent().add(wyssPopupLayout);
 		wyssPopUp.setAutoHide(false);
 		
@@ -398,6 +412,12 @@ public class JassClientView {
 		trumpfPopupLayout.btnSpades.setText(t.getString("button.spades"));
 		trumpfPopupLayout.btnClubs.setText(t.getString("button.clubs"));
 		trumpfPopupLayout.btnPush.setText(t.getString("button.push"));
+		gameTypePopupLayout.btnObeAbe.setText(t.getString("button.obeAbe"));
+		gameTypePopupLayout.btnUndeUfe.setText(t.getString("button.undeUfe"));
+		gameTypePopupLayout.btnTrumpf.setText(t.getString("button.trumpf"));
+		gameTypePopupLayout.btnSlalomUndeUfe.setText(t.getString("button.slalomUndeUfe"));
+		gameTypePopupLayout.btnSlalomObeAbe.setText(t.getString("button.slalomObeAbe"));
+
     }
 	
 	public Stage getStage() {
@@ -806,6 +826,48 @@ public class JassClientView {
 		this.btnWyss = btnWyss;
 	}
 	
+	
+	
+	public Button getBtnTrumpf() {
+		return btnTrumpf;
+	}
+
+	public void setBtnTrumpf(Button btnTrumpf) {
+		this.btnTrumpf = btnTrumpf;
+	}
+
+	public Button getBtnUndeUfe() {
+		return btnUndeUfe;
+	}
+
+	public void setBtnUndeUfe(Button btnUndeUfe) {
+		this.btnUndeUfe = btnUndeUfe;
+	}
+
+	public Button getBtnObeAbe() {
+		return btnObeAbe;
+	}
+
+	public void setBtnObeAbe(Button btnObeAbe) {
+		this.btnObeAbe = btnObeAbe;
+	}
+
+	public Button getBtnSlalomUndeUfe() {
+		return btnSlalomUndeUfe;
+	}
+
+	public void setBtnSlalomUndeUfe(Button btnSlalomUndeUfe) {
+		this.btnSlalomUndeUfe = btnSlalomUndeUfe;
+	}
+
+	public Button getBtnSlalomObeAbe() {
+		return btnSlalomObeAbe;
+	}
+
+	public void setBtnSlalomObeAbe(Button btnSlalomObeAbe) {
+		this.btnSlalomObeAbe = btnSlalomObeAbe;
+	}
+
 	public Button getBtnNoWyss() {
 		return btnNoWyss;
 	}
@@ -813,6 +875,8 @@ public class JassClientView {
 	public void setBtnNoWyss(Button btnNoWyss) {
 		this.btnNoWyss = btnNoWyss;
 	}
+	
+	
 
 	public Rectangle getCardP1() {
 		return cardP1;

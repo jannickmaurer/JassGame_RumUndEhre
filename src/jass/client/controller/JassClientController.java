@@ -11,6 +11,7 @@ import jass.client.message.result.ResultBroadcastSendPoints;
 import jass.client.message.result.ResultBroadcastSendTableCard;
 import jass.client.message.result.ResultBroadcastSendTrumpf;
 import jass.client.message.result.ResultBroadcastStartGame;
+import jass.client.message.result.ResultBroadcastStartRound;
 import jass.client.message.result.ResultCreateAccount;
 import jass.client.message.result.ResultCreatePlayroom;
 import jass.client.message.result.ResultDeleteAccount;
@@ -28,6 +29,7 @@ import jass.client.message.result.ResultSendTableCard;
 import jass.client.message.result.ResultSendTrumpf;
 import jass.client.message.result.ResultShuffle;
 import jass.client.message.result.ResultStartGame;
+import jass.client.message.result.ResultStartRound;
 import jass.client.message.result.ResultBroadcastSendMessage;
 import jass.client.model.JassClientModel;
 import jass.client.view.JassClientView;
@@ -36,9 +38,11 @@ import jass.commons.Board;
 import jass.commons.ServiceLocator;
 import jass.message.Message;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 
 public class JassClientController {
 
@@ -53,8 +57,9 @@ public class JassClientController {
 	private String currentGameType;
 	private ObservableList<String> playrooms = FXCollections.observableArrayList();
 	private String playerOnTurn;
+	private SimpleStringProperty gameType;
+	private SimpleStringProperty Trumpf;
 
-	
 	public String getCurrentGameType() {
 		return currentGameType;
 	}
@@ -67,30 +72,30 @@ public class JassClientController {
 	public JassClientController(JassClientModel model, JassClientView view) {
 		this.model = model;
 		this.view = view;
-		
+
 		view.getBtnRun().setOnAction(event -> connect());
-		view.getBtnNewRegistration().setOnAction(event ->{
+		view.getBtnNewRegistration().setOnAction(event -> {
 			createAccount();
 		});
-		view.getBtnLogin().setOnAction(event ->{
+		view.getBtnLogin().setOnAction(event -> {
 			login();
 		});
-		view.getBtnStart().setOnAction(e ->{
+		view.getBtnStart().setOnAction(e -> {
 			view.getRoot().setCenter(view.loginLayout);
 			view.getStage().setTitle("Login");
 		});
-		view.getBtnRegistration().setOnAction(e ->{
+		view.getBtnRegistration().setOnAction(e -> {
 			view.getRoot().setCenter(view.registrationLayout);
 			view.getStage().setTitle("Registration");
 		});
-		view.getBtnBack().setOnAction(e ->{
+		view.getBtnBack().setOnAction(e -> {
 			view.getRoot().setCenter(view.loginLayout);
 			view.getStage().setTitle("Login");
 		});
-		view.getBtnLogout().setOnAction(e ->{
+		view.getBtnLogout().setOnAction(e -> {
 			logout();
 		});
-		view.getBtnDeleteAccount().setOnAction(e ->{
+		view.getBtnDeleteAccount().setOnAction(e -> {
 			logout();
 			view.profilPopUp.hide();
 		});
@@ -101,116 +106,113 @@ public class JassClientController {
 			view.getBtnJoin().setDisable(false);
 			view.getCreateSpielraumPopUp().hide();
 		});
-		view.getBtnProfil().setOnAction(e ->{
-			if (!view.profilPopUp.isShowing()) 
+		view.getBtnProfil().setOnAction(e -> {
+			if (!view.profilPopUp.isShowing())
 				view.profilPopUp.show(view.getStage());
 		});
-		view.getBtnCreatePlayroom().setOnAction(e ->{
-			if (!view.createSpielraumPopUp.isShowing()) 
+		view.getBtnCreatePlayroom().setOnAction(e -> {
+			if (!view.createSpielraumPopUp.isShowing())
 				view.createSpielraumPopUp.show(view.getStage());
 		});
-		view.getBtnBackPlayroom().setOnAction(e ->{
+		view.getBtnBackPlayroom().setOnAction(e -> {
 			view.createSpielraumPopUp.hide();
 			view.getTfSpielraumName().setText("");
-			if (view.getCbTrumpf().isSelected()) 
+			if (view.getCbTrumpf().isSelected())
 				view.getCbTrumpf().setSelected(false);
-			if (view.getCbObeAbe().isSelected()) 
+			if (view.getCbObeAbe().isSelected())
 				view.getCbObeAbe().setSelected(false);
-			if (view.getCbSlalom().isSelected()) 
+			if (view.getCbSlalom().isSelected())
 				view.getCbSlalom().setSelected(false);
-			if (view.getCbUndeUfe().isSelected()) 
+			if (view.getCbUndeUfe().isSelected())
 				view.getCbUndeUfe().setSelected(false);
-			if (view.getCbWyss().isSelected()) 
+			if (view.getCbWyss().isSelected())
 				view.getCbWyss().setSelected(false);
 		});
-		view.getBtnBackError().setOnAction(e ->{
+		view.getBtnBackError().setOnAction(e -> {
 			view.errorPopUp.hide();
 		});
-		view.getBtnBackProfil().setOnAction(e ->{
+		view.getBtnBackProfil().setOnAction(e -> {
 			view.profilPopUp.hide();
 		});
-		view.getBtnBackSieger().setOnAction(e ->{
+		view.getBtnBackSieger().setOnAction(e -> {
 			view.siegerPopUp.hide();
 		});
-		view.getBtnBackStartGame().setOnAction(e ->{
+		view.getBtnBackStartGame().setOnAction(e -> {
 			view.startGamePopUp.hide();
 		});
-		view.getBtnJoin().setOnAction(e ->{
+		view.getBtnJoin().setOnAction(e -> {
 			joinPlayroom();
-			
+
 		});
-		view.getBtnLeave().setOnAction(e ->{
+		view.getBtnLeave().setOnAction(e -> {
 			leavePlayroonm();
 			view.getRoot().setCenter(view.v1);
 			view.getRoot().setId("root");
 			view.getStage().setTitle("Lobby");
 		});
-		view.getBtnStartGame().setOnAction(e ->{
-			if (!view.startGamePopUp.isShowing()) 
+		view.getBtnStartGame().setOnAction(e -> {
+			if (!view.startGamePopUp.isShowing())
 				view.startGamePopUp.show(view.getStage());
 		});
-		
-		view.getBtnStartGamePopUp().setOnAction(e ->{
+
+		view.getBtnStartGamePopUp().setOnAction(e -> {
 			startGame();
 			view.startGamePopUp.hide();
 		});
-		
-		view.getBtnHearts().setOnAction(e ->{
-			view.trumpfPopUp.hide();
-			view.wyssPopUp.show(view.getStage());
+
+		view.getBtnHearts().setOnAction(this::startRound);
+
+		view.getBtnDiamonds().setOnAction(this::startRound);
+		view.getBtnSpades().setOnAction(this::startRound);
+		view.getBtnClubs().setOnAction(this::startRound);
+		view.getBtnPush().setOnAction(this::startRound);
+
+		view.getBtnWyss().setOnAction(e -> {
+//			view.wyssPopUp.hide();
+//			view.siegerPopUp.show(view.getStage());
 		});
-		view.getBtnDiamonds().setOnAction(e ->{
-			view.trumpfPopUp.hide();
-			view.wyssPopUp.show(view.getStage());
+		view.getBtnNoWyss().setOnAction(e -> {
+//			view.wyssPopUp.hide();
+//			view.siegerPopUp.show(view.getStage());
 		});
-		view.getBtnSpades().setOnAction(e ->{
-			view.trumpfPopUp.hide();
-			view.wyssPopUp.show(view.getStage());
-		});
-		view.getBtnClubs().setOnAction(e ->{
-			view.trumpfPopUp.hide();
-			view.wyssPopUp.show(view.getStage());
-		});
-		view.getBtnPush().setOnAction(e ->{
-			view.trumpfPopUp.hide();
-			view.wyssPopUp.show(view.getStage());
-		});
-		
-		view.getBtnWyss().setOnAction(e ->{
-			view.wyssPopUp.hide();
-			view.siegerPopUp.show(view.getStage());
-		});
-		view.getBtnNoWyss().setOnAction(e ->{
-			view.wyssPopUp.hide();
-			view.siegerPopUp.show(view.getStage());
+
+		view.getBtnTrumpf().setOnAction(e -> {
+			view.gameTypePopup.hide();
+			view.trumpfPopUp.show(view.getStage());
 		});
 		
-		view.getBtnSend().setOnAction(e ->{
+		view.getBtnObeAbe().setOnAction(this::startRound);
+		view.getBtnUndeUfe().setOnAction(this::startRound);
+		view.getBtnSlalomObeAbe().setOnAction(this::startRound);
+		view.getBtnSlalomUndeUfe().setOnAction(this::startRound);
+		
+
+		view.getBtnSend().setOnAction(e -> {
 			sendTableCard();
 //			sendMessage();
 		});
-		
+
 		model.getPlayrooms().addListener((ListChangeListener<String>) change -> {
 			Platform.runLater(new Runnable() {
 				public void run() {
 					while (change.next()) {
 						view.getListView().scrollTo(change.getFrom());
-						}
+					}
 				}
 			});
 		});
-	
+
 //		model.getTokenProperty().addListener( (o, oldValue, newValue) -> {
 //			this.token = newValue;
 //		});
-		
-		model.getMessageProperty().addListener((o, oldValue, newValue) ->{
+
+		model.getMessageProperty().addListener((o, oldValue, newValue) -> {
 			System.out.println("Läuft");
-			
+
 		});
-		
-		model.getLastReceivedMessage().addListener( (o, oldValue, newValue) -> {
-			if(!newValue.equals("")) {
+
+		model.getLastReceivedMessage().addListener((o, oldValue, newValue) -> {
+			if (!newValue.equals("")) {
 				String[] content = newValue.split("\\|");
 				for (int i = 0; i < content.length; i++) {
 					content[i] = content[i].trim();
@@ -218,10 +220,10 @@ public class JassClientController {
 				createMessage(content);
 				model.getLastReceivedMessage().setValue("");
 			}
-		});	
-		
-		view.getStage().setOnCloseRequest((event) -> { 
-			if(model.isConnected()) {
+		});
+
+		view.getStage().setOnCloseRequest((event) -> {
+			if (model.isConnected()) {
 				model.disconnect();
 			}
 		});
@@ -235,142 +237,234 @@ public class JassClientController {
 		this.playrooms = playrooms;
 	}
 
-	// Create Message object, called by listener on SimpleStringProperty "lastReceivedMessage"
+	// Create Message object, called by listener on SimpleStringProperty
+	// "lastReceivedMessage"
 	private void createMessage(String[] content) {
 		Message msg;
 		if (content[0].equals("ResultPing")) {
-			msg = new ResultPing(content); 
-			if (!msg.isFalse()) msg.process(JassClientController.this);
-			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+			msg = new ResultPing(content);
+			if (!msg.isFalse())
+				msg.process(JassClientController.this);
+			if (msg.isFalse())
+				msg.processIfFalse(JassClientController.this);
 		}
 		if (content[0].equals("ResultLogin")) {
 			msg = new ResultLogin(content);
-			if (!msg.isFalse()) msg.process(JassClientController.this);
-			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+			if (!msg.isFalse())
+				msg.process(JassClientController.this);
+			if (msg.isFalse())
+				msg.processIfFalse(JassClientController.this);
 
 		}
 		if (content[0].equals("ResultListPlayrooms")) {
 			msg = new ResultListPlayrooms(content);
-			if (!msg.isFalse()) msg.process(JassClientController.this);
-			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+			if (!msg.isFalse())
+				msg.process(JassClientController.this);
+			if (msg.isFalse())
+				msg.processIfFalse(JassClientController.this);
 		}
 		if (content[0].equals("ResultCreateAccount")) {
 			msg = new ResultCreateAccount(content);
-			if (!msg.isFalse()) msg.process(JassClientController.this);
-			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+			if (!msg.isFalse())
+				msg.process(JassClientController.this);
+			if (msg.isFalse())
+				msg.processIfFalse(JassClientController.this);
 		}
 		if (content[0].equals("ResultCreatePlayroom")) {
 			msg = new ResultCreatePlayroom(content);
-			if (!msg.isFalse()) msg.process(JassClientController.this);
-			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+			if (!msg.isFalse())
+				msg.process(JassClientController.this);
+			if (msg.isFalse())
+				msg.processIfFalse(JassClientController.this);
 		}
 		if (content[0].equals("ResultJoinPlayroom")) {
 			msg = new ResultJoinPlayroom(content);
-			if (!msg.isFalse()) msg.process(JassClientController.this);
-			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+			if (!msg.isFalse())
+				msg.process(JassClientController.this);
+			if (msg.isFalse())
+				msg.processIfFalse(JassClientController.this);
 		}
 		if (content[0].equals("ResultDeleteAccount")) {
 			msg = new ResultDeleteAccount(content);
-			if (!msg.isFalse()) msg.process(JassClientController.this);
-			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+			if (!msg.isFalse())
+				msg.process(JassClientController.this);
+			if (msg.isFalse())
+				msg.processIfFalse(JassClientController.this);
 		}
 		if (content[0].equals("ResultDeletePlayroom")) {
 			msg = new ResultDeletePlayroom(content);
-			if (!msg.isFalse()) msg.process(JassClientController.this);
-			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+			if (!msg.isFalse())
+				msg.process(JassClientController.this);
+			if (msg.isFalse())
+				msg.processIfFalse(JassClientController.this);
 		}
 		if (content[0].equals("ResultLogout")) {
 			msg = new ResultLogout(content);
-			if (!msg.isFalse()) msg.process(JassClientController.this);
-			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+			if (!msg.isFalse())
+				msg.process(JassClientController.this);
+			if (msg.isFalse())
+				msg.processIfFalse(JassClientController.this);
 		}
 		if (content[0].equals("ResultSendMessage")) {
 			msg = new ResultSendMessage(content);
-			if (!msg.isFalse()) msg.process(JassClientController.this);
-			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+			if (!msg.isFalse())
+				msg.process(JassClientController.this);
+			if (msg.isFalse())
+				msg.processIfFalse(JassClientController.this);
 		}
 		if (content[0].equals("ResultBroadcastSendMessage")) {
 			msg = new ResultBroadcastSendMessage(content);
-			if (!msg.isFalse()) msg.process(JassClientController.this);
-			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+			if (!msg.isFalse())
+				msg.process(JassClientController.this);
+			if (msg.isFalse())
+				msg.processIfFalse(JassClientController.this);
 		}
 		if (content[0].equals("ResultLeavePlayroom")) {
 			msg = new ResultLeavePlayroom(content);
-			if (!msg.isFalse()) msg.process(JassClientController.this);
-			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+			if (!msg.isFalse())
+				msg.process(JassClientController.this);
+			if (msg.isFalse())
+				msg.processIfFalse(JassClientController.this);
 		}
 		if (content[0].equals("ResultStartGame")) {
 			msg = new ResultStartGame(content);
-			if (!msg.isFalse()) msg.process(JassClientController.this);
-			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+			if (!msg.isFalse())
+				msg.process(JassClientController.this);
+			if (msg.isFalse())
+				msg.processIfFalse(JassClientController.this);
 		}
 		if (content[0].equals("ResultBroadcastStartGame")) {
 			msg = new ResultBroadcastStartGame(content);
-			if (!msg.isFalse()) msg.process(JassClientController.this);
-			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+			if (!msg.isFalse())
+				msg.process(JassClientController.this);
+			if (msg.isFalse())
+				msg.processIfFalse(JassClientController.this);
 		}
 		if (content[0].equals("ResultBroadcastEndGame")) {
 			msg = new ResultBroadcastEndGame(content);
-			if (!msg.isFalse()) msg.process(JassClientController.this);
-			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+			if (!msg.isFalse())
+				msg.process(JassClientController.this);
+			if (msg.isFalse())
+				msg.processIfFalse(JassClientController.this);
 		}
 		if (content[0].equals("ResultEndGame")) {
 			msg = new ResultEndGame(content);
-			if (!msg.isFalse()) msg.process(JassClientController.this);
-			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+			if (!msg.isFalse())
+				msg.process(JassClientController.this);
+			if (msg.isFalse())
+				msg.processIfFalse(JassClientController.this);
 		}
 		if (content[0].equals("ResultBroadcastSendPoints")) {
 			msg = new ResultBroadcastSendPoints(content);
-			if (!msg.isFalse()) msg.process(JassClientController.this);
-			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+			if (!msg.isFalse())
+				msg.process(JassClientController.this);
+			if (msg.isFalse())
+				msg.processIfFalse(JassClientController.this);
 		}
 		if (content[0].equals("ResultListMembers")) {
 			msg = new ResultListMembers(content);
-			if (!msg.isFalse()) msg.process(JassClientController.this);
-			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+			if (!msg.isFalse())
+				msg.process(JassClientController.this);
+			if (msg.isFalse())
+				msg.processIfFalse(JassClientController.this);
 		}
 		if (content[0].equals("ResultSendTableCard")) {
 			msg = new ResultSendTableCard(content);
-			if (!msg.isFalse()) msg.process(JassClientController.this);
-			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+			if (!msg.isFalse())
+				msg.process(JassClientController.this);
+			if (msg.isFalse())
+				msg.processIfFalse(JassClientController.this);
 		}
 		if (content[0].equals("ResultBroadcastSendTableCard")) {
 			msg = new ResultBroadcastSendTableCard(content);
-			if (!msg.isFalse()) msg.process(JassClientController.this);
-			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+			if (!msg.isFalse())
+				msg.process(JassClientController.this);
+			if (msg.isFalse())
+				msg.processIfFalse(JassClientController.this);
 		}
 		if (content[0].equals("ResultShuffle")) {
 			msg = new ResultShuffle(content);
-			if (!msg.isFalse()) msg.process(JassClientController.this);
-			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+			if (!msg.isFalse())
+				msg.process(JassClientController.this);
+			if (msg.isFalse())
+				msg.processIfFalse(JassClientController.this);
 		}
 		if (content[0].equals("ResultDisconnect")) {
 			msg = new ResultDisconnect(content);
-			if (!msg.isFalse()) msg.process(JassClientController.this);
-			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+			if (!msg.isFalse())
+				msg.process(JassClientController.this);
+			if (msg.isFalse())
+				msg.processIfFalse(JassClientController.this);
 		}
 		if (content[0].equals("ResultSendTrumpf")) {
 			msg = new ResultSendTrumpf(content);
-			if (!msg.isFalse()) msg.process(JassClientController.this);
-			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+			if (!msg.isFalse())
+				msg.process(JassClientController.this);
+			if (msg.isFalse())
+				msg.processIfFalse(JassClientController.this);
 		}
 		if (content[0].equals("ResultBroadcastSendTrumpf")) {
 			msg = new ResultBroadcastSendTrumpf(content);
-			if (!msg.isFalse()) msg.process(JassClientController.this);
-			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+			if (!msg.isFalse())
+				msg.process(JassClientController.this);
+			if (msg.isFalse())
+				msg.processIfFalse(JassClientController.this);
 		}
 		if (content[0].equals("ResultBroadcastListMembers")) {
 			msg = new ResultBroadcastListMembers(content);
-			if (!msg.isFalse()) msg.process(JassClientController.this);
-			if (msg.isFalse()) msg.processIfFalse(JassClientController.this);
+			if (!msg.isFalse())
+				msg.process(JassClientController.this);
+			if (msg.isFalse())
+				msg.processIfFalse(JassClientController.this);
 		}
-		
+		if (content[0].equals("ResultBroadcastStartRound")) {
+			msg = new ResultBroadcastStartRound(content);
+			if (!msg.isFalse())
+				msg.process(JassClientController.this);
+			if (msg.isFalse())
+				msg.processIfFalse(JassClientController.this);
+		}
+		if (content[0].equals("ResultStartRound")) {
+			msg = new ResultStartRound(content);
+			if (!msg.isFalse())
+				msg.process(JassClientController.this);
+			if (msg.isFalse())
+				msg.processIfFalse(JassClientController.this);
+		}
+
 	}
-	
+
+	private void startRound(Event event) {
+		String gameType = null;
+		String additionalInfo = null;
+		if(event.getSource() == view.getBtnObeAbe()) gameType = "ObeAbe";
+		if(event.getSource() == view.getBtnUndeUfe()) gameType = "UndeUfe";
+		if(event.getSource() == view.getBtnSlalomObeAbe()) {
+			gameType = "Slalom";
+			additionalInfo = "ObeAbe";
+		}
+		if(event.getSource() == view.getBtnSlalomUndeUfe()) {
+			gameType = "Slalom";
+			additionalInfo = "UndeUfe";
+		} else {
+			gameType = "Trumpf";
+			if (event.getSource() == view.getBtnHearts())
+				additionalInfo = "H";
+			if (event.getSource() == view.getBtnClubs())
+				additionalInfo = "C";
+			if (event.getSource() == view.getBtnDiamonds())
+				additionalInfo = "D";
+			if (event.getSource() == view.getBtnSpades())
+				additionalInfo = "S";
+		}	
+		model.startRound(gameType, additionalInfo);
+
+	}
+
 	private void sendTrumpf() {
 		model.sendTrumpf("Hearts");
 	}
-	
+
 	private void sendTableCard() {
 		String tableCard = "CQ";
 		model.sendTableCard(tableCard);
@@ -379,11 +473,11 @@ public class JassClientController {
 	private void endGame() {
 		model.endGame();
 	}
-	
+
 	private void startGame() {
 		model.startGame(view.getTfPoints().getText());
 	}
-	
+
 	protected void leavePlayroonm() {
 		model.leavePlayroom();
 	}
@@ -392,30 +486,30 @@ public class JassClientController {
 		model.sendMessage(view.getTfMessage().getText());
 		view.getTfMessage().setText("");
 	}
-	
+
 	private void joinPlayroom() {
 		model.joinPlayroom(view.getListView().getSelectionModel().getSelectedItem());
 
 	}
-	
+
 	public void listPlayrooms() {
 		model.listPlayrooms();
 	}
-	
+
 	private void deletePlayroom() {
-		
+
 	}
-	
+
 	private void createPlayroom() {
-		if(view.getCbTrumpf().isSelected() == true) {
+		if (view.getCbTrumpf().isSelected() == true) {
 			model.createPlayroom(view.getTfSpielraumName().getText(), "Trumpf");
 		}
 	}
-	
+
 	public void deleteAccount() {
-		
+
 	}
-	
+
 	public void createAccount() {
 		model.createAccount(view.getTfNewUsername().getText(), view.getPfNewPassword().getText());
 	}
@@ -423,24 +517,24 @@ public class JassClientController {
 	private void logout() {
 		model.logout();
 	}
-	
+
 	public void login() {
 		model.login(view.getTfUsername().getText(), view.getPfPassword().getText());
 	}
-	
+
 	public void autologin() {
 		model.login(view.getTfNewUsername().getText(), view.getPfNewPassword().getText());
 	}
-	
+
 	public void connect() {
 		try {
-		model.connect(view.getTfIP().getText(), Integer.parseInt(view.getTfPort().getText()));
+			model.connect(view.getTfIP().getText(), Integer.parseInt(view.getTfPort().getText()));
 		} catch (Exception e) {
 			logger.info("Server down");
 			somethingFailed();
 		}
 	}
-	
+
 	public JassClientModel getModel() {
 		return model;
 	}
@@ -448,13 +542,13 @@ public class JassClientController {
 	public JassClientView getView() {
 		return view;
 	}
-	
+
 	public void updateChatText(String text) {
 		Platform.runLater(new Runnable() {
 			public void run() {
 				view.getTxtMessages().appendText(text + "\n");
 			}
-			});
+		});
 	}
 
 	public void setAccount(String account) {
@@ -464,7 +558,7 @@ public class JassClientController {
 	public String getAccount() {
 		return this.account;
 	}
-	
+
 	public void loginSuccess() {
 		Platform.runLater(new Runnable() {
 			public void run() {
@@ -473,7 +567,7 @@ public class JassClientController {
 			}
 		});
 	}
-	
+
 	public void logoutSuccess() {
 		Platform.runLater(new Runnable() {
 			public void run() {
@@ -483,14 +577,15 @@ public class JassClientController {
 			}
 		});
 	}
-	
+
 	public void joinSuccess() {
 		Platform.runLater(new Runnable() {
 			public void run() {
 				view.getRoot().setCenter(view.spielraumLayout);
 				view.spielraumLayout.setId("rootleft");
 				view.getRoot().setBottom(null);
-				view.getStage().setTitle("Spielraum");			}
+				view.getStage().setTitle("Spielraum");
+			}
 		});
 	}
 
@@ -498,19 +593,20 @@ public class JassClientController {
 		Platform.runLater(new Runnable() {
 			public void run() {
 //				view.getLblWait().setText("");
+				view.gameTypePopup.show(view.getStage());
 //				view.trumpfPopUp.show(view.getStage());
 			}
-		});	
+		});
 	}
-	
+
 	public void somethingFailed() {
 		Platform.runLater(new Runnable() {
 			public void run() {
 				view.errorPopUp.show(view.getStage());
 			}
 		});
-	}	
-	
+	}
+
 	public void createBoard() {
 		board = new Board(currentPlayroom, currentGameType);
 		logger.info("Client board created: " + currentPlayroom + " / " + currentGameType);
@@ -547,32 +643,40 @@ public class JassClientController {
 	public void setView(JassClientView view) {
 		this.view = view;
 	}
-	
+
 	public void addNewPlayroom(String playroom) {
 		playrooms.add(playroom);
 	}
-	
+
 	public void clearListView() {
-		if(!view.getListView().getItems().isEmpty()) {
+		if (!view.getListView().getItems().isEmpty()) {
 
 			Platform.runLater(new Runnable() {
 				public void run() {
 					view.getListView().getItems().clear();
-				}			
+				}
 			});
 		}
 	}
-	
+
 	public void updatePlayerPane() {
 		logger.info("Update PlayerPane: " + board.getHandCards().toString());
 		Platform.runLater(new Runnable() {
 			public void run() {
 				PlayerPane pp = view.getSpielraumLayout().getPlayerPane();
 				pp.updatePlayerDisplay(board.getHandCards());
-			}			
+			}
 		});
-		
 //		view.getRoot().setCenter(view.spielraumLayout);
 	}
-	
+
+	public void startRoundSuccess() {
+		if (view.trumpfPopUp.isShowing()) {
+			Platform.runLater(new Runnable() {
+				public void run() {
+					view.trumpfPopUp.hide();
+				}
+			});
+		}
+	}
 }

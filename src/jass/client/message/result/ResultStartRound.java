@@ -26,6 +26,7 @@ public class ResultStartRound extends Message {
 	
 	@Override
 	public void process(JassClientController controller) {
+		controller.startRoundSuccess();
 	}
 
 	public void processIfFalse(JassClientController controller) {
