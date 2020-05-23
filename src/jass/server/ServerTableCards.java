@@ -31,6 +31,10 @@ public class ServerTableCards extends Cards{
 		return Trumpf.getPoints(serverTableCards);
 	}
 	
+	public Card getCard(int i) {
+		return serverTableCards.get(i);
+	}
+	
 	public void addClientCard(String clientCard) {
 		String[] temp = clientCard.split("\\:");
 		usernames.add(temp[0]);
@@ -54,6 +58,14 @@ public class ServerTableCards extends Cards{
 	
 	public Trumpf evaluateTrumpf() {
 		return Trumpf.evaluateTrumpf(serverTableCards);
+	}
+	
+	public Card getHighestTrumpfCard() {
+		return  Trumpf.highestTrumpf(serverTableCards);
+	}
+	
+	public int hasLength() {
+		return serverTableCards.size();
 	}
 	
 //*********
