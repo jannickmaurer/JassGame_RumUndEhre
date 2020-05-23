@@ -18,7 +18,7 @@ public class Board {
 	private static Logger logger = sl.getServerLogger();
 	public static int playersTurn;
 	public int imPlayer;
-	public static String trumpf;
+	public static String trumpf = "H";
 	public boolean wiisDone = false;
 	public Card myLastPlayedCard;
 	public static String gameTyp;

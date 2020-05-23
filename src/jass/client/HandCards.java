@@ -1,14 +1,19 @@
 package jass.client;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import jass.commons.Card;
 import jass.commons.Card.Suit;
 import jass.commons.Cards;
+import jass.commons.ServiceLocator;
 import jass.commons.Trumpf;
 import jass.commons.Wiis;
 
 public class HandCards extends Cards{
+	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
+	private static Logger logger = sl.getServerLogger();
+
 	ArrayList<Card> handCards = new ArrayList<Card>();
 //	ArrayList<Card> remainingHandCards = new ArrayList<Card>();
 	ArrayList<Card> startHandCards = new ArrayList<Card>();
@@ -66,6 +71,14 @@ public class HandCards extends Cards{
 	public void setPlayableHandCards(ArrayList<Card> playableHandCards) {
 		this.playableHandCards = playableHandCards;
 	}
+	
+	@Override
+	public void add(Card card) {
+		logger.info("Handcard added: " + card.toString());
+		this.handCards.add(card);
+	}
+	
+
 	
 	
 	

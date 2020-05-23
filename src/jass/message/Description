@@ -28,7 +28,7 @@ ResultBroadcastEndGame			ResultBroadcastEndGame|result
 ResultBroadcastListMembers		ResultBroadcastListMembers|member1|member2....
 ResultBroadcastMakeTrumpf	
 ResultBroadcastSendMessage		ResultBroadcastSendMessage|username|message
-ResultBroadcastSendPoint		ResultBradcastSendPoints|currentLeader|username:points|username:points
+ResultBroadcastSendPoints		ResultBradcastSendPoints|username|points
 ResultBroadcastSendTableCard	ResultSendTableCard|username|tableCardAsString
 ResultBroadcastSetTrumpf		ResultBroadcastSetTrumpf|Trumpf
 ResultBroadcastStartGame		ResultBroadcastStartGame|result
