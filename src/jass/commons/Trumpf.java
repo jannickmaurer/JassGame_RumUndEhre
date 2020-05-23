@@ -1,13 +1,15 @@
 package jass.commons;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 
 import jass.commons.Card.Rank;
 import jass.commons.Card.Suit;
 import jass.server.EvaluationRuleSet;
 
 public enum Trumpf { Trumpf, Stich, None;
-
+	
 	public static Trumpf evaluateTrumpf(ArrayList<Card> cards) {
 			Trumpf trumpfevaluation = None;
 			if (isTrumpf(cards)) trumpfevaluation = Trumpf;
@@ -162,28 +164,28 @@ public enum Trumpf { Trumpf, Stich, None;
 	
 	
 	
-	public static int getPoints(ArrayList<Card> cards) {
+	public static int getPoints(ArrayList<Card> cards, String gameType) {
 		int points = 0;
 		for (Card card : cards) {				
 			switch(card.getRank().toString()) {
-				case("6"): if (EvaluationRuleSet.gameType == "UndeUfe") points += 11; break;
+				case("6"): if (gameType == "UndeUfe") points += 11; break;
 				case("7"): points += 0; break;
-				case("8"): if (EvaluationRuleSet.gameType == "ObeAbe") points += 8; 
-						   if (EvaluationRuleSet.gameType == "UndeUfe") points += 8; break;
+				case("8"): if (gameType == "ObeAbe") points += 8; 
+						   if (gameType == "UndeUfe") points += 8; break;
 				case("9"): if (card.getSuit().toString() == Board.trumpf) points += 14; break; 
 				case("T"): points += 10; break; 
 				case("J"): if (card.getSuit().toString() == Board.trumpf) points += 20; 
 						   else points += 2; break;
 				case("Q"): points += 3; break; 
 				case("K"): points += 4; break; 
-				case("A"): if (EvaluationRuleSet.gameType != "UndeUfe") points += 11; break;
+				case("A"): if (gameType != "UndeUfe") points += 11; break;
 			}
 		}
 		return points;
 	}
 	
 	//Methode überladen, hier nur für Slalom, welcher zusatzparameter braucht
-	public static int getPoints(ArrayList<Card> cards, String slalom) {
+	public static int getPoints(ArrayList<Card> cards, String gameType, String slalom) {
 		int points = 0;
 		for (Card card : cards) {				
 			switch(card.getRank().toString()) {
@@ -201,12 +203,49 @@ public enum Trumpf { Trumpf, Stich, None;
 		return points;
 	}
 	
+	public static ArrayList<Card> sortHandCards(ArrayList<Card> handCards) {
+		ArrayList<Card> tempHandCards = new ArrayList<>();
+		ArrayList<Card> clubCards = new ArrayList<>();
+		ArrayList<Card> diamondCards = new ArrayList<>();
+		ArrayList<Card> heartCards = new ArrayList<>();
+		ArrayList<Card> spadeCards = new ArrayList<>();
+		Iterator<Card> c = handCards.iterator();
+		while(c.hasNext()) {
+			Card card =c.next();
+			switch (card.getSuit().toString()) {
+			case ("C"): clubCards.add(card); break;
+			case ("D"): diamondCards.add(card); break;
+			case ("H"): heartCards.add(card); break;			
+			case ("S"): spadeCards.add(card); break;			
+			}
+		}
+		Collections.sort(clubCards);
+		Collections.sort(diamondCards);
+		Collections.sort(heartCards);
+		Collections.sort(spadeCards);
+		
+		for (Card card : clubCards) {
+			tempHandCards.add(card);
+		}
+		for (Card card : diamondCards) {
+			tempHandCards.add(card);
+		}
+		for (Card card : heartCards) {
+			tempHandCards.add(card);
+		}
+		for (Card card : spadeCards) {
+			tempHandCards.add(card);
+		}
+		return tempHandCards;
+	}
+	
 	public String toString() {
-		if(this == Trumpf) return "Trumpf";
-		if(this == Stich) return "Stich";
-		if(this == None) return "None";
+		if(this == Trumpf) 	return "Trumpf";
+		if(this == Stich) 	return "Stich";
+		if(this == None) 	return "None";
 		return null;
 	}
+
 }
 
 
