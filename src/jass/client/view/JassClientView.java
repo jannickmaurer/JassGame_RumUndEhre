@@ -53,6 +53,7 @@ public class JassClientView {
 	public TrumpfPopupPane trumpfPopupLayout = new TrumpfPopupPane();
 	public WyssPopupPane wyssPopupLayout = new WyssPopupPane();
 	public OtherPlayerPane otherPlayerLayout = new OtherPlayerPane();
+	public PlayerPane playerPane = new PlayerPane();
 	
 	public Popup profilPopUp = new Popup();
 	public Popup createSpielraumPopUp = new Popup();
@@ -113,35 +114,12 @@ public class JassClientView {
 	
 	Label lblPointsOtherPlayer = otherPlayerLayout.lblPoints;
 	
-	Label lblPlayer = spielraumLayout.lblPlayer;
-	Label lblPlayer1 = spielraumLayout.lblPlayer1;
-	Label lblPlayer2 = spielraumLayout.lblPlayer2;
-	Label lblPlayer3 = spielraumLayout.lblPlayer3;
-	Label lblPlayer4 = spielraumLayout.lblPlayer4;
-	Label lblPoints = spielraumLayout.lblPoints;
-	Label lblPoints1 = spielraumLayout.lblPoints1;
-	Label lblPoints2 = spielraumLayout.lblPoints2;
-	Label lblPoints3 = spielraumLayout.lblPoints3;
-	Label lblPoints4 = spielraumLayout.lblPoints4;
 	Label lblChat = spielraumLayout.lblChat;
 	Label lblWait = spielraumLayout.lblWait;
 	TextArea txtMessages = spielraumLayout.txtMessages;
 	TextField tfMessage = spielraumLayout.tfMessage;
 	Button btnSend = spielraumLayout.btnSend;
 	ScrollPane scrollPane = spielraumLayout.scrollPane;
-	Circle crcP1 = spielraumLayout.crcP1;
-	Circle crcP2 = spielraumLayout.crcP2;
-	Circle crcP3 = spielraumLayout.crcP3;
-	Circle crcP4 = spielraumLayout.crcP4;
-	Rectangle card1 = spielraumLayout.card1;
-    Rectangle card2 = spielraumLayout.card2;
-    Rectangle card3 = spielraumLayout.card3;
-    Rectangle card4 = spielraumLayout.card4;
-    Rectangle card5 = spielraumLayout.card5;
-    Rectangle card6 = spielraumLayout.card6;
-    Rectangle card7 = spielraumLayout.card7;
-    Rectangle card8 = spielraumLayout.card8;
-    Rectangle card9 = spielraumLayout.card9;
     Rectangle cardP1 = spielraumLayout.cardP1;
 	Button btnLeave = spielraumLayout.btnLeave;
 	Button btnStartGame = spielraumLayout.btnStartGame;
@@ -210,16 +188,6 @@ public class JassClientView {
 		btnLogout.setPrefWidth(100);
 		tfSpielraumName.setMinWidth(Region.USE_PREF_SIZE);
 		tfSpielraumName.setPrefWidth(240);
-		lblPlayer.setMinWidth(Region.USE_PREF_SIZE);
-		lblPlayer1.setMinWidth(Region.USE_PREF_SIZE);
-		lblPlayer2.setMinWidth(Region.USE_PREF_SIZE);
-		lblPlayer3.setMinWidth(Region.USE_PREF_SIZE);
-		lblPlayer4.setMinWidth(Region.USE_PREF_SIZE);
-		lblPoints.setMinWidth(Region.USE_PREF_SIZE);
-		lblPoints1.setMinWidth(Region.USE_PREF_SIZE);
-		lblPoints2.setMinWidth(Region.USE_PREF_SIZE);
-		lblPoints3.setMinWidth(Region.USE_PREF_SIZE);
-		lblPoints4.setMinWidth(Region.USE_PREF_SIZE);
 		lblChat.setMinWidth(Region.USE_PREF_SIZE);
 		lblWait.setMinWidth(Region.USE_PREF_SIZE);
 		btnDeleteAccount.setMinWidth(Region.USE_PREF_SIZE);
@@ -370,9 +338,7 @@ public class JassClientView {
 		registrationLayout.tfUsername.setPromptText(t.getString("label.username"));
 		registrationLayout.tfPassword.setPromptText(t.getString("label.password"));
 		spielraumPopupLayout.tfSpielraumName.setPromptText(t.getString("label.spielraumname"));
-		spielraumLayout.lblPlayer.setText(t.getString("label.player"));
 		otherPlayerLayout.lblPoints.setText(t.getString("label.points"));
-		spielraumLayout.lblPoints.setText(t.getString("label.points"));
 		spielraumLayout.lblChat.setText(t.getString("label.chat"));
 		spielraumLayout.lblWait.setText(t.getString("label.wait"));
 		startGamePopupLayout.lblPointsLimit.setText(t.getString("label.limit"));
@@ -425,6 +391,10 @@ public class JassClientView {
 	
 	public BorderPane getRoot() {
 		return root;
+	}
+	
+	public PlayerPane getPlayerPane() {
+		return playerPane;
 	}
 	
 	public TextField getTfPort() {
@@ -668,47 +638,7 @@ public class JassClientView {
 	public void setLblWait(Label lblWait) {
 		this.lblWait = lblWait;
 	}
-	
-	public Label getLblPlayer() {
-		return lblPlayer;
-	}
-
-	public void setLblPlayer(Label lblPlayer) {
-		this.lblPlayer = lblPlayer;
-	}
-	
-	public Label getLblPlayer1() {
-		return lblPlayer1;
-	}
-
-	public void setLblPlayer1(Label lblPlayer1) {
-		this.lblPlayer1 = lblPlayer1;
-	}
-	
-	public Label getLblPlayer2() {
-		return lblPlayer2;
-	}
-
-	public void setLblPlayer2(Label lblPlayer2) {
-		this.lblPlayer2 = lblPlayer2;
-	}
-	
-	public Label getLblPlayer3() {
-		return lblPlayer3;
-	}
-
-	public void setLblPlayer3(Label lblPlayer3) {
-		this.lblPlayer3 = lblPlayer3;
-	}
-	
-	public Label getLblPlayer4() {
-		return lblPlayer4;
-	}
-
-	public void setLblPlayer4(Label lblPlayer4) {
-		this.lblPlayer4 = lblPlayer4;
-	}
-	
+		
 	public Label getLblChat() {
 		return lblChat;
 	}
@@ -868,79 +798,7 @@ public class JassClientView {
 	public void setBtnNoWyss(Button btnNoWyss) {
 		this.btnNoWyss = btnNoWyss;
 	}
-	
-	public Rectangle getCard1() {
-		return card1;
-	}
 
-	public void setCard1(Rectangle card1) {
-		this.card1 = card1;
-	}
-	
-	public Rectangle getCard2() {
-		return card2;
-	}
-
-	public void setCard2(Rectangle card2) {
-		this.card2 = card2;
-	}
-	
-	public Rectangle getCard3() {
-		return card3;
-	}
-
-	public void setCard3(Rectangle card3) {
-		this.card3 = card3;
-	}
-	
-	public Rectangle getCard4() {
-		return card4;
-	}
-
-	public void setCard4(Rectangle card4) {
-		this.card4 = card4;
-	}
-	
-	public Rectangle getCard5() {
-		return card5;
-	}
-
-	public void setCard5(Rectangle card5) {
-		this.card5 = card5;
-	}
-	
-	public Rectangle getCard6() {
-		return card6;
-	}
-
-	public void setCard6(Rectangle card6) {
-		this.card6 = card6;
-	}
-	
-	public Rectangle getCard7() {
-		return card7;
-	}
-
-	public void setCard7(Rectangle card7) {
-		this.card7 = card7;
-	}
-	
-	public Rectangle getCard8() {
-		return card8;
-	}
-
-	public void setCard8(Rectangle card8) {
-		this.card8 = card8;
-	}
-	
-	public Rectangle getCard9() {
-		return card9;
-	}
-
-	public void setCard9(Rectangle card9) {
-		this.card9 = card9;
-	}
-	
 	public Rectangle getCardP1() {
 		return cardP1;
 	}

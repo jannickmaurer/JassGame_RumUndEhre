@@ -182,10 +182,6 @@ public class JassClientController {
 			view.wyssPopUp.hide();
 			view.siegerPopUp.show(view.getStage());
 		});
-		view.getCard1().setOnMouseClicked(e ->{
-			
-			view.getCardP1().setVisible(true);
-		});
 		
 		view.getBtnSend().setOnAction(e ->{
 			sendTableCard();
@@ -515,6 +511,7 @@ public class JassClientController {
 	
 	public void createBoard() {
 		board = new Board(currentPlayroom, currentGameType);
+		logger.info("Client board created: " + currentPlayroom + " / " + currentGameType);
 	}
 
 	public String getToken() {
@@ -562,6 +559,11 @@ public class JassClientController {
 				}			
 			});
 		}
+	}
+	
+	public void updatePlayerPane() {
+		
+		view.getPlayerPane().updatePlayerDisplay(board.getHandCards());
 	}
 	
 }
