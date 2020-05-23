@@ -22,7 +22,7 @@ public class Board {
 	public String playableCards;
 	public HandCards playableHandCards;
 	public HandCards handCards; //allefalls direkt zugriff
-	public HandCards startHandCards;
+//	public HandCards startHandCards;
 	
 //	HandCards handCards;
 	TableCards tableCards;
@@ -46,7 +46,7 @@ public class Board {
 		String[] handCardList = newHandCards.split("\\|");
 		for (int i = 0; i < handCardList.length; i++) {
 			this.handCards.add(new Card(handCardList[i]));
-			this.startHandCards.add(new Card (handCardList[i]));
+			//this.startHandCards.add(new Card (handCardList[i]));
 		}
 	}
 	
