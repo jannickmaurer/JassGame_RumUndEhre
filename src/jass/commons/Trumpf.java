@@ -169,27 +169,6 @@ public enum Trumpf { Trumpf, Stich, None;
 		for (Card card : cards) {				
 			switch(card.getRank().toString()) {
 				case("6"): if (gameType == "UndeUfe") points += 11; break;
-				case("7"): points += 0; break;
-				case("8"): if (gameType == "ObeAbe") points += 8; 
-						   if (gameType == "UndeUfe") points += 8; break;
-				case("9"): if (card.getSuit().toString() == Board.trumpf) points += 14; break; 
-				case("T"): points += 10; break; 
-				case("J"): if (card.getSuit().toString() == Board.trumpf) points += 20; 
-						   else points += 2; break;
-				case("Q"): points += 3; break; 
-				case("K"): points += 4; break; 
-				case("A"): if (gameType != "UndeUfe") points += 11; break;
-			}
-		}
-		return points;
-	}
-	
-	//Methode überladen, hier nur für Slalom, welcher zusatzparameter braucht
-	public static int getPoints(ArrayList<Card> cards, String gameType, String slalom) {
-		int points = 0;
-		for (Card card : cards) {				
-			switch(card.getRank().toString()) {
-				case("6"): if (slalom == "UndeUfe") points += 11; break;
 				case("7"): break;
 				case("8"): points += 8; break;
 				case("9"): break; 
@@ -197,11 +176,50 @@ public enum Trumpf { Trumpf, Stich, None;
 				case("J"): points += 2; break;
 				case("Q"): points += 3; break; 
 				case("K"): points += 4; break; 
-				case("A"): if (slalom != "UndeUfe") points += 11; break;
+				case("A"): if (gameType != "UndeUfe") points += 11; break;
 			}
 		}
 		return points;
 	}
+	//***new mehtode unten
+	public static int getTrumpfPoints(ArrayList<Card> cards, String trumpf) {
+		int points = 0;
+		for (Card card : cards) {				
+			switch(card.getRank().toString()) {
+				case("6"): break;
+				case("7"): break;
+				case("8"): break;
+				case("9"): if (card.getSuit().toString() == trumpf) points += 14; break; 
+				case("T"): points += 10; break; 
+				case("J"): if (card.getSuit().toString() == trumpf) points += 20; 
+						   else points += 2; break;
+				case("Q"): points += 3; break; 
+				case("K"): points += 4; break; 
+				case("A"): points += 11; break;
+			}
+		}
+		return points;
+	}
+
+	
+	//Methode überladen, hier nur für Slalom, welcher zusatzparameter braucht
+//	public static int getPoints(ArrayList<Card> cards, String gameType) {
+//		int points = 0;
+//		for (Card card : cards) {				
+//			switch(card.getRank().toString()) {
+//				case("6"): if (trumpf == "UndeUfe") points += 11; break;
+//				case("7"): break;
+//				case("8"): points += 8; break;
+//				case("9"): break; 
+//				case("T"): points += 10; break; 
+//				case("J"): points += 2; break;
+//				case("Q"): points += 3; break; 
+//				case("K"): points += 4; break; 
+//				case("A"): if (trumpf != "UndeUfe") points += 11; break;
+//			}
+//		}
+//		return points;
+//	}
 	
 	public static ArrayList<Card> sortHandCards(ArrayList<Card> handCards) {
 		ArrayList<Card> tempHandCards = new ArrayList<>();
@@ -245,6 +263,9 @@ public enum Trumpf { Trumpf, Stich, None;
 		if(this == None) 	return "None";
 		return null;
 	}
+
+
+
 
 }
 
