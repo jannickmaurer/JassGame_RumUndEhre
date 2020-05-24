@@ -10,12 +10,11 @@ import com.sun.nio.sctp.HandlerResult;
 import jass.commons.Card;
 import jass.commons.Card.Suit;
 import sun.print.resources.serviceui;
-import jass.commons.Cards;
 import jass.commons.ServiceLocator;
 import jass.commons.Trumpf;
 import jass.commons.Wiis;
 
-public class HandCards extends Cards{
+public class HandCards {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
 
@@ -29,11 +28,11 @@ public class HandCards extends Cards{
 	//!!!!!!!!ResultSendTableCArd an Board übergeben und dann handcards removen
 //	Controller.getBoard.METHODE welche Karte entfernt in void Process methode
 
-	public HandCards(ArrayList<Card> handCards) {
-		super();
-		this.handCards = handCards;
-		this.startHandCards = handCards;
-	}
+//	public HandCards(ArrayList<Card> handCards) {
+//		super();
+//		this.handCards = handCards;
+//		this.startHandCards = handCards;
+//	}
 
 	public HandCards() {
 		super();
@@ -49,6 +48,9 @@ public class HandCards extends Cards{
 	}
 	
 	public void cardPlayed(Card card) {
+		for (int i = 0; i < handCards.size(); i++) {
+			if(handCards.get(i).toString() == card.toString()) handCards.remove(i);
+		}
 		logger.info("Remove card: " + card.toString());
 //		int i = handCards.indexOf(card);  //remainingHandCards
 		handCards.remove(card);  //remainingHandCards
@@ -71,8 +73,6 @@ public class HandCards extends Cards{
 	}
 
 	public void setHandCards(ArrayList<Card> handCards) {
-//		ArrayList<Card> tempHandCards = new ArrayList<>();
-//		tempHandCards = Trumpf.sortHandCards(handCards);
 		this.handCards = Trumpf.sortHandCards(handCards);
 	}
 
@@ -84,14 +84,10 @@ public class HandCards extends Cards{
 		this.playableHandCards = playableHandCards;
 	}
 	
-//	@Override
-//	public void add(Card card) {
-//		logger.info("Handcard added: " + card.toString());
-//		this.handCards.add(card);
-//		
-//		////////
-//		if(handCards.size() == 9) sortHandCards(handCards);
-//	}
+	public void add(Card card) {
+		logger.info("Handcard added: " + card.toString());
+		this.handCards.add(card);
+	}
 	
 	public boolean hasTrumpfCards() {
 		return Trumpf.hasTrumpfCards(handCards);
@@ -107,12 +103,17 @@ public class HandCards extends Cards{
 	
 	public Card getCard(int i) {
 		return handCards.get(i);
-	}
+	}	
 	
 	public boolean hasPlayableCards() {
 		return playableHandCards.size() != 0; 
 	}
 	
+	public Trumpf evaluateTrumpf() {
+	return Trumpf.evaluateTrumpf(handCards);
+	}
+	
+
 	public String toString() {
 		if (handCards == null) return "No Cards";
 		String s = "";

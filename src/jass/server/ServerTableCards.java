@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import jass.commons.Card;
-import jass.commons.Cards;
 import jass.commons.ServiceLocator;
 import jass.commons.Trumpf;
 
-public class ServerTableCards extends Cards{
+public class ServerTableCards {		
+	
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
 
@@ -84,9 +84,6 @@ public class ServerTableCards extends Cards{
 		return usernames.get(place);
 	}
 //*********
-
-
-
 
 
 }

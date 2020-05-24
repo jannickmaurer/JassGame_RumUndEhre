@@ -48,12 +48,12 @@ public class WiisCards {
 	
 	
 	//gibt punktewert des maximalen weises des spielers zurück
-	public int playerWiisPoints(int playerNr) {
+	public void playerWiisPoints(int playerNr) {
 		ArrayList<Card> tempCards = new ArrayList<>();
 		for (int i = 0; i < 9; i++) {
 			tempCards.add(allPlayersCards.get(i+(playerNr-1)*9));
 		}
-		return Wiis.evaluateMaxWiisPoints(tempCards);
+	//	return Wiis.evaluateMaxWiisPoints(tempCards);
 	}
 	//TODO evaluieren welcher spieler bei mehreren weisen den höchsten hat
 	//Wichtig: jetzt wird nur der höchste weis geprüft, danach müssten noch mögliche restliche weise zusammen gezählt werden vom gleichen spieler
