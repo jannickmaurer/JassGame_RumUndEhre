@@ -83,7 +83,8 @@ public class HandCards {
 	}
 
 	public void setPlayableHandCards(ArrayList<Card> playableHandCards) {
-		this.playableHandCards = playableHandCards;
+		for(Card card : playableHandCards)
+		this.playableHandCards.add(card);
 	}
 	
 	public void add(Card card) {

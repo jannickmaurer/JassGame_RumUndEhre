@@ -22,7 +22,7 @@ public class Board {
 	public boolean wiisDone = false;
 	public Card myLastPlayedCard;
 	public String gameTyp = "Trumpf";
-	public String playableCards;
+//	public String playableCards;
 	public HandCards playableHandCards;
 	public HandCards handCards; //allefalls direkt zugriff
 	private TableCards tableCards;
@@ -166,13 +166,13 @@ public class Board {
 //		return 1;
 //	}
 	
-	public String getPlayableCards() {
-		return playableCards;
-	}
-	
-	public void setPlayableCards(String playableCards) {
-		this.playableCards = playableCards;
-	}
+//	public String getPlayableCards() {
+//		return playableCards;
+//	}
+//	
+//	public void setPlayableCards(String playableCards) {
+//		this.playableCards = playableCards;
+//	}
 
 	public int getImPlayer() {
 		return imPlayer;
