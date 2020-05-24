@@ -8,11 +8,10 @@ import javafx.scene.layout.GridPane;
 public class ErrorPopupPane extends GridPane {
 	private JassClientView view;
 	
-	Label lblError = new Label();
-	Button btnBack = new Button();
+	private Label lblError = new Label();
+	private Button btnBack = new Button();
 	
 	public ErrorPopupPane() {		
-		
 		this.add(lblError, 0, 0);
 		this.add(btnBack, 0, 1);
 		
@@ -20,6 +19,22 @@ public class ErrorPopupPane extends GridPane {
 		this.setAlignment(Pos.TOP_CENTER);
 		this.setHgap(20);
 		this.setVgap(10);
+	}
+
+	public Label getLblError() {
+		return lblError;
+	}
+
+	public void setLblError(Label lblError) {
+		this.lblError = lblError;
+	}
+
+	public Button getBtnBack() {
+		return btnBack;
+	}
+
+	public void setBtnBack(Button btnBack) {
+		this.btnBack = btnBack;
 	}
 	
 }

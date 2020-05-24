@@ -43,8 +43,8 @@ public class JassClientView {
 	
 	Menu menuFileLanguage = new Menu();
 	
-	Scene scene, connectScene, lobbyScene, loginScene, registrationScene, spielraumScene;
-	ConnectPane connectLayout = new ConnectPane();
+	private Scene scene, connectScene, lobbyScene, loginScene, registrationScene, spielraumScene;
+	public ConnectPane connectLayout = new ConnectPane();
 	public LoginPane loginLayout = new LoginPane();
 	public RegistrationPane registrationLayout = new RegistrationPane();
 	public SpielraumPopupPane spielraumPopupLayout = new SpielraumPopupPane();
@@ -68,91 +68,89 @@ public class JassClientView {
 	public Popup wyssPopUp = new Popup();
 	public Popup gameTypePopup = new Popup();
 	
-	Label lblPort = connectLayout.lblPort;
-	Label lblIP = connectLayout.lblIP;
-	TextField tfPort = connectLayout.tfPort;
-	TextField tfIP = connectLayout.tfIP;
-	Button btnRun = connectLayout.btnRun;
-	Button btnStart = connectLayout.btnStart;
+	private Label lblPort = connectLayout.getLblPort();
+	private Label lblIP = connectLayout.getLblIP();
+	private TextField tfPort = connectLayout.getTfPort();
+	private TextField tfIP = connectLayout.getTfIP();
+	private Button btnRun = connectLayout.getBtnRun();
+	private Button btnStart = connectLayout.getBtnStart();
 	
-	Label lblTitelLogin = loginLayout.lblTitelLogin;
-	Label lblSubtitelLogin = loginLayout.lblSubtitelLogin;
-	TextField tfUsername = loginLayout.tfUsername;
-	PasswordField pfPassword = loginLayout.pfPassword;
-	Button btnLogin = loginLayout.btnLogin;
-	Button btnRegistration = loginLayout.btnRegistration;
+	private Label lblTitelLogin = loginLayout.getLblTitelLogin();
+	private Label lblSubtitelLogin = loginLayout.getLblSubtitelLogin();
+	private TextField tfUsername = loginLayout.getTfUsername();
+	private PasswordField pfPassword = loginLayout.getPfPassword();
+	private Button btnLogin = loginLayout.getBtnLogin();
+	private Button btnRegistration = loginLayout.getBtnRegistration();
 	
-	Label lblTitelRegistration = registrationLayout.lblTitelRegistration;
-	Label lblSubtitelRegistration = registrationLayout.lblSubtitelRegistration;
-	TextField tfNewUsername = registrationLayout.tfNewUsername;
-	PasswordField pfNewPassword = registrationLayout.pfNewPassword;
-	Button btnNewRegistration = registrationLayout.btnRegistration;
-	Button btnBack = registrationLayout.btnBack;
+	private Label lblTitelRegistration = registrationLayout.getLblTitelRegistration();
+	private Label lblSubtitelRegistration = registrationLayout.getLblSubtitelRegistration();
+	private TextField tfNewUsername = registrationLayout.getTfNewUsername();
+	private PasswordField pfNewPassword = registrationLayout.getPfNewPassword();
+	private Button btnNewRegistration = registrationLayout.getBtnRegistration();
+	private Button btnBack = registrationLayout.getBtnBack();
 	
-	Button btnProfil = new Button();
-	Button btnConfig = new Button();
-	Button btnJoin = new Button();
-	Button btnCreatePlayroom = new Button();
-	Button btnDeletePlayroom = new Button();
-	Button btnLogout = new Button();
-	ListView<String> listView;
+	private Button btnProfil = new Button();
+	private Button btnConfig = new Button();
+	private Button btnJoin = new Button();
+	private Button btnCreatePlayroom = new Button();
+	private Button btnDeletePlayroom = new Button();
+	private Button btnLogout = new Button();
+	private ListView<String> listView;
 	
-	public VBox v1 = new VBox();
-	public HBox h1 = new HBox();
+	private VBox v1 = new VBox();
+	private HBox h1 = new HBox();
 	
-	TextField tfSpielraumName = spielraumPopupLayout.tfSpielraumName;
-	Button btnDeleteAccount = profilPopupLayout.btnDeleteAccount;
-	Button btnBackProfil = profilPopupLayout.btnBack;
-	Button btnCreatePlayroomPopup = spielraumPopupLayout.btnCreate;
-	Button btnBackPlayroom = spielraumPopupLayout.btnBack;
+	private Button btnDeleteAccount = profilPopupLayout.getBtnDeleteAccount();
+	private Button btnBackProfil = profilPopupLayout.getBtnBack();
 	
-	Label lblError = errorPopupLayout.lblError;
-	Button btnBackError = errorPopupLayout.btnBack;
+	private TextField tfSpielraumName = spielraumPopupLayout.getTfSpielraumName();
+	private Button btnCreatePlayroomPopup = spielraumPopupLayout.getBtnCreate();
+	private Button btnBackPlayroom = spielraumPopupLayout.getBtnBack();
 	
-	Label lblWinner = siegerPopupLayout.lblWinner;
-	Button btnBackSieger = siegerPopupLayout.btnBack;
+	private Label lblError = errorPopupLayout.getLblError();
+	private Button btnBackError = errorPopupLayout.getBtnBack();
 	
-	//Label lblPointsOtherPlayer = otherPlayerLayout.lblPoints;
+	private Label lblWinner = siegerPopupLayout.getLblWinner();
+	private Button btnBackSieger = siegerPopupLayout.getBtnBack();
 	
-	Label lblChat = spielraumLayout.lblChat;
-	Label lblWait = spielraumLayout.lblWait;
-	TextArea txtMessages = spielraumLayout.txtMessages;
-	TextField tfMessage = spielraumLayout.tfMessage;
-	Button btnSend = spielraumLayout.btnSend;
-	ScrollPane scrollPane = spielraumLayout.scrollPane;
-    Rectangle cardP1 = spielraumLayout.cardP1;
-	Button btnLeave = spielraumLayout.btnLeave;
-	Button btnStartGame = spielraumLayout.btnStartGame;
-	Label lblPlayroom = spielraumLayout.lblPlayroom;
-	Label lblPlayroomName = spielraumLayout.lblPlayroomName;
-	Label lblPointsGoal = spielraumLayout.lblPointsGoal;
-	Label lblPointsGoalIs = spielraumLayout.lblPointsGoalIs;
-	Label lblTrumpf = spielraumLayout.lblTrumpf;
-	Label lblTrumpfIs = spielraumLayout.lblTrumpfIs;
+	private Label lblChat = spielraumLayout.getLblChat();
+	private Label lblWait = spielraumLayout.getLblWait();
+	private TextArea txtMessages = spielraumLayout.getTxtMessages();
+	private TextField tfMessage = spielraumLayout.getTfMessage();
+	private Button btnSend = spielraumLayout.getBtnSend();
+	private ScrollPane scrollPane = spielraumLayout.getScrollPane();
+	private Button btnLeave = spielraumLayout.getBtnLeave();
+	private Button btnStartGame = spielraumLayout.getBtnStartGame();
+	private Label lblPlayroom = spielraumLayout.getLblPlayroom();
+	private Label lblPlayroomName = spielraumLayout.getLblPlayroomName();
+	private Label lblPointsGoal = spielraumLayout.getLblPointsGoal();
+	private Label lblPointsGoalIs = spielraumLayout.getLblPointsGoalIs();
+	private Label lblTrumpf = spielraumLayout.getLblTrumpf();
+	private Label lblTrumpfIs = spielraumLayout.getLblTrumpfIs();
 	
-	Label lblPointsLimit = startGamePopupLayout.lblPointsLimit;
-	Button btnBackStartGame = startGamePopupLayout.btnBack;
-	Button btnStartGamePopUp = startGamePopupLayout.btnStartGamePopUp;
-	TextField tfPoints = startGamePopupLayout.tfPoints;
+	private Label lblPointsLimit = startGamePopupLayout.getLblPointsLimit();
+	private Button btnBackStartGame = startGamePopupLayout.getBtnBack();
+	private Button btnStartGamePopUp = startGamePopupLayout.getBtnStartGamePopUp();
+	private TextField tfPoints = startGamePopupLayout.getTfPoints();
 	
-	Label lblChooseTrumpf = trumpfPopupLayout.lblChooseTrumpf;
-	Button btnHearts = trumpfPopupLayout.btnHearts;
-	Button btnDiamonds = trumpfPopupLayout.btnDiamonds;
-	Button btnSpades = trumpfPopupLayout.btnSpades;
-	Button btnClubs = trumpfPopupLayout.btnClubs;
-	Button btnPush = trumpfPopupLayout.btnPush;
+	private Label lblChooseTrumpf = trumpfPopupLayout.getLblChooseTrumpf();
+	private Button btnHearts = trumpfPopupLayout.getBtnHearts();
+	private Button btnDiamonds = trumpfPopupLayout.getBtnDiamonds();
+	private Button btnSpades = trumpfPopupLayout.getBtnSpades();
+	private Button btnClubs = trumpfPopupLayout.getBtnClubs();
+	private Button btnPush = trumpfPopupLayout.getBtnPush();
 	
 	// Initialize GameTypePopup Buttons
-	private Button btnTrumpf = gameTypePopupLayout.btnTrumpf;
-	private Button btnUndeUfe = gameTypePopupLayout.btnUndeUfe;
-	private Button btnObeAbe = gameTypePopupLayout.btnObeAbe;
-	private Button btnSlalomUndeUfe = gameTypePopupLayout.btnSlalomUndeUfe;
-	private Button btnSlalomObeAbe = gameTypePopupLayout.btnObeAbe;
+	private Button btnTrumpf = gameTypePopupLayout.getBtnTrumpf();
+	private Button btnUndeUfe = gameTypePopupLayout.getBtnUndeUfe();
+	private Button btnObeAbe = gameTypePopupLayout.getBtnObeAbe();
+	private Button btnSlalomUndeUfe = gameTypePopupLayout.getBtnSlalomUndeUfe();
+	private Button btnSlalomObeAbe = gameTypePopupLayout.getBtnObeAbe();
 	
 	
-	Label lblWyss = wyssPopupLayout.lblWyss;
-	Button btnWyss = wyssPopupLayout.btnWyss;
-	Button btnNoWyss = wyssPopupLayout.btnNoWyss;
+	private Label lblWyss = wyssPopupLayout.getLblWyss();
+	private Button btnWyss = wyssPopupLayout.getBtnWyss();
+	private Button btnNoWyss = wyssPopupLayout.getBtnNoWyss();
 	
 	public JassClientView(Stage primaryStage, JassClientModel model) {
 		this.primaryStage = primaryStage;
@@ -265,10 +263,9 @@ public class JassClientView {
 		root.setTop(menuBar);
 		root.setCenter(connectLayout);
 		
-		registrationLayout.btnRegistration.setDisable(false); // changed from Jannick
-		spielraumLayout.btnStartGame.setDisable(true);
+		registrationLayout.getBtnRegistration().setDisable(false); // changed from Jannick
+		spielraumLayout.getBtnStartGame().setDisable(true);
 		
-	
 		this.btnConfig.setDisable(true);
 		this.btnJoin.setDisable(false);
 		this.btnDeletePlayroom.setDisable(false);
@@ -306,14 +303,14 @@ public class JassClientView {
 		btnNewRegistration.disableProperty().bind(tfNewUsername.textProperty().isEmpty() .or(pfNewPassword.textProperty().isEmpty()));
 		
 		createSpielraumPopUp.getContent().add(spielraumPopupLayout);
-		spielraumPopupLayout.btnCreate.disableProperty().bind(spielraumPopupLayout.tfSpielraumName.textProperty().isEmpty());
+		spielraumPopupLayout.getBtnCreate().disableProperty().bind(spielraumPopupLayout.getTfSpielraumName().textProperty().isEmpty());
 		createSpielraumPopUp.setAutoHide(false);
 		
 		startGamePopUp.getContent().add(startGamePopupLayout);
 		startGamePopUp.setAutoHide(false);
 		
 		txtMessages.setEditable(false);
-		spielraumLayout.btnSend.disableProperty().bind(spielraumLayout.tfMessage.textProperty().isEmpty());
+		spielraumLayout.getBtnSend().disableProperty().bind(spielraumLayout.getTfMessage().textProperty().isEmpty());
 		v1.setVgrow(listView, Priority.ALWAYS);
 		
 		scene = new Scene(root, 960, 635);
@@ -352,67 +349,65 @@ public class JassClientView {
 		this.menuFileLanguage.setText(t.getString("program.menu.file.language"));
 		
 	    // Text
-		connectLayout.lblIP.setText(t.getString("label.IPAdress"));
-		connectLayout.lblPort.setText(t.getString("label.port"));
-		loginLayout.lblTitelLogin.setText(t.getString("text.titel.jass"));
-		loginLayout.lblSubtitelLogin.setText(t.getString("text.untertitel.login"));
-		loginLayout.tfUsername.setPromptText(t.getString("label.username"));
-		loginLayout.pfPassword.setPromptText(t.getString("label.password"));
-		registrationLayout.lblTitelRegistration.setText(t.getString("text.titel.jass"));
-		registrationLayout.lblSubtitelRegistration.setText(t.getString("text.untertitel.registration"));
-		registrationLayout.tfNewUsername.setPromptText(t.getString("label.username"));
-		registrationLayout.pfNewPassword.setPromptText(t.getString("label.password"));
-		spielraumPopupLayout.tfSpielraumName.setPromptText(t.getString("label.spielraumname"));
-		//otherPlayerLayout.lblPoints.setText(t.getString("label.points"));
-		spielraumLayout.lblChat.setText(t.getString("label.chat"));
-		spielraumLayout.lblWait.setText(t.getString("label.wait"));
-		spielraumLayout.lblPlayroom.setText(t.getString("label.spielraumname"));
-		spielraumLayout.lblPointsGoal.setText(t.getString("label.limit"));
-		//spielraumLayout.lblTrumpf.setText(t.getString("label.trumpf"));
-		spielraumLayout.lblOwner.setText(t.getString("label.owner"));
-		spielraumLayout.lblGameType.setText(t.getString("label.gametype"));
-		startGamePopupLayout.lblPointsLimit.setText(t.getString("label.limit"));
-		errorPopupLayout.lblError.setText(t.getString("label.error"));
-		siegerPopupLayout.lblWinner.setText(t.getString("label.winner"));
-		trumpfPopupLayout.lblChooseTrumpf.setText(t.getString("label.choosetrumpf"));
-		wyssPopupLayout.lblWyss.setText(t.getString("label.wyss"));
+		connectLayout.getLblIP().setText(t.getString("label.IPAdress"));
+		connectLayout.getLblPort().setText(t.getString("label.port"));
+		loginLayout.getLblTitelLogin().setText(t.getString("text.titel.jass"));
+		loginLayout.getLblSubtitelLogin().setText(t.getString("text.untertitel.login"));
+		loginLayout.getTfUsername().setPromptText(t.getString("label.username"));
+		loginLayout.getPfPassword().setPromptText(t.getString("label.password"));
+		registrationLayout.getLblTitelRegistration().setText(t.getString("text.titel.jass"));
+		registrationLayout.getLblSubtitelRegistration().setText(t.getString("text.untertitel.registration"));
+		registrationLayout.getTfNewUsername().setPromptText(t.getString("label.username"));
+		registrationLayout.getPfNewPassword().setPromptText(t.getString("label.password"));
+		spielraumPopupLayout.getTfSpielraumName().setPromptText(t.getString("label.spielraumname"));
+		spielraumLayout.getLblChat().setText(t.getString("label.chat"));
+		spielraumLayout.getLblWait().setText(t.getString("label.wait"));
+		spielraumLayout.getLblPlayroom().setText(t.getString("label.spielraumname"));
+		spielraumLayout.getLblPointsGoal().setText(t.getString("label.limit"));
+		spielraumLayout.getLblOwner().setText(t.getString("label.owner"));
+		spielraumLayout.getLblGameType().setText(t.getString("label.gametype"));
+		startGamePopupLayout.getLblPointsLimit().setText(t.getString("label.limit"));
+		errorPopupLayout.getLblError().setText(t.getString("label.error"));
+		siegerPopupLayout.getLblWinner().setText(t.getString("label.winner"));
+		trumpfPopupLayout.getLblChooseTrumpf().setText(t.getString("label.choosetrumpf"));
+		wyssPopupLayout.getLblWyss().setText(t.getString("label.wyss"));
 		
 	    // Other controls
-		connectLayout.btnRun.setText(t.getString("button.run"));
-		connectLayout.btnStart.setText(t.getString("button.start"));
-		loginLayout.btnLogin.setText(t.getString("button.login"));
-		loginLayout.btnRegistration.setText(t.getString("button.registration"));
-		registrationLayout.btnRegistration.setText(t.getString("button.registration"));
-		registrationLayout.btnBack.setText(t.getString("button.back"));
-		profilPopupLayout.btnDeleteAccount.setText(t.getString("button.deleteaccount"));
+		connectLayout.getBtnRun().setText(t.getString("button.run"));
+		connectLayout.getBtnStart().setText(t.getString("button.start"));
+		loginLayout.getBtnLogin().setText(t.getString("button.login"));
+		loginLayout.getBtnRegistration().setText(t.getString("button.registration"));
+		registrationLayout.getBtnRegistration().setText(t.getString("button.registration"));
+		registrationLayout.getBtnBack().setText(t.getString("button.back"));
+		profilPopupLayout.getBtnDeleteAccount().setText(t.getString("button.deleteaccount"));
 		this.btnProfil.setText(t.getString("button.profil"));
 		this.btnConfig.setText(t.getString("button.config"));
 		this.btnJoin.setText(t.getString("button.join"));
 		this.btnCreatePlayroom.setText(t.getString("button.createplayroom"));
 		this.btnDeletePlayroom.setText(t.getString("button.deleteplayroom"));
 		this.btnLogout.setText(t.getString("button.logout"));
-		spielraumPopupLayout.btnCreate.setText(t.getString("button.createplayroom"));
-		spielraumPopupLayout.btnBack.setText(t.getString("button.back"));
-		spielraumLayout.btnSend.setText(t.getString("button.send"));
-		spielraumLayout.btnLeave.setText(t.getString("button.leave"));
-		spielraumLayout.btnStartGame.setText(t.getString("button.start"));
-		startGamePopupLayout.btnStartGamePopUp.setText(t.getString("button.start"));
-		startGamePopupLayout.btnBack.setText(t.getString("button.back"));
-		wyssPopupLayout.btnWyss.setText(t.getString("button.wyss"));
-		wyssPopupLayout.btnNoWyss.setText(t.getString("button.nowyss"));
-		profilPopupLayout.btnBack.setText(t.getString("button.back"));
-		errorPopupLayout.btnBack.setText(t.getString("button.back"));
-		siegerPopupLayout.btnBack.setText(t.getString("button.back"));
-		trumpfPopupLayout.btnHearts.setText(t.getString("button.hearts"));
-		trumpfPopupLayout.btnDiamonds.setText(t.getString("button.diamonds"));
-		trumpfPopupLayout.btnSpades.setText(t.getString("button.spades"));
-		trumpfPopupLayout.btnClubs.setText(t.getString("button.clubs"));
-		trumpfPopupLayout.btnPush.setText(t.getString("button.push"));
-		gameTypePopupLayout.btnObeAbe.setText(t.getString("button.obeAbe"));
-		gameTypePopupLayout.btnUndeUfe.setText(t.getString("button.undeUfe"));
-		gameTypePopupLayout.btnTrumpf.setText(t.getString("button.trumpf"));
-		gameTypePopupLayout.btnSlalomUndeUfe.setText(t.getString("button.slalomUndeUfe"));
-		gameTypePopupLayout.btnSlalomObeAbe.setText(t.getString("button.slalomObeAbe"));
+		spielraumPopupLayout.getBtnCreate().setText(t.getString("button.createplayroom"));
+		spielraumPopupLayout.getBtnBack().setText(t.getString("button.back"));
+		spielraumLayout.getBtnSend().setText(t.getString("button.send"));
+		spielraumLayout.getBtnLeave().setText(t.getString("button.leave"));
+		spielraumLayout.getBtnStartGame().setText(t.getString("button.start"));
+		startGamePopupLayout.getBtnStartGamePopUp().setText(t.getString("button.start"));
+		startGamePopupLayout.getBtnBack().setText(t.getString("button.back"));
+		wyssPopupLayout.getBtnWyss().setText(t.getString("button.wyss"));
+		wyssPopupLayout.getBtnNoWyss().setText(t.getString("button.nowyss"));
+		profilPopupLayout.getBtnBack().setText(t.getString("button.back"));
+		errorPopupLayout.getBtnBack().setText(t.getString("button.back"));
+		siegerPopupLayout.getBtnBack().setText(t.getString("button.back"));
+		trumpfPopupLayout.getBtnHearts().setText(t.getString("button.hearts"));
+		trumpfPopupLayout.getBtnDiamonds().setText(t.getString("button.diamonds"));
+		trumpfPopupLayout.getBtnSpades().setText(t.getString("button.spades"));
+		trumpfPopupLayout.getBtnClubs().setText(t.getString("button.clubs"));
+		trumpfPopupLayout.getBtnPush().setText(t.getString("button.push"));
+		gameTypePopupLayout.getBtnObeAbe().setText(t.getString("button.obeAbe"));
+		gameTypePopupLayout.getBtnUndeUfe().setText(t.getString("button.undeUfe"));
+		gameTypePopupLayout.getBtnTrumpf().setText(t.getString("button.trumpf"));
+		gameTypePopupLayout.getBtnSlalomUndeUfe().setText(t.getString("button.slalomUndeUfe"));
+		gameTypePopupLayout.getBtnSlalomObeAbe().setText(t.getString("button.slalomObeAbe"));
 
     }
 	
@@ -423,8 +418,6 @@ public class JassClientView {
 	public BorderPane getRoot() {
 		return root;
 	}
-	
-	
 	
 	public TextField getTfPort() {
 		return tfPort;
@@ -449,8 +442,6 @@ public class JassClientView {
 	public void setBtnRun(Button btnRun) {
 		this.btnRun = btnRun;
 	}
-
-	
 	
 	public Button getBtnStart() {
 		return btnStart;
@@ -780,8 +771,6 @@ public class JassClientView {
 		this.btnWyss = btnWyss;
 	}
 	
-	
-	
 	public Button getBtnTrumpf() {
 		return btnTrumpf;
 	}
@@ -829,17 +818,6 @@ public class JassClientView {
 	public void setBtnNoWyss(Button btnNoWyss) {
 		this.btnNoWyss = btnNoWyss;
 	}
-	
-	
-
-	public Rectangle getCardP1() {
-		return cardP1;
-	}
-
-	public void setCardP1(Rectangle cardP1) {
-		this.cardP1 = cardP1;
-	}
-
 
 	public ListView<String> getListView() {
 		return listView;
@@ -904,6 +882,318 @@ public class JassClientView {
 	public void setLblTrumpfIs(Label lblTrumpfIs) {
 		this.lblTrumpfIs = lblTrumpfIs;
 	}
-	
+
+	public Stage getPrimaryStage() {
+		return primaryStage;
+	}
+
+	public void setPrimaryStage(Stage primaryStage) {
+		this.primaryStage = primaryStage;
+	}
+
+	public Menu getMenuFileLanguage() {
+		return menuFileLanguage;
+	}
+
+	public void setMenuFileLanguage(Menu menuFileLanguage) {
+		this.menuFileLanguage = menuFileLanguage;
+	}
+
+	public Scene getScene() {
+		return scene;
+	}
+
+	public void setScene(Scene scene) {
+		this.scene = scene;
+	}
+
+	public Scene getConnectScene() {
+		return connectScene;
+	}
+
+	public void setConnectScene(Scene connectScene) {
+		this.connectScene = connectScene;
+	}
+
+	public Scene getLobbyScene() {
+		return lobbyScene;
+	}
+
+	public void setLobbyScene(Scene lobbyScene) {
+		this.lobbyScene = lobbyScene;
+	}
+
+	public Scene getLoginScene() {
+		return loginScene;
+	}
+
+	public void setLoginScene(Scene loginScene) {
+		this.loginScene = loginScene;
+	}
+
+	public Scene getRegistrationScene() {
+		return registrationScene;
+	}
+
+	public void setRegistrationScene(Scene registrationScene) {
+		this.registrationScene = registrationScene;
+	}
+
+	public Scene getSpielraumScene() {
+		return spielraumScene;
+	}
+
+	public void setSpielraumScene(Scene spielraumScene) {
+		this.spielraumScene = spielraumScene;
+	}
+
+	public ConnectPane getConnectLayout() {
+		return connectLayout;
+	}
+
+	public void setConnectLayout(ConnectPane connectLayout) {
+		this.connectLayout = connectLayout;
+	}
+
+	public LoginPane getLoginLayout() {
+		return loginLayout;
+	}
+
+	public void setLoginLayout(LoginPane loginLayout) {
+		this.loginLayout = loginLayout;
+	}
+
+	public RegistrationPane getRegistrationLayout() {
+		return registrationLayout;
+	}
+
+	public void setRegistrationLayout(RegistrationPane registrationLayout) {
+		this.registrationLayout = registrationLayout;
+	}
+
+	public SpielraumPopupPane getSpielraumPopupLayout() {
+		return spielraumPopupLayout;
+	}
+
+	public void setSpielraumPopupLayout(SpielraumPopupPane spielraumPopupLayout) {
+		this.spielraumPopupLayout = spielraumPopupLayout;
+	}
+
+	public StartGamePopupPane getStartGamePopupLayout() {
+		return startGamePopupLayout;
+	}
+
+	public void setStartGamePopupLayout(StartGamePopupPane startGamePopupLayout) {
+		this.startGamePopupLayout = startGamePopupLayout;
+	}
+
+	public ProfilPopUpPane getProfilPopupLayout() {
+		return profilPopupLayout;
+	}
+
+	public void setProfilPopupLayout(ProfilPopUpPane profilPopupLayout) {
+		this.profilPopupLayout = profilPopupLayout;
+	}
+
+	public ErrorPopupPane getErrorPopupLayout() {
+		return errorPopupLayout;
+	}
+
+	public void setErrorPopupLayout(ErrorPopupPane errorPopupLayout) {
+		this.errorPopupLayout = errorPopupLayout;
+	}
+
+	public SiegerPopupPane getSiegerPopupLayout() {
+		return siegerPopupLayout;
+	}
+
+	public void setSiegerPopupLayout(SiegerPopupPane siegerPopupLayout) {
+		this.siegerPopupLayout = siegerPopupLayout;
+	}
+
+	public TrumpfPopupPane getTrumpfPopupLayout() {
+		return trumpfPopupLayout;
+	}
+
+	public void setTrumpfPopupLayout(TrumpfPopupPane trumpfPopupLayout) {
+		this.trumpfPopupLayout = trumpfPopupLayout;
+	}
+
+	public WyssPopupPane getWyssPopupLayout() {
+		return wyssPopupLayout;
+	}
+
+	public void setWyssPopupLayout(WyssPopupPane wyssPopupLayout) {
+		this.wyssPopupLayout = wyssPopupLayout;
+	}
+
+	public GameTypePopupPane getGameTypePopupLayout() {
+		return gameTypePopupLayout;
+	}
+
+	public void setGameTypePopupLayout(GameTypePopupPane gameTypePopupLayout) {
+		this.gameTypePopupLayout = gameTypePopupLayout;
+	}
+
+	public Popup getProfilPopUp() {
+		return profilPopUp;
+	}
+
+	public void setProfilPopUp(Popup profilPopUp) {
+		this.profilPopUp = profilPopUp;
+	}
+
+	public Popup getStartGamePopUp() {
+		return startGamePopUp;
+	}
+
+	public void setStartGamePopUp(Popup startGamePopUp) {
+		this.startGamePopUp = startGamePopUp;
+	}
+
+	public Popup getErrorPopUp() {
+		return errorPopUp;
+	}
+
+	public void setErrorPopUp(Popup errorPopUp) {
+		this.errorPopUp = errorPopUp;
+	}
+
+	public Popup getSiegerPopUp() {
+		return siegerPopUp;
+	}
+
+	public void setSiegerPopUp(Popup siegerPopUp) {
+		this.siegerPopUp = siegerPopUp;
+	}
+
+	public Popup getTrumpfPopUp() {
+		return trumpfPopUp;
+	}
+
+	public void setTrumpfPopUp(Popup trumpfPopUp) {
+		this.trumpfPopUp = trumpfPopUp;
+	}
+
+	public Popup getWyssPopUp() {
+		return wyssPopUp;
+	}
+
+	public void setWyssPopUp(Popup wyssPopUp) {
+		this.wyssPopUp = wyssPopUp;
+	}
+
+	public Popup getGameTypePopup() {
+		return gameTypePopup;
+	}
+
+	public void setGameTypePopup(Popup gameTypePopup) {
+		this.gameTypePopup = gameTypePopup;
+	}
+
+	public Label getLblPort() {
+		return lblPort;
+	}
+
+	public void setLblPort(Label lblPort) {
+		this.lblPort = lblPort;
+	}
+
+	public Label getLblIP() {
+		return lblIP;
+	}
+
+	public void setLblIP(Label lblIP) {
+		this.lblIP = lblIP;
+	}
+
+	public Label getLblTitelLogin() {
+		return lblTitelLogin;
+	}
+
+	public void setLblTitelLogin(Label lblTitelLogin) {
+		this.lblTitelLogin = lblTitelLogin;
+	}
+
+	public Label getLblSubtitelLogin() {
+		return lblSubtitelLogin;
+	}
+
+	public void setLblSubtitelLogin(Label lblSubtitelLogin) {
+		this.lblSubtitelLogin = lblSubtitelLogin;
+	}
+
+	public Label getLblTitelRegistration() {
+		return lblTitelRegistration;
+	}
+
+	public void setLblTitelRegistration(Label lblTitelRegistration) {
+		this.lblTitelRegistration = lblTitelRegistration;
+	}
+
+	public Label getLblSubtitelRegistration() {
+		return lblSubtitelRegistration;
+	}
+
+	public void setLblSubtitelRegistration(Label lblSubtitelRegistration) {
+		this.lblSubtitelRegistration = lblSubtitelRegistration;
+	}
+
+	public VBox getV1() {
+		return v1;
+	}
+
+	public void setV1(VBox v1) {
+		this.v1 = v1;
+	}
+
+	public HBox getH1() {
+		return h1;
+	}
+
+	public void setH1(HBox h1) {
+		this.h1 = h1;
+	}
+
+	public Label getLblError() {
+		return lblError;
+	}
+
+	public void setLblError(Label lblError) {
+		this.lblError = lblError;
+	}
+
+	public Label getLblPointsLimit() {
+		return lblPointsLimit;
+	}
+
+	public void setLblPointsLimit(Label lblPointsLimit) {
+		this.lblPointsLimit = lblPointsLimit;
+	}
+
+	public Label getLblChooseTrumpf() {
+		return lblChooseTrumpf;
+	}
+
+	public void setLblChooseTrumpf(Label lblChooseTrumpf) {
+		this.lblChooseTrumpf = lblChooseTrumpf;
+	}
+
+	public Label getLblWyss() {
+		return lblWyss;
+	}
+
+	public void setLblWyss(Label lblWyss) {
+		this.lblWyss = lblWyss;
+	}
+
+	public void setRoot(BorderPane root) {
+		this.root = root;
+	}
+
+	public void setBtnStartGamePopUp(Button btnStartGamePopUp) {
+		this.btnStartGamePopUp = btnStartGamePopUp;
+	}
+
 }
 

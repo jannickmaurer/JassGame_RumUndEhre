@@ -11,12 +11,12 @@ import javafx.scene.layout.VBox;
 public class ConnectPane extends GridPane {
 	private JassClientView view;
 	
-	Label lblPort = new Label();
-	Label lblIP = new Label();
-	TextField tfPort = new TextField("1111");
-	TextField tfIP = new TextField("127.0.0.1");
-	Button btnRun = new Button();
-	Button btnStart = new Button();
+	private Label lblPort = new Label();
+	private Label lblIP = new Label();
+	private TextField tfPort = new TextField("1111");
+	private TextField tfIP = new TextField("127.0.0.1");
+	private Button btnRun = new Button();
+	private Button btnStart = new Button();
 	
 	public ConnectPane() {
 		btnStart.setDisable(true);
@@ -31,6 +31,54 @@ public class ConnectPane extends GridPane {
 		this.setAlignment(Pos.TOP_LEFT);
 		this.setHgap(20);
 		this.setVgap(10);
+	}
+
+	public Label getLblPort() {
+		return lblPort;
+	}
+
+	public void setLblPort(Label lblPort) {
+		this.lblPort = lblPort;
+	}
+
+	public Label getLblIP() {
+		return lblIP;
+	}
+
+	public void setLblIP(Label lblIP) {
+		this.lblIP = lblIP;
+	}
+
+	public TextField getTfPort() {
+		return tfPort;
+	}
+
+	public void setTfPort(TextField tfPort) {
+		this.tfPort = tfPort;
+	}
+
+	public TextField getTfIP() {
+		return tfIP;
+	}
+
+	public void setTfIP(TextField tfIP) {
+		this.tfIP = tfIP;
+	}
+
+	public Button getBtnRun() {
+		return btnRun;
+	}
+
+	public void setBtnRun(Button btnRun) {
+		this.btnRun = btnRun;
+	}
+
+	public Button getBtnStart() {
+		return btnStart;
+	}
+
+	public void setBtnStart(Button btnStart) {
+		this.btnStart = btnStart;
 	}
 	
 }

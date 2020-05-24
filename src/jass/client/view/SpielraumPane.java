@@ -32,39 +32,34 @@ public class SpielraumPane extends GridPane {
 
 	private GridPane players;
 
-	Label lblChat = new Label();
-	TextArea txtMessages = new TextArea();
-	TextField tfMessage = new TextField();
-	Button btnSend = new Button();
-	ScrollPane scrollPane = new ScrollPane();
+	private Label lblChat = new Label();
+	private TextArea txtMessages = new TextArea();
+	private TextField tfMessage = new TextField();
+	private Button btnSend = new Button();
+	private ScrollPane scrollPane = new ScrollPane();
 
-	Rectangle cardP1 = new Rectangle();
-	Rectangle cardP2 = new Rectangle();
-	Rectangle cardP3 = new Rectangle();
-	Rectangle cardP4 = new Rectangle();
+	private PlayerPane playerPane;
+	private OtherPlayerPane otherPlayerPane;
+	private GridPane playedCards;
+	private CardLabel clPlayedCard;
 
-	PlayerPane playerPane;
-	OtherPlayerPane otherPlayerPane;
-	GridPane playedCards;
-	CardLabel clPlayedCard;
+	private ArrayList<OtherPlayerPane> otherPlayerPaneList;
+	private ArrayList<CardLabel> playedCardList;
 
-	ArrayList<OtherPlayerPane> otherPlayerPaneList;
-	ArrayList<CardLabel> playedCardList;
+	private Label lblWait = new Label();
+	private Label lblPlayroom = new Label();
+	private Label lblPlayroomName = new Label();
+	private Label lblGameType = new Label();
+	private Label lblGameTypeIs = new Label("-");
+	private Label lblTrumpf = new Label();
+	private Label lblTrumpfIs = new Label();
+	private Label lblPointsGoal = new Label();
+	private Label lblPointsGoalIs = new Label("-");
+	private Label lblOwner = new Label();
+	private Label lblOwnerIs = new Label();
 
-	Label lblWait = new Label();
-	Label lblPlayroom = new Label();
-	Label lblPlayroomName = new Label();
-	Label lblGameType = new Label();
-	Label lblGameTypeIs = new Label("-");
-	Label lblTrumpf = new Label();
-	Label lblTrumpfIs = new Label();
-	Label lblPointsGoal = new Label();
-	Label lblPointsGoalIs = new Label("-");
-	Label lblOwner = new Label();
-	Label lblOwnerIs = new Label();
-
-	Button btnLeave = new Button();
-	Button btnStartGame = new Button();
+	private Button btnLeave = new Button();
+	private Button btnStartGame = new Button();
 	int i = 0;
 
 	public SpielraumPane() {
@@ -83,8 +78,6 @@ public class SpielraumPane extends GridPane {
 		btnSend.setId("ButtonSend");
 		tfMessage.setId("TextFieldMessage");
 	
-		
-
 		lblChat.setId("LabelBold");
 		vMessage.getChildren().addAll(lblChat, scrollPane, tfMessage, btnSend);
 		this.add(vMessage, 3, 0, 1, 2);
@@ -111,46 +104,11 @@ public class SpielraumPane extends GridPane {
 		playerPane = new PlayerPane();
 		this.add(playerPane, 0, 2, 3, 1);
 		
-		
-
 		playedCards = new GridPane();
 		playedCards.setId("HBoxCards");
 		
 		CardLabel ownCl = new CardLabel("Own");
 		playedCards.add(ownCl, 1, 2);
-
-		cardP1.setWidth(40);
-		cardP1.setHeight(58);
-		cardP1.setArcWidth(2);
-		cardP1.setArcHeight(2);
-		Image imgP1 = new Image("/jass/image/Rückseite.jpg");
-		cardP1.setFill(new ImagePattern(imgP1));
-		cardP1.setVisible(true);
-//		playedCards.add(cardP1, 1, 2);
-
-		cardP2.setWidth(40);
-		cardP2.setHeight(58);
-		cardP2.setArcWidth(2);
-		cardP2.setArcHeight(2);
-		Image imgP2 = new Image("/jass/image/Rückseite.jpg");
-		cardP2.setFill(new ImagePattern(imgP2));
-		cardP2.setVisible(true);
-
-		cardP3.setWidth(40);
-		cardP3.setHeight(58);
-		cardP3.setArcWidth(2);
-		cardP3.setArcHeight(2);
-		Image imgP3 = new Image("/jass/image/Rückseite.jpg");
-		cardP3.setFill(new ImagePattern(imgP3));
-		cardP3.setVisible(true);
-
-		cardP4.setWidth(40);
-		cardP4.setHeight(58);
-		cardP4.setArcWidth(2);
-		cardP4.setArcHeight(2);
-		Image imgP4 = new Image("/jass/image/Rückseite.jpg");
-		cardP4.setFill(new ImagePattern(imgP4));
-		cardP4.setVisible(true);
 
 		lblWait.setId("LabelWait");
 
@@ -173,40 +131,6 @@ public class SpielraumPane extends GridPane {
 
 		this.setId("root");
 	}
-
-//		System.out.println("Members:" + countMembers + "ArrayList: " + otherPlayerPaneList.size());
-//			
-//			
-//			for(int i = otherPlayerPaneList.size(); i < countMembers; i++) {
-//				
-//				if (i == 0) {
-//					logger.info("OPL i=0: " + username);
-//					OtherPlayerPane otherPlayerPane1 = new OtherPlayerPane(username);
-//					otherPlayerPaneList.add(otherPlayerPane1);
-//					otherPlayerPane1.getLblName().setText(username);
-//					this.add(otherPlayerPane1, 1, 0);
-//					countMembers--;
-//				}
-//				if (i == 1) {
-//					logger.info("OPL i=1: " + username);
-//					OtherPlayerPane otherPlayerPane2 = new OtherPlayerPane(username);
-//					otherPlayerPaneList.add(otherPlayerPane2);
-//					otherPlayerPane2.getLblName().setText(username);
-//					this.add(otherPlayerPane2, 2, 1);
-//					countMembers--;
-//				}
-//				if (i == 2) {
-//					logger.info("OPL i=2: " + username);
-//					OtherPlayerPane otherPlayerPane3 = new OtherPlayerPane(username);
-//					otherPlayerPaneList.add(otherPlayerPane3);
-//					otherPlayerPane3.getLblName().setText(username);
-//					this.add(otherPlayerPane3, 0, 1);
-//					countMembers--;
-//				}
-//			}
-//		
-//		//---> anpassen: 			pp.setPlayer(model.getPlayer(i)); // link to player object in the logic
-//	}
 
 	public void createOtherPlayerPanes(ArrayList<String> members) {
 		for (int i = 0; i < members.size(); i++) {
@@ -237,10 +161,6 @@ public class SpielraumPane extends GridPane {
 			otherPlayerPaneList.remove(i);
 		}
 	}
-	
-	//public void clearPlayedCards() {
-	//	playedCards.getChildren().clear();
-	//}
 
 	public PlayerPane getPlayerPane() {
 
@@ -353,12 +273,113 @@ public class SpielraumPane extends GridPane {
 		}
 		
 	}
-	
-//	public void clearPlayedCards() {
-//		for (int i = 0; i < playedCardList.size(); i++) {
-//			playedCards.getChildren().remove(playedCardList.get(i));
-//			playedCardList.remove(i);
-//		}
-//	}
 
+	public GridPane getPlayers() {
+		return players;
+	}
+
+	public void setPlayers(GridPane players) {
+		this.players = players;
+	}
+
+	public Label getLblChat() {
+		return lblChat;
+	}
+
+	public void setLblChat(Label lblChat) {
+		this.lblChat = lblChat;
+	}
+
+	public TextArea getTxtMessages() {
+		return txtMessages;
+	}
+
+	public void setTxtMessages(TextArea txtMessages) {
+		this.txtMessages = txtMessages;
+	}
+
+	public TextField getTfMessage() {
+		return tfMessage;
+	}
+
+	public void setTfMessage(TextField tfMessage) {
+		this.tfMessage = tfMessage;
+	}
+
+	public Button getBtnSend() {
+		return btnSend;
+	}
+
+	public void setBtnSend(Button btnSend) {
+		this.btnSend = btnSend;
+	}
+
+	public ScrollPane getScrollPane() {
+		return scrollPane;
+	}
+
+	public void setScrollPane(ScrollPane scrollPane) {
+		this.scrollPane = scrollPane;
+	}
+
+	public GridPane getPlayedCards() {
+		return playedCards;
+	}
+
+	public void setPlayedCards(GridPane playedCards) {
+		this.playedCards = playedCards;
+	}
+
+	public CardLabel getClPlayedCard() {
+		return clPlayedCard;
+	}
+
+	public void setClPlayedCard(CardLabel clPlayedCard) {
+		this.clPlayedCard = clPlayedCard;
+	}
+
+	public ArrayList<OtherPlayerPane> getOtherPlayerPaneList() {
+		return otherPlayerPaneList;
+	}
+
+	public void setOtherPlayerPaneList(ArrayList<OtherPlayerPane> otherPlayerPaneList) {
+		this.otherPlayerPaneList = otherPlayerPaneList;
+	}
+
+	public ArrayList<CardLabel> getPlayedCardList() {
+		return playedCardList;
+	}
+
+	public void setPlayedCardList(ArrayList<CardLabel> playedCardList) {
+		this.playedCardList = playedCardList;
+	}
+
+	public Label getLblWait() {
+		return lblWait;
+	}
+
+	public void setLblWait(Label lblWait) {
+		this.lblWait = lblWait;
+	}
+
+	public Button getBtnLeave() {
+		return btnLeave;
+	}
+
+	public void setBtnLeave(Button btnLeave) {
+		this.btnLeave = btnLeave;
+	}
+
+	public Button getBtnStartGame() {
+		return btnStartGame;
+	}
+
+	public void setBtnStartGame(Button btnStartGame) {
+		this.btnStartGame = btnStartGame;
+	}
+
+	public OtherPlayerPane getOtherPlayerPane() {
+		return otherPlayerPane;
+	}
+	
 }

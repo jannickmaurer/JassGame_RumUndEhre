@@ -13,8 +13,8 @@ import javafx.scene.layout.Region;
 public class SiegerPopupPane extends GridPane {
 	private JassClientView view;
 	
-	Label lblWinner = new Label();
-	Button btnBack = new Button();
+	private Label lblWinner = new Label();
+	private Button btnBack = new Button();
 	
 	public SiegerPopupPane() {		
 		this.add(lblWinner, 0, 0);
@@ -24,6 +24,22 @@ public class SiegerPopupPane extends GridPane {
 		this.setAlignment(Pos.TOP_CENTER);
 		this.setHgap(20);
 		this.setVgap(10);
+	}
+
+	public Label getLblWinner() {
+		return lblWinner;
+	}
+
+	public void setLblWinner(Label lblWinner) {
+		this.lblWinner = lblWinner;
+	}
+
+	public Button getBtnBack() {
+		return btnBack;
+	}
+
+	public void setBtnBack(Button btnBack) {
+		this.btnBack = btnBack;
 	}
 	
 }

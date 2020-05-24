@@ -147,7 +147,7 @@ public class JassClientController {
 		});
 		view.getBtnLeave().setOnAction(e -> {
 			leavePlayroonm();
-			view.getRoot().setCenter(view.v1);
+			view.getRoot().setCenter(view.getV1());
 			view.getRoot().setId("root");
 			view.getStage().setTitle("Lobby");
 		});
@@ -604,7 +604,7 @@ public class JassClientController {
 	public void loginSuccess() {
 		Platform.runLater(new Runnable() {
 			public void run() {
-				view.getRoot().setCenter(view.v1);
+				view.getRoot().setCenter(view.getV1());
 				view.getStage().setTitle("Lobby");
 			}
 		});

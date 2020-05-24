@@ -13,9 +13,9 @@ import javafx.scene.layout.Region;
 public class WyssPopupPane extends GridPane {
 	private JassClientView view;
 	
-	Label lblWyss = new Label();
-	Button btnWyss = new Button();
-	Button btnNoWyss = new Button();
+	private Label lblWyss = new Label();
+	private Button btnWyss = new Button();
+	private Button btnNoWyss = new Button();
 	
 	public WyssPopupPane() {		
 		this.add(lblWyss, 0, 0);
@@ -26,6 +26,30 @@ public class WyssPopupPane extends GridPane {
 		this.setAlignment(Pos.TOP_CENTER);
 		this.setHgap(20);
 		this.setVgap(10);
+	}
+
+	public Label getLblWyss() {
+		return lblWyss;
+	}
+
+	public void setLblWyss(Label lblWyss) {
+		this.lblWyss = lblWyss;
+	}
+
+	public Button getBtnWyss() {
+		return btnWyss;
+	}
+
+	public void setBtnWyss(Button btnWyss) {
+		this.btnWyss = btnWyss;
+	}
+
+	public Button getBtnNoWyss() {
+		return btnNoWyss;
+	}
+
+	public void setBtnNoWyss(Button btnNoWyss) {
+		this.btnNoWyss = btnNoWyss;
 	}
 	
 }
