@@ -8,10 +8,6 @@ import jass.commons.Trumpf;
 public class TableCards{
 	ArrayList<Card> tableCards = new ArrayList<>();
 
-//	public TableCards() {
-//		super();
-//	}
-
 	public ArrayList<Card> getTableCards() {
 		return tableCards;
 	}
@@ -43,7 +39,8 @@ public class TableCards{
 	public void clearTableCards() {
 		tableCards.clear();
 	}
+	
 	public Card getCard(int i) {
-	return tableCards.get(i);
+		return tableCards.get(i);
 	}
 }

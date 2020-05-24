@@ -12,15 +12,10 @@ public class Board {
 	public static int playersTurn;
 	public int imPlayer;
 	public static String trumpf = "H";
-	public boolean wiisDone = false;
-	public Card myLastPlayedCard;
-	public String gameTyp = "Trumpf";
-//	public String playableCards;
-	public PlayableHandCards playableHandCards; //HandCards
-	public HandCards handCards; //allefalls direkt zugriff
+	public String gameTyp; 
+	public PlayableHandCards playableHandCards; 
+	public HandCards handCards; 
 	private TableCards tableCards;
-//	public HandCards startHandCards;
-//	private String playerOnTurn;
 	private int playedCards;
 	private ArrayList<String> members = new ArrayList<>();
 	
@@ -41,7 +36,6 @@ public class Board {
 		}
 		handCards.setHandCards(tempHandCards);
 		logger.info("HandCards added: " + handCards.toString());
-		
 	}
 
 	//Methode play evaluiert nur welche Karten gespielt werden dürfen und welche nicht
@@ -99,7 +93,6 @@ public class Board {
 					playableHandCards.setPlayableHandCards(handCards.getHandCards()); 		
 				}
 			}
-
 			if (gameTyp.equals("ObeAbe") || gameTyp.equals("UndeUfe") || gameTyp.equals("Slalom")) {
 				for (int i = 0; i < handCards.hasLength(); i++) {
 					if(handCards.getCardSuit(i).equals(tableCards.getCardSuit(0))) {
@@ -111,9 +104,6 @@ public class Board {
 				}
 			}
 		} 
-
-		
-		
 		logger.info("Play: " + playableHandCards + "  " + gameTyp + "  " + trumpf);
 	}
 
@@ -142,14 +132,6 @@ public class Board {
 
 	public static void setTrumpf(String trumpf) {
 		Board.trumpf = trumpf;
-	}
-
-	public boolean isWiisDone() {
-		return wiisDone;
-	}
-
-	public void setWiisDone(boolean wiisDone) {
-		this.wiisDone = wiisDone;
 	}
 
 	public String getGameTyp() {
