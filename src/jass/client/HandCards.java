@@ -5,14 +5,11 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.logging.Logger;
 
-import com.sun.nio.sctp.HandlerResult;
 
 import jass.commons.Card;
 import jass.commons.Card.Suit;
-import sun.print.resources.serviceui;
 import jass.commons.ServiceLocator;
 import jass.commons.Trumpf;
-import jass.commons.Wiis;
 
 public class HandCards {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();

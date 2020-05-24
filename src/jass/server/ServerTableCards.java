@@ -19,13 +19,13 @@ public class ServerTableCards {
 		super();
 	}
 
-//	public ArrayList<Card> getServerTableCards() {
-//		return serverTableCards;
-//	}
+	public ArrayList<Card> getServerTableCards() {
+		return serverTableCards;
+	}
 	
-//	public boolean hasServerTableCards() {
-//		return serverTableCards.size() != 0; 
-//	}
+	public boolean hasServerTableCards() {
+		return serverTableCards.size() != 0; 
+	}
 
 	public boolean isComplete() { // brauchts die hier???
 		return serverTableCards.size() == 4;
@@ -39,7 +39,6 @@ public class ServerTableCards {
 	public int getTrumpfPoints(String trumpf) {
 		return Trumpf.getTrumpfPoints(serverTableCards, trumpf);
 	}
-	
 	
 //	public int getPoints(String handType, String trumpf) {
 //		return Trumpf.getPoints(serverTableCards, handType, trumpf);
