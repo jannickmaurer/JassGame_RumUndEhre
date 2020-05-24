@@ -78,11 +78,7 @@ public class ServerTableCards {
 		return serverTableCards.size();
 	}
 	
-//*********
 	public String getUsername(int place) {
 		return usernames.get(place);
 	}
-//*********
-
-
 }
