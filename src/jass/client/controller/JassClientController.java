@@ -878,6 +878,21 @@ public class JassClientController {
 	public void setOwner(String owner) {
 		this.owner = owner;
 	}
+
+	public void updatePlayedCard(String name, String tableCard) {
+		Platform.runLater(new Runnable() {
+			public void run() {
+//				view.getSpielraumLayout().clearPlayedCards();
+				if(name.equals(username)) {
+					view.getSpielraumLayout().updatePlayedCard("Own", tableCard);
+
+				} else {
+					view.getSpielraumLayout().updatePlayedCard(name, tableCard);
+				}
+			}
+		});
+
+	}
 	
 	
 }

@@ -3,6 +3,7 @@ package jass.client.view;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import jass.commons.Card;
 import jass.commons.ServiceLocator;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -48,6 +49,7 @@ public class SpielraumPane extends GridPane {
 	CardLabel clPlayedCard;
 
 	ArrayList<OtherPlayerPane> otherPlayerPaneList;
+	ArrayList<CardLabel> playedCardList;
 
 	Label lblWait = new Label();
 	Label lblPlayroom = new Label();
@@ -80,6 +82,7 @@ public class SpielraumPane extends GridPane {
 		scrollPane.setId("ScrollPane");
 		btnSend.setId("ButtonSend");
 		tfMessage.setId("TextFieldMessage");
+	
 		
 
 		lblChat.setId("LabelBold");
@@ -107,9 +110,14 @@ public class SpielraumPane extends GridPane {
 
 		playerPane = new PlayerPane();
 		this.add(playerPane, 0, 2, 3, 1);
+		
+		
 
 		playedCards = new GridPane();
 		playedCards.setId("HBoxCards");
+		
+		CardLabel ownCl = new CardLabel("Own");
+		playedCards.add(ownCl, 1, 2);
 
 		cardP1.setWidth(40);
 		cardP1.setHeight(58);
@@ -118,7 +126,7 @@ public class SpielraumPane extends GridPane {
 		Image imgP1 = new Image("/jass/image/Rückseite.jpg");
 		cardP1.setFill(new ImagePattern(imgP1));
 		cardP1.setVisible(true);
-		playedCards.add(cardP1, 1, 2);
+//		playedCards.add(cardP1, 1, 2);
 
 		cardP2.setWidth(40);
 		cardP2.setHeight(58);
@@ -148,6 +156,8 @@ public class SpielraumPane extends GridPane {
 
 		this.add(playedCards, 1, 1);
 
+		playedCardList = new ArrayList<>();
+		
 		HBox h6 = new HBox();
 		h6.setId("HBox");
 		h6.getChildren().addAll(btnStartGame, btnLeave);
@@ -206,14 +216,17 @@ public class SpielraumPane extends GridPane {
 			if (i == 0) {
 				this.add(opl, 1, 0);
 				playedCards.add(clPlayedCard, 1, 0);
+				playedCardList.add(clPlayedCard);
 			}
 			if (i == 1) {
 				this.add(opl, 2, 1);
 				playedCards.add(clPlayedCard, 2, 1);
+				playedCardList.add(clPlayedCard);
 			}
 			if (i == 2) {
 				this.add(opl, 0, 1);
 				playedCards.add(clPlayedCard, 0, 1);
+				playedCardList.add(clPlayedCard);
 			}
 		}
 	}
@@ -330,5 +343,22 @@ public class SpielraumPane extends GridPane {
 	public void setLblOwnerIs(Label lblOwnerIs) {
 		this.lblOwnerIs = lblOwnerIs;
 	}
+	
+	public void updatePlayedCard(String username, String playedCard) {
+		for(int i = 0; i < playedCardList.size(); i++) {
+			if(playedCardList.get(i).getUsername().equals(username)) {
+//				CardLabel cl = (CardLabel) playedCards.getChildren().
+//				cl.setCard(new Card(playedCard));
+			}
+		}
+		
+	}
+	
+//	public void clearPlayedCards() {
+//		for (int i = 0; i < playedCardList.size(); i++) {
+//			playedCards.getChildren().remove(playedCardList.get(i));
+//			playedCardList.remove(i);
+//		}
+//	}
 
 }

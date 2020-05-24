@@ -23,6 +23,7 @@ public class CardLabel extends Label {
 	public CardLabel(String username) {
 		super();
 		this.username = username;
+		this.setText("Das ist die Karte von: " + username);
 	}
 
 	public void setCard(Card card) {
@@ -52,5 +53,15 @@ public class CardLabel extends Label {
 	public void setCardNameAsString(String cardNameAsString) {
 		this.cardNameAsString = cardNameAsString;
 	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
+	
 	
 }
