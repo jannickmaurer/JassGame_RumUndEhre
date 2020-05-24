@@ -62,7 +62,6 @@ public class JassClientView {
 	public SiegerPopupPane siegerPopupLayout = new SiegerPopupPane();
 	public TrumpfPopupPane trumpfPopupLayout = new TrumpfPopupPane();
 	public WyssPopupPane wyssPopupLayout = new WyssPopupPane();
-	//public OtherPlayerPane otherPlayerLayout = new OtherPlayerPane(null);
 	public GameTypePopupPane gameTypePopupLayout = new GameTypePopupPane();
 
 	
@@ -165,14 +164,9 @@ public class JassClientView {
 	private Button btnDiamonds = trumpfPopupLayout.getBtnDiamonds();
 	private Button btnSpades = trumpfPopupLayout.getBtnSpades();
 	private Button btnClubs = trumpfPopupLayout.getBtnClubs();
-	//private Button btnPush = trumpfPopupLayout.getBtnPush();
 	
 	// Initialize GameTypePopup Buttons
 	private Button btnTrumpf = gameTypePopupLayout.getBtnTrumpf();
-	//private Button btnUndeUfe = gameTypePopupLayout.getBtnUndeUfe();
-	//private Button btnObeAbe = gameTypePopupLayout.getBtnObeAbe();
-	//private Button btnSlalomUndeUfe = gameTypePopupLayout.getBtnSlalomUndeUfe();
-	//private Button btnSlalomObeAbe = gameTypePopupLayout.getBtnSlalomObeAbe();
 	
 	private Label lblWyss = wyssPopupLayout.getLblWyss();
 	private Button btnWyss = wyssPopupLayout.getBtnWyss();
@@ -266,14 +260,6 @@ public class JassClientView {
 		btnBackStartGame.setPrefWidth(140);
 		btnTrumpf.setMinWidth(Region.USE_PREF_SIZE);
 		btnTrumpf.setPrefWidth(180);
-		//btnUndeUfe.setMinWidth(Region.USE_PREF_SIZE);
-		//btnUndeUfe.setPrefWidth(180);
-		//btnObeAbe.setMinWidth(Region.USE_PREF_SIZE);
-		//btnObeAbe.setPrefWidth(180);
-		//btnSlalomUndeUfe.setMinWidth(Region.USE_PREF_SIZE);
-		//btnSlalomUndeUfe.setPrefWidth(180);
-		//btnSlalomObeAbe.setMinWidth(Region.USE_PREF_SIZE);
-		//btnSlalomObeAbe.setPrefWidth(180);
 		btnHearts.setMinWidth(Region.USE_PREF_SIZE);
 		btnHearts.setPrefWidth(140);
 		btnDiamonds.setMinWidth(Region.USE_PREF_SIZE);
@@ -282,8 +268,6 @@ public class JassClientView {
 		btnSpades.setPrefWidth(140);
 		btnClubs.setMinWidth(Region.USE_PREF_SIZE);
 		btnClubs.setPrefWidth(140);
-		//btnPush.setMinWidth(Region.USE_PREF_SIZE);
-		//btnPush.setPrefWidth(140);
 		tfPoints.setMinWidth(Region.USE_PREF_SIZE);
 		tfPoints.setPrefWidth(120);
 		btnWyss.setMinWidth(Region.USE_PREF_SIZE);
@@ -476,13 +460,7 @@ public class JassClientView {
 		trumpfPopupLayout.getBtnDiamonds().setText(t.getString("button.diamonds"));
 		trumpfPopupLayout.getBtnSpades().setText(t.getString("button.spades"));
 		trumpfPopupLayout.getBtnClubs().setText(t.getString("button.clubs"));
-		//trumpfPopupLayout.getBtnPush().setText(t.getString("button.push"));
-		//gameTypePopupLayout.getBtnObeAbe().setText(t.getString("button.obeAbe"));
-		//gameTypePopupLayout.getBtnUndeUfe().setText(t.getString("button.undeUfe"));
 		gameTypePopupLayout.getBtnTrumpf().setText(t.getString("button.trumpf"));
-		//gameTypePopupLayout.getBtnSlalomUndeUfe().setText(t.getString("button.slalomUndeUfe"));
-		//gameTypePopupLayout.getBtnSlalomObeAbe().setText(t.getString("button.slalomObeAbe"));
-
     }
 	
 	public Stage getStage() {
@@ -828,15 +806,7 @@ public class JassClientView {
 	public void setBtnClubs(Button btnClubs) {
 		this.btnClubs = btnClubs;
 	}
-	
-	//public Button getBtnPush() {
-	//	return btnPush;
-	//}
 
-	//public void setBtnPush(Button btnPush) {
-	//	this.btnPush = btnPush;
-	//}
-	
 	public Button getBtnWyss() {
 		return btnWyss;
 	}
@@ -852,38 +822,6 @@ public class JassClientView {
 	public void setBtnTrumpf(Button btnTrumpf) {
 		this.btnTrumpf = btnTrumpf;
 	}
-
-	//public Button getBtnUndeUfe() {
-	//	return btnUndeUfe;
-	//}
-
-	//public void setBtnUndeUfe(Button btnUndeUfe) {
-	//	this.btnUndeUfe = btnUndeUfe;
-	//}
-
-	//public Button getBtnObeAbe() {
-	//	return btnObeAbe;
-	//}
-
-	//public void setBtnObeAbe(Button btnObeAbe) {
-	//	this.btnObeAbe = btnObeAbe;
-	//}
-
-	//public Button getBtnSlalomUndeUfe() {
-	//	return btnSlalomUndeUfe;
-	//}
-
-	//public void setBtnSlalomUndeUfe(Button btnSlalomUndeUfe) {
-	//	this.btnSlalomUndeUfe = btnSlalomUndeUfe;
-	//}
-
-	//public Button getBtnSlalomObeAbe() {
-	//	return btnSlalomObeAbe;
-	//}
-
-	//public void setBtnSlalomObeAbe(Button btnSlalomObeAbe) {
-	//	this.btnSlalomObeAbe = btnSlalomObeAbe;
-	//}
 
 	public Button getBtnNoWyss() {
 		return btnNoWyss;

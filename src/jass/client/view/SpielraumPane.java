@@ -269,8 +269,6 @@ public class SpielraumPane extends GridPane {
 	public void updatePlayedCard(String username, String playedCard) {
 		for(int i = 0; i < playedCardList.size(); i++) {
 			if(playedCardList.get(i).getUsername().equals(username)) {
-//				CardLabel cl = (CardLabel) playedCards.getChildren().
-//				cl.setCard(new Card(playedCard));
 			}
 		}
 		
