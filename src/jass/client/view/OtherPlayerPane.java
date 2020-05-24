@@ -74,7 +74,31 @@ public class OtherPlayerPane extends VBox {
 	public void setLblName(Label lblName) {
 		this.lblName = lblName;
 	}
-    
+	
+	public String getUsername() {
+		return this.username;
+	}
+
+	public Label getLblPoints() {
+		return lblPoints;
+	}
+
+	public void setLblPoints(Label lblPoints) {
+		this.lblPoints = lblPoints;
+	}
+
+	public Label getLblPointsPlayer() {
+		return lblPointsPlayer;
+	}
+
+	public void setLblPointsPlayer(Label lblPointsPlayer) {
+		this.lblPointsPlayer = lblPointsPlayer;
+	}
+	
+	
+	
+	
+	
 //---> anpassen:            public void updatePointsLabel() {
 //---> anpassen:           	lblPointsPlayer.setText(Integer.toString(Integer.parseInt(lblPointsPlayer.getText()) + 1)); 	
 //---> anpassen:          }

@@ -56,7 +56,6 @@ public class JassClientView {
 	public TrumpfPopupPane trumpfPopupLayout = new TrumpfPopupPane();
 	public WyssPopupPane wyssPopupLayout = new WyssPopupPane();
 	//public OtherPlayerPane otherPlayerLayout = new OtherPlayerPane(null);
-	public PlayerPane playerPane = new PlayerPane();
 	public GameTypePopupPane gameTypePopupLayout = new GameTypePopupPane();
 
 	
@@ -428,9 +427,7 @@ public class JassClientView {
 		return root;
 	}
 	
-	public PlayerPane getPlayerPane() {
-		return playerPane;
-	}
+	
 	
 	public TextField getTfPort() {
 		return tfPort;

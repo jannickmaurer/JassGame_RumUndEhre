@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import jass.client.controller.JassClientController;
 import jass.client.model.JassClientModel;
+import jass.client.view.Card;
 import jass.commons.ServiceLocator;
 import jass.message.Message;
 
@@ -28,7 +29,7 @@ public class ResultSendTableCard extends Message {
 	
 	@Override
 	public void process(JassClientController controller) {
-		
+//		controller.getBoard().getHandCards().cardPlayed(new Card(playedCard));
 	}
 
 	public void processIfFalse(JassClientController controller) {

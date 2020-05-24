@@ -32,6 +32,7 @@ import jass.client.message.result.ResultStartGame;
 import jass.client.message.result.ResultStartRound;
 import jass.client.message.result.ResultBroadcastSendMessage;
 import jass.client.model.JassClientModel;
+import jass.client.view.CardLabel;
 import jass.client.view.JassClientView;
 import jass.client.view.PlayerPane;
 import jass.client.view.OtherPlayerPane;
@@ -54,7 +55,7 @@ public class JassClientController {
 	private String token;
 	private String currentPlayroom;
 	private Board board;
-	private String account;
+	private String username;
 	private String currentGameType;
 	private ObservableList<String> playrooms = FXCollections.observableArrayList();
 	private String playerOnTurn;
@@ -73,7 +74,8 @@ public class JassClientController {
 	public JassClientController(JassClientModel model, JassClientView view) {
 		this.model = model;
 		this.view = view;
-
+		
+		
 		view.getBtnRun().setOnAction(event -> connect());
 		view.getBtnNewRegistration().setOnAction(event -> {
 			createAccount();
@@ -189,8 +191,8 @@ public class JassClientController {
 		
 
 		view.getBtnSend().setOnAction(e -> {
-			sendTableCard();
-//			sendMessage();
+//			sendTableCard();
+			sendMessage();
 		});
 
 		model.getPlayrooms().addListener((ListChangeListener<String>) change -> {
@@ -228,6 +230,20 @@ public class JassClientController {
 				model.disconnect();
 			}
 		});
+		
+		for(int i = 0; i < view.getSpielraumLayout().getPlayerPane().getCardLabels().size(); i++) {
+			view.getSpielraumLayout().getPlayerPane().getCardLabels().get(i).setOnMouseReleased(this::sendTableCard);
+			logger.info("Card Mouse-Listener on Card" + view.getSpielraumLayout().getPlayerPane().getCardLabels().get(i).getCardNameAsString() +" running");
+		}
+		for(int i = 0; i < view.getSpielraumLayout().getPlayerPane().getCardLabels().size(); i++) {
+			view.getSpielraumLayout().getPlayerPane().getCardLabels().get(i).setOnMouseEntered(this::highlightCard);
+			logger.info("Card Mouse-Listener on Card" + view.getSpielraumLayout().getPlayerPane().getCardLabels().get(i).getCardNameAsString() +" running");
+		}
+		for(int i = 0; i < view.getSpielraumLayout().getPlayerPane().getCardLabels().size(); i++) {
+			view.getSpielraumLayout().getPlayerPane().getCardLabels().get(i).setOnMouseExited(this::delightCard);
+			logger.info("Card Mouse-Listener on Card" + view.getSpielraumLayout().getPlayerPane().getCardLabels().get(i).getCardNameAsString() +" running");
+		}
+		
 	}
 
 	public ObservableList<String> getPlayrooms() {
@@ -466,9 +482,10 @@ public class JassClientController {
 		model.sendTrumpf("Hearts");
 	}
 
-	private void sendTableCard() {
-		String tableCard = "CQ";
-		model.sendTableCard(tableCard);
+	private void sendTableCard(Event event) {
+		CardLabel cl = (CardLabel) event.getSource();
+		model.sendTableCard(cl.getCardNameAsString());
+		logger.info("Send Tablecard: " + cl.getCardNameAsString());
 	}
 
 	private void endGame() {
@@ -553,11 +570,11 @@ public class JassClientController {
 	}
 
 	public void setAccount(String account) {
-		this.account = account;
+		this.username = account;
 	}
 
 	public String getAccount() {
-		return this.account;
+		return this.username;
 	}
 
 	public void loginSuccess() {
@@ -666,8 +683,12 @@ public class JassClientController {
 			public void run() {
 				PlayerPane pp = view.getSpielraumLayout().getPlayerPane();
 				pp.updatePlayerDisplay(board.getHandCards());
+				
 			}
 		});
+		
+		
+		
 //		view.getRoot().setCenter(view.spielraumLayout);
 	}
 
@@ -681,12 +702,40 @@ public class JassClientController {
 		}
 	}
 	public void createOtherPlayerPane(int countMembers, String username) {
-		// TODO Auto-generated method stub
 		Platform.runLater(new Runnable() {
 			public void run() {
 				view.getSpielraumLayout().createOtherPlayerPane(countMembers, username);
 			}			
 		});
+	}
+	
+	public void addPoints(String username, int points) {
+		if(username.equals(this.username)) {
+			Platform.runLater(new Runnable() {
+				public void run() {
+					int total = points + Integer.parseInt(view.getSpielraumLayout().getPlayerPane().getLblPointsPlayer().getText());
+					view.getSpielraumLayout().getPlayerPane().getLblPointsPlayer().setText(Integer.toString(points));
+				}			
+			});
+			 
+		} else {
+			Platform.runLater(new Runnable() {
+				public void run() {
+					
+					int total = points + Integer.parseInt(view.getSpielraumLayout().getOtherPlayerPane(username).getLblPointsPlayer().getText());
+					view.getSpielraumLayout().getOtherPlayerPane(username).getLblPointsPlayer().setText(Integer.toString(total));
+				}			
+			});
+		}	
+	}
+	public void highlightCard(Event event) {
+		CardLabel cl = (CardLabel) event.getSource();
+		cl.setStyle("-fx-border-width: 5; -fx-border-color: black");
+//		cl.setStyle();
+	}
+	public void delightCard(Event event) {
+		CardLabel cl = (CardLabel) event.getSource();
+		cl.setStyle("-fx-border-width: 0");
 	}
 	
 }

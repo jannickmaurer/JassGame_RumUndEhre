@@ -48,7 +48,5 @@ public class StartRound extends Message {
 		}
 		client.send(new ResultStartRound(result));
 	}
-	
-	
 }
 

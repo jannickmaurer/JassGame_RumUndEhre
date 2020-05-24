@@ -90,11 +90,6 @@ public abstract class Message {
 //			if (content[0].equals("ResultBroadcastSendMessage")) msg = new ResultBroadcastSendMessage(content);
 //			if (content[0].equals("ResultLeavePlayroom")) msg = new ResultLeavePlayroom(content);
 
-
-			
-			
-
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -134,6 +129,7 @@ public abstract class Message {
 
 
 	public void process(JassClientController jassClientController) {
+		
 	}
 
 

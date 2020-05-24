@@ -1,7 +1,9 @@
 package jass.client.view;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
+import jass.commons.ServiceLocator;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -23,6 +25,8 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
 public class SpielraumPane extends GridPane {
+	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
+	private static Logger logger = sl.getServerLogger();
 	private JassClientView view;
 	
 	private GridPane players;
@@ -138,22 +142,28 @@ public class SpielraumPane extends GridPane {
 			for(int i = otherPlayerPaneList.size(); i < countMembers; i++) {
 				
 				if (i == 0) {
+					logger.info("OPL i=0: " + username);
 					OtherPlayerPane otherPlayerPane1 = new OtherPlayerPane(username);
 					otherPlayerPaneList.add(otherPlayerPane1);
 					otherPlayerPane1.getLblName().setText(username);
 					this.add(otherPlayerPane1, 1, 0);
+					countMembers--;
 				}
 				if (i == 1) {
+					logger.info("OPL i=1: " + username);
 					OtherPlayerPane otherPlayerPane2 = new OtherPlayerPane(username);
 					otherPlayerPaneList.add(otherPlayerPane2);
 					otherPlayerPane2.getLblName().setText(username);
 					this.add(otherPlayerPane2, 2, 1);
+					countMembers--;
 				}
 				if (i == 2) {
+					logger.info("OPL i=2: " + username);
 					OtherPlayerPane otherPlayerPane3 = new OtherPlayerPane(username);
 					otherPlayerPaneList.add(otherPlayerPane3);
 					otherPlayerPane3.getLblName().setText(username);
 					this.add(otherPlayerPane3, 0, 1);
+					countMembers--;
 				}
 			}
 		
@@ -165,6 +175,7 @@ public class SpielraumPane extends GridPane {
 	}
 
 	public PlayerPane getPlayerPane() {
+		
 		return playerPane;
 	}
 
@@ -172,7 +183,13 @@ public class SpielraumPane extends GridPane {
 		this.playerPane = playerPane;
 	}
 
-	public OtherPlayerPane getOtherPlayerPane() {
+	public OtherPlayerPane getOtherPlayerPane(String username) {
+		for(OtherPlayerPane opl : otherPlayerPaneList) {
+			if(opl.getUsername().equals(username)) return opl;
+		}
+		
+		
+		
 		return otherPlayerPane;
 	}
 
