@@ -19,33 +19,6 @@ public class HandCards {
 //	ArrayList<Card> remainingHandCards = new ArrayList<Card>();
 //	ArrayList<Card> startHandCards = new ArrayList<Card>();
 	ArrayList<Card> playableHandCards = new ArrayList<Card>();
-
-
-	
-	//!!!!!!!!ResultSendTableCArd an Board übergeben und dann handcards removen
-//	Controller.getBoard.METHODE welche Karte entfernt in void Process methode
-
-//	public HandCards(ArrayList<Card> handCards) {
-//		super();
-//		this.handCards = handCards;
-//		this.startHandCards = handCards;
-//	}
-
-	//**********
-//	public HandCards() {
-//		super();
-//	}
-	//**********
-
-	
-	/**
-	 * WIICHTIG!!!!!!!!!! Hier nachdem die Handkarten der ArrayList hinzugefügt wurden Karten sortieren.
-	 * @return
-	 */
-
-//	public ArrayList<Card> getRemainingHandCards() {
-//		return handCards;  //remainingHandCards
-//	}
 	
 	public void cardPlayed(Card card) {
 		for (int i = 0; i < handCards.size(); i++) {
@@ -53,11 +26,6 @@ public class HandCards {
 		}
 		logger.info("Remove card: " + card.toString());
 		handCards.removeIf(i -> i.toString().equals(card.toString()));
-//		int i = handCards.indexOf(card);  //remainingHandCards
-//		for(Card c : handCards) {
-//			if(c.toString().equals(card.toString())) handCards.remove(c);
-//		}
-//		handCards.remove(card);  //remainingHandCards
 		logger.info("Remaining HandCards in Handcards: " + handCards.toString() );
 	}
 
@@ -123,7 +91,6 @@ public class HandCards {
 		return Trumpf.evaluateTrumpf(handCards);
 	}
 	
-
 	public String toString() {
 		if (handCards == null) return "No Cards";
 		String s = "";
@@ -135,7 +102,4 @@ public class HandCards {
 		}
 		return s;
 	}
-	
-
-	
 }

@@ -270,7 +270,7 @@ public class JassClientController {
 				logger.info("Playable Handcards: " + board.getPlayableHandCards());
 				for(int i = 0; i < view.getSpielraumLayout().getPlayerPane().getCardLabels().size(); i++) {
 					String temp = view.getSpielraumLayout().getPlayerPane().getCardLabels().get(i).getCardNameAsString();
-					for(Card c : board.handCards.getPlayableHandCards()) {
+					for(Card c : board.getPlayableHandCards()) {//board.handCards.getPlayableHandCards
 						if(c.toString().equals(temp)) {
 							view.getSpielraumLayout().getPlayerPane().getCardLabels().get(i).setDisable(false);
 						}
