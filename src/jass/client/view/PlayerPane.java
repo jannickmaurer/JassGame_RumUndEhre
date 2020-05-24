@@ -37,21 +37,8 @@ public class PlayerPane extends VBox {
 	private Label lblPointsPlayer = new Label("0");
 	
 	private ArrayList<CardLabel> cardLabels;
-
-	Rectangle card1 = new Rectangle();
-	Rectangle card2 = new Rectangle();
-	Rectangle card3 = new Rectangle();
-	Rectangle card4 = new Rectangle();
-	Rectangle card5 = new Rectangle();
-	Rectangle card6 = new Rectangle();
-	Rectangle card7 = new Rectangle();
-	Rectangle card8 = new Rectangle();
-	Rectangle card9 = new Rectangle();
 	
 	Label lb = new Label();
-
-	// Link to player object
-//---> anpassen:    private Player player;
 
 	public PlayerPane() {
 		super(); // Always call super-constructor first !!
@@ -66,7 +53,7 @@ public class PlayerPane extends VBox {
 		// Add CardLabels for the cards
 		for (int i = 0; i < 9; i++) {
 			CardLabel cl = new CardLabel();
-			cl.setDisable(true);
+			cl.setDisable(false);
 			hboxCards.getChildren().add(cl);
 			hboxCards.setSpacing(10);
 			cardLabels.add(cl);
@@ -78,12 +65,6 @@ public class PlayerPane extends VBox {
 
 	}
 
-	// ---> anpassen: public void setPlayer(Player player) {
-	// ---> anpassen: this.player = player;
-	// ---> anpassen: updatePlayerDisplay(); // Immediately display the player
-	// information
-	// ---> anpassen: }
-
 	public Label getLblName() {
 		return lblName;
 	}
@@ -93,7 +74,6 @@ public class PlayerPane extends VBox {
 	}
 
 	public void updatePlayerDisplay(HandCards handCards, String playedCard) {
-		// ---> anpassen: lblName.setText(player.getPlayerName());
 		ArrayList<Card> handCardsList = new ArrayList<>();
 		handCardsList = handCards.getHandCards();
 		logger.info(handCards.getHandCards().toString());
@@ -114,17 +94,13 @@ public class PlayerPane extends VBox {
 			cl.setCard(handCardsList.get(i));
 			cl.setCardNameAsString(handCardsList.get(i).toString());
 		}
-//		hboxCards.getChildren().add(new Button("Hallo"));
 	}
 	
 	public void updatePlayerDisplay(HandCards handCards) {
-		// ---> anpassen: lblName.setText(player.getPlayerName());
 		ArrayList<Card> handCardsList = new ArrayList<>();
 		ArrayList<Card> playableCardsList = new ArrayList<>();
 		handCardsList = handCards.getHandCards();
-//		playableCardsList = handCards.getPlayableHandCards();
 		logger.info(handCards.getHandCards().toString());
-//		logger.info("Playable Cards: " + handCards.getPlayableHandCards().toString());
 		logger.info("Update PlayerPane: " + handCardsList );
 
 		for (int i = 0; i < handCardsList.size(); i++) {
@@ -137,10 +113,10 @@ public class PlayerPane extends VBox {
 	}
 	
 
-	public void updatePlayableHandCards(ArrayList<String> playableHandCards) {
+	public void updatePlayableHandCards(ArrayList<Card> playableHandCards) {
 		for(CardLabel cl : cardLabels) {
-			for(String s : playableHandCards) {
-				if(cl.getCardNameAsString().equals(s)) cl.setDisable(false);
+			for(Card c : playableHandCards) {
+				if(cl.getCardNameAsString().equals(c.toString())) cl.setDisable(false);
 			}
 		}
 //		for(int i = 0; i < hboxCards.getChildren().size(); i++) {
@@ -173,23 +149,44 @@ public class PlayerPane extends VBox {
 		}
 	}
 
-	
+	public Label getLblPoints() {
+		return lblPoints;
+	}
 
-	// ---> anpassen: public void updatePointsLabel() {
-	// ---> anpassen:
-	// lblPointsPlayer.setText(Integer.toString(Integer.parseInt(lblPointsPlayer.getText())
-	// + 1));
-	// ---> anpassen: }
-    
-    
-  //---> anpassen:        public void setPlayer(Player player) {
-  //---> anpassen:        	this.player = player;
-  //---> anpassen:        	updatePlayerDisplay(); // Immediately display the player information
-  //---> anpassen:        }
-    
-     
-    
-  //---> anpassen:        public void updatePointsLabel() {
-  //---> anpassen:        	lblPointsPlayer.setText(Integer.toString(Integer.parseInt(lblPointsPlayer.getText()) + 1)); 	
-  //---> anpassen:        }
+	public void setLblPoints(Label lblPoints) {
+		this.lblPoints = lblPoints;
+	}
+
+	public Circle getCrcPlayer() {
+		return crcPlayer;
+	}
+
+	public void setCrcPlayer(Circle crcPlayer) {
+		this.crcPlayer = crcPlayer;
+	}
+
+	public HBox getHboxCards() {
+		return hboxCards;
+	}
+
+	public void setHboxCards(HBox hboxCards) {
+		this.hboxCards = hboxCards;
+	}
+
+	public GridPane getPointsGrid() {
+		return pointsGrid;
+	}
+
+	public void setPointsGrid(GridPane pointsGrid) {
+		this.pointsGrid = pointsGrid;
+	}
+
+	public Label getLb() {
+		return lb;
+	}
+
+	public void setLb(Label lb) {
+		this.lb = lb;
+	}
+	
 }

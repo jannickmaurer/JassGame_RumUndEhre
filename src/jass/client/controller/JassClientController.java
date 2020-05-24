@@ -98,13 +98,18 @@ public class JassClientController {
 		view.getBtnBack().setOnAction(e -> {
 			view.getRoot().setCenter(view.loginLayout);
 			view.getStage().setTitle("Login");
+			view.getTfNewUsername().setText("");
+			view.getPfNewPassword().setText("");
 		});
 		view.getBtnLogout().setOnAction(e -> {
 			logout();
 		});
 		view.getBtnDeleteAccount().setOnAction(e -> {
-			logout();
+			deleteAccount();
 			view.profilPopUp.hide();
+		});
+		view.getBtnDeletePlayroom().setOnAction(e -> {
+			deletePlayroom();
 		});
 		view.getBtnCreatePlayroomPopup().setOnAction(e -> {
 			createPlayroom();
@@ -143,7 +148,7 @@ public class JassClientController {
 		});
 		view.getBtnLeave().setOnAction(e -> {
 			leavePlayroonm();
-			view.getRoot().setCenter(view.v1);
+			view.getRoot().setCenter(view.getV1());
 			view.getRoot().setId("root");
 			view.getStage().setTitle("Lobby");
 		});
@@ -246,14 +251,22 @@ public class JassClientController {
 				board.play();
 				logger.info("Playable Handcards from Board: " + board.getPlayableHandCards());
 			
-				String playableHandCardsAsString = board.getPlayableHandCards().toString();
-				String[] temp = playableHandCardsAsString.split("\\|");
-				ArrayList<String> playableCards = new ArrayList<>();
-				for(int i = 0; i < temp.length; i++) {
-					playableCards.add(temp[i]);
-				}
-				logger.info("Use: " + playableCards);
-				view.getSpielraumLayout().getPlayerPane().updatePlayableHandCards(playableCards);
+//				String playableHandCardsAsString = board.getPlayableHandCards().toString();
+//				String[] temp = playableHandCardsAsString.split("\\|");
+//				ArrayList<String> playableCards = new ArrayList<>();
+//				for(int i = 0; i < temp.length; i++) {
+//					playableCards.add(temp[i]);
+//				logger.info("Playable Handcards: " + board.getPlayableHandCards());
+//				for(int i = 0; i < view.getSpielraumLayout().getPlayerPane().getCardLabels().size(); i++) {
+//					String temp = view.getSpielraumLayout().getPlayerPane().getCardLabels().get(i).getCardNameAsString();
+//					for(Card c : board.getPlayableHandCards()) {//board.handCards.getPlayableHandCards
+//						if(c.toString().equals(temp)) {
+//							view.getSpielraumLayout().getPlayerPane().getCardLabels().get(i).setDisable(false);
+//						}
+//					}
+//				}
+//				logger.info("Use: " + playableCards);
+				view.getSpielraumLayout().getPlayerPane().updatePlayableHandCards(board.getPlayableHandCards());
 
 //				for(int i = 0; i < view.getSpielraumLayout().getPlayerPane().getCardLabels().size(); i++) {
 //					String temp = view.getSpielraumLayout().getPlayerPane().getCardLabels().get(i).getCardNameAsString();
@@ -576,6 +589,8 @@ public class JassClientController {
 
 	public void autologin() {
 		model.login(view.getTfNewUsername().getText(), view.getPfNewPassword().getText());
+		view.getTfNewUsername().setText("");
+		view.getPfNewPassword().setText("");
 	}
 
 	public void connect() {
@@ -614,8 +629,10 @@ public class JassClientController {
 	public void loginSuccess() {
 		Platform.runLater(new Runnable() {
 			public void run() {
-				view.getRoot().setCenter(view.v1);
+				view.getRoot().setCenter(view.getV1());
 				view.getStage().setTitle("Lobby");
+				view.getTfUsername().setText("");
+				view.getPfPassword().setText("");
 			}
 		});
 	}

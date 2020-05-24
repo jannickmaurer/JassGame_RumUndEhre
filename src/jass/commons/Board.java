@@ -1,17 +1,10 @@
 package jass.commons;
 
-import static org.junit.jupiter.api.Assumptions.assumingThat;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.logging.Logger;
-
 import jass.client.TableCards;
 import jass.client.HandCards;
-import jass.client.Player;
-import jass.commons.Card.Suit;
+import jass.client.PlayableHandCards;
 
 public class Board {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
@@ -22,8 +15,8 @@ public class Board {
 	public boolean wiisDone = false;
 	public Card myLastPlayedCard;
 	public String gameTyp = "Trumpf";
-	public String playableCards;
-	public HandCards playableHandCards;
+//	public String playableCards;
+	public PlayableHandCards playableHandCards; //HandCards
 	public HandCards handCards; //allefalls direkt zugriff
 	private TableCards tableCards;
 //	public HandCards startHandCards;
@@ -31,53 +24,29 @@ public class Board {
 	private int playedCards;
 	private ArrayList<String> members = new ArrayList<>();
 	
-//	HandCards handCards;
-
 	public Board(String roomName, String gameTyp) {
 		this.handCards = new HandCards();
 		this.tableCards = new TableCards();
 		this.gameTyp = gameTyp;
 		this.playedCards = 0;
-		this.playableHandCards = new HandCards();
-//		this.enterPlayRoom(roomName);
+		this.playableHandCards = new PlayableHandCards();
 	}
 
-//	public void enterPlayRoom(String roomName) {
-//		// TODO server abfragen, wenn beigetretten wird
-//		// identisch wie tabelCArdsFrom SErver adden für imPlayer und
-//		imPlayer = 1;	
-//		// ask Server witch player i am
-//		imPlayer = 2;
-//	}
-//	
 	public void shuffledCardListener(String newHandCards) {
 		ArrayList<Card> tempHandCards = new ArrayList<>();
 		logger.info(newHandCards);
 		String[] handCardList = newHandCards.split("\\|");
 		for (int i = 0; i < handCardList.length; i++) {
 			tempHandCards.add(new Card(handCardList[i]));
-
-	//		this.handCards.add(new Card(handCardList[i]));
-//			this.startHandCards.add(new Card (handCardList[i]));
-			//this.startHandCards.add(new Card (handCardList[i]));
 		}
 		handCards.setHandCards(tempHandCards);
 		logger.info("HandCards added: " + handCards.toString());
 		
 	}
-	
-//	public void playerListener(int playersTurn) {
-//		Board.playersTurn = playersTurn;
-//
-//		if (Board.playersTurn == imPlayer) { // erfragt welcher player am zug ist, falls identisch kann player
-//												// spielen
-//			play();
-//		}
-//	}
 
 	//Methode play evaluiert nur welche Karten gespielt werden dürfen und welche nicht
 	public void play() {
-		if(playableHandCards != null && playableHandCards.hasCards()) playableHandCards.clearPlayableHandCards();
+		if(playableHandCards.hasCards()) playableHandCards.clearPlayableHandCards();
 		if (tableCards.hasCards() == false) {
 			playableHandCards.setPlayableHandCards(handCards.getHandCards());
 		}
@@ -142,6 +111,9 @@ public class Board {
 				}
 			}
 		} 
+
+		
+		
 		logger.info("Play: " + playableHandCards + "  " + gameTyp + "  " + trumpf);
 	}
 
@@ -154,24 +126,6 @@ public class Board {
 			tableCards.clearTableCards();
 			logger.info("TableCards cleared");
 		}
-	}
-	
-//	private TableCards getTableCards() {
-//		return this.tableCards;
-//	}
-//
-//	private int getPlayersTurn() {
-//		// TODO Auto-generated method stub
-//		// dito wie bei getTableCards
-//		return 1;
-//	}
-	
-	public String getPlayableCards() {
-		return playableCards;
-	}
-	
-	public void setPlayableCards(String playableCards) {
-		this.playableCards = playableCards;
 	}
 
 	public int getImPlayer() {
@@ -206,15 +160,10 @@ public class Board {
 		this.gameTyp = gameTyp;
 	}
 
-	public HandCards getPlayableHandCards() {
-		return playableHandCards;
+	public ArrayList<Card> getPlayableHandCards() {
+		return playableHandCards.getPlayableHandCards();
 	}
 
-	public HandCards getRemainingHandCards() {
-		return handCards;
-	}
-
-	
 //Getter und Setter
 	public HandCards getHandCards() {
 		return handCards;

@@ -58,7 +58,5 @@ public class CardLabel extends Label {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
-	
-	
+
 }

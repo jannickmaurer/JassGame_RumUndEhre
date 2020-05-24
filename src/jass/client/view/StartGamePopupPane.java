@@ -14,10 +14,10 @@ import javafx.scene.layout.Region;
 public class StartGamePopupPane extends GridPane {
 	private JassClientView view;
 	
-	Label lblPointsLimit = new Label();
-	TextField tfPoints = new TextField("2500");
-	Button btnStartGamePopUp = new Button();
-	Button btnBack = new Button();
+	private Label lblPointsLimit = new Label();
+	private TextField tfPoints = new TextField("2500");
+	private Button btnStartGamePopUp = new Button();
+	private Button btnBack = new Button();
 	
 	public StartGamePopupPane() {
 		this.add(lblPointsLimit, 0, 0);
@@ -29,6 +29,38 @@ public class StartGamePopupPane extends GridPane {
 		this.setAlignment(Pos.TOP_CENTER);
 		this.setHgap(20);
 		this.setVgap(10);
+	}
+
+	public Label getLblPointsLimit() {
+		return lblPointsLimit;
+	}
+
+	public void setLblPointsLimit(Label lblPointsLimit) {
+		this.lblPointsLimit = lblPointsLimit;
+	}
+
+	public TextField getTfPoints() {
+		return tfPoints;
+	}
+
+	public void setTfPoints(TextField tfPoints) {
+		this.tfPoints = tfPoints;
+	}
+
+	public Button getBtnStartGamePopUp() {
+		return btnStartGamePopUp;
+	}
+
+	public void setBtnStartGamePopUp(Button btnStartGamePopUp) {
+		this.btnStartGamePopUp = btnStartGamePopUp;
+	}
+
+	public Button getBtnBack() {
+		return btnBack;
+	}
+
+	public void setBtnBack(Button btnBack) {
+		this.btnBack = btnBack;
 	}
 	
 }
