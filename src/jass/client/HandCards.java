@@ -17,7 +17,7 @@ public class HandCards {
 
 	ArrayList<Card> handCards = new ArrayList<Card>();
 //	ArrayList<Card> remainingHandCards = new ArrayList<Card>();
-	ArrayList<Card> startHandCards = new ArrayList<Card>();
+//	ArrayList<Card> startHandCards = new ArrayList<Card>();
 	ArrayList<Card> playableHandCards = new ArrayList<Card>();
 
 
@@ -40,9 +40,9 @@ public class HandCards {
 	 * @return
 	 */
 
-	public ArrayList<Card> getRemainingHandCards() {
-		return handCards;  //remainingHandCards
-	}
+//	public ArrayList<Card> getRemainingHandCards() {
+//		return handCards;  //remainingHandCards
+//	}
 	
 	public void cardPlayed(Card card) {
 		for (int i = 0; i < handCards.size(); i++) {
@@ -70,7 +70,7 @@ public class HandCards {
 		return Trumpf.hasSameSuitCard(handCards, firstTableCard);
 	}
 
-	public ArrayList<Card> getHandCards() {  //////////////////////////
+	public ArrayList<Card> getHandCards() { 
 		return handCards;
 	}
 
@@ -97,6 +97,10 @@ public class HandCards {
 	
 	public int hasLength() {
 		return handCards.size();
+	}
+	
+	public boolean hasCards() {
+		return handCards.size() != 0;
 	}
 	
 	public Suit getCardSuit(int i) {

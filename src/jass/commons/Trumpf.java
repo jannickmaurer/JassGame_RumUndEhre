@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
-import jass.commons.Card.Rank;
-import jass.commons.Card.Suit;
-import jass.server.EvaluationRuleSet;
-
 public enum Trumpf { Trumpf, Stich, None;
 	
 	public static Trumpf evaluateTrumpf(ArrayList<Card> cards) {
@@ -16,11 +12,10 @@ public enum Trumpf { Trumpf, Stich, None;
 			if (isStich(cards)) trumpfevaluation = Stich;			
 		return trumpfevaluation;
 	}
-
 	
 	public static boolean isTrumpf(ArrayList<Card> cards) {
 		boolean found = false;
-			if (cards.get(0).getSuit().toString() == Board.trumpf) found = true;
+			if (cards.get(0).getSuit().toString().equals(Board.trumpf)) found = true;
 		return found;
 	}
 	
@@ -28,13 +23,13 @@ public enum Trumpf { Trumpf, Stich, None;
 	public static boolean isStich(ArrayList<Card> cards) {
 		boolean found = false;
 		for (int i = 1; i < cards.size() && !found; i++) {
-			if (cards.get(i).getSuit().toString() == Board.trumpf) found = true;}
+			if (cards.get(i).getSuit().toString().equals(Board.trumpf)) found = true;}
 		return found;
 	}
 	
 	public static boolean hasTrumpfCards(ArrayList<Card> cards) {
 		for (int i = 0; i < cards.size(); i++) {
-			if (cards.get(i).getSuit().toString() == Board.trumpf) return true;
+			if (cards.get(i).getSuit().toString().equals(Board.trumpf)) return true;
 		}
 		return false;
 	}
@@ -43,8 +38,7 @@ public enum Trumpf { Trumpf, Stich, None;
 		String rank = "0";
 		int place = -1;
 		for (int i = 0; i < cards.size(); i++) {
-			//wenn von Server zugriff erfolgt geht evaluation Board.trumpf ?? besser mit Variablen??
-			if(cards.get(i).getSuit().toString() == Board.trumpf && rank != "J") { 
+			if(cards.get(i).getSuit().toString().equals(Board.trumpf) && rank != "J") { 
 				String cardRank = cards.get(i).getRank().toString();
 				switch(cardRank) {
 				case("6"): if(isHigher(rank, cardRank)) rank = cardRank; place = i; break;
@@ -62,11 +56,10 @@ public enum Trumpf { Trumpf, Stich, None;
 		return cards.get(place);
     }
 	
-	//entnimmt erste Karte, welche höchster Stich ist und 
 	public static ArrayList<Card> getCardsHigherThanStich(Card card, ArrayList<Card> cards) {
 		ArrayList<Card> returnCards = new ArrayList<>();
 		for (int i = 0; i < cards.size(); i++) {
-			if (cards.get(i).getSuit().toString() == Board.trumpf) {
+			if (cards.get(i).getSuit().toString().equals(Board.trumpf)) {
 				if (isHigher(card.getRank().toString(), cards.get(i).getRank().toString())){
 					returnCards.add(cards.get(i));
 				}
@@ -104,22 +97,6 @@ public enum Trumpf { Trumpf, Stich, None;
 		return cardTwoRank > cardOneRank;
 	}
 	
-//	public static Card getHigherCard(ArrayList<Card> cards) {
-//		Card card;
-//		for (int i = 1; i < cards.size()-1; i++) {
-//			if (cards.get(i).getSuit() == cards.get(0).getSuit()) {
-//				if (isHigher(card.getRank().toString(), cards.get(i).getRank().toString())){
-//	//				returnCards.add(cards.get(i));
-//				}
-//			}
-//		}
-//		
-//		return null;
-//	}
-	
-//	public static Suit getFirstSuit(ArrayList<Card> cards) { //evtl löschen, wird nur 2mal verwendet aktuell
-//		return cards.get(0).getSuit();
-//	}
 	public static boolean hasSameSuitCard(ArrayList<Card> cards, Card firstTableCard) {
 		for (Card card : cards) {
 			if (card.getSuit() == firstTableCard.getSuit()) return true;
@@ -139,9 +116,9 @@ public enum Trumpf { Trumpf, Stich, None;
 		return winnerCard;
 	}
 	
-	public static Card highestUfeAbeCard(ArrayList<Card> cards, String gameTyp) {
+	public static Card highestUfeAbeCard(ArrayList<Card> cards, String gameType) {
 		Card winnerCard = cards.get(0);
-		if (gameTyp == "ObeAbe") {
+		if (gameType.equals("ObeAbe")) {
 			for (int i = 0; i < cards.size()-1; i++) {
 				if (cards.get(0).getSuit() == cards.get(i+1).getSuit()) {
 					if (winnerCard.getRank().compareTo(cards.get(i+1).getRank()) < 0) {
@@ -150,7 +127,7 @@ public enum Trumpf { Trumpf, Stich, None;
 				}
 			}
 		}
-		if (gameTyp == "UndeUfe") {
+		if (gameType.equals("UndeUfe")) {
 			for (int i = 0; i < cards.size()-1; i++) {
 				if (cards.get(0).getSuit() == cards.get(i+1).getSuit()) {
 					if (winnerCard.getRank().compareTo(cards.get(i+1).getRank()) > 0) {
@@ -162,26 +139,24 @@ public enum Trumpf { Trumpf, Stich, None;
 		return winnerCard;
 	}
 	
-	
-	
 	public static int getPoints(ArrayList<Card> cards, String gameType) {
 		int points = 0;
 		for (Card card : cards) {				
 			switch(card.getRank().toString()) {
-				case("6"): if (gameType == "UndeUfe") points += 11; break;
+				case("6"): if (gameType.equals("UndeUfe")) points += 11; break;
 				case("7"): break;
-				case("8"): points += 8; break;
+				case("8"): points += 8;  break;
 				case("9"): break; 
 				case("T"): points += 10; break; 
-				case("J"): points += 2; break;
-				case("Q"): points += 3; break; 
-				case("K"): points += 4; break; 
-				case("A"): if (gameType != "UndeUfe") points += 11; break;
+				case("J"): points += 2;  break;
+				case("Q"): points += 3;  break; 
+				case("K"): points += 4;  break; 
+				case("A"): if (!gameType.equals("UndeUfe")) points += 11; break;
 			}
 		}
 		return points;
 	}
-	//***new mehtode unten
+	
 	public static int getTrumpfPoints(ArrayList<Card> cards, String trumpf) {
 		int points = 0;
 		for (Card card : cards) {				
@@ -200,26 +175,6 @@ public enum Trumpf { Trumpf, Stich, None;
 		}
 		return points;
 	}
-
-	
-	//Methode überladen, hier nur für Slalom, welcher zusatzparameter braucht
-//	public static int getPoints(ArrayList<Card> cards, String gameType) {
-//		int points = 0;
-//		for (Card card : cards) {				
-//			switch(card.getRank().toString()) {
-//				case("6"): if (trumpf == "UndeUfe") points += 11; break;
-//				case("7"): break;
-//				case("8"): points += 8; break;
-//				case("9"): break; 
-//				case("T"): points += 10; break; 
-//				case("J"): points += 2; break;
-//				case("Q"): points += 3; break; 
-//				case("K"): points += 4; break; 
-//				case("A"): if (trumpf != "UndeUfe") points += 11; break;
-//			}
-//		}
-//		return points;
-//	}
 	
 	public static ArrayList<Card> sortHandCards(ArrayList<Card> handCards) {
 		ArrayList<Card> tempHandCards = new ArrayList<>();
@@ -263,10 +218,6 @@ public enum Trumpf { Trumpf, Stich, None;
 		if(this == None) 	return "None";
 		return null;
 	}
-
-
-
-
 }
 
 

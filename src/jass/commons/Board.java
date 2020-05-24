@@ -25,13 +25,13 @@ public class Board {
 	public String playableCards;
 	public HandCards playableHandCards;
 	public HandCards handCards; //allefalls direkt zugriff
+	private TableCards tableCards;
 //	public HandCards startHandCards;
-	private String playerOnTurn;
+//	private String playerOnTurn;
 	private int playedCards;
 	private ArrayList<String> members = new ArrayList<>();
 	
 //	HandCards handCards;
-	private TableCards tableCards;
 
 	public Board(String roomName, String gameTyp) {
 		this.handCards = new HandCards();
@@ -65,63 +65,62 @@ public class Board {
 		
 	}
 	
-	public void playerListener(int playersTurn) {
-		Board.playersTurn = playersTurn;
-
-		if (Board.playersTurn == imPlayer) { // erfragt welcher player am zug ist, falls identisch kann player
-												// spielen
-			play();
-		}
-	}
+//	public void playerListener(int playersTurn) {
+//		Board.playersTurn = playersTurn;
+//
+//		if (Board.playersTurn == imPlayer) { // erfragt welcher player am zug ist, falls identisch kann player
+//												// spielen
+//			play();
+//		}
+//	}
 
 	//Methode play evaluiert nur welche Karten gespielt werden dürfen und welche nicht
 	public void play() {
-//	public String play() {
-		if(playableHandCards != null) playableHandCards.clearPlayableHandCards();
+		if(playableHandCards.hasCards()) playableHandCards.clearPlayableHandCards();
 		if (tableCards.hasCards() == false) {
 			playableHandCards.setPlayableHandCards(handCards.getHandCards());
 		}
 		if (tableCards.hasCards() == true) {
-			if (gameTyp == "Trumpf") {
-				if (tableCards.evaluateTrumpf().toString() == "Trumpf") {
+			if (gameTyp.equals("Trumpf")) {
+				if (tableCards.evaluateTrumpf().toString().equals("Trumpf")) {
 					if (handCards.hasTrumpfCards()) {
 						for (int i = 0; i < handCards.hasLength(); i++) {
-							if (handCards.getCardSuit(i).toString() == trumpf) {
+							if (handCards.getCardSuit(i).toString().equals(trumpf)) {
 								playableHandCards.add(handCards.getCard(i));
 							}
 						}		
 					}else playableHandCards.setPlayableHandCards(handCards.getHandCards());
 				}
-				if (tableCards.evaluateTrumpf().toString() == "Stich") {
+				if (tableCards.evaluateTrumpf().toString().equals("Stich")) {
 					Card highestTableStichCard;
 					if (handCards.hasTrumpfCards()) {
 						highestTableStichCard = tableCards.getHighestTrumpfCard();
 						ArrayList<Card> tempHigherThanStichCards = new ArrayList<Card> ();
 						tempHigherThanStichCards = handCards.getCardHigherThanStich(highestTableStichCard);
-						if (tempHigherThanStichCards != null) {
+						if (!tempHigherThanStichCards.isEmpty()) {
 							for (Card card : tempHigherThanStichCards) {
 								playableHandCards.add(card);
 							}
 						}
 						if (handCards.hasSameSuitCard(tableCards.getCard(0))) {
 							for (int i = 0; i < handCards.hasLength(); i++) {
-								if(handCards.getCardSuit(i) == tableCards.getCardSuit(0)) {
+								if(handCards.getCardSuit(i).equals(tableCards.getCardSuit(0))) {
 									playableHandCards.add(handCards.getCard(i));
 								}
 							}
 						} else {
 							for (int i = 0; i < handCards.hasLength(); i++) {
-								if(handCards.getCardSuit(i) != tableCards.getCardSuit(0) &&
-							 	   handCards.getCardSuit(i).toString() != trumpf) {
+								if(!handCards.getCardSuit(i).equals(tableCards.getCardSuit(0)) &&
+							 	   !handCards.getCardSuit(i).toString().equals(trumpf)) {
 									playableHandCards.add(handCards.getCard(i));
 								}
 							}
 						}
 					}							
 				}
-				if (handCards.evaluateTrumpf().toString() == "None") {
+				if (handCards.evaluateTrumpf().toString().equals("None")) {
 					for (int i = 0; i < handCards.hasLength(); i++) {
-						if(handCards.getCardSuit(i) == tableCards.getCardSuit(0)) {
+						if(handCards.getCardSuit(i).equals(tableCards.getCardSuit(0))) {
 							playableHandCards.add(handCards.getCard(i));
 						}
 					}
@@ -131,9 +130,9 @@ public class Board {
 				}
 			}
 
-			if (gameTyp == "ObeAbe" || gameTyp == "UndeUfe" || gameTyp == "Slalom") {
+			if (gameTyp.equals("ObeAbe") || gameTyp.equals("UndeUfe") || gameTyp.equals("Slalom")) {
 				for (int i = 0; i < handCards.hasLength(); i++) {
-					if(handCards.getCardSuit(i) == tableCards.getCardSuit(0)) {
+					if(handCards.getCardSuit(i).equals(tableCards.getCardSuit(0))) {
 						playableHandCards.add(handCards.getCard(i));
 					}
 				}	
@@ -142,54 +141,8 @@ public class Board {
 				}
 			}
 		} 
-<<<<<<< HEAD
-		
-		
-=======
 		logger.info("Play: " + playableHandCards + "  " + gameTyp + "  " + trumpf);
->>>>>>> branch 'master' of https://github.com/jannickmaurer/JassGame_RumUndEhre.git
 	}
-
-//	private void selectGameVariety() {
-		// Methode evaluieren was der Spieler als GAmeVariante gewählt hat
-		// zB Trumpf, ObeAbe, UndeUfe, Slalom
-		// TODO Auto-generated method stub
-	//	this.gameVariety = gameVariety;
-//	}
-
-//	public Trumpf evaluateTrumpf() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-
-//	public int winnerEval() {
-////		if (!wiisDone)
-////			wiisEval();
-//
-//		// TODO Auto-generated method sub
-//		// Jeder Client prüft selbst ob er gewonnen hat
-//		// Danach gibt jeder Client den Punktestand zurück und SErver evaluiert welche
-//		// Spieler zusammen
-//		// gehören und passt die punktestände beider teams an
-//
-//		/**
-//		 * Wenn ich punkte meldete muss danach der Server das Board auf null setzen
-//		 * clearen wenn alle vier karten liegen und server sagt welcher spieler anfängt,
-//		 * ist oben implementiert
-//		 */
-//		int winner = 1;
-//		//send winner to server;
-//		return winner;
-//	}
-
-//	private void wiisEval() {
-//		// TODO Auto-generated method stub
-//		if (!handCards.hasWiis()) wiisDone = true;
-//		else {
-//			//Server die Weisenums übergeben und den Weis an Sämi übergeben,
-//			//falls die Person weisen kann
-//		} wiisDone = true;
-//	}
 
 	public void addTableCard(Card card) {
 		logger.info("Add Card to TableCards: " + card.toString());
@@ -202,22 +155,20 @@ public class Board {
 		}
 	}
 	
-	private TableCards getTableCards() {
-		return this.tableCards;
-	}
-
-	private int getPlayersTurn() {
-		// TODO Auto-generated method stub
-		// dito wie bei getTableCards
-		return 1;
-	}
+//	private TableCards getTableCards() {
+//		return this.tableCards;
+//	}
+//
+//	private int getPlayersTurn() {
+//		// TODO Auto-generated method stub
+//		// dito wie bei getTableCards
+//		return 1;
+//	}
 	
-	public String getPlayableCards() {//Mehoden mit playableCards werden 
-		//momentan nicht verwendet, die anderen drei unten auch nicht
+	public String getPlayableCards() {
 		return playableCards;
 	}
 	
-
 	public void setPlayableCards(String playableCards) {
 		this.playableCards = playableCards;
 	}
@@ -246,14 +197,6 @@ public class Board {
 		this.wiisDone = wiisDone;
 	}
 
-//	public Card getMyLastPlayedCard() {
-//		return myLastPlayedCard;
-//	}
-//
-//	public void setMyLastPlayedCard(Card myLastPlayedCard) {
-//		this.myLastPlayedCard = myLastPlayedCard;
-//	}
-
 	public String getGameTyp() {
 		return gameTyp;
 	}
@@ -266,18 +209,9 @@ public class Board {
 		return playableHandCards;
 	}
 
-	
-//	public void setPlayableHandCards(HandCards playableHandCards) {
-//		this.playableHandCards = playableHandCards;
-//	}
-
 	public HandCards getRemainingHandCards() {
 		return handCards;
 	}
-
-//	public void setRemainingHandCards(HandCards remainingHandCards) {
-//		this.remainingHandCards = remainingHandCards;
-//	}
 
 	
 //Getter und Setter
@@ -289,17 +223,9 @@ public class Board {
 		return handCards.getHandCards();
 	}
 
-//	public void setHandCards(HandCards handCards) {
-//		this.handCards = handCards;
-//	}
-
 	public static void setPlayersTurn(int playersTurn) {
 		Board.playersTurn = playersTurn;
 	}
-
-//	public void setTableCards(TableCards tableCards) {
-//		this.tableCards = tableCards;
-//	}
 	
 	public void removeHandCard(Card card) {
 		logger.info("Board removes handcard: " + card.toString() );
@@ -311,5 +237,4 @@ public class Board {
 			this.members.add(m);
 		}
 	}
-
 }
