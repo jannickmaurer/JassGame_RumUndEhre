@@ -50,10 +50,14 @@ public class SpielraumPane extends GridPane {
     Label lblWait = new Label();
     Label lblPlayroom = new Label();
     Label lblPlayroomName = new Label();
+    Label lblGameType = new Label();
+    Label lblGameTypeIs = new Label();
     Label lblTrumpf = new Label();
     Label lblTrumpfIs = new Label();
     Label lblPointsGoal = new Label();
     Label lblPointsGoalIs = new Label();
+    Label lblOwner = new Label();
+    Label lblOwnerIs = new Label();
   
 	Button btnLeave = new Button();
 	Button btnStartGame = new Button();
@@ -74,18 +78,28 @@ public class SpielraumPane extends GridPane {
         scrollPane.setId("ScrollPane");
         btnSend.setId("ButtonSend");
         tfMessage.setId("TextFieldMessage");
-
+        
+        lblChat.setId("LabelBold");
 		vMessage.getChildren().addAll(lblChat, scrollPane, tfMessage, btnSend);
 		this.add(vMessage, 3, 0, 1, 2);
 		
 		GridPane gInformation = new GridPane();
 		gInformation.setId("GInfo");
+		lblPlayroom.setId("LabelBold");
+		lblPointsGoal.setId("LabelBold");
+		lblTrumpf.setId("LabelBold");
+		lblOwner.setId("LabelBold");
+		lblGameType.setId("LabelBold");
 		gInformation.add(lblPlayroom, 0, 0);
 		gInformation.add(lblPlayroomName, 0, 1);
-		gInformation.add(lblPointsGoal, 0, 3);
-		gInformation.add(lblPointsGoalIs, 0, 4);
-		gInformation.add(lblTrumpf, 0, 6);
-		gInformation.add(lblTrumpfIs, 0, 7);
+		gInformation.add(lblOwner, 0, 3);
+		gInformation.add(lblOwnerIs, 0, 4);
+		gInformation.add(lblPointsGoal, 0, 6);
+		gInformation.add(lblPointsGoalIs, 0, 7);
+		gInformation.add(lblGameType, 0, 9);
+		gInformation.add(lblGameTypeIs, 0, 10);
+		gInformation.add(lblTrumpf, 0, 12);
+		gInformation.add(lblTrumpfIs, 0, 13);
 		this.add(gInformation, 3, 2, 1, 2);
 		
 		playerPane = new PlayerPane();
@@ -259,6 +273,38 @@ public class SpielraumPane extends GridPane {
 
 	public void setLblPointsGoalIs(Label lblPointsGoalIs) {
 		this.lblPointsGoalIs = lblPointsGoalIs;
+	}
+
+	public Label getLblGameType() {
+		return lblGameType;
+	}
+
+	public void setLblGameType(Label lblGameType) {
+		this.lblGameType = lblGameType;
+	}
+
+	public Label getLblGameTypeIs() {
+		return lblGameTypeIs;
+	}
+
+	public void setLblGameTypeIs(Label lblGameTypeIs) {
+		this.lblGameTypeIs = lblGameTypeIs;
+	}
+
+	public Label getLblOwner() {
+		return lblOwner;
+	}
+
+	public void setLblOwner(Label lblOwner) {
+		this.lblOwner = lblOwner;
+	}
+
+	public Label getLblOwnerIs() {
+		return lblOwnerIs;
+	}
+
+	public void setLblOwnerIs(Label lblOwnerIs) {
+		this.lblOwnerIs = lblOwnerIs;
 	}
 	
 	

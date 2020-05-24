@@ -761,5 +761,21 @@ public class JassClientController {
 			}
 		});
 	}
+
+	public void gameType(String gameType) {
+		Platform.runLater(new Runnable() {
+			public void run() {
+				view.getSpielraumLayout().getLblGameTypeIs().setText(gameType);
+			}
+		});
+	}
+
+	public void ownerName(String owner) {
+		Platform.runLater(new Runnable() {
+			public void run() {
+				view.getSpielraumLayout().getLblOwnerIs().setText(owner);
+			}
+		});
+	}
 	
 }

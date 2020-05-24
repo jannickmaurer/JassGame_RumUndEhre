@@ -378,6 +378,8 @@ public class JassClientView {
 		spielraumLayout.lblPlayroom.setText(t.getString("label.spielraumname"));
 		spielraumLayout.lblPointsGoal.setText(t.getString("label.limit"));
 		spielraumLayout.lblTrumpf.setText(t.getString("label.trumpf"));
+		spielraumLayout.lblOwner.setText(t.getString("label.owner"));
+		spielraumLayout.lblGameType.setText(t.getString("label.gametype"));
 		startGamePopupLayout.lblPointsLimit.setText(t.getString("label.limit"));
 		errorPopupLayout.lblError.setText(t.getString("label.error"));
 		siegerPopupLayout.lblWinner.setText(t.getString("label.winner"));
