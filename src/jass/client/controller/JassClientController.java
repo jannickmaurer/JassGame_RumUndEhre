@@ -104,8 +104,11 @@ public class JassClientController {
 			logout();
 		});
 		view.getBtnDeleteAccount().setOnAction(e -> {
-			logout();
+			deleteAccount();
 			view.profilPopUp.hide();
+		});
+		view.getBtnDeletePlayroom().setOnAction(e -> {
+			deletePlayroom();
 		});
 		view.getBtnCreatePlayroomPopup().setOnAction(e -> {
 			createPlayroom();
