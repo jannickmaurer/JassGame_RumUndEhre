@@ -79,19 +79,6 @@ public abstract class Message {
 			if (content[0].equals("SendTrumpf")) msg = new SendTrumpf(content);
 			if (content[0].equals("StartRound")) msg = new StartRound(content);
 
-//			if (content[0].equals("ResultPing")) msg = new ResultPing(content); 
-//			if (content[0].equals("ResultLogin")) msg = new ResultLogin(content);
-//			if (content[0].equals("ResultListPlayrooms")) msg = new ResultListPlayrooms(content);
-//			if (content[0].equals("ResultCreateAccount")) msg = new ResultCreateAccount(content);
-//			if (content[0].equals("ResultCreatePlayroom")) msg = new ResultCreatePlayroom(content);
-//			if (content[0].equals("ResultJoinPlayroom")) msg = new ResultJoinPlayroom(content);
-//			if (content[0].equals("ResultDeleteAccount")) msg = new ResultDeleteAccount(content);
-//			if (content[0].equals("ResultDeletePlayroom")) msg = new ResultDeletePlayroom(content);
-//			if (content[0].equals("ResultLogout")) msg = new ResultLogout(content);
-//			if (content[0].equals("ResultSendMessage")) msg = new ResultSendMessage(content);
-//			if (content[0].equals("ResultBroadcastSendMessage")) msg = new ResultBroadcastSendMessage(content);
-//			if (content[0].equals("ResultLeavePlayroom")) msg = new ResultLeavePlayroom(content);
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

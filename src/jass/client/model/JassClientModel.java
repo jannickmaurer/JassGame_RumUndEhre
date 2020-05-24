@@ -71,28 +71,11 @@ public class JassClientModel {
 						e.printStackTrace();
 					}
 				}
-
-//						Message msg = Message.receive(socket);
-//						
-//						// Only "ResultPing" messages got sent to Client. Therefore, we use process method from ResultPing class and
-//						// provide the model to the method in order for it to able to use model's methods
-//						
-//						if(msg != null) {
-//							if(!msg.isFalse()) {
-//								msg.process(JassClientModel.this); 
-//							}
-//						}
-//						System.out.println("Client Message received: " + msg.toString());
-//						}
 			}
 		};
 		t = new Thread(r);
 		t.start();
 		logger.info("Client Connected");
-
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
 	}
 
 	public void ping() {
@@ -195,8 +178,8 @@ public class JassClientModel {
 		}
 	}
 
-	public void startGame(String maxPoints) {
-		String[] content = new String[] { "StartGame", this.token.getValue(), maxPoints };
+	public void startGame() {
+		String[] content = new String[] { "StartGame", this.token.getValue()};
 		Message msg = new StartGame(content);
 		try {
 			msg.send(socket);
@@ -367,7 +350,6 @@ public class JassClientModel {
 			try {
 				socket.close();
 			} catch (IOException e) {
-				// Uninteresting
 			}
 	}
 

@@ -469,7 +469,7 @@ public class JassClientView {
 		errorPopupLoginLayout.getBtnBack().setText(t.getString("button.back"));
 		errorPopupRegistrationLayout.getBtnBack().setText(t.getString("button.back"));
 		errorPopupStartGameLayout.getBtnBack().setText(t.getString("button.back"));
-		siegerPopupLayout.getBtnBack().setText(t.getString("button.back"));
+		siegerPopupLayout.getBtnBack().setText(t.getString("button.back.sieger"));
 		trumpfPopupLayout.getBtnHearts().setText(t.getString("button.hearts"));
 		trumpfPopupLayout.getBtnDiamonds().setText(t.getString("button.diamonds"));
 		trumpfPopupLayout.getBtnSpades().setText(t.getString("button.spades"));

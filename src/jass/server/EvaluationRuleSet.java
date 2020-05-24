@@ -2,6 +2,7 @@ package jass.server;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.logging.Logger;
@@ -14,7 +15,7 @@ import jass.commons.Wiis;
 //andere startRound karte hier kommt gameTyp rein, welcher ich in Trumpf übergeben muss
 //Allepunkte zusammenzählen für maxximale üunkte um spiel zu benden
 
-public class EvaluationRuleSet{ //implements Serializable
+public class EvaluationRuleSet implements Serializable { //
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
 	public String trumpf = "H"; //nicht mehr statisch

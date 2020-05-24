@@ -17,10 +17,9 @@ import jass.commons.Card;
 import jass.commons.ServiceLocator;
 import jass.message.Message;
 
-/* Playroom represents an abstract concept where players get together and start to play
- * Playrooms are created by a client and the client is the owner, only the owner can start the game
- * But in fact, only specific Gametypes can be created (Trumpf, Schieber etc.)
- * This concept contains all information, variables and methods that all the gametypes share
+/*
+ * Class developed by Jannick
+ * Some concepts are inspired by or according to Software Engineering Chat Project
  */
 
 public class Playroom implements Serializable {
@@ -327,9 +326,6 @@ public class Playroom implements Serializable {
 		this.gameRunning = gameStarted;
 	}
 
-//	public String getPlayerOnTurn() {
-//		return playerOnTurn;
-//	}
 
 	public void setPlayerOnTurn(String playerOnTurn) {
 		this.playerOnTurn = playerOnTurn;
@@ -397,12 +393,6 @@ public class Playroom implements Serializable {
 		return roundEnded;
 	}
 	
-//	public String getNinePlayerCards() {
-//		CardCreation cc = new CardCreation();
-//		String tableCardsAsString = cc.shuffledPlayerCards();
-//		return "AC|BD|8D|AC|BD|8D|3H|9J|D4";
-//		
-//	}
 	
 	
 	

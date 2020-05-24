@@ -1,5 +1,6 @@
 package jass.server;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
@@ -7,7 +8,7 @@ import jass.commons.Card;
 import jass.commons.ServiceLocator;
 import jass.commons.Trumpf;
 
-public class ServerTableCards {		
+public class ServerTableCards implements Serializable {		
 	
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
@@ -27,7 +28,7 @@ public class ServerTableCards {
 		return serverTableCards.size() != 0; 
 	}
 
-	public boolean isComplete() { // brauchts die hier???
+	public boolean isComplete() { 
 		return serverTableCards.size() == 4;
 	}
 	
@@ -40,9 +41,6 @@ public class ServerTableCards {
 		return Trumpf.getTrumpfPoints(serverTableCards, trumpf);
 	}
 	
-//	public int getPoints(String handType, String trumpf) {
-//		return Trumpf.getPoints(serverTableCards, handType, trumpf);
-//	}
 	
 	public Card getCard(int i) {
 		return serverTableCards.get(i);

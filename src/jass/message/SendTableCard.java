@@ -33,19 +33,13 @@ public class SendTableCard extends Message {
 			if(playroom != null) {
 				String[] content2 = new String[] {"ResultSendTableCard", Boolean.toString(result), tableCard};
 				client.send(new ResultSendTableCard(content2));	
-				if(!playroom.hasRoundEnded()) nextPlayer = playroom.getPlayerOnTurn(client.getName());
+				if(playroom.getPlayedCards() != playroom.getMembers().size()) nextPlayer = playroom.getPlayerOnTurn(client.getName());
 				String[] content = new String[] {"ResultBroadcastSendTableCard", client.getName(), this.tableCard, nextPlayer};
 				Message msg = new ResultBroadcastSendTableCard(content);
 				playroom.send(msg);
 
 				String clientCard = client.getName() + ":" + tableCard;
 				playroom.addClientCard(clientCard);
-//				try {
-//					Thread.sleep(2000);
-//				} catch (InterruptedException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
 			}
 		} else {
 			client.send(new ResultSendTableCard(result));	

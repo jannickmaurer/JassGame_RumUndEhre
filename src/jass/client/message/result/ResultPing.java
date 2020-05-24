@@ -36,7 +36,6 @@ public class ResultPing extends Message {
 	}
 	
 	public void processIfFalse(JassClientController jassClientController) {
-		// TODO Auto-generated method stub
 		
 	}
 }

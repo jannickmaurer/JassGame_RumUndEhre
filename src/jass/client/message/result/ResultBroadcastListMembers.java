@@ -35,13 +35,6 @@ public class ResultBroadcastListMembers extends Message {
 		controller.setMembers(members);
 		members.remove(controller.getAccount());
 		controller.createOtherPlayerPanes(members);
-//		controller.getView().getSpielraumLayout().clearOtherPlayerPaneList();
-//		for(int i = 0; i < members.size(); i++) {
-//			logger.info(members.toString());
-//			logger.info(members.get(i));
-//			controller.createOtherPlayerPane(members.size(), members.get(i));
-//			
-//		}
 	}
 
 	public void processIfFalse(JassClientController controller) {

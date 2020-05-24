@@ -286,11 +286,12 @@ public class SpielraumPane extends GridPane {
 	}
 	
 	public void clearPlayedCards() {
-		for(int i = 0; i < playedCardList.size(); i++) {
-			playedCardList.remove(i);
-//				CardLabel cl = (CardLabel) playedCardList.get(i);
-//				cl.setCard(null);
-		}
+		playedCards.getChildren().clear();
+//		for(int i = 0; i < playedCardList.size(); i++) {
+//			playedCardList.remove(i);
+////				CardLabel cl = (CardLabel) playedCardList.get(i);
+////				cl.setCard(null);
+//		}
 	}
 
 	public GridPane getPlayers() {

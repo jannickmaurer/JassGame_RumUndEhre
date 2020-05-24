@@ -79,6 +79,8 @@ public class JassClientController {
 	public JassClientController(JassClientModel model, JassClientView view) {
 		this.model = model;
 		this.view = view;
+		
+		this.board = new Board();
 
 		view.getBtnRun().setOnAction(event -> connect());
 		view.getBtnNewRegistration().setOnAction(event -> {
@@ -153,6 +155,9 @@ public class JassClientController {
 		});
 		view.getBtnBackSieger().setOnAction(e -> {
 			view.siegerPopUp.hide();
+			model.disconnect();
+			view.stop();
+			
 		});
 		view.getBtnBackStartGame().setOnAction(e -> {
 			view.startGamePopUp.hide();
@@ -168,8 +173,10 @@ public class JassClientController {
 			view.getStage().setTitle("Lobby");
 		});
 		view.getBtnStartGame().setOnAction(e -> {
-			if (!view.startGamePopUp.isShowing())
-				view.startGamePopUp.show(view.getStage());
+			startGame();
+//			view.gameTypePopup.show(view.getStage());
+//			if (!view.startGamePopUp.isShowing())
+//				view.startGamePopUp.show(view.getStage());
 		});
 
 		view.getBtnStartGamePopUp().setOnAction(e -> {
@@ -194,6 +201,7 @@ public class JassClientController {
 		});
 		view.getBtnTrumpf().setOnAction(e -> {
 			view.gameTypePopup.hide();
+//			startGame();
 			view.trumpfPopUp.show(view.getStage());
 		});
 		view.getBtnObeAbe().setOnAction(this::startRound);
@@ -215,11 +223,7 @@ public class JassClientController {
 				}
 			});
 		});
-
-//		model.getTokenProperty().addListener( (o, oldValue, newValue) -> {
-//			this.token = newValue;
-//		});
-
+		
 		model.getMessageProperty().addListener((o, oldValue, newValue) -> {
 			System.out.println("Läuft");
 
@@ -534,6 +538,8 @@ public class JassClientController {
 		}
 		model.startRound(gameType, additionalInfo);
 
+		
+		
 	}
 
 	private void sendTrumpf() {
@@ -557,7 +563,7 @@ public class JassClientController {
 	}
 
 	private void startGame() {
-		model.startGame(view.getTfPoints().getText());
+		model.startGame();
 	}
 
 	protected void leavePlayroonm() {
@@ -676,9 +682,7 @@ public class JassClientController {
 	public void startGameSuccess() {
 		Platform.runLater(new Runnable() {
 			public void run() {
-//				view.getLblWait().setText("");
 				view.gameTypePopup.show(view.getStage());
-//				view.trumpfPopUp.show(view.getStage());
 			}
 		});
 	}

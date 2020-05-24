@@ -9,7 +9,12 @@ import java.util.logging.Logger;
 import jass.commons.ServiceLocator;
 import jass.message.Message;
 
+/*
+ * Class developed by Jannick
+ * Some concepts are inspired by or according to Software Engineering Chat Project
+ */
 public class Chatroom implements Serializable {
+	
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
 	

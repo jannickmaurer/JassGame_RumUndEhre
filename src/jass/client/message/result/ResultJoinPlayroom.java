@@ -29,14 +29,12 @@ public class ResultJoinPlayroom extends Message {
 		if(content.length > 2) {
 			this.owner = content[2];
 			this.name = content[3];
-//			this.gameType = content[4];
 		}
 	}
 	
 	@Override
 	public void process(JassClientController controller) {
 		controller.setCurrentPlayroom(name);
-//		controller.setCurrentGameType(gameType);
 		controller.joinSuccess();
 		controller.playroomName(name);
 		controller.setOwner(owner);
@@ -45,7 +43,6 @@ public class ResultJoinPlayroom extends Message {
 	}
 	
 	public void processIfFalse(JassClientController controller) {
-		// TODO Auto-generated method stub
 		controller.somethingFailed();
 	}
 

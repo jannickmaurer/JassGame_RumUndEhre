@@ -7,6 +7,7 @@ import jass.client.controller.JassClientController;
 import jass.client.model.JassClientModel;
 import jass.commons.ServiceLocator;
 import jass.message.Message;
+import javafx.application.Platform;
 
 /*
  * Class developed by Jannick
@@ -31,12 +32,15 @@ public class ResultBroadcastSendPoints extends Message {
 	@Override
 	public void process(JassClientController controller) {
 		controller.addPoints(username, Integer.parseInt(points));
-		controller.getView().getSpielraumLayout().clearPlayedCards();
-//		controller.getBoard()
-//		controller.setPlayerOnTurn(username);
-		controller.setCardFree(username);
-//		controller.setPlayerToStartRound(username);
-		
+		controller.getBoard().getTableCards().clearTableCards();
+		controller.setPlayerOnTurn(username);
+		Platform.runLater(new Runnable() {
+			public void run() {
+				String win = controller.getView().getLblWinner().getText() + "\n" + username;
+				controller.getView().getLblWinner().setText(win);
+				controller.getView().getSiegerPopUp().show(controller.getView().getStage());
+			}
+		});
 	}
 
 	public void processIfFalse(JassClientController controller) {

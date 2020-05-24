@@ -22,38 +22,20 @@ public class StartGame extends Message {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
 	private String token;
-	private String maxPoints;
 
 	public StartGame(String[] content) {
 		super(content);	
 		this.token = content[1];
-		this.maxPoints = content[2];
 	}
 
 	@Override
 	public void process(Client client) {
 		boolean result = false;
-		client.getPlayroom().setMaxPoints(Integer.parseInt(maxPoints));
 		Playroom playroom = client.getPlayroom();
 		if(this.token.equals(client.getToken())) {
 			
 			if(client.getPlayroom().getOwner().equals(client.getName())) {
-				result = true;
-				client.send(new ResultStartGame(result));
-				client.getPlayroom().startGame();
-				String[] content = new String[] {"ResultBroadcastStartGame", Integer.toString(client.getPlayroom().getMaxPoints())};
-				client.getPlayroom().send(new ResultBroadcastStartGame(content));
 				
-//				
-				
-				
-				try {
-					Thread.sleep(2000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-//				
 				CardCreation cc = new CardCreation();
 				for(String s : playroom.getMembers()) {
 					System.out.println(s);
@@ -63,12 +45,19 @@ public class StartGame extends Message {
 					Client.getClient(s).send(msg);
 					Client.getClient(s).getAccount().setCurrentPlayerCards(tableCardsAsString);	
 				}
-//				try {
-//					Thread.sleep(1000);
-//				} catch (InterruptedException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
+				
+				try {
+					Thread.sleep(4000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				
+				result = true;
+				client.send(new ResultStartGame(result));
+				client.getPlayroom().startGame();
+				String[] content = new String[] {"ResultBroadcastStartGame", Integer.toString(client.getPlayroom().getMaxPoints())};
+				client.getPlayroom().send(new ResultBroadcastStartGame(content));
+				
 				
 			}
 		} else {

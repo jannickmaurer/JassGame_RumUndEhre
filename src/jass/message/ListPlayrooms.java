@@ -34,14 +34,6 @@ public class ListPlayrooms extends Message {
 			String[] content = this.combineArrayAndArrayList(temp, Playroom.getPlayroomNames());
 			client.send(new ResultListPlayrooms(content));
 			
-//			ArrayList<String> names = new ArrayList<>();
-//			for(Playroom p : Playroom.getPlayrooms()) {
-//				names.add(p.getName());
-//			}
-//			result = true;
-//			String content = this.combineArrayAndArrayList(array, list)
-////			String[] content = new String[] {"ResultListPlayrooms", Boolean.toString(result)};
-//			client.send(new ResultPing(content, names));
 		} else {
 			client.send(new ResultListPlayrooms(result));
 		}

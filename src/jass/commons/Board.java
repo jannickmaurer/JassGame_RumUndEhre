@@ -31,6 +31,14 @@ public class Board {
 		this.playedCards = 0;
 		this.playableHandCards = new PlayableHandCards();
 	}
+	
+	public Board() {
+		this.handCards = new HandCards();
+		this.tableCards = new TableCards();
+//		this.gameTyp = gameTyp;
+		this.playedCards = 0;
+		this.playableHandCards = new PlayableHandCards();
+	}
 
 	public void shuffledCardListener(String newHandCards) {
 		ArrayList<Card> tempHandCards = new ArrayList<>();
@@ -186,5 +194,9 @@ public class Board {
 		for(String m : members) {
 			this.members.add(m);
 		}
+	}
+	
+	public TableCards getTableCards() {
+		return this.tableCards;
 	}
 }

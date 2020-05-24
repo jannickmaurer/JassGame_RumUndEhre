@@ -16,37 +16,29 @@ import jass.message.Message;
 public class ResultShuffle extends Message {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
-	private String handCardsAsString; 
+	private String handCardsAsString;
 	private ArrayList<String> tableCards;
 
 	public ResultShuffle(boolean result) {
-		super(new String[] {"ResultShuffle", Boolean.toString(result)});
+		super(new String[] { "ResultShuffle", Boolean.toString(result) });
 	}
+
 	public ResultShuffle(String[] content) {
 		super(content);
-		if(content.length > 1) {
+		if (content.length > 1) {
 			this.handCardsAsString = content[1];
-			for(int i = 2; i < content.length; i++)
-			this.handCardsAsString += "|" + content[i];
+			for (int i = 2; i < content.length; i++)
+				this.handCardsAsString += "|" + content[i];
 		}
 	}
-	
+
 	@Override
 	public void process(JassClientController controller) {
-//		String[] temp = tableCardsAsString.split("\\|");
-//		for (int i = 0; i < temp.length; i++) {
-//			temp[i] = temp[i].trim();
-//		}
-//		for (int i = 0; i < temp.length; i++) {
-//			tableCards.add(temp[i]);
-//		}
 		controller.getBoard().shuffledCardListener(handCardsAsString);
 		controller.updatePlayerPane();
 	}
-	
+
 	public void processIfFalse(JassClientController controller) {
-		// TODO Auto-generated method stub
 		controller.somethingFailed();
 	}
 }
-

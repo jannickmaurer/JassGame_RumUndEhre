@@ -17,7 +17,7 @@ import jass.commons.ServiceLocator;
 
 /*
  * Class developed by Jannick
- * Some concepts are inspired by 
+ * Some concepts are inspired by or according to Software Engineering Chat Project
  */
 public class Account implements Serializable {
 

@@ -6,9 +6,10 @@ import java.net.Socket;
 import java.util.logging.Logger;
 
 import jass.commons.ServiceLocator;
-
-// ListenerThread is for building a connection to the client
-
+/*
+ * Class developed by Jannick
+ * Some concepts are inspired by or according to Software Engineering Chat Project
+ */
 public class ListenerThread extends Thread {
 	private final ServerSocket listener;
 	private final int port;

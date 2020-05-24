@@ -1,6 +1,8 @@
 package jass.server;
 
 import java.io.IOException;
+
+
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.logging.Logger;
@@ -8,6 +10,10 @@ import java.util.logging.Logger;
 import jass.commons.ServiceLocator;
 import jass.message.Message;
 
+/*
+ * Class developed by Jannick
+ * Some concepts are inspired by or according to Software Engineering Chat Project
+ */
 public class Client {
 	
 	private static final ArrayList<Client> clients = new ArrayList<>();
@@ -34,13 +40,11 @@ public class Client {
 						// New Message object with static method receive
 						Message msg = Message.receive(socket);
 						
-						// if msg != null -> static method process from class Message
 						if(msg != null) {
 							logger.info("Server received message: " + msg.toString());
 							msg.process(Client.this);
 						} else {
 							logger.info("Empty Message");
-							//TBD: Send new Errormessage
 						}
 					}
 				} catch (Exception e) {
