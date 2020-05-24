@@ -66,6 +66,7 @@ public class EvaluationRuleSet{ //implements Serializable
 	}
 
 	public int pointsForWinner() {
+		logger.info("get points for: " + gameType + " " + trumpf);
 		if ((playedRounds % 9) != 0) {//evtl modulo falls nach einer rund emit 9 karten danach weiter gezählt wird
 			switch(gameType) {
 			case("Trumpf"): return serverTableCards.getTrumpfPoints(trumpf);

@@ -42,9 +42,6 @@ public class ResultShuffle extends Message {
 //		}
 		controller.getBoard().shuffledCardListener(handCardsAsString);
 		controller.updatePlayerPane();
-
-		
-
 	}
 	
 	public void processIfFalse(JassClientController controller) {

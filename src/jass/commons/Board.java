@@ -142,8 +142,12 @@ public class Board {
 				}
 			}
 		} 
+<<<<<<< HEAD
 		
 		
+=======
+		logger.info("Play: " + playableHandCards + "  " + gameTyp + "  " + trumpf);
+>>>>>>> branch 'master' of https://github.com/jannickmaurer/JassGame_RumUndEhre.git
 	}
 
 //	private void selectGameVariety() {
@@ -194,6 +198,7 @@ public class Board {
 		if(playedCards == members.size()) {
 			playedCards = 0;
 			tableCards.clearTableCards();
+			logger.info("TableCards cleared");
 		}
 	}
 	
@@ -211,6 +216,7 @@ public class Board {
 		//momentan nicht verwendet, die anderen drei unten auch nicht
 		return playableCards;
 	}
+	
 
 	public void setPlayableCards(String playableCards) {
 		this.playableCards = playableCards;
