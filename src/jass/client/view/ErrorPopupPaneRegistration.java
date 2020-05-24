@@ -1,3 +1,5 @@
+//Geschrieben von Samuel David
+
 package jass.client.view;
 
 import javafx.geometry.Pos;
