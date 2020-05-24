@@ -1,5 +1,9 @@
 package jass.client.view;
 
+import java.util.ArrayList;
+
+import jass.client.HandCards;
+import jass.commons.Card;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBase;
@@ -21,6 +25,7 @@ import javafx.scene.text.Text;
 public class OtherPlayerPane extends VBox {
 	private JassClientView view;
 	
+	String username;
 	Label lblName = new Label("Name");
     Label lblPoints = new Label("Punkte");
     Circle crcPlayer = new Circle();
@@ -31,9 +36,11 @@ public class OtherPlayerPane extends VBox {
     // Link to player object
 //---> anpassen:        private Player player;
     
-    public OtherPlayerPane() {
-        super(); // Always call super-constructor first !!
+    public OtherPlayerPane(String username) {
+    	super(); // Always call super-constructor first !!
         
+    	this.username = username;
+    	
         pointsGrid.add(lblPoints, 0,0);
         pointsGrid.add(lblPointsPlayer, 2,0);
         pointsGrid.setAlignment(Pos.CENTER);
@@ -43,7 +50,9 @@ public class OtherPlayerPane extends VBox {
         crcPlayer.setRadius(20.0f);
         Image img = new Image("/jass/image/Profile_Symbol.png");
         crcPlayer.setFill(new ImagePattern(img));
-        
+        lblName.setVisible(true);
+        crcPlayer.setVisible(true);
+        pointsGrid.setVisible(true);
         this.getChildren().addAll(lblName, crcPlayer, pointsGrid);
         
         this.setId("playerArea");     
@@ -54,10 +63,42 @@ public class OtherPlayerPane extends VBox {
 //---> anpassen:           	updatePlayerDisplay(); // Immediately display the player information
 //---> anpassen:           }
     
-//---> anpassen:            public void updatePlayerDisplay() {
-//---> anpassen:            	lblName.setText(player.getPlayerName());
-//---> anpassen:            }
-    
+    public void updatePlayerDisplay() {
+    	
+		}
+
+	public Label getLblName() {
+		return lblName;
+	}
+
+	public void setLblName(Label lblName) {
+		this.lblName = lblName;
+	}
+	
+	public String getUsername() {
+		return this.username;
+	}
+
+	public Label getLblPoints() {
+		return lblPoints;
+	}
+
+	public void setLblPoints(Label lblPoints) {
+		this.lblPoints = lblPoints;
+	}
+
+	public Label getLblPointsPlayer() {
+		return lblPointsPlayer;
+	}
+
+	public void setLblPointsPlayer(Label lblPointsPlayer) {
+		this.lblPointsPlayer = lblPointsPlayer;
+	}
+	
+	
+	
+	
+	
 //---> anpassen:            public void updatePointsLabel() {
 //---> anpassen:           	lblPointsPlayer.setText(Integer.toString(Integer.parseInt(lblPointsPlayer.getText()) + 1)); 	
 //---> anpassen:          }

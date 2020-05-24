@@ -1,11 +1,23 @@
 package jass.server;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import jass.commons.Card;
+<<<<<<< HEAD
+=======
+import jass.commons.Cards;
+import jass.commons.ServiceLocator;
+>>>>>>> branch 'master' of https://github.com/jannickmaurer/JassGame_RumUndEhre.git
 import jass.commons.Trumpf;
 
+<<<<<<< HEAD
 public class ServerTableCards {
+=======
+public class ServerTableCards extends Cards{
+	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
+	private static Logger logger = sl.getServerLogger();
+>>>>>>> branch 'master' of https://github.com/jannickmaurer/JassGame_RumUndEhre.git
 
 	ArrayList<Card> serverTableCards = new ArrayList<>();
 	ArrayList<String> usernames = new ArrayList<>();
@@ -26,6 +38,7 @@ public class ServerTableCards {
 		return serverTableCards.size() == 4;
 	}
 	
+
 	public int getPoints(String handType) {
 		return Trumpf.getPoints(serverTableCards, handType);
 	}

@@ -35,6 +35,8 @@ public class PlayerPane extends VBox {
 
 	private GridPane pointsGrid = new GridPane();
 	private Label lblPointsPlayer = new Label("0");
+	
+	private ArrayList<CardLabel> cardLabels;
 
 	Rectangle card1 = new Rectangle();
 	Rectangle card2 = new Rectangle();
@@ -59,12 +61,14 @@ public class PlayerPane extends VBox {
 		pointsGrid.setAlignment(Pos.CENTER);
 		pointsGrid.setHgap(20);
 		// Add child nodes
+		cardLabels = new ArrayList<>();
 
 		// Add CardLabels for the cards
 		for (int i = 0; i < 9; i++) {
-			Label lblCard = new CardLabel();
-			hboxCards.getChildren().add(lblCard);
+			CardLabel cl = new CardLabel();
+			hboxCards.getChildren().add(cl);
 			hboxCards.setSpacing(10);
+			cardLabels.add(cl);
 		}
 
 		hboxCards.setId("HBox");
@@ -79,6 +83,14 @@ public class PlayerPane extends VBox {
 	// information
 	// ---> anpassen: }
 
+	public Label getLblName() {
+		return lblName;
+	}
+
+	public void setLblName(Label lblName) {
+		this.lblName = lblName;
+	}
+
 	public void updatePlayerDisplay(HandCards handCards) {
 		// ---> anpassen: lblName.setText(player.getPlayerName());
 		ArrayList<Card> handCardsList = new ArrayList<>();
@@ -91,7 +103,7 @@ public class PlayerPane extends VBox {
 			CardLabel cl = (CardLabel) hboxCards.getChildren().get(i);
 			cl.setCard(handCardsList.get(i));
 			cl.setCardNameAsString(handCardsList.get(i).toString());
-
+			
 		}
 		
 		
@@ -99,6 +111,23 @@ public class PlayerPane extends VBox {
 //		hboxCards.getChildren().add(new Button("Hallo"));
 
 	}
+
+	public Label getLblPointsPlayer() {
+		return lblPointsPlayer;
+	}
+
+	public void setLblPointsPlayer(Label lblPointsPlayer) {
+		this.lblPointsPlayer = lblPointsPlayer;
+	}
+
+	public ArrayList<CardLabel> getCardLabels() {
+		return cardLabels;
+	}
+
+	public void setCardLabels(ArrayList<CardLabel> cardLabels) {
+		this.cardLabels = cardLabels;
+	}
+	
 
 	// ---> anpassen: public void updatePointsLabel() {
 	// ---> anpassen:

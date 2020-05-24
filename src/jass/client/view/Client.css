@@ -50,6 +50,12 @@
 	-fx-background-color: rgba(255, 236, 111, 1);
 }
 
+#GInfo {
+	-fx-padding: 5 5 5 5;
+	-fx-spacing: 5;
+	-fx-background-color: rgba(255, 236, 111, 1);
+}
+
 #VBoxP1 {
 	-fx-alignment: center;
 	-fx-spacing: 0;
@@ -233,7 +239,7 @@
 }
 
 #Card{
-	-fx-opacity:0.9;
+	-fx-opacity:1;
 }
 
 #Card:disabled{

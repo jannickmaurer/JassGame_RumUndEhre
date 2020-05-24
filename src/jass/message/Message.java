@@ -75,6 +75,7 @@ public abstract class Message {
 			if (content[0].equals("SendTableCard")) msg = new SendTableCard(content);
 			if (content[0].equals("Disconnect")) msg = new Disconnect(content);
 			if (content[0].equals("SendTrumpf")) msg = new SendTrumpf(content);
+			if (content[0].equals("StartRound")) msg = new StartRound(content);
 
 //			if (content[0].equals("ResultPing")) msg = new ResultPing(content); 
 //			if (content[0].equals("ResultLogin")) msg = new ResultLogin(content);
@@ -89,11 +90,6 @@ public abstract class Message {
 //			if (content[0].equals("ResultBroadcastSendMessage")) msg = new ResultBroadcastSendMessage(content);
 //			if (content[0].equals("ResultLeavePlayroom")) msg = new ResultLeavePlayroom(content);
 
-
-			
-			
-
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -133,6 +129,7 @@ public abstract class Message {
 
 
 	public void process(JassClientController jassClientController) {
+		
 	}
 
 

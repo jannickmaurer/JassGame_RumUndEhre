@@ -28,7 +28,8 @@ public class ResultBroadcastStartRound extends Message {
 	@Override
 	public void process(JassClientController controller) {
 		controller.setCurrentGameType(gameType);
-		controller.getBoard().setTrumpf(trumpf);
+		if(gameType.equals("Trumpf")) controller.getBoard().setTrumpf(trumpf);
+		controller.trumpf(trumpf);
 	}
 
 	public void processIfFalse(JassClientController controller) {

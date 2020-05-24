@@ -25,6 +25,7 @@ public class ResultBroadcastStartGame extends Message {
 	@Override
 	public void process(JassClientController controller) {
 		controller.createBoard();
+		controller.maxPoints(maxPoints);
 	}
 
 	public void processIfFalse(JassClientController controller) {

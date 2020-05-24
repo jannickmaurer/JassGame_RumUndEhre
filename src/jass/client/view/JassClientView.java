@@ -55,8 +55,9 @@ public class JassClientView {
 	public SiegerPopupPane siegerPopupLayout = new SiegerPopupPane();
 	public TrumpfPopupPane trumpfPopupLayout = new TrumpfPopupPane();
 	public WyssPopupPane wyssPopupLayout = new WyssPopupPane();
-	public OtherPlayerPane otherPlayerLayout = new OtherPlayerPane();
-	public PlayerPane playerPane = new PlayerPane();
+	//public OtherPlayerPane otherPlayerLayout = new OtherPlayerPane(null);
+	public GameTypePopupPane gameTypePopupLayout = new GameTypePopupPane();
+
 	
 	public Popup profilPopUp = new Popup();
 	public Popup createSpielraumPopUp = new Popup();
@@ -65,6 +66,7 @@ public class JassClientView {
 	public Popup siegerPopUp = new Popup();
 	public Popup trumpfPopUp = new Popup();
 	public Popup wyssPopUp = new Popup();
+	public Popup gameTypePopup = new Popup();
 	
 	Label lblPort = connectLayout.lblPort;
 	Label lblIP = connectLayout.lblIP;
@@ -115,7 +117,7 @@ public class JassClientView {
 	Label lblWinner = siegerPopupLayout.lblWinner;
 	Button btnBackSieger = siegerPopupLayout.btnBack;
 	
-	Label lblPointsOtherPlayer = otherPlayerLayout.lblPoints;
+	//Label lblPointsOtherPlayer = otherPlayerLayout.lblPoints;
 	
 	Label lblChat = spielraumLayout.lblChat;
 	Label lblWait = spielraumLayout.lblWait;
@@ -126,6 +128,12 @@ public class JassClientView {
     Rectangle cardP1 = spielraumLayout.cardP1;
 	Button btnLeave = spielraumLayout.btnLeave;
 	Button btnStartGame = spielraumLayout.btnStartGame;
+	Label lblPlayroom = spielraumLayout.lblPlayroom;
+	Label lblPlayroomName = spielraumLayout.lblPlayroomName;
+	Label lblPointsGoal = spielraumLayout.lblPointsGoal;
+	Label lblPointsGoalIs = spielraumLayout.lblPointsGoalIs;
+	Label lblTrumpf = spielraumLayout.lblTrumpf;
+	Label lblTrumpfIs = spielraumLayout.lblTrumpfIs;
 	
 	Label lblPointsLimit = startGamePopupLayout.lblPointsLimit;
 	Button btnBackStartGame = startGamePopupLayout.btnBack;
@@ -138,6 +146,14 @@ public class JassClientView {
 	Button btnSpades = trumpfPopupLayout.btnSpades;
 	Button btnClubs = trumpfPopupLayout.btnClubs;
 	Button btnPush = trumpfPopupLayout.btnPush;
+	
+	// Initialize GameTypePopup Buttons
+	private Button btnTrumpf = gameTypePopupLayout.btnTrumpf;
+	private Button btnUndeUfe = gameTypePopupLayout.btnUndeUfe;
+	private Button btnObeAbe = gameTypePopupLayout.btnObeAbe;
+	private Button btnSlalomUndeUfe = gameTypePopupLayout.btnSlalomUndeUfe;
+	private Button btnSlalomObeAbe = gameTypePopupLayout.btnObeAbe;
+	
 	
 	Label lblWyss = wyssPopupLayout.lblWyss;
 	Button btnWyss = wyssPopupLayout.btnWyss;
@@ -279,6 +295,9 @@ public class JassClientView {
 		trumpfPopUp.getContent().add(trumpfPopupLayout);
 		trumpfPopUp.setAutoHide(false);
 		
+		gameTypePopup.getContent().add(gameTypePopupLayout);
+		gameTypePopup.setAutoHide(false);
+		
 		wyssPopUp.getContent().add(wyssPopupLayout);
 		wyssPopUp.setAutoHide(false);
 		
@@ -353,9 +372,12 @@ public class JassClientView {
 		registrationLayout.tfNewUsername.setPromptText(t.getString("label.username"));
 		registrationLayout.pfNewPassword.setPromptText(t.getString("label.password"));
 		spielraumPopupLayout.tfSpielraumName.setPromptText(t.getString("label.spielraumname"));
-		otherPlayerLayout.lblPoints.setText(t.getString("label.points"));
+		//otherPlayerLayout.lblPoints.setText(t.getString("label.points"));
 		spielraumLayout.lblChat.setText(t.getString("label.chat"));
 		spielraumLayout.lblWait.setText(t.getString("label.wait"));
+		spielraumLayout.lblPlayroom.setText(t.getString("label.spielraumname"));
+		spielraumLayout.lblPointsGoal.setText(t.getString("label.limit"));
+		spielraumLayout.lblTrumpf.setText(t.getString("label.trumpf"));
 		startGamePopupLayout.lblPointsLimit.setText(t.getString("label.limit"));
 		errorPopupLayout.lblError.setText(t.getString("label.error"));
 		siegerPopupLayout.lblWinner.setText(t.getString("label.winner"));
@@ -398,6 +420,12 @@ public class JassClientView {
 		trumpfPopupLayout.btnSpades.setText(t.getString("button.spades"));
 		trumpfPopupLayout.btnClubs.setText(t.getString("button.clubs"));
 		trumpfPopupLayout.btnPush.setText(t.getString("button.push"));
+		gameTypePopupLayout.btnObeAbe.setText(t.getString("button.obeAbe"));
+		gameTypePopupLayout.btnUndeUfe.setText(t.getString("button.undeUfe"));
+		gameTypePopupLayout.btnTrumpf.setText(t.getString("button.trumpf"));
+		gameTypePopupLayout.btnSlalomUndeUfe.setText(t.getString("button.slalomUndeUfe"));
+		gameTypePopupLayout.btnSlalomObeAbe.setText(t.getString("button.slalomObeAbe"));
+
     }
 	
 	public Stage getStage() {
@@ -408,9 +436,7 @@ public class JassClientView {
 		return root;
 	}
 	
-	public PlayerPane getPlayerPane() {
-		return playerPane;
-	}
+	
 	
 	public TextField getTfPort() {
 		return tfPort;
@@ -806,6 +832,48 @@ public class JassClientView {
 		this.btnWyss = btnWyss;
 	}
 	
+	
+	
+	public Button getBtnTrumpf() {
+		return btnTrumpf;
+	}
+
+	public void setBtnTrumpf(Button btnTrumpf) {
+		this.btnTrumpf = btnTrumpf;
+	}
+
+	public Button getBtnUndeUfe() {
+		return btnUndeUfe;
+	}
+
+	public void setBtnUndeUfe(Button btnUndeUfe) {
+		this.btnUndeUfe = btnUndeUfe;
+	}
+
+	public Button getBtnObeAbe() {
+		return btnObeAbe;
+	}
+
+	public void setBtnObeAbe(Button btnObeAbe) {
+		this.btnObeAbe = btnObeAbe;
+	}
+
+	public Button getBtnSlalomUndeUfe() {
+		return btnSlalomUndeUfe;
+	}
+
+	public void setBtnSlalomUndeUfe(Button btnSlalomUndeUfe) {
+		this.btnSlalomUndeUfe = btnSlalomUndeUfe;
+	}
+
+	public Button getBtnSlalomObeAbe() {
+		return btnSlalomObeAbe;
+	}
+
+	public void setBtnSlalomObeAbe(Button btnSlalomObeAbe) {
+		this.btnSlalomObeAbe = btnSlalomObeAbe;
+	}
+
 	public Button getBtnNoWyss() {
 		return btnNoWyss;
 	}
@@ -813,6 +881,8 @@ public class JassClientView {
 	public void setBtnNoWyss(Button btnNoWyss) {
 		this.btnNoWyss = btnNoWyss;
 	}
+	
+	
 
 	public Rectangle getCardP1() {
 		return cardP1;
@@ -839,5 +909,53 @@ public class JassClientView {
 		this.spielraumLayout = spielraumLayout;
 	}
 
+	public Label getLblPlayroom() {
+		return lblPlayroom;
+	}
+
+	public void setLblPlayroom(Label lblPlayroom) {
+		this.lblPlayroom = lblPlayroom;
+	}
+
+	public Label getLblPlayroomName() {
+		return lblPlayroomName;
+	}
+
+	public void setLblPlayroomName(Label lblPlayroomName) {
+		this.lblPlayroomName = lblPlayroomName;
+	}
+
+	public Label getLblPointsGoal() {
+		return lblPointsGoal;
+	}
+
+	public void setLblPointsGoal(Label lblPointsGoal) {
+		this.lblPointsGoal = lblPointsGoal;
+	}
+
+	public Label getLblPointsGoalIs() {
+		return lblPointsGoalIs;
+	}
+
+	public void setLblPointsGoalIs(Label lblPointsGoalIs) {
+		this.lblPointsGoalIs = lblPointsGoalIs;
+	}
+
+	public Label getLblTrumpf() {
+		return lblTrumpf;
+	}
+
+	public void setLblTrumpf(Label lblTrumpf) {
+		this.lblTrumpf = lblTrumpf;
+	}
+
+	public Label getLblTrumpfIs() {
+		return lblTrumpfIs;
+	}
+
+	public void setLblTrumpfIs(Label lblTrumpfIs) {
+		this.lblTrumpfIs = lblTrumpfIs;
+	}
+	
 }
 

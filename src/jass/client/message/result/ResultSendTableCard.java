@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import jass.client.controller.JassClientController;
 import jass.client.model.JassClientModel;
+import jass.commons.Card;
 import jass.commons.ServiceLocator;
 import jass.message.Message;
 
@@ -23,12 +24,13 @@ public class ResultSendTableCard extends Message {
 	
 	public ResultSendTableCard(String[] content) {
 		super(content);
-		this.playedCard = content[2];
+		if(content.length > 2) this.playedCard = content[2];
 	}
 	
 	@Override
 	public void process(JassClientController controller) {
-		
+		controller.getBoard().removeHandCard(new Card(playedCard));
+		controller.updatePlayerPane();
 	}
 
 	public void processIfFalse(JassClientController controller) {

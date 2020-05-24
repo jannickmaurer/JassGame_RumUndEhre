@@ -17,25 +17,20 @@ import jass.message.Message;
 public class ResultBroadcastSendPoints extends Message {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
-	private String currentLeader;
-	private ArrayList<String> players;
-	private ArrayList<Integer> points;
+	private String username;
+	private String points;
 
 	public ResultBroadcastSendPoints(String[] content) {
 		super(content);
 		if(content.length > 1) {
-			this.currentLeader = content[1];
-			for(int i = 2; i < content.length; i++) {
-				String[] temp = content[i].split("\\:");
-				players.add(temp[0]);
-				points.add(Integer.parseInt(temp[1]));
-			}
+			this.username = content[1];
+			this.points = content[2];
 		}
 	}
 	
 	@Override
 	public void process(JassClientController controller) {
-		
+		controller.addPoints(username, Integer.parseInt(points));
 	}
 
 	public void processIfFalse(JassClientController controller) {
