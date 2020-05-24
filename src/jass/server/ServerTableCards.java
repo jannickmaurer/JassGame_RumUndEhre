@@ -2,16 +2,16 @@ package jass.server;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.logging.Logger;
-
 import jass.commons.Card;
-import jass.commons.ServiceLocator;
 import jass.commons.Trumpf;
 
 public class ServerTableCards implements Serializable {		
 	
-	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
-	private static Logger logger = sl.getServerLogger();
+/**
+ * David Schürch
+ * Getter und Setter Methoden für die Übergabe von Karten an die ArrayList.
+ */
+
 
 	ArrayList<Card> serverTableCards = new ArrayList<>();
 	ArrayList<String> usernames = new ArrayList<>();

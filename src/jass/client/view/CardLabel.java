@@ -1,3 +1,5 @@
+//Geschrieben von Samuel David und Jannick Maurer
+
 package jass.client.view;
 
 import javafx.scene.control.Label;

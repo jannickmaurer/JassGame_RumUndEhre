@@ -1,24 +1,22 @@
 package jass.client;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.logging.Logger;
-
-
 import jass.commons.Card;
 import jass.commons.Card.Suit;
 import jass.commons.ServiceLocator;
 import jass.commons.Trumpf;
+
+/**
+ * David Schürch
+ * Getter und Setter Methoden für Trumpf
+ */
 
 public class HandCards {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
 
 	ArrayList<Card> handCards = new ArrayList<Card>();
-//	ArrayList<Card> remainingHandCards = new ArrayList<Card>();
-//	ArrayList<Card> startHandCards = new ArrayList<Card>();
-	ArrayList<Card> playableHandCards = new ArrayList<Card>();
 	
 	public void cardPlayed(Card card) {
 		for (int i = 0; i < handCards.size(); i++) {
@@ -27,10 +25,6 @@ public class HandCards {
 		logger.info("Remove card: " + card.toString());
 		handCards.removeIf(i -> i.toString().equals(card.toString()));
 		logger.info("Remaining HandCards in Handcards: " + handCards.toString() );
-	}
-
-	public void clearPlayableHandCards() {
-		playableHandCards.clear();
 	}
 	
 	public ArrayList<Card> getCardHigherThanStich(Card stichCard){ 
@@ -47,15 +41,6 @@ public class HandCards {
 
 	public void setHandCards(ArrayList<Card> handCards) {
 		this.handCards = Trumpf.sortHandCards(handCards);
-	}
-
-	public ArrayList<Card> getPlayableHandCards() {
-		return playableHandCards;
-	}
-
-	public void setPlayableHandCards(ArrayList<Card> playableHandCards) {
-		for(Card card : playableHandCards)
-		this.playableHandCards.add(card);
 	}
 	
 	public void add(Card card) {
@@ -82,10 +67,6 @@ public class HandCards {
 	public Card getCard(int i) {
 		return handCards.get(i);
 	}	
-	
-	public boolean hasPlayableCards() {
-		return playableHandCards.size() != 0; 
-	}
 	
 	public Trumpf evaluateTrumpf() {
 		return Trumpf.evaluateTrumpf(handCards);

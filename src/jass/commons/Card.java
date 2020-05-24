@@ -1,20 +1,17 @@
 package jass.commons;
 
-import java.util.ArrayList;
-import java.util.Locale;
-
-import jass.client.TableCards;
 import jass.commons.Card;
-import jass.commons.Card.Rank;
-import jass.commons.Card.Suit;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+
+/**
+ * David Schürch
+ * Klasse übernommen von PokerGame, leichte individuelle Anpassungen
+ */
 
 public class Card implements Comparable<Card>{
 	
 
     public enum Suit { Clubs, Diamonds, Hearts, Spades;
-        @Override        
+              
         public String toString() {
             String suit = "";
             switch (this) {
@@ -28,7 +25,7 @@ public class Card implements Comparable<Card>{
     }
     
     public enum Rank { Six, Seven, Eight, Nine, Ten, Jack, Queen, King, Ace;
-        @Override
+        
         public String toString() {
             String str = "";
             int ordinal = this.ordinal();
@@ -74,8 +71,7 @@ public class Card implements Comparable<Card>{
     		case('H'): suit = Suit.Hearts; break;
     		case('S'): suit = Suit.Spades; break;
     	}
-  //      this.suit = suit;
-    }
+      }
   
     public void setRank() {
     	switch(shortForm.charAt(1)){
@@ -89,7 +85,6 @@ public class Card implements Comparable<Card>{
     		case('K'): rank = Rank.King; break;
     		case('A'): rank = Rank.Ace; break;
     	}
- //   	this.rank = rank;
     }
 
     public String toString() {
@@ -104,6 +99,5 @@ public class Card implements Comparable<Card>{
 			} 
 		return 0;
 	}
-
 }
 

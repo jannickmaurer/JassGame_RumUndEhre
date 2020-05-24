@@ -189,7 +189,7 @@ public class JassClientController {
 		view.getBtnDiamonds().setOnAction(this::startRound);
 		view.getBtnSpades().setOnAction(this::startRound);
 		view.getBtnClubs().setOnAction(this::startRound);
-		view.getBtnPush().setOnAction(this::startRound);
+		//view.getBtnPush().setOnAction(this::startRound);
 
 		view.getBtnWyss().setOnAction(e -> {
 //			view.wyssPopUp.hide();
@@ -204,10 +204,6 @@ public class JassClientController {
 //			startGame();
 			view.trumpfPopUp.show(view.getStage());
 		});
-		view.getBtnObeAbe().setOnAction(this::startRound);
-		view.getBtnUndeUfe().setOnAction(this::startRound);
-		view.getBtnSlalomObeAbe().setOnAction(this::startRound);
-		view.getBtnSlalomUndeUfe().setOnAction(this::startRound);
 
 		view.getBtnSend().setOnAction(e -> {
 //			sendTableCard();
@@ -514,18 +510,18 @@ public class JassClientController {
 	private void startRound(Event event) {
 		String gameType = null;
 		String additionalInfo = null;
-		if (event.getSource() == view.getBtnObeAbe())
-			gameType = "ObeAbe";
-		if (event.getSource() == view.getBtnUndeUfe())
-			gameType = "UndeUfe";
-		if (event.getSource() == view.getBtnSlalomObeAbe()) {
-			gameType = "Slalom";
-			additionalInfo = "ObeAbe";
-		}
-		if (event.getSource() == view.getBtnSlalomUndeUfe()) {
-			gameType = "Slalom";
-			additionalInfo = "UndeUfe";
-		} else {
+		//if (event.getSource() == view.getBtnObeAbe())
+		//	gameType = "ObeAbe";
+		//if (event.getSource() == view.getBtnUndeUfe())
+		//	gameType = "UndeUfe";
+		//if (event.getSource() == view.getBtnSlalomObeAbe()) {
+		//	gameType = "Slalom";
+		//	additionalInfo = "ObeAbe";
+		//}
+		//if (event.getSource() == view.getBtnSlalomUndeUfe()) {
+		//	gameType = "Slalom";
+		//	additionalInfo = "UndeUfe";
+		//} else {
 			gameType = "Trumpf";
 			if (event.getSource() == view.getBtnHearts())
 				additionalInfo = "H";
@@ -536,11 +532,12 @@ public class JassClientController {
 			if (event.getSource() == view.getBtnSpades())
 				additionalInfo = "S";
 		}
-		model.startRound(gameType, additionalInfo);
+//		model.startRound(gameType, additionalInfo);
 
 		
 		
-	}
+	
+
 
 	private void sendTrumpf() {
 		model.sendTrumpf("Hearts");

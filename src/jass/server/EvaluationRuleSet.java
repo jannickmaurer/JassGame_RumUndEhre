@@ -1,39 +1,39 @@
 package jass.server;
 
+//<<<<<<< HEAD
 import static org.junit.Assert.assertNotNull;
 
 import java.io.Serializable;
 import java.lang.reflect.Array;
+//=======
+//>>>>>>> branch 'master' of https://github.com/jannickmaurer/JassGame_RumUndEhre.git
 import java.util.ArrayList;
 import java.util.logging.Logger;
-
 import jass.commons.Card;
 import jass.commons.ServiceLocator;
-import jass.commons.Wiis;
 
-//result broadcast startRound message zurück an client wenn die runde startet
-//andere startRound karte hier kommt gameTyp rein, welcher ich in Trumpf übergeben muss
-//Allepunkte zusammenzählen für maxximale üunkte um spiel zu benden
+/**
+ * David Schürch
+ * Hier auf dem Server wird evaluiert wer der Sieger ist. Der Username des Spielers kann mit dem dem zuvor erhaltenen
+ * int Wert abgefragt werden.
+ */
 
-public class EvaluationRuleSet implements Serializable { //
+//public class EvaluationRuleSet implements Serializable { //
+public class EvaluationRuleSet{
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
-	public String trumpf = "H"; //nicht mehr statisch
-	public String gameType = "Trumpf"; //nicht mehr statisch
+	public String trumpf = "H"; 
+	public String gameType = "Trumpf"; 
 	private ServerTableCards serverTableCards;
 	private ServerTableCards usernames;
 	private int playedRounds = 0;
-	
-	
 	private ArrayList<Card> allPlayerCards;
-	private int playerNumber;
-
+	
 	public EvaluationRuleSet() {
 		serverTableCards = new ServerTableCards();
 		usernames = new ServerTableCards();
 	}
 
-	// Sieger bekommt alle Punkte und kann Anfangen
 	public String winnerIsPlayer() {
 		logger.info("Validate winner...");
 		playedRounds++;
@@ -48,16 +48,6 @@ public class EvaluationRuleSet implements Serializable { //
 				playerWinnerNr = isCardNumber(tempWinnerCard);
 			}
 		}
-		if (gameType.equals("ObeAbe") || gameType.equals("UndeUfe")) {
-			Card tempWinnerCard = serverTableCards.getHighestUfeAbeCard(gameType);
-			playerWinnerNr = isCardNumber(tempWinnerCard);
-		}
-		if (gameType.equals("Slalom")) {
-			if (trumpf.equals("UndeUfe")) trumpf = "ObeAbe";
-			else trumpf = "UndeUfe";
-			Card tempWinnerCard = serverTableCards.getHighestUfeAbeCard(trumpf);
-			playerWinnerNr = isCardNumber(tempWinnerCard);	
-		}
 		return serverTableCards.getUsername(playerWinnerNr);
 	}
 
@@ -67,7 +57,7 @@ public class EvaluationRuleSet implements Serializable { //
 
 	public int pointsForWinner() {
 		logger.info("get points for: " + gameType + " " + trumpf);
-		if ((playedRounds % 9) != 0) {//evtl modulo falls nach einer rund emit 9 karten danach weiter gezählt wird
+		if ((playedRounds % 9) != 0) {
 			switch(gameType) {
 			case("Trumpf"): return serverTableCards.getTrumpfPoints(trumpf);
 			case("Slalom"): return serverTableCards.getPoints(trumpf);
@@ -118,42 +108,6 @@ public class EvaluationRuleSet implements Serializable { //
 		}
 		return 0;
 	}
-	
-	public int wiisWinnerIsPlayer() {
-		//spieler vergeleichen welcher den höchsten Wiis WErt hat
-		//bei gleichem Wiiswert kommt der spieler dran der zuerst seine karte legte
-		//Wiis wiisPlayerOne = hasTrumpf
-		ArrayList<Integer> playerPoints = new ArrayList<>();
-		int tempWinner = 0;
-		ArrayList<Integer> tempWinnerPlace = new ArrayList<Integer>();
-		for (int i = 0; i < playerNumber; i++) {
-			playerPoints.add(Wiis.getHighestWiis(tempPlayerCards(i)));
-		}
-		for (int i = 0; i < playerPoints.size(); i++) {
-			if(i > tempWinner) tempWinner = i; tempWinnerPlace.add(playerPoints.get(i));
-			if(i == tempWinner) tempWinnerPlace.add(playerPoints.get(i));
-		}
-		if (tempWinnerPlace.isEmpty()) return -1; //achtung, aussondern
-//		if (tempWinnerPlace.size() == 1) return Wiis.getAllWiisesFromPlayer(tempPlayerCards(tempWinner));
-//		if (tempWinnerPlace.size() > 1) Wiis.getWiisWinner(cards);
-		
-		return 1;
-		//return + evtl has Stoeck
-		
-	}
-	
-	private ArrayList<Card> tempPlayerCards(int i){
-		ArrayList<Card> temp = new ArrayList<>();
-		for(int j = (i * 9); j < (9 + i * 9); j++) {
-			temp.add(allPlayerCards.get(j));
-		}
-		return temp;
-	}
-	
-	public void pointsForWiisWinner() {
-		
-		
-	}
 
 	public ArrayList<Card> getAllPlayerCards() {
 		return allPlayerCards;
@@ -162,7 +116,4 @@ public class EvaluationRuleSet implements Serializable { //
 	public void setAllPlayerCards(ArrayList<Card> allPlayerCards) {
 		this.allPlayerCards = allPlayerCards;
 	}
-	
-	//Achtung: Stoeck kann jeder immer haben, obwohl ein anderer gewiesen hat!!!!
-
 }

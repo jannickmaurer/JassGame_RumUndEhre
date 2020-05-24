@@ -5,12 +5,13 @@ import jass.commons.Card;
 import jass.commons.Card.Suit;
 import jass.commons.Trumpf;
 
+/**
+ * David Schürch
+ * Getter und Setter Methoden
+ */
+
 public class TableCards{
 	ArrayList<Card> tableCards = new ArrayList<>();
-
-//	public TableCards() {
-//		super();
-//	}
 
 	public ArrayList<Card> getTableCards() {
 		return tableCards;
@@ -43,7 +44,8 @@ public class TableCards{
 	public void clearTableCards() {
 		tableCards.clear();
 	}
+	
 	public Card getCard(int i) {
-	return tableCards.get(i);
+		return tableCards.get(i);
 	}
 }

@@ -6,21 +6,21 @@ import jass.client.TableCards;
 import jass.client.HandCards;
 import jass.client.PlayableHandCards;
 
+/**
+ * David Schürch
+ * Evaluation welche Karten gespielt werden dürfen
+ */
+
 public class Board {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
 	public static int playersTurn;
 	public int imPlayer;
 	public static String trumpf = "H";
-	public boolean wiisDone = false;
-	public Card myLastPlayedCard;
-	public String gameTyp = "Trumpf";
-//	public String playableCards;
-	public PlayableHandCards playableHandCards; //HandCards
-	public HandCards handCards; //allefalls direkt zugriff
+	public String gameTyp; 
+	public PlayableHandCards playableHandCards; 
+	public HandCards handCards; 
 	private TableCards tableCards;
-//	public HandCards startHandCards;
-//	private String playerOnTurn;
 	private int playedCards;
 	private ArrayList<String> members = new ArrayList<>();
 	
@@ -49,10 +49,9 @@ public class Board {
 		}
 		handCards.setHandCards(tempHandCards);
 		logger.info("HandCards added: " + handCards.toString());
-		
 	}
 
-	//Methode play evaluiert nur welche Karten gespielt werden dürfen und welche nicht
+	//Play evaluiert welche Karten der Spieler spielen darf.
 	public void play() {
 		if(playableHandCards.hasCards()) playableHandCards.clearPlayableHandCards();
 		if (tableCards.hasCards() == false) {
@@ -107,21 +106,7 @@ public class Board {
 					playableHandCards.setPlayableHandCards(handCards.getHandCards()); 		
 				}
 			}
-
-			if (gameTyp.equals("ObeAbe") || gameTyp.equals("UndeUfe") || gameTyp.equals("Slalom")) {
-				for (int i = 0; i < handCards.hasLength(); i++) {
-					if(handCards.getCardSuit(i).equals(tableCards.getCardSuit(0))) {
-						playableHandCards.add(handCards.getCard(i));
-					}
-				}	
-				if (playableHandCards.hasPlayableCards() == false) {
-					playableHandCards.setPlayableHandCards(handCards.getHandCards());
-				}
-			}
 		} 
-
-		
-		
 		logger.info("Play: " + playableHandCards + "  " + gameTyp + "  " + trumpf);
 	}
 
@@ -136,6 +121,7 @@ public class Board {
 		}
 	}
 
+	//Getter und Setter
 	public int getImPlayer() {
 		return imPlayer;
 	}
@@ -152,14 +138,6 @@ public class Board {
 		Board.trumpf = trumpf;
 	}
 
-	public boolean isWiisDone() {
-		return wiisDone;
-	}
-
-	public void setWiisDone(boolean wiisDone) {
-		this.wiisDone = wiisDone;
-	}
-
 	public String getGameTyp() {
 		return gameTyp;
 	}
@@ -172,7 +150,6 @@ public class Board {
 		return playableHandCards.getPlayableHandCards();
 	}
 
-//Getter und Setter
 	public HandCards getHandCards() {
 		return handCards;
 	}

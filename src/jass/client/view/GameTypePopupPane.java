@@ -1,3 +1,5 @@
+//Geschrieben von Samuel David und Jannick Maurer
+
 package jass.client.view;
 
 import javafx.geometry.Pos;
@@ -15,18 +17,10 @@ public class GameTypePopupPane extends GridPane {
 	
 	private Label lblChooseGameType = new Label();
 	private Button btnTrumpf = new Button();
-	private Button btnUndeUfe = new Button();
-	private Button btnObeAbe = new Button();
-	private Button btnSlalomUndeUfe = new Button();
-	private Button btnSlalomObeAbe = new Button();
 	
 	public GameTypePopupPane() {		
 		this.add(lblChooseGameType, 0, 0);
 		this.add(btnTrumpf, 0, 1);
-		this.add(btnUndeUfe, 0, 2);
-		this.add(btnObeAbe, 0, 3);
-		this.add(btnSlalomUndeUfe, 0, 4);
-		this.add(btnSlalomObeAbe, 0, 5);
 		
 		this.setId("popup");
 		this.setAlignment(Pos.TOP_CENTER);
@@ -48,38 +42,6 @@ public class GameTypePopupPane extends GridPane {
 
 	public void setBtnTrumpf(Button btnTrumpf) {
 		this.btnTrumpf = btnTrumpf;
-	}
-
-	public Button getBtnUndeUfe() {
-		return btnUndeUfe;
-	}
-
-	public void setBtnUndeUfe(Button btnUndeUfe) {
-		this.btnUndeUfe = btnUndeUfe;
-	}
-
-	public Button getBtnObeAbe() {
-		return btnObeAbe;
-	}
-
-	public void setBtnObeAbe(Button btnObeAbe) {
-		this.btnObeAbe = btnObeAbe;
-	}
-
-	public Button getBtnSlalomUndeUfe() {
-		return btnSlalomUndeUfe;
-	}
-
-	public void setBtnSlalomUndeUfe(Button btnSlalomUndeUfe) {
-		this.btnSlalomUndeUfe = btnSlalomUndeUfe;
-	}
-
-	public Button getBtnSlalomObeAbe() {
-		return btnSlalomObeAbe;
-	}
-
-	public void setBtnSlalomObeAbe(Button btnSlalomObeAbe) {
-		this.btnSlalomObeAbe = btnSlalomObeAbe;
 	}
 	
 }

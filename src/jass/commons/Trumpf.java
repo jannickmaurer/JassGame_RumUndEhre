@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
+/**
+ * David Schürch
+ * Die Klasse Trumpf evaluiert mit Trumpf, Stich und None ob ein Trumpf gespielt wurde, oder gestochen
+ * wurde. Mit highest Trumpf wir der höchste der mitgegebenen Trümpfe der Karten zurück gegeben.
+ */
+
 public enum Trumpf { Trumpf, Stich, None;
 	
 	public static Trumpf evaluateTrumpf(ArrayList<Card> cards) {
@@ -19,7 +25,6 @@ public enum Trumpf { Trumpf, Stich, None;
 		return found;
 	}
 	
-	//anpassung for schleife startet bei 1 , da vorher kein Stich möglich sondern trumpf
 	public static boolean isStich(ArrayList<Card> cards) {
 		boolean found = false;
 		for (int i = 1; i < cards.size() && !found; i++) {
@@ -99,7 +104,7 @@ public enum Trumpf { Trumpf, Stich, None;
 	
 	public static boolean hasSameSuitCard(ArrayList<Card> cards, Card firstTableCard) {
 		for (Card card : cards) {
-			if (card.getSuit() == firstTableCard.getSuit()) return true;
+			if (card.getSuit().equals(firstTableCard.getSuit())) return true;
 		}
 		return false;
 	}
@@ -120,7 +125,7 @@ public enum Trumpf { Trumpf, Stich, None;
 		Card winnerCard = cards.get(0);
 		if (gameType.equals("ObeAbe")) {
 			for (int i = 0; i < cards.size()-1; i++) {
-				if (cards.get(0).getSuit() == cards.get(i+1).getSuit()) {
+				if (cards.get(0).getSuit().equals(cards.get(i+1).getSuit())) {
 					if (winnerCard.getRank().compareTo(cards.get(i+1).getRank()) < 0) {
 						winnerCard = cards.get(i+1);
 					}
@@ -129,7 +134,7 @@ public enum Trumpf { Trumpf, Stich, None;
 		}
 		if (gameType.equals("UndeUfe")) {
 			for (int i = 0; i < cards.size()-1; i++) {
-				if (cards.get(0).getSuit() == cards.get(i+1).getSuit()) {
+				if (cards.get(0).getSuit().equals(cards.get(i+1).getSuit())) {
 					if (winnerCard.getRank().compareTo(cards.get(i+1).getRank()) > 0) {
 						winnerCard = cards.get(i+1);
 					}
