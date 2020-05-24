@@ -79,6 +79,7 @@ public class SpielraumPane extends GridPane {
 		scrollPane.setId("ScrollPane");
 		btnSend.setId("ButtonSend");
 		tfMessage.setId("TextFieldMessage");
+		
 
 		lblChat.setId("LabelBold");
 		vMessage.getChildren().addAll(lblChat, scrollPane, tfMessage, btnSend);

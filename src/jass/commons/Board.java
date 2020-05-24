@@ -142,6 +142,7 @@ public class Board {
 				}
 			}
 		} 
+		logger.info("Play: " + playableHandCards + "  " + gameTyp + "  " + trumpf);
 	}
 
 //	private void selectGameVariety() {
@@ -192,6 +193,7 @@ public class Board {
 		if(playedCards == members.size()) {
 			playedCards = 0;
 			tableCards.clearTableCards();
+			logger.info("TableCards cleared");
 		}
 	}
 	
@@ -209,6 +211,7 @@ public class Board {
 		//momentan nicht verwendet, die anderen drei unten auch nicht
 		return playableCards;
 	}
+	
 
 	public void setPlayableCards(String playableCards) {
 		this.playableCards = playableCards;
