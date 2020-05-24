@@ -31,9 +31,12 @@ public class HandCards {
 //		this.startHandCards = handCards;
 //	}
 
-	public HandCards() {
-		super();
-	}
+	//**********
+//	public HandCards() {
+//		super();
+//	}
+	//**********
+
 	
 	/**
 	 * WIICHTIG!!!!!!!!!! Hier nachdem die Handkarten der ArrayList hinzugefügt wurden Karten sortieren.
@@ -117,7 +120,7 @@ public class HandCards {
 	}
 	
 	public Trumpf evaluateTrumpf() {
-	return Trumpf.evaluateTrumpf(handCards);
+		return Trumpf.evaluateTrumpf(handCards);
 	}
 	
 
