@@ -29,8 +29,9 @@ public class ResultSendTableCard extends Message {
 	
 	@Override
 	public void process(JassClientController controller) {
+		logger.info("Remove Handcard: " + playedCard) ;
 		controller.getBoard().removeHandCard(new Card(playedCard));
-		controller.updatePlayerPane();
+		controller.updatePlayerPane(playedCard);
 	}
 
 	public void processIfFalse(JassClientController controller) {

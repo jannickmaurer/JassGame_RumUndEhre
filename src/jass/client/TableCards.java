@@ -48,6 +48,13 @@ public class TableCards{
 		return tableCards.get(i).getSuit();
 	}
 	
+	public void addTableCard(Card card) {
+		tableCards.add(card);
+	}
+	
+	public void clearTableCards() {
+		tableCards.clear();
+	}
 	public Card getCard(int i) {
 	return tableCards.get(i);
 	}

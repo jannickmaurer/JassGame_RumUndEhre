@@ -15,6 +15,7 @@ import jass.server.Playroom;
 public class SendTableCard extends Message {
 	private String token;
 	private String tableCard;
+	private String nextPlayer;
 
 	public SendTableCard(String[] content) {
 		super(content);
@@ -31,7 +32,8 @@ public class SendTableCard extends Message {
 			if(playroom != null) {
 				String clientCard = client.getName() + ":" + tableCard;
 				playroom.addClientCard(clientCard);
-				String[] content = new String[] {"ResultBroadcastSendTableCard", client.getAccount().getUsername(), this.tableCard};
+				if(!playroom.hasRoundEnded()) nextPlayer = playroom.getPlayerOnTurn(client.getName());
+				String[] content = new String[] {"ResultBroadcastSendTableCard", client.getName(), this.tableCard, nextPlayer};
 				Message msg = new ResultBroadcastSendTableCard(content);
 				playroom.send(msg);
 				result = true;

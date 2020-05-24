@@ -55,7 +55,8 @@ public class OtherPlayerPane extends VBox {
         pointsGrid.setVisible(true);
         this.getChildren().addAll(lblName, crcPlayer, pointsGrid);
         
-        this.setId("playerArea");     
+        this.setId("playerArea");    
+        this.getLblName().setText(this.username);
     }
     
 //---> anpassen:           public void setPlayer(Player player) {
