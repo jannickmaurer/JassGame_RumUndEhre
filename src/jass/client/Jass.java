@@ -10,6 +10,10 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
+/*
+ * Class developed by Jannick
+ * Some concepts are inspired by or according to Software Engineering Chat Project
+ */
 public class Jass extends Application {
 	private JassClientModel model;
 	private JassClientController controller;

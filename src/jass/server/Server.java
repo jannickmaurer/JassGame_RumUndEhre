@@ -6,8 +6,10 @@ import java.util.logging.Logger;
 
 import jass.commons.ServiceLocator;
 
-// Server has no GUI! Must be started in console by typing in the disired port number
-
+/*
+ * Class developed by Jannick
+ * Some concepts are inspired by or according to Software Engineering Chat Project
+ */
 public class Server {
 	private static int port = 0;
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();

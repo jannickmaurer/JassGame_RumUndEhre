@@ -49,6 +49,10 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 
+/*
+ * Class developed by Jannick and Samuel
+ * Some concepts are inspired by or according to Software Engineering Chat Project
+ */
 public class JassClientController {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();

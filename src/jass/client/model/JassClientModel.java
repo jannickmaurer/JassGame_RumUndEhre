@@ -37,6 +37,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 
+/*
+ * Class developed by Jannick and few by Samuel
+ * Some concepts are inspired by or according to Software Engineering Chat Project
+ */
 public class JassClientModel {
 	private Socket socket = null;
 	private SimpleStringProperty token = new SimpleStringProperty();
