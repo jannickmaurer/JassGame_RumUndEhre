@@ -13,12 +13,12 @@ import javafx.scene.layout.Region;
 public class GameTypePopupPane extends GridPane {
 	private JassClientView view;
 	
-	Label lblChooseGameType = new Label();
-	Button btnTrumpf = new Button();
-	Button btnUndeUfe = new Button();
-	Button btnObeAbe = new Button();
-	Button btnSlalomUndeUfe = new Button();
-	Button btnSlalomObeAbe = new Button();
+	private Label lblChooseGameType = new Label();
+	private Button btnTrumpf = new Button();
+	private Button btnUndeUfe = new Button();
+	private Button btnObeAbe = new Button();
+	private Button btnSlalomUndeUfe = new Button();
+	private Button btnSlalomObeAbe = new Button();
 	
 	public GameTypePopupPane() {		
 		this.add(lblChooseGameType, 0, 0);
@@ -32,6 +32,54 @@ public class GameTypePopupPane extends GridPane {
 		this.setAlignment(Pos.TOP_CENTER);
 		this.setHgap(20);
 		this.setVgap(10);
+	}
+
+	public Label getLblChooseGameType() {
+		return lblChooseGameType;
+	}
+
+	public void setLblChooseGameType(Label lblChooseGameType) {
+		this.lblChooseGameType = lblChooseGameType;
+	}
+
+	public Button getBtnTrumpf() {
+		return btnTrumpf;
+	}
+
+	public void setBtnTrumpf(Button btnTrumpf) {
+		this.btnTrumpf = btnTrumpf;
+	}
+
+	public Button getBtnUndeUfe() {
+		return btnUndeUfe;
+	}
+
+	public void setBtnUndeUfe(Button btnUndeUfe) {
+		this.btnUndeUfe = btnUndeUfe;
+	}
+
+	public Button getBtnObeAbe() {
+		return btnObeAbe;
+	}
+
+	public void setBtnObeAbe(Button btnObeAbe) {
+		this.btnObeAbe = btnObeAbe;
+	}
+
+	public Button getBtnSlalomUndeUfe() {
+		return btnSlalomUndeUfe;
+	}
+
+	public void setBtnSlalomUndeUfe(Button btnSlalomUndeUfe) {
+		this.btnSlalomUndeUfe = btnSlalomUndeUfe;
+	}
+
+	public Button getBtnSlalomObeAbe() {
+		return btnSlalomObeAbe;
+	}
+
+	public void setBtnSlalomObeAbe(Button btnSlalomObeAbe) {
+		this.btnSlalomObeAbe = btnSlalomObeAbe;
 	}
 	
 }

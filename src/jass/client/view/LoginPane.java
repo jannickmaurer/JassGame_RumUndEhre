@@ -18,21 +18,19 @@ import javafx.util.Duration;
 public class LoginPane extends GridPane {
 	private JassClientView view;
 	
-	Label lblTitelLogin = new Label();
-	Label lblSubtitelLogin = new Label();
-	TextField tfUsername = new TextField();
-	PasswordField pfPassword = new PasswordField();
-	Button btnLogin = new Button();
-	Button btnRegistration = new Button();
+	private Label lblTitelLogin = new Label();
+	private Label lblSubtitelLogin = new Label();
+	private TextField tfUsername = new TextField();
+	private PasswordField pfPassword = new PasswordField();
+	private Button btnLogin = new Button();
+	private Button btnRegistration = new Button();
 	
 	public LoginPane() {
-		
 		VBox v1 = new VBox();
 		v1.setId("VBox");
 		
 		lblTitelLogin.setId("titel");
 		lblSubtitelLogin.setId("subtitel");
-
 
 		HBox h1 = new HBox();
 		Region spacer1 = new Region();
@@ -46,7 +44,55 @@ public class LoginPane extends GridPane {
 		
 		this.setId("root");
 		this.setAlignment(Pos.TOP_LEFT);
-
 	}
+
+	public Label getLblTitelLogin() {
+		return lblTitelLogin;
+	}
+
+	public void setLblTitelLogin(Label lblTitelLogin) {
+		this.lblTitelLogin = lblTitelLogin;
+	}
+
+	public Label getLblSubtitelLogin() {
+		return lblSubtitelLogin;
+	}
+
+	public void setLblSubtitelLogin(Label lblSubtitelLogin) {
+		this.lblSubtitelLogin = lblSubtitelLogin;
+	}
+
+	public TextField getTfUsername() {
+		return tfUsername;
+	}
+
+	public void setTfUsername(TextField tfUsername) {
+		this.tfUsername = tfUsername;
+	}
+
+	public PasswordField getPfPassword() {
+		return pfPassword;
+	}
+
+	public void setPfPassword(PasswordField pfPassword) {
+		this.pfPassword = pfPassword;
+	}
+
+	public Button getBtnLogin() {
+		return btnLogin;
+	}
+
+	public void setBtnLogin(Button btnLogin) {
+		this.btnLogin = btnLogin;
+	}
+
+	public Button getBtnRegistration() {
+		return btnRegistration;
+	}
+
+	public void setBtnRegistration(Button btnRegistration) {
+		this.btnRegistration = btnRegistration;
+	}
+	
 }
 

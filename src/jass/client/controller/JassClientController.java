@@ -99,6 +99,8 @@ public class JassClientController {
 		view.getBtnBack().setOnAction(e -> {
 			view.getRoot().setCenter(view.loginLayout);
 			view.getStage().setTitle("Login");
+			view.getTfNewUsername().setText("");
+			view.getPfNewPassword().setText("");
 		});
 		view.getBtnLogout().setOnAction(e -> {
 			logout();
@@ -147,7 +149,7 @@ public class JassClientController {
 		});
 		view.getBtnLeave().setOnAction(e -> {
 			leavePlayroonm();
-			view.getRoot().setCenter(view.v1);
+			view.getRoot().setCenter(view.getV1());
 			view.getRoot().setId("root");
 			view.getStage().setTitle("Lobby");
 		});
@@ -566,6 +568,8 @@ public class JassClientController {
 
 	public void autologin() {
 		model.login(view.getTfNewUsername().getText(), view.getPfNewPassword().getText());
+		view.getTfNewUsername().setText("");
+		view.getPfNewPassword().setText("");
 	}
 
 	public void connect() {
@@ -604,8 +608,10 @@ public class JassClientController {
 	public void loginSuccess() {
 		Platform.runLater(new Runnable() {
 			public void run() {
-				view.getRoot().setCenter(view.v1);
+				view.getRoot().setCenter(view.getV1());
 				view.getStage().setTitle("Lobby");
+				view.getTfUsername().setText("");
+				view.getPfPassword().setText("");
 			}
 		});
 	}

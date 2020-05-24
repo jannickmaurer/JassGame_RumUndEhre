@@ -14,9 +14,9 @@ import javafx.scene.layout.Region;
 public class SpielraumPopupPane extends GridPane {
 	private JassClientView view;
 	
-	TextField tfSpielraumName = new TextField();
-	Button btnCreate = new Button();
-	Button btnBack = new Button();
+	private TextField tfSpielraumName = new TextField();
+	private Button btnCreate = new Button();
+	private Button btnBack = new Button();
 	
 	public SpielraumPopupPane() {		
 		this.add(tfSpielraumName, 0, 0);
@@ -33,6 +33,30 @@ public class SpielraumPopupPane extends GridPane {
 		this.setAlignment(Pos.TOP_CENTER);
 		this.setHgap(20);
 		this.setVgap(10);
+	}
+
+	public TextField getTfSpielraumName() {
+		return tfSpielraumName;
+	}
+
+	public void setTfSpielraumName(TextField tfSpielraumName) {
+		this.tfSpielraumName = tfSpielraumName;
+	}
+
+	public Button getBtnCreate() {
+		return btnCreate;
+	}
+
+	public void setBtnCreate(Button btnCreate) {
+		this.btnCreate = btnCreate;
+	}
+
+	public Button getBtnBack() {
+		return btnBack;
+	}
+
+	public void setBtnBack(Button btnBack) {
+		this.btnBack = btnBack;
 	}
 	
 }

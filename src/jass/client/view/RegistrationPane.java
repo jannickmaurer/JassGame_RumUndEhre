@@ -14,15 +14,14 @@ import javafx.scene.layout.VBox;
 public class RegistrationPane extends GridPane {
 	private JassClientView view;
 	
-	Label lblTitelRegistration = new Label();
-	Label lblSubtitelRegistration = new Label();
-	TextField tfNewUsername = new TextField();
-	PasswordField pfNewPassword = new PasswordField();
-	Button btnRegistration = new Button();
-	Button btnBack = new Button();
+	private Label lblTitelRegistration = new Label();
+	private Label lblSubtitelRegistration = new Label();
+	private TextField tfNewUsername = new TextField();
+	private PasswordField pfNewPassword = new PasswordField();
+	private Button btnRegistration = new Button();
+	private Button btnBack = new Button();
 	
 	public RegistrationPane() {
-		
 		VBox v1 = new VBox();
 		v1.setId("VBox");
 		
@@ -40,6 +39,54 @@ public class RegistrationPane extends GridPane {
 		
 		this.setId("root");
 		this.setAlignment(Pos.TOP_LEFT);
+	}
+
+	public Label getLblTitelRegistration() {
+		return lblTitelRegistration;
+	}
+
+	public void setLblTitelRegistration(Label lblTitelRegistration) {
+		this.lblTitelRegistration = lblTitelRegistration;
+	}
+
+	public Label getLblSubtitelRegistration() {
+		return lblSubtitelRegistration;
+	}
+
+	public void setLblSubtitelRegistration(Label lblSubtitelRegistration) {
+		this.lblSubtitelRegistration = lblSubtitelRegistration;
+	}
+
+	public TextField getTfNewUsername() {
+		return tfNewUsername;
+	}
+
+	public void setTfNewUsername(TextField tfNewUsername) {
+		this.tfNewUsername = tfNewUsername;
+	}
+
+	public PasswordField getPfNewPassword() {
+		return pfNewPassword;
+	}
+
+	public void setPfNewPassword(PasswordField pfNewPassword) {
+		this.pfNewPassword = pfNewPassword;
+	}
+
+	public Button getBtnRegistration() {
+		return btnRegistration;
+	}
+
+	public void setBtnRegistration(Button btnRegistration) {
+		this.btnRegistration = btnRegistration;
+	}
+
+	public Button getBtnBack() {
+		return btnBack;
+	}
+
+	public void setBtnBack(Button btnBack) {
+		this.btnBack = btnBack;
 	}
 	
 }

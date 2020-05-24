@@ -21,20 +21,15 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-
 public class OtherPlayerPane extends VBox {
 	private JassClientView view;
 	
-	String username;
-	Label lblName = new Label("Name");
-    Label lblPoints = new Label("Punkte");
-    Circle crcPlayer = new Circle();
-  
-    public GridPane pointsGrid = new GridPane();
-    public Label lblPointsPlayer = new Label("0");
-    
-    // Link to player object
-//---> anpassen:        private Player player;
+	private String username;
+	private Label lblName = new Label("Name");
+    private Label lblPoints = new Label("Punkte");
+    private Circle crcPlayer = new Circle();
+    private GridPane pointsGrid = new GridPane();
+    private Label lblPointsPlayer = new Label("0");
     
     public OtherPlayerPane(String username) {
     	super(); // Always call super-constructor first !!
@@ -59,14 +54,9 @@ public class OtherPlayerPane extends VBox {
         this.getLblName().setText(this.username);
     }
     
-//---> anpassen:           public void setPlayer(Player player) {
-//---> anpassen:          	this.player = player;
-//---> anpassen:           	updatePlayerDisplay(); // Immediately display the player information
-//---> anpassen:           }
-    
     public void updatePlayerDisplay() {
     	
-		}
+	}
 
 	public Label getLblName() {
 		return lblName;
@@ -95,12 +85,25 @@ public class OtherPlayerPane extends VBox {
 	public void setLblPointsPlayer(Label lblPointsPlayer) {
 		this.lblPointsPlayer = lblPointsPlayer;
 	}
+
+	public Circle getCrcPlayer() {
+		return crcPlayer;
+	}
+
+	public void setCrcPlayer(Circle crcPlayer) {
+		this.crcPlayer = crcPlayer;
+	}
+
+	public GridPane getPointsGrid() {
+		return pointsGrid;
+	}
+
+	public void setPointsGrid(GridPane pointsGrid) {
+		this.pointsGrid = pointsGrid;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
 	
-	
-	
-	
-	
-//---> anpassen:            public void updatePointsLabel() {
-//---> anpassen:           	lblPointsPlayer.setText(Integer.toString(Integer.parseInt(lblPointsPlayer.getText()) + 1)); 	
-//---> anpassen:          }
 }

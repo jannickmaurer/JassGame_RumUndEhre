@@ -9,8 +9,8 @@ import javafx.scene.layout.GridPane;
 public class ProfilPopUpPane extends GridPane {
 	private JassClientView view;
 	
-	Button btnDeleteAccount = new Button();
-	Button btnBack = new Button();
+	private Button btnDeleteAccount = new Button();
+	private Button btnBack = new Button();
 	
 	public ProfilPopUpPane() {
 		this.add(btnDeleteAccount, 0, 0);
@@ -20,6 +20,22 @@ public class ProfilPopUpPane extends GridPane {
 		this.setAlignment(Pos.TOP_CENTER);
 		this.setHgap(20);
 		this.setVgap(10);
+	}
+
+	public Button getBtnDeleteAccount() {
+		return btnDeleteAccount;
+	}
+
+	public void setBtnDeleteAccount(Button btnDeleteAccount) {
+		this.btnDeleteAccount = btnDeleteAccount;
+	}
+
+	public Button getBtnBack() {
+		return btnBack;
+	}
+
+	public void setBtnBack(Button btnBack) {
+		this.btnBack = btnBack;
 	}
 	
 }
