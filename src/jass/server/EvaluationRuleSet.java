@@ -134,7 +134,7 @@ public class EvaluationRuleSet{ //implements Serializable
 			if(i == tempWinner) tempWinnerPlace.add(playerPoints.get(i));
 		}
 		if (tempWinnerPlace.isEmpty()) return -1; //achtung, aussondern
-		if (tempWinnerPlace.size() == 1) return Wiis.getAllWiisesFromPlayer(tempPlayerCards(tempWinner));
+//		if (tempWinnerPlace.size() == 1) return Wiis.getAllWiisesFromPlayer(tempPlayerCards(tempWinner));
 //		if (tempWinnerPlace.size() > 1) Wiis.getWiisWinner(cards);
 		
 		return 1;
