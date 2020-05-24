@@ -1,12 +1,9 @@
 package jass.server;
 
-//<<<<<<< HEAD
 import static org.junit.Assert.assertNotNull;
 
 import java.io.Serializable;
 import java.lang.reflect.Array;
-//=======
-//>>>>>>> branch 'master' of https://github.com/jannickmaurer/JassGame_RumUndEhre.git
 import java.util.ArrayList;
 import java.util.logging.Logger;
 import jass.commons.Card;
@@ -18,8 +15,8 @@ import jass.commons.ServiceLocator;
  * int Wert abgefragt werden.
  */
 
-//public class EvaluationRuleSet implements Serializable { //
-public class EvaluationRuleSet{
+public class EvaluationRuleSet implements Serializable { //
+//public class EvaluationRuleSet{
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
 	public String trumpf = "H"; 

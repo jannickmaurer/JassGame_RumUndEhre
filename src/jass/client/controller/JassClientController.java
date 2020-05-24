@@ -531,8 +531,9 @@ public class JassClientController {
 				additionalInfo = "D";
 			if (event.getSource() == view.getBtnSpades())
 				additionalInfo = "S";
+			model.startRound(gameType, additionalInfo);
 		}
-//		model.startRound(gameType, additionalInfo);
+		
 
 		
 		

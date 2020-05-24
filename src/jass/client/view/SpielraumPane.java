@@ -98,8 +98,7 @@ public class SpielraumPane extends GridPane {
 		gInformation.add(lblPlayroomName, 0, 1);
 		gInformation.add(lblOwner, 0, 3);
 		gInformation.add(lblOwnerIs, 0, 4);
-		gInformation.add(lblPointsGoal, 0, 6);
-		gInformation.add(lblPointsGoalIs, 0, 7);
+		
 		gInformation.add(lblGameType, 0, 9);
 		gInformation.add(lblGameTypeIs, 0, 10);
 		gInformation.add(lblTrumpf, 0, 12);

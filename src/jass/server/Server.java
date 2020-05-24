@@ -46,39 +46,11 @@ public class Server {
 				e.printStackTrace();
 			}
 			logger.info("Server started on port: " + port);
-			
-			try {
-				Thread.sleep(5000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			String operation = "";
-			while (!operation.equals("END")) {
-				System.out.println("Operate or terminate the server at any time by entering Operate");
-				String temp = "";
-				while(!temp.equals("Operate")) {
-					temp = scan.nextLine();
-				}
-				System.out.println("A -> Delete all existing accounts");
-				System.out.println("P -> Delete all existing playrooms");
-				System.out.println("C -> Disconnect all connected Clients");
-				System.out.println("END -> Terminate Server");
-				operation = scan.nextLine();
-				switch(operation) {
-				case("A"): ;
-				case("P"): ;
-				case("C"): ;
-				}
-			}   disconnect();			
+				
 		}
 	}
 
 	
-	private static void disconnect() {
-		// TODO Auto-generated method stub
-		
-	}
 
 
 	public static String getDirectory() {
