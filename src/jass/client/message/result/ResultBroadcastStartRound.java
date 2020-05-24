@@ -7,7 +7,7 @@ import jass.client.model.JassClientModel;
 import jass.commons.ServiceLocator;
 import jass.message.Message;
 
-/*
+/* 
  * Class developed by Jannick
  * Message sent to all members in a playroom
  * Sent everytime the owner starts the game
