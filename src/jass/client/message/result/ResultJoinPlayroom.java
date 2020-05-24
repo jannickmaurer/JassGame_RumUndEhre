@@ -41,6 +41,7 @@ public class ResultJoinPlayroom extends Message {
 		controller.playroomName(name);
 		controller.setOwner(owner);
 		controller.ownerName(owner);
+		if(controller.getAccount().equals(controller.getOwner())) controller.getView().getBtnStartGame().setDisable(false);
 	}
 	
 	public void processIfFalse(JassClientController controller) {

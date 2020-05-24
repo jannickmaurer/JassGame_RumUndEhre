@@ -182,7 +182,7 @@ public class Board {
 
 	public void addTableCard(Card card) {
 		logger.info("Add Card to TableCards: " + card.toString());
-		this.tableCards.add(card);
+		this.tableCards.addTableCard(card);
 		this.playedCards++;
 		if(playedCards == members.size()) {
 			playedCards = 0;

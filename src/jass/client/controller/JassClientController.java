@@ -81,8 +81,6 @@ public class JassClientController {
 		this.model = model;
 		this.view = view;
 		
-		
-
 		view.getBtnRun().setOnAction(event -> connect());
 		view.getBtnNewRegistration().setOnAction(event -> {
 			createAccount();
@@ -269,6 +267,13 @@ public class JassClientController {
 					}
 				}
 			}
+		});
+		
+		playerToStartRound.addListener((o, oldValue, newValue) ->{
+			if(newValue.equals(this.username)) {
+				
+			}
+			
 		});
 	}
 

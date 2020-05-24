@@ -271,11 +271,12 @@ public class JassClientView {
 		root.setCenter(connectLayout);
 		
 		registrationLayout.btnRegistration.setDisable(false); // changed from Jannick
+		spielraumLayout.btnStartGame.setDisable(true);
 		
 	
 		this.btnConfig.setDisable(true);
 		this.btnJoin.setDisable(false);
-		this.btnDeletePlayroom.setDisable(true);
+		this.btnDeletePlayroom.setDisable(false);
 		v1.setId("VBox");
 		
 		h1.setId("HBoxTop");
@@ -290,7 +291,7 @@ public class JassClientView {
 		listView.setPrefHeight(440);
 		
 		siegerPopUp.getContent().add(siegerPopupLayout);
-		siegerPopUp.setAutoHide(true);
+		siegerPopUp.setAutoHide(false);
 		
 		trumpfPopUp.getContent().add(trumpfPopupLayout);
 		trumpfPopUp.setAutoHide(false);
@@ -302,10 +303,10 @@ public class JassClientView {
 		wyssPopUp.setAutoHide(false);
 		
 		errorPopUp.getContent().add(errorPopupLayout);
-		errorPopUp.setAutoHide(true);
+		errorPopUp.setAutoHide(false);
 		
 		profilPopUp.getContent().add(profilPopupLayout);
-		profilPopUp.setAutoHide(true);
+		profilPopUp.setAutoHide(false);
 		
 		btnNewRegistration.disableProperty().bind(tfNewUsername.textProperty().isEmpty() .or(pfNewPassword.textProperty().isEmpty()));
 		
@@ -316,10 +317,10 @@ public class JassClientView {
 								.and(spielraumPopupLayout.cbUndeUfe.selectedProperty().not()
 										.and(spielraumPopupLayout.cbSlalom.selectedProperty().not()
 												.and(spielraumPopupLayout.cbWyss.selectedProperty().not()))))));
-		createSpielraumPopUp.setAutoHide(true);
+		createSpielraumPopUp.setAutoHide(false);
 		
 		startGamePopUp.getContent().add(startGamePopupLayout);
-		startGamePopUp.setAutoHide(true);
+		startGamePopUp.setAutoHide(false);
 		
 		txtMessages.setEditable(false);
 		spielraumLayout.btnSend.disableProperty().bind(spielraumLayout.tfMessage.textProperty().isEmpty());
