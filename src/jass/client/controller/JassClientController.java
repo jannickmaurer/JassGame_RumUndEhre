@@ -808,7 +808,36 @@ public class JassClientController {
 	public void trumpf(String trumpf) {
 		Platform.runLater(new Runnable() {
 			public void run() {
-				view.getSpielraumLayout().getLblTrumpfIs().setText(trumpf);
+				switch(trumpf) {
+				case "H":
+					view.getSpielraumLayout().getLblTrumpfIs().setText("Herz");
+					break;
+				case "D":
+					view.getSpielraumLayout().getLblTrumpfIs().setText("Ecken");
+					break;
+				case "S":
+					view.getSpielraumLayout().getLblTrumpfIs().setText("Schaufel");
+					break;
+				case "C":
+					view.getSpielraumLayout().getLblTrumpfIs().setText("Kreuz");
+					break;
+				}
+			}
+		});
+	}
+
+	public void gameType(String gameType) {
+		Platform.runLater(new Runnable() {
+			public void run() {
+				view.getSpielraumLayout().getLblGameTypeIs().setText(gameType);
+			}
+		});
+	}
+
+	public void ownerName(String owner) {
+		Platform.runLater(new Runnable() {
+			public void run() {
+				view.getSpielraumLayout().getLblOwnerIs().setText(owner);
 			}
 		});
 	}

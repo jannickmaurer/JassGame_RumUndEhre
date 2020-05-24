@@ -151,34 +151,34 @@ public class Board {
 //		return null;
 //	}
 
-	public int winnerEval() {
-		if (!wiisDone)
-			wiisEval();
+//	public int winnerEval() {
+////		if (!wiisDone)
+////			wiisEval();
+//
+//		// TODO Auto-generated method sub
+//		// Jeder Client prüft selbst ob er gewonnen hat
+//		// Danach gibt jeder Client den Punktestand zurück und SErver evaluiert welche
+//		// Spieler zusammen
+//		// gehören und passt die punktestände beider teams an
+//
+//		/**
+//		 * Wenn ich punkte meldete muss danach der Server das Board auf null setzen
+//		 * clearen wenn alle vier karten liegen und server sagt welcher spieler anfängt,
+//		 * ist oben implementiert
+//		 */
+//		int winner = 1;
+//		//send winner to server;
+//		return winner;
+//	}
 
-		// TODO Auto-generated method sub
-		// Jeder Client prüft selbst ob er gewonnen hat
-		// Danach gibt jeder Client den Punktestand zurück und SErver evaluiert welche
-		// Spieler zusammen
-		// gehören und passt die punktestände beider teams an
-
-		/**
-		 * Wenn ich punkte meldete muss danach der Server das Board auf null setzen
-		 * clearen wenn alle vier karten liegen und server sagt welcher spieler anfängt,
-		 * ist oben implementiert
-		 */
-		int winner = 1;
-		//send winner to server;
-		return winner;
-	}
-
-	private void wiisEval() {
-		// TODO Auto-generated method stub
-		if (!handCards.hasWiis()) wiisDone = true;
-		else {
-			//Server die Weisenums übergeben und den Weis an Sämi übergeben,
-			//falls die Person weisen kann
-		} wiisDone = true;
-	}
+//	private void wiisEval() {
+//		// TODO Auto-generated method stub
+//		if (!handCards.hasWiis()) wiisDone = true;
+//		else {
+//			//Server die Weisenums übergeben und den Weis an Sämi übergeben,
+//			//falls die Person weisen kann
+//		} wiisDone = true;
+//	}
 
 	public void addTableCard(Card card) {
 		logger.info("Add Card to TableCards: " + card.toString());

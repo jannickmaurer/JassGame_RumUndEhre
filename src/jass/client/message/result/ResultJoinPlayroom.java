@@ -40,6 +40,7 @@ public class ResultJoinPlayroom extends Message {
 		controller.joinSuccess();
 		controller.playroomName(name);
 		controller.setOwner(owner);
+		controller.ownerName(owner);
 	}
 	
 	public void processIfFalse(JassClientController controller) {

@@ -28,130 +28,140 @@ public class SpielraumPane extends GridPane {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
 	private JassClientView view;
-	
+
 	private GridPane players;
-	
+
 	Label lblChat = new Label();
 	TextArea txtMessages = new TextArea();
 	TextField tfMessage = new TextField();
-    Button btnSend = new Button();
-    ScrollPane scrollPane = new ScrollPane();
-    
-    Rectangle cardP1 = new Rectangle();
-    Rectangle cardP2 = new Rectangle();
-    Rectangle cardP3 = new Rectangle();
-    Rectangle cardP4 = new Rectangle();
-    
-    PlayerPane playerPane;
-    OtherPlayerPane otherPlayerPane;
-    
-    ArrayList<OtherPlayerPane> otherPlayerPaneList;
-    
-    Label lblWait = new Label();
-    Label lblPlayroom = new Label();
-    Label lblPlayroomName = new Label();
-    Label lblTrumpf = new Label();
-    Label lblTrumpfIs = new Label();
-    Label lblPointsGoal = new Label();
-    Label lblPointsGoalIs = new Label();
-  
+	Button btnSend = new Button();
+	ScrollPane scrollPane = new ScrollPane();
+
+	Rectangle cardP1 = new Rectangle();
+	Rectangle cardP2 = new Rectangle();
+	Rectangle cardP3 = new Rectangle();
+	Rectangle cardP4 = new Rectangle();
+
+	PlayerPane playerPane;
+	OtherPlayerPane otherPlayerPane;
+	GridPane playedCards;
+
+	ArrayList<OtherPlayerPane> otherPlayerPaneList;
+
+	Label lblWait = new Label();
+	Label lblPlayroom = new Label();
+	Label lblPlayroomName = new Label();
+	Label lblGameType = new Label();
+	Label lblGameTypeIs = new Label();
+	Label lblTrumpf = new Label();
+	Label lblTrumpfIs = new Label();
+	Label lblPointsGoal = new Label();
+	Label lblPointsGoalIs = new Label();
+	Label lblOwner = new Label();
+	Label lblOwnerIs = new Label();
+
 	Button btnLeave = new Button();
 	Button btnStartGame = new Button();
 	int i = 0;
-	
+
 	public SpielraumPane() {
 		otherPlayerPaneList = new ArrayList<>();
-		
+
 		VBox vMessage = new VBox();
 		vMessage.setId("VBoxMessage");
-		
-		scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
-        scrollPane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
-        scrollPane.setFitToHeight(true);
-		scrollPane.setFitToWidth(true);
-        scrollPane.setContent(txtMessages);
-        txtMessages.setWrapText(true);	
-        scrollPane.setId("ScrollPane");
-        btnSend.setId("ButtonSend");
-        tfMessage.setId("TextFieldMessage");
 
+		scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
+		scrollPane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
+		scrollPane.setFitToHeight(true);
+		scrollPane.setFitToWidth(true);
+		scrollPane.setContent(txtMessages);
+		txtMessages.setWrapText(true);
+		scrollPane.setId("ScrollPane");
+		btnSend.setId("ButtonSend");
+		tfMessage.setId("TextFieldMessage");
+
+		lblChat.setId("LabelBold");
 		vMessage.getChildren().addAll(lblChat, scrollPane, tfMessage, btnSend);
 		this.add(vMessage, 3, 0, 1, 2);
-		
+
 		GridPane gInformation = new GridPane();
 		gInformation.setId("GInfo");
+		lblPlayroom.setId("LabelBold");
+		lblPointsGoal.setId("LabelBold");
+		lblTrumpf.setId("LabelBold");
+		lblOwner.setId("LabelBold");
+		lblGameType.setId("LabelBold");
 		gInformation.add(lblPlayroom, 0, 0);
 		gInformation.add(lblPlayroomName, 0, 1);
-		gInformation.add(lblPointsGoal, 0, 3);
-		gInformation.add(lblPointsGoalIs, 0, 4);
-		gInformation.add(lblTrumpf, 0, 6);
-		gInformation.add(lblTrumpfIs, 0, 7);
+		gInformation.add(lblOwner, 0, 3);
+		gInformation.add(lblOwnerIs, 0, 4);
+		gInformation.add(lblPointsGoal, 0, 6);
+		gInformation.add(lblPointsGoalIs, 0, 7);
+		gInformation.add(lblGameType, 0, 9);
+		gInformation.add(lblGameTypeIs, 0, 10);
+		gInformation.add(lblTrumpf, 0, 12);
+		gInformation.add(lblTrumpfIs, 0, 13);
 		this.add(gInformation, 3, 2, 1, 2);
-		
+
 		playerPane = new PlayerPane();
 		this.add(playerPane, 0, 2, 3, 1);
-		
-		HBox hGame = new HBox();
-		hGame.setId("HBoxCards");
-		
-		VBox vCardsGame = new VBox();
-		vCardsGame.setId("VBoxCards");
-		
+
+		playedCards = new GridPane();
+		playedCards.setId("HBoxCards");
+
 		cardP1.setWidth(40);
 		cardP1.setHeight(58);
 		cardP1.setArcWidth(2);
 		cardP1.setArcHeight(2);
 		Image imgP1 = new Image("/jass/image/Rückseite.jpg");
 		cardP1.setFill(new ImagePattern(imgP1));
-		cardP1.setVisible(false);
-		
+		cardP1.setVisible(true);
+		playedCards.add(cardP1, 1, 2);
+
 		cardP2.setWidth(40);
 		cardP2.setHeight(58);
 		cardP2.setArcWidth(2);
 		cardP2.setArcHeight(2);
 		Image imgP2 = new Image("/jass/image/Rückseite.jpg");
 		cardP2.setFill(new ImagePattern(imgP2));
-		cardP2.setVisible(false);
-		
+		cardP2.setVisible(true);
+
 		cardP3.setWidth(40);
 		cardP3.setHeight(58);
 		cardP3.setArcWidth(2);
 		cardP3.setArcHeight(2);
 		Image imgP3 = new Image("/jass/image/Rückseite.jpg");
 		cardP3.setFill(new ImagePattern(imgP3));
-		cardP3.setVisible(false);
-		
+		cardP3.setVisible(true);
+
 		cardP4.setWidth(40);
 		cardP4.setHeight(58);
 		cardP4.setArcWidth(2);
 		cardP4.setArcHeight(2);
 		Image imgP4 = new Image("/jass/image/Rückseite.jpg");
 		cardP4.setFill(new ImagePattern(imgP4));
-		cardP4.setVisible(false);
-		
+		cardP4.setVisible(true);
+
 		lblWait.setId("LabelWait");
-		vCardsGame.getChildren().addAll(cardP3, cardP1);
-		
-		hGame.getChildren().addAll(cardP4, vCardsGame, cardP2);
-		this.add(hGame, 1, 1);
-		
+
+		this.add(playedCards, 1, 1);
+
 		HBox h6 = new HBox();
 		h6.setId("HBox");
 		h6.getChildren().addAll(btnStartGame, btnLeave);
-		
+
 		VBox vControls = new VBox();
 		vControls.setId("VBoxControls");
 		vControls.getChildren().addAll(h6);
 		this.add(vControls, 1, 3);
-	
-		GridPane.setHgrow(hGame, Priority.ALWAYS);
-		GridPane.setVgrow(hGame, Priority.ALWAYS);
+
+		GridPane.setHgrow(playedCards, Priority.ALWAYS);
+		GridPane.setVgrow(playedCards, Priority.ALWAYS);
 		VBox.setVgrow(scrollPane, Priority.ALWAYS);
-		
+
 		this.setId("root");
 	}
-	
-//	public void createOtherPlayerPane(int countMembers, String username) {
+
 //		System.out.println("Members:" + countMembers + "ArrayList: " + otherPlayerPaneList.size());
 //			
 //			
@@ -185,28 +195,67 @@ public class SpielraumPane extends GridPane {
 //		
 //		//---> anpassen: 			pp.setPlayer(model.getPlayer(i)); // link to player object in the logic
 //	}
-	
+
 	public void createOtherPlayerPanes(ArrayList<String> members) {
-		for(int i = 0; i < members.size(); i++) {
+		for (int i = 0; i < members.size(); i++) {
 			OtherPlayerPane opl = new OtherPlayerPane(members.get(i));
 			otherPlayerPaneList.add(opl);
-			if(i == 0) this.add(opl, 1, 0);
-			if(i == 1) this.add(opl, 2, 1);
-			if(i == 2) this.add(opl, 0, 1);
+			if (i == 0)
+				this.add(opl, 1, 0);
+			if (i == 1)
+				this.add(opl, 2, 1);
+			if (i == 2)
+				this.add(opl, 0, 1);
 		}
 	}
-	
+
+	public void createOtherPlayerPane(int countMembers, String username) {
+		System.out.println("Members:" + countMembers + "ArrayList: " + otherPlayerPaneList.size());
+
+		for (int i = otherPlayerPaneList.size(); i < countMembers; i++) {
+
+			if (i == 0) {
+				logger.info("OPL i=0: " + username);
+				OtherPlayerPane otherPlayerPane1 = new OtherPlayerPane(username);
+				otherPlayerPaneList.add(otherPlayerPane1);
+				otherPlayerPane1.getLblName().setText(username);
+				this.add(otherPlayerPane1, 1, 0);
+				playedCards.add(cardP2, 1, 0);
+				countMembers--;
+			}
+			if (i == 1) {
+				logger.info("OPL i=1: " + username);
+				OtherPlayerPane otherPlayerPane2 = new OtherPlayerPane(username);
+				otherPlayerPaneList.add(otherPlayerPane2);
+				otherPlayerPane2.getLblName().setText(username);
+				this.add(otherPlayerPane2, 2, 1);
+				playedCards.add(cardP3, 2, 1);
+				countMembers--;
+			}
+			if (i == 2) {
+				logger.info("OPL i=2: " + username);
+				OtherPlayerPane otherPlayerPane3 = new OtherPlayerPane(username);
+				otherPlayerPaneList.add(otherPlayerPane3);
+				otherPlayerPane3.getLblName().setText(username);
+				this.add(otherPlayerPane3, 0, 1);
+				playedCards.add(cardP4, 0, 1);
+				countMembers--;
+			}
+		}
+
+		// ---> anpassen: pp.setPlayer(model.getPlayer(i)); // link to player object in
+		// the logic
+	}
+
 	public void clearOtherPlayerPaneList() {
-		for(int i = 0; i < otherPlayerPaneList.size(); i++) {
+		for (int i = 0; i < otherPlayerPaneList.size(); i++) {
 			this.getChildren().remove(otherPlayerPaneList.get(i));
 			otherPlayerPaneList.remove(i);
 		}
 	}
-	
-
 
 	public PlayerPane getPlayerPane() {
-		
+
 		return playerPane;
 	}
 
@@ -215,12 +264,11 @@ public class SpielraumPane extends GridPane {
 	}
 
 	public OtherPlayerPane getOtherPlayerPane(String username) {
-		for(OtherPlayerPane opl : otherPlayerPaneList) {
-			if(opl.getUsername().equals(username)) return opl;
+		for (OtherPlayerPane opl : otherPlayerPaneList) {
+			if (opl.getUsername().equals(username))
+				return opl;
 		}
-		
-		
-		
+
 		return otherPlayerPane;
 	}
 
@@ -275,6 +323,37 @@ public class SpielraumPane extends GridPane {
 	public void setLblPointsGoalIs(Label lblPointsGoalIs) {
 		this.lblPointsGoalIs = lblPointsGoalIs;
 	}
-	
-	
+
+	public Label getLblGameType() {
+		return lblGameType;
+	}
+
+	public void setLblGameType(Label lblGameType) {
+		this.lblGameType = lblGameType;
+	}
+
+	public Label getLblGameTypeIs() {
+		return lblGameTypeIs;
+	}
+
+	public void setLblGameTypeIs(Label lblGameTypeIs) {
+		this.lblGameTypeIs = lblGameTypeIs;
+	}
+
+	public Label getLblOwner() {
+		return lblOwner;
+	}
+
+	public void setLblOwner(Label lblOwner) {
+		this.lblOwner = lblOwner;
+	}
+
+	public Label getLblOwnerIs() {
+		return lblOwnerIs;
+	}
+
+	public void setLblOwnerIs(Label lblOwnerIs) {
+		this.lblOwnerIs = lblOwnerIs;
+	}
+
 }

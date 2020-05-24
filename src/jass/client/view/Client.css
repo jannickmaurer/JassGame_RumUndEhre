@@ -136,6 +136,14 @@
   	-fx-text-alignment: center;
 }
 
+#LabelBold {
+	-fx-font-size: 16px;
+  	-fx-text-fill: rgba(50, 50, 50, 1);
+  	-fx-font-weight: bold;
+  	-fx-alignment: center;
+  	-fx-text-alignment: center;
+}
+
 #LabelWait {
 	-fx-font-size: 16px;
   	-fx-text-fill: rgba(255, 255, 255, 1);
@@ -239,7 +247,7 @@
 }
 
 #Card{
-	-fx-opacity:1;
+	-fx-opacity:0.9;
 }
 
 #Card:disabled{
