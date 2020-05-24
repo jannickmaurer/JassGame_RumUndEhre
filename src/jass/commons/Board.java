@@ -38,6 +38,7 @@ public class Board {
 		this.tableCards = new TableCards();
 		this.gameTyp = gameTyp;
 		this.playedCards = 0;
+		this.playableHandCards = new HandCards();
 //		this.enterPlayRoom(roomName);
 	}
 
@@ -76,7 +77,7 @@ public class Board {
 
 	//Methode play evaluiert nur welche Karten gespielt werden dürfen und welche nicht
 	public void play() {
-		if(playableHandCards.hasCards()) playableHandCards.clearPlayableHandCards();
+		if(playableHandCards != null && playableHandCards.hasCards()) playableHandCards.clearPlayableHandCards();
 		if (tableCards.hasCards() == false) {
 			playableHandCards.setPlayableHandCards(handCards.getHandCards());
 		}
@@ -205,8 +206,8 @@ public class Board {
 		this.gameTyp = gameTyp;
 	}
 
-	public HandCards getPlayableHandCards() {
-		return playableHandCards;
+	public ArrayList<Card> getPlayableHandCards() {
+		return playableHandCards.getPlayableHandCards();
 	}
 
 	public HandCards getRemainingHandCards() {

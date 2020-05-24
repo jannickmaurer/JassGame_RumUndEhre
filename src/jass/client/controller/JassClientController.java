@@ -247,7 +247,7 @@ public class JassClientController {
 		playerOnTurn.addListener((o, oldValue, newValue) ->{
 			if(newValue.equals(this.username)) {
 				board.play();
-				logger.info("Playable Handcards: " + board.handCards.getPlayableHandCards());
+				logger.info("Playable Handcards: " + board.getPlayableHandCards());
 				for(int i = 0; i < view.getSpielraumLayout().getPlayerPane().getCardLabels().size(); i++) {
 					String temp = view.getSpielraumLayout().getPlayerPane().getCardLabels().get(i).getCardNameAsString();
 					for(Card c : board.handCards.getPlayableHandCards()) {
