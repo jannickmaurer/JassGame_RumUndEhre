@@ -145,8 +145,7 @@ public class JassClientView {
 	private Button btnUndeUfe = gameTypePopupLayout.getBtnUndeUfe();
 	private Button btnObeAbe = gameTypePopupLayout.getBtnObeAbe();
 	private Button btnSlalomUndeUfe = gameTypePopupLayout.getBtnSlalomUndeUfe();
-	private Button btnSlalomObeAbe = gameTypePopupLayout.getBtnObeAbe();
-	
+	private Button btnSlalomObeAbe = gameTypePopupLayout.getBtnSlalomObeAbe();
 	
 	private Label lblWyss = wyssPopupLayout.getLblWyss();
 	private Button btnWyss = wyssPopupLayout.getBtnWyss();
@@ -228,6 +227,16 @@ public class JassClientView {
 		btnBackSieger.setPrefWidth(140);
 		btnBackStartGame.setMinWidth(Region.USE_PREF_SIZE);
 		btnBackStartGame.setPrefWidth(140);
+		btnTrumpf.setMinWidth(Region.USE_PREF_SIZE);
+		btnTrumpf.setPrefWidth(180);
+		btnUndeUfe.setMinWidth(Region.USE_PREF_SIZE);
+		btnUndeUfe.setPrefWidth(180);
+		btnObeAbe.setMinWidth(Region.USE_PREF_SIZE);
+		btnObeAbe.setPrefWidth(180);
+		btnSlalomUndeUfe.setMinWidth(Region.USE_PREF_SIZE);
+		btnSlalomUndeUfe.setPrefWidth(180);
+		btnSlalomObeAbe.setMinWidth(Region.USE_PREF_SIZE);
+		btnSlalomObeAbe.setPrefWidth(180);
 		btnHearts.setMinWidth(Region.USE_PREF_SIZE);
 		btnHearts.setPrefWidth(140);
 		btnDiamonds.setMinWidth(Region.USE_PREF_SIZE);
@@ -302,6 +311,8 @@ public class JassClientView {
 		
 		btnNewRegistration.disableProperty().bind(tfNewUsername.textProperty().isEmpty() .or(pfNewPassword.textProperty().isEmpty()));
 		
+		btnStartGamePopUp.disableProperty().bind(tfPoints.textProperty().isEmpty());
+		
 		createSpielraumPopUp.getContent().add(spielraumPopupLayout);
 		spielraumPopupLayout.getBtnCreate().disableProperty().bind(spielraumPopupLayout.getTfSpielraumName().textProperty().isEmpty());
 		createSpielraumPopUp.setAutoHide(false);
@@ -371,6 +382,7 @@ public class JassClientView {
 		siegerPopupLayout.getLblWinner().setText(t.getString("label.winner"));
 		trumpfPopupLayout.getLblChooseTrumpf().setText(t.getString("label.choosetrumpf"));
 		wyssPopupLayout.getLblWyss().setText(t.getString("label.wyss"));
+		gameTypePopupLayout.getLblChooseGameType().setText(t.getString("label.gametype"));
 		
 	    // Other controls
 		connectLayout.getBtnRun().setText(t.getString("button.run"));
