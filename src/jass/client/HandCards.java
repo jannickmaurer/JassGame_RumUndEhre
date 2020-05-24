@@ -48,15 +48,12 @@ public class HandCards {
 	}
 	
 	public void cardPlayed(Card card) {
-<<<<<<< HEAD
 		for (int i = 0; i < handCards.size(); i++) {
 			if(handCards.get(i).toString() == card.toString()) handCards.remove(i);
 		}
-=======
 		logger.info("Remove card: " + card.toString());
 //		int i = handCards.indexOf(card);  //remainingHandCards
 		handCards.remove(card);  //remainingHandCards
->>>>>>> branch 'master' of https://github.com/jannickmaurer/JassGame_RumUndEhre.git
 	}
 
 	public void clearPlayableHandCards() {
@@ -112,13 +109,11 @@ public class HandCards {
 		return playableHandCards.size() != 0; 
 	}
 	
-<<<<<<< HEAD
 	public Trumpf evaluateTrumpf() {
 	return Trumpf.evaluateTrumpf(handCards);
 	}
 	
 
-=======
 	public String toString() {
 		if (handCards == null) return "No Cards";
 		String s = "";
@@ -131,7 +126,6 @@ public class HandCards {
 		return s;
 	}
 	
->>>>>>> branch 'master' of https://github.com/jannickmaurer/JassGame_RumUndEhre.git
 
 	
 }
