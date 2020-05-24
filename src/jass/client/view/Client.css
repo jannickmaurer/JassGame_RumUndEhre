@@ -131,8 +131,10 @@
 
 .label {
 	-fx-font-size: 16px;
+	-fx-font-family: 'sans-serif';
   	-fx-text-fill: rgba(50, 50, 50, 1);
   	-fx-alignment: center;
+  	-fx-font-weight: normal;
   	-fx-text-alignment: center;
 }
 
