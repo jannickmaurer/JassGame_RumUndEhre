@@ -3,10 +3,9 @@ package jass.server;
 import java.util.ArrayList;
 
 import jass.commons.Card;
-import jass.commons.Cards;
 import jass.commons.Trumpf;
 
-public class ServerTableCards extends Cards{
+public class ServerTableCards {
 
 	ArrayList<Card> serverTableCards = new ArrayList<>();
 	ArrayList<String> usernames = new ArrayList<>();
