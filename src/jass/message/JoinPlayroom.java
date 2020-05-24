@@ -43,9 +43,11 @@ public class JoinPlayroom extends Message {
 				String[] temp = new String[] {"ResultBroadcastListMembers"};
 				String[] content2 = this.combineArrayAndArrayList(temp, playroom.getMembers());
 				playroom.send(new ResultBroadcastListMembers(content2));
-			}
+			} 
+		} else {
+			client.send(new ResultJoinPlayroom(result));
+
 		}
-		client.send(new ResultJoinPlayroom(result));
 	}
 }
 

@@ -31,6 +31,7 @@ public class ResultBroadcastSendPoints extends Message {
 	@Override
 	public void process(JassClientController controller) {
 		controller.addPoints(username, Integer.parseInt(points));
+		controller.setPlayerToStartRound(username);
 	}
 
 	public void processIfFalse(JassClientController controller) {

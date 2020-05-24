@@ -91,6 +91,31 @@ public class PlayerPane extends VBox {
 		this.lblName = lblName;
 	}
 
+	public void updatePlayerDisplay(HandCards handCards, String playedCard) {
+		// ---> anpassen: lblName.setText(player.getPlayerName());
+		ArrayList<Card> handCardsList = new ArrayList<>();
+		handCardsList = handCards.getHandCards();
+		logger.info(handCards.getHandCards().toString());
+		logger.info("Update PlayerPane: " + handCardsList );
+				
+		CardLabel clToRemove = new CardLabel();
+		for(CardLabel cl : cardLabels) {
+			if(cl.getCardNameAsString().equals(playedCard)) {
+				clToRemove = cl;
+			}
+		}
+		cardLabels.remove(clToRemove);
+		hboxCards.getChildren().remove(clToRemove);
+
+		for (int i = 0; i < handCardsList.size(); i++) {
+			Card card = null;
+			CardLabel cl = (CardLabel) hboxCards.getChildren().get(i);
+			cl.setCard(handCardsList.get(i));
+			cl.setCardNameAsString(handCardsList.get(i).toString());
+		}
+//		hboxCards.getChildren().add(new Button("Hallo"));
+	}
+	
 	public void updatePlayerDisplay(HandCards handCards) {
 		// ---> anpassen: lblName.setText(player.getPlayerName());
 		ArrayList<Card> handCardsList = new ArrayList<>();
@@ -103,7 +128,6 @@ public class PlayerPane extends VBox {
 			CardLabel cl = (CardLabel) hboxCards.getChildren().get(i);
 			cl.setCard(handCardsList.get(i));
 			cl.setCardNameAsString(handCardsList.get(i).toString());
-			
 		}
 		
 		

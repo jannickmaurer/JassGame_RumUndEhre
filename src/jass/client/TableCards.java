@@ -49,4 +49,12 @@ public class TableCards extends Cards{
 		return tableCards.get(i).getSuit();
 	}
 	
+	public void addTableCard(Card card) {
+		tableCards.add(card);
+	}
+	
+	public void clearTableCards() {
+		tableCards.clear();
+	}
+	
 }

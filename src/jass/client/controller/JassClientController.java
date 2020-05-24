@@ -2,6 +2,7 @@ package jass.client.controller;
 
 import java.io.IOException;
 import java.net.ConnectException;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import jass.client.message.result.ResultPing;
@@ -37,9 +38,11 @@ import jass.client.view.JassClientView;
 import jass.client.view.PlayerPane;
 import jass.client.view.OtherPlayerPane;
 import jass.commons.Board;
+import jass.commons.Card;
 import jass.commons.ServiceLocator;
 import jass.message.Message;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -58,9 +61,12 @@ public class JassClientController {
 	private String username;
 	private String currentGameType;
 	private ObservableList<String> playrooms = FXCollections.observableArrayList();
-	private String playerOnTurn;
-	private SimpleStringProperty gameType;
-	private SimpleStringProperty Trumpf;
+	private SimpleStringProperty playerOnTurn = new SimpleStringProperty();
+	private SimpleStringProperty gameType = new SimpleStringProperty();
+	private SimpleStringProperty Trumpf = new SimpleStringProperty();
+	private SimpleStringProperty playerToStartRound = new SimpleStringProperty();
+	private ArrayList<String> members = new ArrayList<>();
+	private String owner;
 
 	public String getCurrentGameType() {
 		return currentGameType;
@@ -76,6 +82,7 @@ public class JassClientController {
 		this.view = view;
 		
 		
+
 		view.getBtnRun().setOnAction(event -> connect());
 		view.getBtnNewRegistration().setOnAction(event -> {
 			createAccount();
@@ -183,12 +190,11 @@ public class JassClientController {
 			view.gameTypePopup.hide();
 			view.trumpfPopUp.show(view.getStage());
 		});
-		
+
 		view.getBtnObeAbe().setOnAction(this::startRound);
 		view.getBtnUndeUfe().setOnAction(this::startRound);
 		view.getBtnSlalomObeAbe().setOnAction(this::startRound);
 		view.getBtnSlalomUndeUfe().setOnAction(this::startRound);
-		
 
 		view.getBtnSend().setOnAction(e -> {
 //			sendTableCard();
@@ -230,20 +236,40 @@ public class JassClientController {
 				model.disconnect();
 			}
 		});
-		
-		for(int i = 0; i < view.getSpielraumLayout().getPlayerPane().getCardLabels().size(); i++) {
+
+		for (int i = 0; i < view.getSpielraumLayout().getPlayerPane().getCardLabels().size(); i++) {
 			view.getSpielraumLayout().getPlayerPane().getCardLabels().get(i).setOnMouseReleased(this::sendTableCard);
-			logger.info("Card Mouse-Listener on Card" + view.getSpielraumLayout().getPlayerPane().getCardLabels().get(i).getCardNameAsString() +" running");
+			logger.info("Card Mouse-Listener on Card"
+					+ view.getSpielraumLayout().getPlayerPane().getCardLabels().get(i).getCardNameAsString()
+					+ " running");
 		}
-		for(int i = 0; i < view.getSpielraumLayout().getPlayerPane().getCardLabels().size(); i++) {
+		for (int i = 0; i < view.getSpielraumLayout().getPlayerPane().getCardLabels().size(); i++) {
 			view.getSpielraumLayout().getPlayerPane().getCardLabels().get(i).setOnMouseEntered(this::highlightCard);
-			logger.info("Card Mouse-Listener on Card" + view.getSpielraumLayout().getPlayerPane().getCardLabels().get(i).getCardNameAsString() +" running");
+			logger.info("Card Mouse-Listener on Card"
+					+ view.getSpielraumLayout().getPlayerPane().getCardLabels().get(i).getCardNameAsString()
+					+ " running");
 		}
-		for(int i = 0; i < view.getSpielraumLayout().getPlayerPane().getCardLabels().size(); i++) {
+		for (int i = 0; i < view.getSpielraumLayout().getPlayerPane().getCardLabels().size(); i++) {
 			view.getSpielraumLayout().getPlayerPane().getCardLabels().get(i).setOnMouseExited(this::delightCard);
-			logger.info("Card Mouse-Listener on Card" + view.getSpielraumLayout().getPlayerPane().getCardLabels().get(i).getCardNameAsString() +" running");
+			logger.info("Card Mouse-Listener on Card"
+					+ view.getSpielraumLayout().getPlayerPane().getCardLabels().get(i).getCardNameAsString()
+					+ " running");
 		}
 		
+		playerOnTurn.addListener((o, oldValue, newValue) ->{
+			if(newValue.equals(this.username)) {
+				board.play();
+				logger.info("Playable Handcards: " + board.handCards.getPlayableHandCards());
+				for(int i = 0; i < view.getSpielraumLayout().getPlayerPane().getCardLabels().size(); i++) {
+					String temp = view.getSpielraumLayout().getPlayerPane().getCardLabels().get(i).getCardNameAsString();
+					for(Card c : board.handCards.getPlayableHandCards()) {
+						if(c.toString().equals(temp)) {
+							view.getSpielraumLayout().getPlayerPane().getCardLabels().get(i).setDisable(false);
+						}
+					}
+				}
+			}
+		});
 	}
 
 	public ObservableList<String> getPlayrooms() {
@@ -454,13 +480,15 @@ public class JassClientController {
 	private void startRound(Event event) {
 		String gameType = null;
 		String additionalInfo = null;
-		if(event.getSource() == view.getBtnObeAbe()) gameType = "ObeAbe";
-		if(event.getSource() == view.getBtnUndeUfe()) gameType = "UndeUfe";
-		if(event.getSource() == view.getBtnSlalomObeAbe()) {
+		if (event.getSource() == view.getBtnObeAbe())
+			gameType = "ObeAbe";
+		if (event.getSource() == view.getBtnUndeUfe())
+			gameType = "UndeUfe";
+		if (event.getSource() == view.getBtnSlalomObeAbe()) {
 			gameType = "Slalom";
 			additionalInfo = "ObeAbe";
 		}
-		if(event.getSource() == view.getBtnSlalomUndeUfe()) {
+		if (event.getSource() == view.getBtnSlalomUndeUfe()) {
 			gameType = "Slalom";
 			additionalInfo = "UndeUfe";
 		} else {
@@ -473,7 +501,7 @@ public class JassClientController {
 				additionalInfo = "D";
 			if (event.getSource() == view.getBtnSpades())
 				additionalInfo = "S";
-		}	
+		}
 		model.startRound(gameType, additionalInfo);
 
 	}
@@ -627,6 +655,7 @@ public class JassClientController {
 
 	public void createBoard() {
 		board = new Board(currentPlayroom, currentGameType);
+		board.setMembers(this.members);
 		logger.info("Client board created: " + currentPlayroom + " / " + currentGameType);
 	}
 
@@ -677,18 +706,26 @@ public class JassClientController {
 		}
 	}
 
+	public void updatePlayerPane(String playedCard) {
+		logger.info("Update PlayerPane: " + board.getHandCards().toString());
+		Platform.runLater(new Runnable() {
+			public void run() {
+				PlayerPane pp = view.getSpielraumLayout().getPlayerPane();
+				pp.updatePlayerDisplay(board.getHandCards(), playedCard);
+
+			}
+		});
+	}
+
 	public void updatePlayerPane() {
 		logger.info("Update PlayerPane: " + board.getHandCards().toString());
 		Platform.runLater(new Runnable() {
 			public void run() {
 				PlayerPane pp = view.getSpielraumLayout().getPlayerPane();
 				pp.updatePlayerDisplay(board.getHandCards());
-				
 			}
 		});
-		
-		
-		
+
 //		view.getRoot().setCenter(view.spielraumLayout);
 	}
 
@@ -701,43 +738,57 @@ public class JassClientController {
 			});
 		}
 	}
-	public void createOtherPlayerPane(int countMembers, String username) {
+
+//	public void createOtherPlayerPane(int countMembers, String username) {
+//		Platform.runLater(new Runnable() {
+//			public void run() {
+//				view.getSpielraumLayout().createOtherPlayerPane(countMembers, username);
+//			}
+//		});
+//	}
+	
+	public void createOtherPlayerPanes(ArrayList<String> members) {
 		Platform.runLater(new Runnable() {
 			public void run() {
-				view.getSpielraumLayout().createOtherPlayerPane(countMembers, username);
-			}			
+				view.getSpielraumLayout().clearOtherPlayerPaneList();
+				view.getSpielraumLayout().createOtherPlayerPanes(members);
+			}
 		});
 	}
-	
+
 	public void addPoints(String username, int points) {
-		if(username.equals(this.username)) {
+		if (username.equals(this.username)) {
 			Platform.runLater(new Runnable() {
 				public void run() {
-					int total = points + Integer.parseInt(view.getSpielraumLayout().getPlayerPane().getLblPointsPlayer().getText());
+					int total = points + Integer
+							.parseInt(view.getSpielraumLayout().getPlayerPane().getLblPointsPlayer().getText());
 					view.getSpielraumLayout().getPlayerPane().getLblPointsPlayer().setText(Integer.toString(points));
-				}			
+				}
 			});
-			 
+
 		} else {
 			Platform.runLater(new Runnable() {
 				public void run() {
-					
-					int total = points + Integer.parseInt(view.getSpielraumLayout().getOtherPlayerPane(username).getLblPointsPlayer().getText());
-					view.getSpielraumLayout().getOtherPlayerPane(username).getLblPointsPlayer().setText(Integer.toString(total));
-				}			
+					int total = points + Integer.parseInt(
+							view.getSpielraumLayout().getOtherPlayerPane(username).getLblPointsPlayer().getText());
+					view.getSpielraumLayout().getOtherPlayerPane(username).getLblPointsPlayer()
+							.setText(Integer.toString(total));
+				}
 			});
-		}	
+		}
 	}
+
 	public void highlightCard(Event event) {
 		CardLabel cl = (CardLabel) event.getSource();
 		cl.setStyle("-fx-border-width: 5; -fx-border-color: black");
 //		cl.setStyle();
 	}
+
 	public void delightCard(Event event) {
 		CardLabel cl = (CardLabel) event.getSource();
 		cl.setStyle("-fx-border-width: 0");
 	}
-	
+
 	public void playroomName(String name) {
 		Platform.runLater(new Runnable() {
 			public void run() {
@@ -745,7 +796,7 @@ public class JassClientController {
 			}
 		});
 	}
-	
+
 	public void maxPoints(String maxPoints) {
 		Platform.runLater(new Runnable() {
 			public void run() {
@@ -761,5 +812,37 @@ public class JassClientController {
 			}
 		});
 	}
+
+	public String getPlayerOnTurn() {
+		return playerOnTurn.getValue();
+	}
+
+	public void setPlayerOnTurn(String playerOnTurn) {
+		this.playerOnTurn.setValue(playerOnTurn);
+	}
+
+	public String getPlayerToStartRound() {
+		return playerToStartRound.getValue();
+	}
+
+	public void setPlayerToStartRound(String playerToStartRound) {
+		this.playerToStartRound.setValue(playerToStartRound);
+	}
+
+	public void setMembers(ArrayList<String> members) {
+		this.members.clear();
+		for(String m : members) {
+			this.members.add(m);
+		}
+	}
+
+	public String getOwner() {
+		return owner;
+	}
+
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
+	
 	
 }

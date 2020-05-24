@@ -151,44 +151,59 @@ public class SpielraumPane extends GridPane {
 		this.setId("root");
 	}
 	
-	public void createOtherPlayerPane(int countMembers, String username) {
-		System.out.println("Members:" + countMembers + "ArrayList: " + otherPlayerPaneList.size());
-			
-			
-			for(int i = otherPlayerPaneList.size(); i < countMembers; i++) {
-				
-				if (i == 0) {
-					logger.info("OPL i=0: " + username);
-					OtherPlayerPane otherPlayerPane1 = new OtherPlayerPane(username);
-					otherPlayerPaneList.add(otherPlayerPane1);
-					otherPlayerPane1.getLblName().setText(username);
-					this.add(otherPlayerPane1, 1, 0);
-					countMembers--;
-				}
-				if (i == 1) {
-					logger.info("OPL i=1: " + username);
-					OtherPlayerPane otherPlayerPane2 = new OtherPlayerPane(username);
-					otherPlayerPaneList.add(otherPlayerPane2);
-					otherPlayerPane2.getLblName().setText(username);
-					this.add(otherPlayerPane2, 2, 1);
-					countMembers--;
-				}
-				if (i == 2) {
-					logger.info("OPL i=2: " + username);
-					OtherPlayerPane otherPlayerPane3 = new OtherPlayerPane(username);
-					otherPlayerPaneList.add(otherPlayerPane3);
-					otherPlayerPane3.getLblName().setText(username);
-					this.add(otherPlayerPane3, 0, 1);
-					countMembers--;
-				}
-			}
-		
-		//---> anpassen: 			pp.setPlayer(model.getPlayer(i)); // link to player object in the logic
+//	public void createOtherPlayerPane(int countMembers, String username) {
+//		System.out.println("Members:" + countMembers + "ArrayList: " + otherPlayerPaneList.size());
+//			
+//			
+//			for(int i = otherPlayerPaneList.size(); i < countMembers; i++) {
+//				
+//				if (i == 0) {
+//					logger.info("OPL i=0: " + username);
+//					OtherPlayerPane otherPlayerPane1 = new OtherPlayerPane(username);
+//					otherPlayerPaneList.add(otherPlayerPane1);
+//					otherPlayerPane1.getLblName().setText(username);
+//					this.add(otherPlayerPane1, 1, 0);
+//					countMembers--;
+//				}
+//				if (i == 1) {
+//					logger.info("OPL i=1: " + username);
+//					OtherPlayerPane otherPlayerPane2 = new OtherPlayerPane(username);
+//					otherPlayerPaneList.add(otherPlayerPane2);
+//					otherPlayerPane2.getLblName().setText(username);
+//					this.add(otherPlayerPane2, 2, 1);
+//					countMembers--;
+//				}
+//				if (i == 2) {
+//					logger.info("OPL i=2: " + username);
+//					OtherPlayerPane otherPlayerPane3 = new OtherPlayerPane(username);
+//					otherPlayerPaneList.add(otherPlayerPane3);
+//					otherPlayerPane3.getLblName().setText(username);
+//					this.add(otherPlayerPane3, 0, 1);
+//					countMembers--;
+//				}
+//			}
+//		
+//		//---> anpassen: 			pp.setPlayer(model.getPlayer(i)); // link to player object in the logic
+//	}
+	
+	public void createOtherPlayerPanes(ArrayList<String> members) {
+		for(int i = 0; i < members.size(); i++) {
+			OtherPlayerPane opl = new OtherPlayerPane(members.get(i));
+			otherPlayerPaneList.add(opl);
+			if(i == 0) this.add(opl, 1, 0);
+			if(i == 1) this.add(opl, 2, 1);
+			if(i == 2) this.add(opl, 0, 1);
+		}
 	}
 	
-	public void clearPlayerPaneList() {
-		otherPlayerPaneList.clear();
+	public void clearOtherPlayerPaneList() {
+		for(int i = 0; i < otherPlayerPaneList.size(); i++) {
+			this.getChildren().remove(otherPlayerPaneList.get(i));
+			otherPlayerPaneList.remove(i);
+		}
 	}
+	
+
 
 	public PlayerPane getPlayerPane() {
 		

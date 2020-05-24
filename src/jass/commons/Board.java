@@ -27,14 +27,17 @@ public class Board {
 	public HandCards handCards; //allefalls direkt zugriff
 //	public HandCards startHandCards;
 	private String playerOnTurn;
+	private int playedCards;
+	private ArrayList<String> members = new ArrayList<>();
 	
 //	HandCards handCards;
-	TableCards tableCards;
+	private TableCards tableCards;
 
 	public Board(String roomName, String gameTyp) {
 		this.handCards = new HandCards();
 		this.tableCards = new TableCards();
 		this.gameTyp = gameTyp;
+		this.playedCards = 0;
 //		this.enterPlayRoom(roomName);
 	}
 
@@ -72,8 +75,8 @@ public class Board {
 	}
 
 	//Methode play evaluiert nur welche Karten gespielt werden dürfen und welche nicht
-	private void play() {
-		playableHandCards.clearPlayableHandCards();
+	public void play() {
+		if(playableHandCards != null) playableHandCards.clearPlayableHandCards();
 		if (tableCards.hasCards() == false) {
 			playableHandCards = handCards;
 		}
@@ -177,12 +180,18 @@ public class Board {
 		} wiisDone = true;
 	}
 
-	// Methode getTAbleCards und getPlayersTrun in Message auslagern
-	private String getTableCards() {
-		// TODO Auto-generated method stub
-		// mit jannick absprechen worauf ich die Message und methodenaufrufe senden soll
-		//
-		return "6D|7H";
+	public void addTableCard(Card card) {
+		logger.info("Add Card to TableCards: " + card.toString());
+		this.tableCards.add(card);
+		this.playedCards++;
+		if(playedCards == members.size()) {
+			playedCards = 0;
+			tableCards.clearTableCards();
+		}
+	}
+	
+	private TableCards getTableCards() {
+		return this.tableCards;
 	}
 
 	private int getPlayersTurn() {
@@ -280,7 +289,14 @@ public class Board {
 //	}
 	
 	public void removeHandCard(Card card) {
-		this.handCards.cardPlayed(card);
+		logger.info("Board removes handcard: " + card.toString() );
+			this.handCards.cardPlayed(card);
+	}
+	
+	public void setMembers(ArrayList<String> members) {
+		for(String m : members) {
+			this.members.add(m);
+		}
 	}
 
 }

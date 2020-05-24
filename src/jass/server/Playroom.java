@@ -35,6 +35,7 @@ public class Playroom implements Serializable {
 	private ArrayList<String> members;
 	private Chatroom chatroom;
 	private boolean gameRunning = false;
+	private boolean roundEnded;
 	private String playerOnTurn;
 	private String owner;
 	private int maxPoints;
@@ -124,6 +125,7 @@ public class Playroom implements Serializable {
 		logger.info("Game Playroom: " + this.gameType + " & " + this.trumpf);
 		playedCards++;
 		if (playedCards < this.getMembers().size()) {
+			roundEnded = false;
 			logger.info("ClientCard added to ServerTableCards: " + clientCard);
 			evaluationRuleSet.addClientCard(clientCard);
 		}
@@ -134,8 +136,38 @@ public class Playroom implements Serializable {
 			content = new String[] {"ResultBroadcastSendPoints", tempLeader, Integer.toString(points)};
 			this.send(new ResultBroadcastSendPoints(content));
 			playedCards = 0;
+			roundEnded = true;
 			evaluationRuleSet.getServerTableCards().clearServerTableCards();
 		}
+	}
+	public String getPlayerOnTurn(String lastPlayed) {
+		playerOnTurn = null;
+		int index = -1;
+		for(int i = 0; i < members.size(); i++) {
+			if(members.get(i).equals(lastPlayed)) index = i;
+		}
+		if(index == 0) playerOnTurn = members.get(1);
+		
+		if(index == 1) {
+			if(members.size() > 2) {
+				playerOnTurn = members.get(2);
+			} else {
+				playerOnTurn = members.get(0);
+			}
+			
+		}
+		if(index == 2) {
+			if(members.size() > 3) {
+				playerOnTurn = members.get(3);
+			} else {
+				playerOnTurn = members.get(0);
+			}
+		}
+		if(index == 3) {
+			playerOnTurn = members.get(0);
+		}
+		
+		return playerOnTurn;
 	}
 
 	
@@ -289,9 +321,9 @@ public class Playroom implements Serializable {
 		this.gameRunning = gameStarted;
 	}
 
-	public String getPlayerOnTurn() {
-		return playerOnTurn;
-	}
+//	public String getPlayerOnTurn() {
+//		return playerOnTurn;
+//	}
 
 	public void setPlayerOnTurn(String playerOnTurn) {
 		this.playerOnTurn = playerOnTurn;
@@ -353,6 +385,10 @@ public class Playroom implements Serializable {
 
 	public String toString() {
 		return this.name;
+	}
+	
+	public Boolean hasRoundEnded() {
+		return roundEnded;
 	}
 	
 //	public String getNinePlayerCards() {

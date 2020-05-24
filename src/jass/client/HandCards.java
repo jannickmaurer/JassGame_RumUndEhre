@@ -50,8 +50,13 @@ public class HandCards extends Cards{
 	
 	public void cardPlayed(Card card) {
 		logger.info("Remove card: " + card.toString());
+		handCards.removeIf(i -> i.toString().equals(card.toString()));
 //		int i = handCards.indexOf(card);  //remainingHandCards
-		handCards.remove(card);  //remainingHandCards
+//		for(Card c : handCards) {
+//			if(c.toString().equals(card.toString())) handCards.remove(c);
+//		}
+//		handCards.remove(card);  //remainingHandCards
+		logger.info("Remaining HandCards in Handcards: " + handCards.toString() );
 	}
 
 	public void clearPlayableHandCards() {
