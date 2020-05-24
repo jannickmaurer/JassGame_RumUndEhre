@@ -45,6 +45,7 @@ public class SpielraumPane extends GridPane {
 	PlayerPane playerPane;
 	OtherPlayerPane otherPlayerPane;
 	GridPane playedCards;
+	CardLabel clPlayedCard;
 
 	ArrayList<OtherPlayerPane> otherPlayerPaneList;
 
@@ -200,51 +201,20 @@ public class SpielraumPane extends GridPane {
 		for (int i = 0; i < members.size(); i++) {
 			OtherPlayerPane opl = new OtherPlayerPane(members.get(i));
 			otherPlayerPaneList.add(opl);
-			if (i == 0)
-				this.add(opl, 1, 0);
-			if (i == 1)
-				this.add(opl, 2, 1);
-			if (i == 2)
-				this.add(opl, 0, 1);
-		}
-	}
-
-	public void createOtherPlayerPane(int countMembers, String username) {
-		System.out.println("Members:" + countMembers + "ArrayList: " + otherPlayerPaneList.size());
-
-		for (int i = otherPlayerPaneList.size(); i < countMembers; i++) {
-
+			CardLabel clPlayedCard = new CardLabel(members.get(i));
 			if (i == 0) {
-				logger.info("OPL i=0: " + username);
-				OtherPlayerPane otherPlayerPane1 = new OtherPlayerPane(username);
-				otherPlayerPaneList.add(otherPlayerPane1);
-				otherPlayerPane1.getLblName().setText(username);
-				this.add(otherPlayerPane1, 1, 0);
-				playedCards.add(cardP2, 1, 0);
-				countMembers--;
+				this.add(opl, 1, 0);
+				playedCards.add(clPlayedCard, 1, 0);
 			}
 			if (i == 1) {
-				logger.info("OPL i=1: " + username);
-				OtherPlayerPane otherPlayerPane2 = new OtherPlayerPane(username);
-				otherPlayerPaneList.add(otherPlayerPane2);
-				otherPlayerPane2.getLblName().setText(username);
-				this.add(otherPlayerPane2, 2, 1);
-				playedCards.add(cardP3, 2, 1);
-				countMembers--;
+				this.add(opl, 2, 1);
+				playedCards.add(clPlayedCard, 2, 1);
 			}
 			if (i == 2) {
-				logger.info("OPL i=2: " + username);
-				OtherPlayerPane otherPlayerPane3 = new OtherPlayerPane(username);
-				otherPlayerPaneList.add(otherPlayerPane3);
-				otherPlayerPane3.getLblName().setText(username);
-				this.add(otherPlayerPane3, 0, 1);
-				playedCards.add(cardP4, 0, 1);
-				countMembers--;
+				this.add(opl, 0, 1);
+				playedCards.add(clPlayedCard, 0, 1);
 			}
 		}
-
-		// ---> anpassen: pp.setPlayer(model.getPlayer(i)); // link to player object in
-		// the logic
 	}
 
 	public void clearOtherPlayerPaneList() {
@@ -253,6 +223,10 @@ public class SpielraumPane extends GridPane {
 			otherPlayerPaneList.remove(i);
 		}
 	}
+	
+	//public void clearPlayedCards() {
+	//	playedCards.getChildren().clear();
+	//}
 
 	public PlayerPane getPlayerPane() {
 

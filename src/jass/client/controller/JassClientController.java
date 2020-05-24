@@ -750,6 +750,7 @@ public class JassClientController {
 	public void createOtherPlayerPanes(ArrayList<String> members) {
 		Platform.runLater(new Runnable() {
 			public void run() {
+				
 				view.getSpielraumLayout().clearOtherPlayerPaneList();
 				view.getSpielraumLayout().createOtherPlayerPanes(members);
 			}
