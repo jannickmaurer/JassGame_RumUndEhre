@@ -21,7 +21,7 @@ public class Board {
 	public static String trumpf = "H";
 	public boolean wiisDone = false;
 	public Card myLastPlayedCard;
-	public static String gameTyp = "Trumpf";
+	public String gameTyp = "Trumpf";
 	public String playableCards;
 	public HandCards playableHandCards;
 	public HandCards handCards; //allefalls direkt zugriff
@@ -246,12 +246,12 @@ public class Board {
 //		this.myLastPlayedCard = myLastPlayedCard;
 //	}
 
-	public static String getGameTyp() {
+	public String getGameTyp() {
 		return gameTyp;
 	}
 
-	public static void setGameTyp(String gameTyp) {
-		Board.gameTyp = gameTyp;
+	public void setGameTyp(String gameTyp) {
+		this.gameTyp = gameTyp;
 	}
 
 	public HandCards getPlayableHandCards() {
