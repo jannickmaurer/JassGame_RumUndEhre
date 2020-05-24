@@ -247,7 +247,7 @@
 }
 
 #Card{
-	-fx-opacity:1;
+	-fx-opacity:0.9;
 }
 
 #Card:disabled{
