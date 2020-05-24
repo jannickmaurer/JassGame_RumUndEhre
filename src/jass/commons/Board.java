@@ -6,6 +6,11 @@ import jass.client.TableCards;
 import jass.client.HandCards;
 import jass.client.PlayableHandCards;
 
+/**
+ * David Schürch
+ * Evaluation welche Karten gespielt werden dürfen
+ */
+
 public class Board {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
@@ -38,7 +43,7 @@ public class Board {
 		logger.info("HandCards added: " + handCards.toString());
 	}
 
-	//Methode play evaluiert nur welche Karten gespielt werden dürfen und welche nicht
+	//Play evaluiert welche Karten der Spieler spielen darf.
 	public void play() {
 		if(playableHandCards.hasCards()) playableHandCards.clearPlayableHandCards();
 		if (tableCards.hasCards() == false) {
@@ -93,16 +98,6 @@ public class Board {
 					playableHandCards.setPlayableHandCards(handCards.getHandCards()); 		
 				}
 			}
-			if (gameTyp.equals("ObeAbe") || gameTyp.equals("UndeUfe") || gameTyp.equals("Slalom")) {
-				for (int i = 0; i < handCards.hasLength(); i++) {
-					if(handCards.getCardSuit(i).equals(tableCards.getCardSuit(0))) {
-						playableHandCards.add(handCards.getCard(i));
-					}
-				}	
-				if (playableHandCards.hasPlayableCards() == false) {
-					playableHandCards.setPlayableHandCards(handCards.getHandCards());
-				}
-			}
 		} 
 		logger.info("Play: " + playableHandCards + "  " + gameTyp + "  " + trumpf);
 	}
@@ -118,6 +113,7 @@ public class Board {
 		}
 	}
 
+	//Getter und Setter
 	public int getImPlayer() {
 		return imPlayer;
 	}
@@ -146,7 +142,6 @@ public class Board {
 		return playableHandCards.getPlayableHandCards();
 	}
 
-//Getter und Setter
 	public HandCards getHandCards() {
 		return handCards;
 	}

@@ -5,6 +5,12 @@ import java.util.logging.Logger;
 import jass.commons.Card;
 import jass.commons.ServiceLocator;
 
+/**
+ * David Schürch
+ * Hier auf dem Server wird evaluiert wer der Sieger ist. Der Username des Spielers kann mit dem dem zuvor erhaltenen
+ * int Wert abgefragt werden.
+ */
+
 public class EvaluationRuleSet{
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
@@ -33,16 +39,6 @@ public class EvaluationRuleSet{
 				Card tempWinnerCard = serverTableCards.getHigherSameSuitCard();
 				playerWinnerNr = isCardNumber(tempWinnerCard);
 			}
-		}
-		if (gameType.equals("ObeAbe") || gameType.equals("UndeUfe")) {
-			Card tempWinnerCard = serverTableCards.getHighestUfeAbeCard(gameType);
-			playerWinnerNr = isCardNumber(tempWinnerCard);
-		}
-		if (gameType.equals("Slalom")) {
-			if (trumpf.equals("UndeUfe")) trumpf = "ObeAbe";
-			else trumpf = "UndeUfe";
-			Card tempWinnerCard = serverTableCards.getHighestUfeAbeCard(trumpf);
-			playerWinnerNr = isCardNumber(tempWinnerCard);	
 		}
 		return serverTableCards.getUsername(playerWinnerNr);
 	}

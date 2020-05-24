@@ -5,6 +5,11 @@ import java.util.logging.Logger;
 import jass.commons.Card;
 import jass.commons.ServiceLocator;
 
+/**
+ * David Schürch
+ * Getter und Setter Methoden
+ */
+
 public class PlayableHandCards {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
