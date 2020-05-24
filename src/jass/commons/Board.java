@@ -27,7 +27,7 @@ public class Board {
 	public HandCards handCards; //allefalls direkt zugriff
 	private TableCards tableCards;
 //	public HandCards startHandCards;
-//	private String playerOnTurn;
+	private String playerOnTurn;
 	private int playedCards;
 	private ArrayList<String> members = new ArrayList<>();
 	
@@ -77,7 +77,7 @@ public class Board {
 
 	//Methode play evaluiert nur welche Karten gespielt werden dürfen und welche nicht
 	public void play() {
-		if(playableHandCards != null && playableHandCards.hasCards()) playableHandCards.clearPlayableHandCards();
+		if(playableHandCards.hasCards()) playableHandCards.clearPlayableHandCards();
 		if (tableCards.hasCards() == false) {
 			playableHandCards.setPlayableHandCards(handCards.getHandCards());
 		}
@@ -142,8 +142,52 @@ public class Board {
 				}
 			}
 		} 
+
+		
+		
 		logger.info("Play: " + playableHandCards + "  " + gameTyp + "  " + trumpf);
 	}
+
+//	private void selectGameVariety() {
+		// Methode evaluieren was der Spieler als GAmeVariante gewählt hat
+		// zB Trumpf, ObeAbe, UndeUfe, Slalom
+		// TODO Auto-generated method stub
+	//	this.gameVariety = gameVariety;
+//	}
+
+//	public Trumpf evaluateTrumpf() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+
+//	public int winnerEval() {
+////		if (!wiisDone)
+////			wiisEval();
+//
+//		// TODO Auto-generated method sub
+//		// Jeder Client prüft selbst ob er gewonnen hat
+//		// Danach gibt jeder Client den Punktestand zurück und SErver evaluiert welche
+//		// Spieler zusammen
+//		// gehören und passt die punktestände beider teams an
+//
+//		/**
+//		 * Wenn ich punkte meldete muss danach der Server das Board auf null setzen
+//		 * clearen wenn alle vier karten liegen und server sagt welcher spieler anfängt,
+//		 * ist oben implementiert
+//		 */
+//		int winner = 1;
+//		//send winner to server;
+//		return winner;
+//	}
+
+//	private void wiisEval() {
+//		// TODO Auto-generated method stub
+//		if (!handCards.hasWiis()) wiisDone = true;
+//		else {
+//			//Server die Weisenums übergeben und den Weis an Sämi übergeben,
+//			//falls die Person weisen kann
+//		} wiisDone = true;
+//	}
 
 	public void addTableCard(Card card) {
 		logger.info("Add Card to TableCards: " + card.toString());
@@ -156,20 +200,12 @@ public class Board {
 		}
 	}
 	
-//	private TableCards getTableCards() {
-//		return this.tableCards;
-//	}
-//
-//	private int getPlayersTurn() {
-//		// TODO Auto-generated method stub
-//		// dito wie bei getTableCards
-//		return 1;
-//	}
-	
-	public String getPlayableCards() {
+	public String getPlayableCards() {//Mehoden mit playableCards werden 
+		//momentan nicht verwendet, die anderen drei unten auch nicht
 		return playableCards;
 	}
 	
+
 	public void setPlayableCards(String playableCards) {
 		this.playableCards = playableCards;
 	}
@@ -206,13 +242,22 @@ public class Board {
 		this.gameTyp = gameTyp;
 	}
 
-	public ArrayList<Card> getPlayableHandCards() {
-		return playableHandCards.getPlayableHandCards();
+	public HandCards getPlayableHandCards() {
+		return playableHandCards;
 	}
+
+	
+//	public void setPlayableHandCards(HandCards playableHandCards) {
+//		this.playableHandCards = playableHandCards;
+//	}
 
 	public HandCards getRemainingHandCards() {
 		return handCards;
 	}
+
+//	public void setRemainingHandCards(HandCards remainingHandCards) {
+//		this.remainingHandCards = remainingHandCards;
+//	}
 
 	
 //Getter und Setter
@@ -224,9 +269,17 @@ public class Board {
 		return handCards.getHandCards();
 	}
 
+//	public void setHandCards(HandCards handCards) {
+//		this.handCards = handCards;
+//	}
+
 	public static void setPlayersTurn(int playersTurn) {
 		Board.playersTurn = playersTurn;
 	}
+
+//	public void setTableCards(TableCards tableCards) {
+//		this.tableCards = tableCards;
+//	}
 	
 	public void removeHandCard(Card card) {
 		logger.info("Board removes handcard: " + card.toString() );
@@ -238,4 +291,5 @@ public class Board {
 			this.members.add(m);
 		}
 	}
+
 }
