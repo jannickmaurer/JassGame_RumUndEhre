@@ -60,14 +60,17 @@ public class CardCreation {
 	 * This is an example of conditional assignment
 	 */
 
-//	public Card getShuffledCard() {
-//		Card card = (cards.size() > 0) ? cards.remove(cards.size() - 1) : null;
-//		return card;
-//	}
+	public ArrayList<Card> getShuffledCard() {
+		return cards;
+	}
 	
 	//return String mit 9 karten
 	
 	public String shuffledPlayerCards() {
+		
+		///*****
+		
+		
 //		String shuffledPlayerCards = "";
 //		if (this.cards == null) return "No Cards";
 //		
@@ -95,6 +98,7 @@ public class CardCreation {
 		if (shuffledPlayerCards != null && shuffledPlayerCards.length() > 0) {
 			shuffledPlayerCards = shuffledPlayerCards.substring(0, shuffledPlayerCards.length() - 1);
 		}
+		
 		return shuffledPlayerCards;
 	}
 

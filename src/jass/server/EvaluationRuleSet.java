@@ -1,17 +1,21 @@
 package jass.server;
 
-import java.io.Serializable;
+import static org.junit.Assert.assertNotNull;
+
+import java.lang.reflect.Array;
+//import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import jass.commons.Card;
 import jass.commons.ServiceLocator;
-import jass.commons.Trumpf;
+import jass.commons.Wiis;
 
 //result broadcast startRound message zurück an client wenn die runde startet
 //andere startRound karte hier kommt gameTyp rein, welcher ich in Trumpf übergeben muss
 //Allepunkte zusammenzählen für maxximale üunkte um spiel zu benden
 
-public class EvaluationRuleSet implements Serializable {
+public class EvaluationRuleSet{ //implements Serializable
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
 	public String trumpf = "H"; //nicht mehr statisch
@@ -19,6 +23,10 @@ public class EvaluationRuleSet implements Serializable {
 	private ServerTableCards serverTableCards;
 	private ServerTableCards usernames;
 	private int playedRounds = 0;
+	
+	
+	private ArrayList<Card> allPlayerCards;
+	private int playerNumber;
 
 	public EvaluationRuleSet() {
 		serverTableCards = new ServerTableCards();
@@ -111,16 +119,48 @@ public class EvaluationRuleSet implements Serializable {
 		return 0;
 	}
 	
-	public void wiisWinnerIsPlayer() {
+	public int wiisWinnerIsPlayer() {
 		//spieler vergeleichen welcher den höchsten Wiis WErt hat
 		//bei gleichem Wiiswert kommt der spieler dran der zuerst seine karte legte
 		//Wiis wiisPlayerOne = hasTrumpf
+		ArrayList<Integer> playerPoints = new ArrayList<>();
+		int tempWinner = 0;
+		ArrayList<Integer> tempWinnerPlace = new ArrayList<Integer>();
+		for (int i = 0; i < playerNumber; i++) {
+			playerPoints.add(Wiis.getHighestWiis(tempPlayerCards(i)));
+		}
+		for (int i = 0; i < playerPoints.size(); i++) {
+			if(i > tempWinner) tempWinner = i; tempWinnerPlace.add(playerPoints.get(i));
+			if(i == tempWinner) tempWinnerPlace.add(playerPoints.get(i));
+		}
+		if (tempWinnerPlace.isEmpty()) return -1; //achtung, aussondern
+		if (tempWinnerPlace.size() == 1) return Wiis.getAllWiisesFromPlayer(tempPlayerCards(tempWinner));
+//		if (tempWinnerPlace.size() > 1) Wiis.getWiisWinner(cards);
 		
+		return 1;
+		//return + evtl has Stoeck
+		
+	}
+	
+	private ArrayList<Card> tempPlayerCards(int i){
+		ArrayList<Card> temp = new ArrayList<>();
+		for(int j = (i * 9); j < (9 + i * 9); j++) {
+			temp.add(allPlayerCards.get(j));
+		}
+		return temp;
 	}
 	
 	public void pointsForWiisWinner() {
 		
 		
+	}
+
+	public ArrayList<Card> getAllPlayerCards() {
+		return allPlayerCards;
+	}
+
+	public void setAllPlayerCards(ArrayList<Card> allPlayerCards) {
+		this.allPlayerCards = allPlayerCards;
 	}
 	
 	//Achtung: Stoeck kann jeder immer haben, obwohl ein anderer gewiesen hat!!!!

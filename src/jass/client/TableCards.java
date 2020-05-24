@@ -4,10 +4,9 @@ import java.util.ArrayList;
 
 import jass.commons.Card;
 import jass.commons.Card.Suit;
-import jass.commons.Cards;
 import jass.commons.Trumpf;
 
-public class TableCards extends Cards{
+public class TableCards{
 	ArrayList<Card> tableCards = new ArrayList<>();
 //	private Trumpf trumpf;
 	private Suit firstSuit;
@@ -47,6 +46,10 @@ public class TableCards extends Cards{
 	
 	public Suit getCardSuit(int i) {
 		return tableCards.get(i).getSuit();
+	}
+	
+	public Card getCard(int i) {
+	return tableCards.get(i);
 	}
 	
 }
