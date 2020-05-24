@@ -310,6 +310,7 @@ public class JassClientModel {
 		new Thread(initializer).start();
 	}
 
+	//Analog Chatroom Project at FHNW 2019
 	final Task<Void> initializer = new Task<Void>() {
 		@Override
 		protected Void call() throws Exception {
