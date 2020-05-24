@@ -78,7 +78,8 @@ public class Board {
 	public void play() {
 		if(playableHandCards != null) playableHandCards.clearPlayableHandCards();
 		if (tableCards.hasCards() == false) {
-			playableHandCards = handCards;
+		//	playableHandCards = handCards;
+			playableHandCards.setPlayableHandCards(handCards.getHandCards());
 		}
 		if (tableCards.hasCards() == true) {
 			if (gameTyp == "Trumpf") {
@@ -89,7 +90,7 @@ public class Board {
 								playableHandCards.add(handCards.getCard(i));
 							}
 						}		
-					}else playableHandCards = handCards;
+					}else playableHandCards.setPlayableHandCards(handCards.getHandCards());
 				}
 				if (tableCards.evaluateTrumpf().toString() == "Stich") {
 					Card highestTableStichCard;
@@ -125,7 +126,9 @@ public class Board {
 						}
 					}
 				}
-				if (playableHandCards.hasPlayableCards() == false) playableHandCards = handCards;			
+				if (playableHandCards.hasPlayableCards() == false) {
+					playableHandCards.setPlayableHandCards(handCards.getHandCards()); 		
+				}
 			}
 
 			if (gameTyp == "ObeAbe" || gameTyp == "UndeUfe" || gameTyp == "Slalom") {
@@ -134,7 +137,9 @@ public class Board {
 						playableHandCards.add(handCards.getCard(i));
 					}
 				}	
-				if (playableHandCards.hasPlayableCards() == false) playableHandCards = handCards;
+				if (playableHandCards.hasPlayableCards() == false) {
+					playableHandCards.setPlayableHandCards(handCards.getHandCards());
+				}
 			}
 		} 
 	}
