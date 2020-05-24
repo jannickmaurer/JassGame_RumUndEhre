@@ -76,9 +76,9 @@ public class Board {
 
 	//Methode play evaluiert nur welche Karten gespielt werden dürfen und welche nicht
 	public void play() {
+//	public String play() {
 		if(playableHandCards != null) playableHandCards.clearPlayableHandCards();
 		if (tableCards.hasCards() == false) {
-		//	playableHandCards = handCards;
 			playableHandCards.setPlayableHandCards(handCards.getHandCards());
 		}
 		if (tableCards.hasCards() == true) {
@@ -142,6 +142,8 @@ public class Board {
 				}
 			}
 		} 
+		
+		
 	}
 
 //	private void selectGameVariety() {
