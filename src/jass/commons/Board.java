@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import jass.client.TableCards;
 import jass.client.HandCards;
+import jass.client.PlayableHandCards;
 import jass.client.Player;
 import jass.commons.Card.Suit;
 
@@ -22,12 +23,12 @@ public class Board {
 	public boolean wiisDone = false;
 	public Card myLastPlayedCard;
 	public String gameTyp = "Trumpf";
-	public String playableCards;
-	public HandCards playableHandCards;
+//	public String playableCards;
+	public PlayableHandCards playableHandCards; //HandCards
 	public HandCards handCards; //allefalls direkt zugriff
 	private TableCards tableCards;
 //	public HandCards startHandCards;
-	private String playerOnTurn;
+//	private String playerOnTurn;
 	private int playedCards;
 	private ArrayList<String> members = new ArrayList<>();
 	
@@ -38,7 +39,7 @@ public class Board {
 		this.tableCards = new TableCards();
 		this.gameTyp = gameTyp;
 		this.playedCards = 0;
-		this.playableHandCards = new HandCards();
+		this.playableHandCards = new PlayableHandCards();
 //		this.enterPlayRoom(roomName);
 	}
 
@@ -200,15 +201,15 @@ public class Board {
 		}
 	}
 	
-	public String getPlayableCards() {//Mehoden mit playableCards werden 
-		//momentan nicht verwendet, die anderen drei unten auch nicht
-		return playableCards;
-	}
-	
-
-	public void setPlayableCards(String playableCards) {
-		this.playableCards = playableCards;
-	}
+//	public String getPlayableCards() {//Mehoden mit playableCards werden 
+//		//momentan nicht verwendet, die anderen drei unten auch nicht
+//		return playableCards;
+//	}
+//	
+//
+//	public void setPlayableCards(String playableCards) {
+//		this.playableCards = playableCards;
+//	}
 
 	public int getImPlayer() {
 		return imPlayer;
@@ -242,8 +243,8 @@ public class Board {
 		this.gameTyp = gameTyp;
 	}
 
-	public HandCards getPlayableHandCards() {
-		return playableHandCards;
+	public ArrayList<Card> getPlayableHandCards() {
+		return playableHandCards.getPlayableHandCards();
 	}
 
 	
@@ -251,9 +252,9 @@ public class Board {
 //		this.playableHandCards = playableHandCards;
 //	}
 
-	public HandCards getRemainingHandCards() {
-		return handCards;
-	}
+//	public HandCards getRemainingHandCards() {
+//		return handCards;
+//	}
 
 //	public void setRemainingHandCards(HandCards remainingHandCards) {
 //		this.remainingHandCards = remainingHandCards;
