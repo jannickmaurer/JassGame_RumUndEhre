@@ -683,7 +683,6 @@ public class JassClientController {
 			public void run() {
 				PlayerPane pp = view.getSpielraumLayout().getPlayerPane();
 				pp.updatePlayerDisplay(board.getHandCards());
-				
 			}
 		});
 		
@@ -757,7 +756,20 @@ public class JassClientController {
 	public void trumpf(String trumpf) {
 		Platform.runLater(new Runnable() {
 			public void run() {
-				view.getSpielraumLayout().getLblTrumpfIs().setText(trumpf);
+				switch(trumpf) {
+				case "H":
+					view.getSpielraumLayout().getLblTrumpfIs().setText("Herz");
+					break;
+				case "D":
+					view.getSpielraumLayout().getLblTrumpfIs().setText("Ecken");
+					break;
+				case "S":
+					view.getSpielraumLayout().getLblTrumpfIs().setText("Schaufel");
+					break;
+				case "C":
+					view.getSpielraumLayout().getLblTrumpfIs().setText("Kreuz");
+					break;
+				}
 			}
 		});
 	}

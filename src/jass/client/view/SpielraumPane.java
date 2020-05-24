@@ -44,6 +44,7 @@ public class SpielraumPane extends GridPane {
     
     PlayerPane playerPane;
     OtherPlayerPane otherPlayerPane;
+    GridPane playedCards;
     
     ArrayList<OtherPlayerPane> otherPlayerPaneList;
     
@@ -105,11 +106,8 @@ public class SpielraumPane extends GridPane {
 		playerPane = new PlayerPane();
 		this.add(playerPane, 0, 2, 3, 1);
 		
-		HBox hGame = new HBox();
-		hGame.setId("HBoxCards");
-		
-		VBox vCardsGame = new VBox();
-		vCardsGame.setId("VBoxCards");
+		playedCards = new GridPane();
+		playedCards.setId("HBoxCards");
 		
 		cardP1.setWidth(40);
 		cardP1.setHeight(58);
@@ -117,7 +115,8 @@ public class SpielraumPane extends GridPane {
 		cardP1.setArcHeight(2);
 		Image imgP1 = new Image("/jass/image/Rückseite.jpg");
 		cardP1.setFill(new ImagePattern(imgP1));
-		cardP1.setVisible(false);
+		cardP1.setVisible(true);
+		playedCards.add(cardP1, 1, 2);
 		
 		cardP2.setWidth(40);
 		cardP2.setHeight(58);
@@ -125,7 +124,7 @@ public class SpielraumPane extends GridPane {
 		cardP2.setArcHeight(2);
 		Image imgP2 = new Image("/jass/image/Rückseite.jpg");
 		cardP2.setFill(new ImagePattern(imgP2));
-		cardP2.setVisible(false);
+		cardP2.setVisible(true);
 		
 		cardP3.setWidth(40);
 		cardP3.setHeight(58);
@@ -133,7 +132,7 @@ public class SpielraumPane extends GridPane {
 		cardP3.setArcHeight(2);
 		Image imgP3 = new Image("/jass/image/Rückseite.jpg");
 		cardP3.setFill(new ImagePattern(imgP3));
-		cardP3.setVisible(false);
+		cardP3.setVisible(true);
 		
 		cardP4.setWidth(40);
 		cardP4.setHeight(58);
@@ -141,13 +140,11 @@ public class SpielraumPane extends GridPane {
 		cardP4.setArcHeight(2);
 		Image imgP4 = new Image("/jass/image/Rückseite.jpg");
 		cardP4.setFill(new ImagePattern(imgP4));
-		cardP4.setVisible(false);
+		cardP4.setVisible(true);
 		
 		lblWait.setId("LabelWait");
-		vCardsGame.getChildren().addAll(cardP3, cardP1);
 		
-		hGame.getChildren().addAll(cardP4, vCardsGame, cardP2);
-		this.add(hGame, 1, 1);
+		this.add(playedCards, 1, 1);
 		
 		HBox h6 = new HBox();
 		h6.setId("HBox");
@@ -158,8 +155,8 @@ public class SpielraumPane extends GridPane {
 		vControls.getChildren().addAll(h6);
 		this.add(vControls, 1, 3);
 	
-		GridPane.setHgrow(hGame, Priority.ALWAYS);
-		GridPane.setVgrow(hGame, Priority.ALWAYS);
+		GridPane.setHgrow(playedCards, Priority.ALWAYS);
+		GridPane.setVgrow(playedCards, Priority.ALWAYS);
 		VBox.setVgrow(scrollPane, Priority.ALWAYS);
 		
 		this.setId("root");
@@ -177,6 +174,7 @@ public class SpielraumPane extends GridPane {
 					otherPlayerPaneList.add(otherPlayerPane1);
 					otherPlayerPane1.getLblName().setText(username);
 					this.add(otherPlayerPane1, 1, 0);
+					playedCards.add(cardP2, 1, 0);
 					countMembers--;
 				}
 				if (i == 1) {
@@ -185,6 +183,7 @@ public class SpielraumPane extends GridPane {
 					otherPlayerPaneList.add(otherPlayerPane2);
 					otherPlayerPane2.getLblName().setText(username);
 					this.add(otherPlayerPane2, 2, 1);
+					playedCards.add(cardP3, 2, 1);
 					countMembers--;
 				}
 				if (i == 2) {
@@ -193,6 +192,7 @@ public class SpielraumPane extends GridPane {
 					otherPlayerPaneList.add(otherPlayerPane3);
 					otherPlayerPane3.getLblName().setText(username);
 					this.add(otherPlayerPane3, 0, 1);
+					playedCards.add(cardP4, 0, 1);
 					countMembers--;
 				}
 			}
