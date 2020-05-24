@@ -13,10 +13,16 @@ public class CardLabel extends Label {
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
 
+	private String username;
 	public String cardNameAsString;
 	
 	public CardLabel() {
 		super();
+	}
+	
+	public CardLabel(String username) {
+		super();
+		this.username = username;
 	}
 
 	public void setCard(Card card) {
