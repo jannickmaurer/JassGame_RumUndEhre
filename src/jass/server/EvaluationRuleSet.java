@@ -3,7 +3,6 @@ package jass.server;
 import static org.junit.Assert.assertNotNull;
 
 import java.lang.reflect.Array;
-//import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
@@ -38,22 +37,22 @@ public class EvaluationRuleSet{ //implements Serializable
 		logger.info("Validate winner...");
 		playedRounds++;
 		int playerWinnerNr = 0;
-		if (gameType == "Trumpf") {
-			if (serverTableCards.evaluateTrumpf().toString() != "None") {
+		if (gameType.equals("Trumpf")) {
+			if (!serverTableCards.evaluateTrumpf().toString().equals("None")) {
 				Card tempWinnerCard = serverTableCards.getHighestTrumpfCard();
 				playerWinnerNr = isCardNumber(tempWinnerCard);
 			}
-			if (serverTableCards.evaluateTrumpf().toString() == "None") {
+			if (serverTableCards.evaluateTrumpf().toString().equals("None")) {
 				Card tempWinnerCard = serverTableCards.getHigherSameSuitCard();
 				playerWinnerNr = isCardNumber(tempWinnerCard);
 			}
 		}
-		if (gameType == "ObeAbe" || gameType == "UndeUfe") {
+		if (gameType.equals("ObeAbe") || gameType.equals("UndeUfe")) {
 			Card tempWinnerCard = serverTableCards.getHighestUfeAbeCard(gameType);
 			playerWinnerNr = isCardNumber(tempWinnerCard);
 		}
-		if (gameType == "Slalom") {
-			if (trumpf == "UndeUfe") trumpf = "ObeAbe";
+		if (gameType.equals("Slalom")) {
+			if (trumpf.equals("UndeUfe")) trumpf = "ObeAbe";
 			else trumpf = "UndeUfe";
 			Card tempWinnerCard = serverTableCards.getHighestUfeAbeCard(trumpf);
 			playerWinnerNr = isCardNumber(tempWinnerCard);	
@@ -92,12 +91,12 @@ public class EvaluationRuleSet{ //implements Serializable
 		logger.info("Client Card added: " + clientCard) ;
 	}
 
-	public String getTrumpf() { // nicht mehr static
+	public String getTrumpf() {
 		return trumpf;
 	}
 
 	public void setTrumpf(String trumpf) {
-		this.trumpf = trumpf; //nicht mehr EvaluationRuleSet
+		this.trumpf = trumpf; 
 	}
 
 	public ServerTableCards getServerTableCards() {
@@ -110,12 +109,11 @@ public class EvaluationRuleSet{ //implements Serializable
 
 	public void setGameType(String gameType) {
 		this.gameType = gameType;
-	//	Trumpf.setGameType(gameType);
 	}
 	
 	public int isCardNumber(Card card) {
 		for (int i = 0; i < serverTableCards.hasLength(); i++) {
-			if (serverTableCards.getCard(i).toString() == card.toString()) return i;
+			if (serverTableCards.getCard(i).toString().equals(card.toString())) return i;
 		}
 		return 0;
 	}
@@ -135,7 +133,7 @@ public class EvaluationRuleSet{ //implements Serializable
 			if(i == tempWinner) tempWinnerPlace.add(playerPoints.get(i));
 		}
 		if (tempWinnerPlace.isEmpty()) return -1; //achtung, aussondern
-		if (tempWinnerPlace.size() == 1) return Wiis.getAllWiisesFromPlayer(tempPlayerCards(tempWinner));
+//		if (tempWinnerPlace.size() == 1) return Wiis.getAllWiisesFromPlayer(tempPlayerCards(tempWinner));
 //		if (tempWinnerPlace.size() > 1) Wiis.getWiisWinner(cards);
 		
 		return 1;

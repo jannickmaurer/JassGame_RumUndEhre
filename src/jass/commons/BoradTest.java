@@ -2,18 +2,39 @@ package jass.commons;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
 class BoradTest {
 	
 	@Test //brauchts für linke seite
-	void checkPlayerListener() {
+	void checkPlay() {
 		Board samstingsJass = new Board("samistigsJass", "Trumpf");
+		ArrayList<Card> handCards = new ArrayList<>();
+		handCards.add(new Card("6D"));
+		handCards.add(new Card("7D"));
+		handCards.add(new Card("8D"));
+		handCards.add(new Card("6H"));
+		handCards.add(new Card("TC"));
+		samstingsJass.handCards.setHandCards(handCards);
 		
-		assertEquals(1, Board.playersTurn);
-		samstingsJass.playerListener(3);
-		assertEquals(3, Board.playersTurn);		
+		ArrayList<Card> playableHandCards = new ArrayList<>();
+		handCards.add(new Card("6D"));
+		handCards.add(new Card("7D"));
+		handCards.add(new Card("8D"));
+//		handCards.add(new Card("6H"));
+//		handCards.add(new Card("TC"));
+		samstingsJass.handCards.setPlayableHandCards(playableHandCards);
+		
+		
+		
+//		handCards.setHandCards(cards);
+		
+		assertEquals("6D", Board.play();
+//		samstingsJass.playerListener(3);
+//		assertEquals(3, Board.playersTurn);		
 	}
 	
 	@Test

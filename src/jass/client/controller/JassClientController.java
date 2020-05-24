@@ -125,16 +125,6 @@ public class JassClientController {
 		view.getBtnBackPlayroom().setOnAction(e -> {
 			view.createSpielraumPopUp.hide();
 			view.getTfSpielraumName().setText("");
-			if (view.getCbTrumpf().isSelected())
-				view.getCbTrumpf().setSelected(false);
-			if (view.getCbObeAbe().isSelected())
-				view.getCbObeAbe().setSelected(false);
-			if (view.getCbSlalom().isSelected())
-				view.getCbSlalom().setSelected(false);
-			if (view.getCbUndeUfe().isSelected())
-				view.getCbUndeUfe().setSelected(false);
-			if (view.getCbWyss().isSelected())
-				view.getCbWyss().setSelected(false);
 		});
 		view.getBtnBackError().setOnAction(e -> {
 			view.errorPopUp.hide();
@@ -552,9 +542,7 @@ public class JassClientController {
 	}
 
 	private void createPlayroom() {
-		if (view.getCbTrumpf().isSelected() == true) {
 			model.createPlayroom(view.getTfSpielraumName().getText(), "Trumpf");
-		}
 	}
 
 	public void deleteAccount() {
@@ -835,6 +823,20 @@ public class JassClientController {
 	public void gameType(String gameType) {
 		Platform.runLater(new Runnable() {
 			public void run() {
+				switch(gameType) {
+				case "Trumpf":
+					view.getSpielraumLayout().getLblTrumpf().setText("Trumpf");
+					break;
+				case "Slalom":
+					view.getSpielraumLayout().getLblTrumpf().setText("Slalom");
+					break;
+				case "Unde Ufe":
+					view.getSpielraumLayout().getLblTrumpfIs().setText("Unde Ufe");
+					break;
+				case "Obe Abe":
+					view.getSpielraumLayout().getLblTrumpfIs().setText("Obe Abe");
+					break;
+				}
 				view.getSpielraumLayout().getLblGameTypeIs().setText(gameType);
 			}
 		});

@@ -70,18 +70,53 @@ public enum Wiis {
 		return fourOfAKindPoints;
 	}
 	
-	public static int getWiisWinner(ArrayList<Card> cards) {
+	public static ArrayList<Wiis> getAllWiisesFromPlayer(ArrayList<Card> cards) {
+		ArrayList<Wiis> wiis = new ArrayList<>();
+		if (hasSiebenblatt(cards) || hasAchtblatt(cards) || hasNeunblatt(cards)) {
+			if (hasSiebenblatt(cards)) 	wiis.add(Siebenblatt); //ab hier nur ein Blatt möglich
+			if (hasAchtblatt(cards)) 	wiis.add(Achtblatt); 
+			if (hasNeunblatt(cards)) 	wiis.add(Neunblatt);
+		}else {
+		clearFourCardsArrayLists();
+		sortCardsOnRank(cards);
+		if (hasFour("6")) wiis.add(FourSix); //eventuell hier noch punkte zusammenzählen 
+		if (hasFour("7")) wiis.add(FourSeven); //komplett und in variable setzen die
+		if (hasFour("8")) wiis.add(FourEight);//abgerufen werden kann von zweiter methode
+		if (hasFour("9")) wiis.add(FourNaell);
+		if (hasFour("T")) wiis.add(FourTen);
+		if (hasFour("J")) wiis.add(FourPuur);
+		if (hasFour("Q")) wiis.add(FourQueen);
+		if (hasFour("K")) wiis.add(FourKing);
+		if (hasFour("A")) wiis.add(FourAce);
+
+		clearCardsOnSuit();
+		sortCardsOnSuit(cards);
+		if (hasSechsblatt(cards)) 	wiis.add(Sechsblatt);
+		if (hasFuenfblatt(cards)) 	wiis.add(Fuenfblatt);
+		if (hasVierblatt(cards)) 	wiis.add(Vierblatt);
+		if (hasDreiblatt()) 	wiis.add(Dreiblatt);
 		
-		return 1;
+//		if (hasVierblatt(cards)) 	wiis.add(Vierblatt);
+//		if (hasFuenfblatt(cards)) 	wiis.add(Fuenfblatt); 
+//		if (hasSechsblatt(cards)) 	wiis.add(Sechsblatt); 
+//		if (hasSiebenblatt(cards)) 	wiis.add(Siebenblatt); //ab hier nur ein Blatt möglich
+//		if (hasAchtblatt(cards)) 	wiis.add(Achtblatt); 
+//		if (hasNeunblatt(cards)) 	wiis.add(Neunblatt);
+
+		return null;
+		
+
 	}
 	
-	public static int getAllWiisesFromPlayer(ArrayList<Card> cards) {
-		//evaluieren welche wiise der Player alles hat und diese zurück geben
-		
-		
-		
-		return 1;
-	}
+
+
+//	public static int getAllWiisesFromPlayer(ArrayList<Card> cards) {
+//		//evaluieren welche wiise der Player alles hat und diese zurück geben
+//		
+//		hier: countStraightWiis
+//		
+//		return 1;
+//	}
 	
 	public static boolean hasStoeck(ArrayList<Card> cards, String trumpf) { 
 	    if (trumpf == "Trumpf") {
@@ -128,26 +163,76 @@ public enum Wiis {
 	private static boolean hasNeunblatt(ArrayList<Card> cards) {
 		return isCardSuitArrayListLongerThan(cards, 9);
 	}
+	private static boolean hasDreiblatt() {
+		return countStraightWiis(3);
+	}
+	private static boolean hasVierblatt(ArrayList<Card> cards) {
+		return isCardSuitArrayListLongerThan(cards, 4);
+	}
+	private static boolean hasFuenfblatt(ArrayList<Card> cards) {
+		return isCardSuitArrayListLongerThan(cards, 5);
+	}
+	private static boolean hasSechsblatt(ArrayList<Card> cards) { 
+		return isCardSuitArrayListLongerThan(cards, 6);
+	}
 	
 	private static boolean isCardSuitArrayListLongerThan (ArrayList<Card> cards, int wiisLength) {
 		boolean found = false;
 		sortCardsOnSuit(cards);
 		if(clubCards.size() >= wiisLength && !found) { 
-			found = isBlattNum(clubCards, wiisLength-1);
+			found = isBlattNum(clubCards, wiisLength);  //überall minus -1 entfernt
 		}
 		if(diamondCards.size() >= wiisLength && !found) {
-			found = isBlattNum(diamondCards, wiisLength-1);	
+			found = isBlattNum(diamondCards, wiisLength);	
 		}
 		if(heartCards.size() >= wiisLength && !found) {
-			found = isBlattNum(heartCards, wiisLength-1);	
+			found = isBlattNum(heartCards, wiisLength);	
 		}
 		if(spadeCards.size() >= wiisLength && !found) {
-			found = isBlattNum(spadeCards, wiisLength-1);	
+			found = isBlattNum(spadeCards, wiisLength);	
 		}
 		return found;
 	}
 	
+	private static ArrayList<Card> countStraightWiis (int wiisLength) {
+		ArrayList<Card> foundWiise = new ArrayList<>();
+		//sortCardsOnSuit(cards);
+		if(clubCards.size() >= wiisLength) { 
+			ArrayList<Card> tempWiise = new ArrayList<>();
+			if (!countWiisOnSuit(clubCards, wiisLength).isEmpty())
+				for (Card card : countWiisOnSuit(clubCards, wiisLength))
+					tempWiise.add(card);
+			for (int i = 0; i < clubCards.size(); i++) {
+				for (int j = 0; j < tempWiise.size(); j++) {
+				if (clubCards.get(i) == tempWiise.get(j)) clubCards.remove(i);
+				}
+			}
+			for (Card card : tempWiise)
+				foundWiise.add(card);
+		}
+		if(diamondCards.size() >= wiisLength) {
+			if (!countWiisOnSuit(diamondCards, wiisLength).isEmpty())
+				for (Card card : countWiisOnSuit(diamondCards, wiisLength))
+					foundWiise.add(card);
+		}
+		if(heartCards.size() >= wiisLength) {
+			if (!countWiisOnSuit(heartCards, wiisLength).isEmpty())
+				for (Card card : countWiisOnSuit(heartCards, wiisLength))
+					foundWiise.add(card);		
+		}
+		if(spadeCards.size() >= wiisLength) {
+			if (!countWiisOnSuit(spadeCards, wiisLength).isEmpty())
+				for (Card card : countWiisOnSuit(spadeCards, wiisLength))
+					foundWiise.add(card);		
+		}
+		return foundWiise;
+	}
+	
 	private static void sortCardsOnSuit(ArrayList<Card> cards) {
+//		clubCards.clear();
+//		diamondCards.clear();
+//		heartCards.clear();
+//		spadeCards.clear();
 		Iterator<Card> c = cards.iterator();
 		while(c.hasNext()) {
 			Card card =c.next();
@@ -163,7 +248,7 @@ public enum Wiis {
 		Collections.sort(heartCards);
 		Collections.sort(spadeCards);
 	}
-	
+	//hier evtl cloned Cards entfernen
     public static boolean isBlattNum(ArrayList<Card> cards, int blattlength) {   	
     	ArrayList<Card> clonedCards = (ArrayList<Card>) cards.clone();
     	boolean blattFound = false;
@@ -176,15 +261,45 @@ public enum Wiis {
     			} else {
     				next = false;
     			}
-    			if(successfulTries == blattlength) {
+    			if(successfulTries == blattlength-1) {
     				next = false;
     				blattFound = true;
     			}	
     		}
     	return blattFound;
     }
+    
+    public static ArrayList<Card> countWiisOnSuit(ArrayList<Card> cards, int wiislength) {   	
+  //  	ArrayList<Card> clonedCards = (ArrayList<Card>) cards.clone();
+    	ArrayList<Card> foundWiis = new ArrayList<>();
+//    	foundWiis = null;
+    	int successfulTries = 0;
+    	boolean next = true;
+//    	Collections.sort(cards); //eigentlich überflüssig da die Karten bereits sortiert sind
+    	
+    	for(int a = 0; a <= (5-wiislength); a++) {
+    		
+    		for(int i = 0; i < cards.size() && next; i++) {
+    			if(cards.get(i).getRank().compareTo(cards.get(i+1).getRank()) == -1) {
+    				successfulTries++;
+    			} else {
+    				next = false;
+    			}
+    			if(successfulTries == wiislength-1) {
+    				next = false;
+    				//entfernt die weis karten und schreibt sie un foundweis
+    				for(int j = 0; j < wiislength; j++) {
+    					foundWiis.add(cards.get(i-1));
+    					cards.remove(i-1);
+    				}	
+    			}	
+    		} next = true;
+    	}	
+    	return foundWiis;
+    }
 	
     private static boolean hasFour(ArrayList<Card> cards, String rank) {
+    	clearFourCardsArrayLists();
     	sortCardsOnRank(cards);
     	switch(rank) {
     	case("6"): if (sixCards.size() == 4) 	return true; break;
@@ -200,6 +315,42 @@ public enum Wiis {
     	return false; 
     }
     
+    private static boolean hasFour(String rank) {
+//    	clearFourCardsArrayLists();
+//    	sortCardsOnRank(cards);
+    	switch(rank) {
+    	case("6"): if (sixCards.size() == 4) 	return true; break;
+    	case("7"): if (sevenCards.size() == 4)	return true; break;
+    	case("8"): if (eightCards.size() == 4) 	return true; break;
+    	case("9"): if (nineCards.size() == 4) 	return true; break;
+    	case("T"): if (tenCards.size() == 4) 	return true; break;
+    	case("J"): if (jackCards.size() == 4) 	return true; break;
+    	case("Q"): if (queenCards.size() == 4) 	return true; break;
+    	case("K"): if (kingCards.size() == 4) 	return true; break;
+    	case("A"): if (aceCards.size() == 4) 	return true; break;
+    	}
+    	return false; 
+    }
+    
+	private static void clearFourCardsArrayLists() {
+		sixCards.clear();
+		sevenCards.clear();
+		eightCards.clear();
+		nineCards.clear();
+		tenCards.clear();
+		jackCards.clear();
+		queenCards.clear();
+		kingCards.clear();
+		aceCards.clear();
+	}
+	
+	private static void clearCardsOnSuit() {
+		clubCards.clear();
+		diamondCards.clear();
+		heartCards.clear();
+		spadeCards.clear();
+	}
+
 	private static void sortCardsOnRank(ArrayList<Card> cards) {
 		Iterator<Card> c = cards.iterator();
 		while(c.hasNext()) {
@@ -224,18 +375,18 @@ public enum Wiis {
 //***************************************************************************
 
 	
-	private static boolean hasFourSameRank(ArrayList<Card> cards) {
-		sortCardsOnRank(cards); //clonedCards
-		boolean found = false;
-		if (sixCards.size() == 4)  found = true; //countViergliichi+= 100;
-		if (sevenCards.size() == 4)  found = true;
-		if (eightCards.size() == 4)  found = true;
-		if (tenCards.size() == 4)  found = true;
-		if (queenCards.size() == 4)  found = true;
-		if (kingCards.size() == 4)  found = true;
-		if (aceCards.size() == 4)  found = true;
-		return found;
-	}
+//	private static boolean hasFourSameRank(ArrayList<Card> cards) {
+//		sortCardsOnRank(cards); //clonedCards
+//		boolean found = false;
+//		if (sixCards.size() == 4)  found = true; //countViergliichi+= 100;
+//		if (sevenCards.size() == 4)  found = true;
+//		if (eightCards.size() == 4)  found = true;
+//		if (tenCards.size() == 4)  found = true;
+//		if (queenCards.size() == 4)  found = true;
+//		if (kingCards.size() == 4)  found = true;
+//		if (aceCards.size() == 4)  found = true;
+//		return found;
+//	}
 
 	private static boolean hasVierneun(ArrayList<Card> cards) {
 		sortCardsOnRank(cards);
@@ -290,23 +441,7 @@ public enum Wiis {
 //		}
 //	}
 //	
-//	public enum FourOfAKindWiis { Four6, Four7, Four8, FourT, FourQ, FourK, FourA, Four9, FourJ;
-//	//Gibt höchsten Wiis bei vier gleichen zurück
-//		public static FourOfAKindWiis evaluateFourOfAKindWiis(ArrayList<Card> cards){
-//			ArrayList<Wiis> fourOfAKindWiisEval = new ArrayList<>();
-//		//	FourOfAKindWiis fourOfAKindWiisEval = null;
-//			if (hasFour(cards, "6")) fourOfAKindWiisEval.add(Four6);
-//			if (hasFour(cards, "7")) fourOfAKindWiisEval = Four7;
-//			if (hasFour(cards, "8")) fourOfAKindWiisEval = Four8;
-//			if (hasFour(cards, "T")) fourOfAKindWiisEval = FourT;
-//			if (hasFour(cards, "Q")) fourOfAKindWiisEval = FourQ;
-//			if (hasFour(cards, "K")) fourOfAKindWiisEval = FourK;
-//			if (hasFour(cards, "A")) fourOfAKindWiisEval = FourA;
-//			if (hasFour(cards, "9")) fourOfAKindWiisEval = Four9;
-//			if (hasFour(cards, "J")) fourOfAKindWiisEval = FourJ;
-//		return fourOfAKindWiisEval;
-//		}
-//	}
+
 	
 	public ArrayList<Wiis> getPlayerWiis(ArrayList<Card> cards){
 		ArrayList<Wiis> currentPlayerWiis = new ArrayList<>();
@@ -315,21 +450,7 @@ public enum Wiis {
 	}
 	
 	
-//	public static int evaluateMaxWiisPoints(ArrayList<Card> cards) {
-//		int maxWiisPoints = 0;
-//	//	if (hasStoeck(cards))		maxWiisPoints = 20;
-//		if (hasDreiblatt(cards)) 	maxWiisPoints = 30;
-//		if (hasVierblatt(cards)) 	maxWiisPoints = 50;
-//	//	if (hasFünfblatt(cards)) 	maxWiisPoints = 100;
-//		if (hasFourSameRank(cards)) maxWiisPoints = 100;
-//		if (hasSechsblatt(cards))	maxWiisPoints = 150; 
-//		if (hasVierneun(cards)) 	maxWiisPoints = 150;
-//		if (hasSiebenblatt(cards))	maxWiisPoints = 200; 
-//		if (hasVierbuebe(cards)) 	maxWiisPoints = 200;
-//		if (hasAchtblatt(cards)) 	maxWiisPoints = 250;
-//		if (hasNeunblatt(cards))  	maxWiisPoints = 300;	
-//		return maxWiisPoints;
-//	}
+
 	
 	
 	
@@ -380,24 +501,7 @@ public enum Wiis {
 //	return straightWiisEval;
 //}
 
-//gibt die höchste 4 gleichen Karten zurück
-//public static Wiis evaluateFourOfAKindWiis(ArrayList<Card> cards) {
-//	//	FourOfAKindWiis fourOfAKindWiisEval = null;
-//	Wiis fourOfAKindWiisEval = null;
-//	if (hasFour(cards, "6")) fourOfAKindWiisEval = FourSix;
-//	if (hasFour(cards, "7")) fourOfAKindWiisEval = FourSeven;
-//	if (hasFour(cards, "8")) fourOfAKindWiisEval = FourEight;
-////	if (hasFour(cards, "9")) fourOfAKindWiisEval = FourNine;
-//	if (hasFour(cards, "T")) fourOfAKindWiisEval = FourTen;
-////	if (hasFour(cards, "J")) fourOfAKindWiisEval = FourJack;
-//	if (hasFour(cards, "Q")) fourOfAKindWiisEval = FourQueen;
-//	if (hasFour(cards, "K")) fourOfAKindWiisEval = FourKing;
-//	if (hasFour(cards, "A")) fourOfAKindWiisEval = FourAce;
-//	if (hasFour(cards, "9")) fourOfAKindWiisEval = FourNaell;
-//	if (hasFour(cards, "J")) fourOfAKindWiisEval = FourPuur;
-//
-//	return fourOfAKindWiisEval;
-//}
+
 
 //public static Wiis getHighestPlayerWiis(ArrayList<Card> cards) {
 //	Wiis highestPlayerWiis = null;

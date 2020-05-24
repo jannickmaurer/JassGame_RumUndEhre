@@ -55,11 +55,11 @@ public class SpielraumPane extends GridPane {
 	Label lblPlayroom = new Label();
 	Label lblPlayroomName = new Label();
 	Label lblGameType = new Label();
-	Label lblGameTypeIs = new Label();
+	Label lblGameTypeIs = new Label("-");
 	Label lblTrumpf = new Label();
 	Label lblTrumpfIs = new Label();
 	Label lblPointsGoal = new Label();
-	Label lblPointsGoalIs = new Label();
+	Label lblPointsGoalIs = new Label("-");
 	Label lblOwner = new Label();
 	Label lblOwnerIs = new Label();
 
