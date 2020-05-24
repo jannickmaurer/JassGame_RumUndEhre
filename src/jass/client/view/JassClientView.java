@@ -101,11 +101,6 @@ public class JassClientView {
 	public HBox h1 = new HBox();
 	
 	TextField tfSpielraumName = spielraumPopupLayout.tfSpielraumName;
-	CheckBox cbTrumpf = spielraumPopupLayout.cbTrumpf;
-	CheckBox cbUndeUfe = spielraumPopupLayout.cbUndeUfe;
-	CheckBox cbObeAbe = spielraumPopupLayout.cbObeAbe;
-	CheckBox cbSlalom = spielraumPopupLayout.cbSlalom;
-	CheckBox cbWyss = spielraumPopupLayout.cbWyss;
 	Button btnDeleteAccount = profilPopupLayout.btnDeleteAccount;
 	Button btnBackProfil = profilPopupLayout.btnBack;
 	Button btnCreatePlayroomPopup = spielraumPopupLayout.btnCreate;
@@ -311,12 +306,7 @@ public class JassClientView {
 		btnNewRegistration.disableProperty().bind(tfNewUsername.textProperty().isEmpty() .or(pfNewPassword.textProperty().isEmpty()));
 		
 		createSpielraumPopUp.getContent().add(spielraumPopupLayout);
-		spielraumPopupLayout.btnCreate.disableProperty().bind(spielraumPopupLayout.tfSpielraumName.textProperty().isEmpty()
-				.or(spielraumPopupLayout.cbTrumpf.selectedProperty().not()
-						.and(spielraumPopupLayout.cbObeAbe.selectedProperty().not()
-								.and(spielraumPopupLayout.cbUndeUfe.selectedProperty().not()
-										.and(spielraumPopupLayout.cbSlalom.selectedProperty().not()
-												.and(spielraumPopupLayout.cbWyss.selectedProperty().not()))))));
+		spielraumPopupLayout.btnCreate.disableProperty().bind(spielraumPopupLayout.tfSpielraumName.textProperty().isEmpty());
 		createSpielraumPopUp.setAutoHide(false);
 		
 		startGamePopUp.getContent().add(startGamePopupLayout);
@@ -378,7 +368,7 @@ public class JassClientView {
 		spielraumLayout.lblWait.setText(t.getString("label.wait"));
 		spielraumLayout.lblPlayroom.setText(t.getString("label.spielraumname"));
 		spielraumLayout.lblPointsGoal.setText(t.getString("label.limit"));
-		spielraumLayout.lblTrumpf.setText(t.getString("label.trumpf"));
+		//spielraumLayout.lblTrumpf.setText(t.getString("label.trumpf"));
 		spielraumLayout.lblOwner.setText(t.getString("label.owner"));
 		spielraumLayout.lblGameType.setText(t.getString("label.gametype"));
 		startGamePopupLayout.lblPointsLimit.setText(t.getString("label.limit"));
@@ -401,11 +391,6 @@ public class JassClientView {
 		this.btnCreatePlayroom.setText(t.getString("button.createplayroom"));
 		this.btnDeletePlayroom.setText(t.getString("button.deleteplayroom"));
 		this.btnLogout.setText(t.getString("button.logout"));
-		spielraumPopupLayout.cbTrumpf.setText(t.getString("checkbox.trumpf"));
-		spielraumPopupLayout.cbUndeUfe.setText(t.getString("checkbox.undeufe"));
-		spielraumPopupLayout.cbObeAbe.setText(t.getString("checkbox.obeabe"));
-		spielraumPopupLayout.cbSlalom.setText(t.getString("checkbox.slalom"));
-		spielraumPopupLayout.cbWyss.setText(t.getString("checkbox.wyss"));
 		spielraumPopupLayout.btnCreate.setText(t.getString("button.createplayroom"));
 		spielraumPopupLayout.btnBack.setText(t.getString("button.back"));
 		spielraumLayout.btnSend.setText(t.getString("button.send"));
@@ -593,46 +578,6 @@ public class JassClientView {
 
 	public void setTfSpielraumName(TextField tfSpielraumName) {
 		this.tfSpielraumName = tfSpielraumName;
-	}
-	
-	public CheckBox getCbTrumpf() {
-		return cbTrumpf;
-	}
-
-	public void setCbTrumpf(CheckBox cbTrumpf) {
-		this.cbTrumpf = cbTrumpf;
-	}
-	
-	public CheckBox getCbUndeUfe() {
-		return cbUndeUfe;
-	}
-
-	public void setCbUndeUfe(CheckBox cbUndeUfe) {
-		this.cbUndeUfe = cbUndeUfe;
-	}
-	
-	public CheckBox getCbObeAbe() {
-		return cbObeAbe;
-	}
-
-	public void setCbObeAbe(CheckBox cbObeAbe) {
-		this.cbObeAbe = cbObeAbe;
-	}
-	
-	public CheckBox getCbSlalom() {
-		return cbSlalom;
-	}
-
-	public void setCbSlalom(CheckBox rbSlalom) {
-		this.cbSlalom = rbSlalom;
-	}
-	
-	public CheckBox getCbWyss() {
-		return cbWyss;
-	}
-
-	public void setCbWyss(CheckBox cbWyss) {
-		this.cbWyss = cbWyss;
 	}
 	
 	public Button getBtnCreatePlayroomPopup() {
