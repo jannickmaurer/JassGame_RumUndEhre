@@ -5,6 +5,11 @@ import jass.commons.Card;
 import jass.commons.Card.Suit;
 import jass.commons.Trumpf;
 
+/**
+ * David Schürch
+ * Getter und Setter Methoden
+ */
+
 public class TableCards{
 	ArrayList<Card> tableCards = new ArrayList<>();
 
