@@ -738,4 +738,28 @@ public class JassClientController {
 		cl.setStyle("-fx-border-width: 0");
 	}
 	
+	public void playroomName(String name) {
+		Platform.runLater(new Runnable() {
+			public void run() {
+				view.getSpielraumLayout().getLblPlayroomName().setText(name);
+			}
+		});
+	}
+	
+	public void maxPoints(String maxPoints) {
+		Platform.runLater(new Runnable() {
+			public void run() {
+				view.getSpielraumLayout().getLblPointsGoalIs().setText(maxPoints);
+			}
+		});
+	}
+
+	public void trumpf(String trumpf) {
+		Platform.runLater(new Runnable() {
+			public void run() {
+				view.getSpielraumLayout().getLblTrumpfIs().setText(trumpf);
+			}
+		});
+	}
+	
 }

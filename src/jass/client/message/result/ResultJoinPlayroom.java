@@ -38,6 +38,7 @@ public class ResultJoinPlayroom extends Message {
 		controller.setCurrentPlayroom(name);
 //		controller.setCurrentGameType(gameType);
 		controller.joinSuccess();
+		controller.playroomName(name);
 	}
 	
 	public void processIfFalse(JassClientController controller) {

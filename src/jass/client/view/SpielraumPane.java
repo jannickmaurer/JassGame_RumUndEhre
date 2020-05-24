@@ -48,6 +48,12 @@ public class SpielraumPane extends GridPane {
     ArrayList<OtherPlayerPane> otherPlayerPaneList;
     
     Label lblWait = new Label();
+    Label lblPlayroom = new Label();
+    Label lblPlayroomName = new Label();
+    Label lblTrumpf = new Label();
+    Label lblTrumpfIs = new Label();
+    Label lblPointsGoal = new Label();
+    Label lblPointsGoalIs = new Label();
   
 	Button btnLeave = new Button();
 	Button btnStartGame = new Button();
@@ -70,7 +76,17 @@ public class SpielraumPane extends GridPane {
         tfMessage.setId("TextFieldMessage");
 
 		vMessage.getChildren().addAll(lblChat, scrollPane, tfMessage, btnSend);
-		this.add(vMessage, 3, 0, 1, 4);
+		this.add(vMessage, 3, 0, 1, 2);
+		
+		GridPane gInformation = new GridPane();
+		gInformation.setId("GInfo");
+		gInformation.add(lblPlayroom, 0, 0);
+		gInformation.add(lblPlayroomName, 0, 1);
+		gInformation.add(lblPointsGoal, 0, 3);
+		gInformation.add(lblPointsGoalIs, 0, 4);
+		gInformation.add(lblTrumpf, 0, 6);
+		gInformation.add(lblTrumpfIs, 0, 7);
+		this.add(gInformation, 3, 2, 1, 2);
 		
 		playerPane = new PlayerPane();
 		this.add(playerPane, 0, 2, 3, 1);
@@ -195,6 +211,54 @@ public class SpielraumPane extends GridPane {
 
 	public void setOtherPlayerPane(OtherPlayerPane otherPlayerPane) {
 		this.otherPlayerPane = otherPlayerPane;
+	}
+
+	public Label getLblPlayroom() {
+		return lblPlayroom;
+	}
+
+	public void setLblPlayroom(Label lblPlayroom) {
+		this.lblPlayroom = lblPlayroom;
+	}
+
+	public Label getLblPlayroomName() {
+		return lblPlayroomName;
+	}
+
+	public void setLblPlayroomName(Label lblPlayroomName) {
+		this.lblPlayroomName = lblPlayroomName;
+	}
+
+	public Label getLblTrumpf() {
+		return lblTrumpf;
+	}
+
+	public void setLblTrumpf(Label lblTrumpf) {
+		this.lblTrumpf = lblTrumpf;
+	}
+
+	public Label getLblTrumpfIs() {
+		return lblTrumpfIs;
+	}
+
+	public void setLblTrumpfIs(Label lblTrumpfIs) {
+		this.lblTrumpfIs = lblTrumpfIs;
+	}
+
+	public Label getLblPointsGoal() {
+		return lblPointsGoal;
+	}
+
+	public void setLblPointsGoal(Label lblPointsGoal) {
+		this.lblPointsGoal = lblPointsGoal;
+	}
+
+	public Label getLblPointsGoalIs() {
+		return lblPointsGoalIs;
+	}
+
+	public void setLblPointsGoalIs(Label lblPointsGoalIs) {
+		this.lblPointsGoalIs = lblPointsGoalIs;
 	}
 	
 	

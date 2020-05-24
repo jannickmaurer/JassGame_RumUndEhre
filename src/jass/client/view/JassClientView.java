@@ -128,6 +128,12 @@ public class JassClientView {
     Rectangle cardP1 = spielraumLayout.cardP1;
 	Button btnLeave = spielraumLayout.btnLeave;
 	Button btnStartGame = spielraumLayout.btnStartGame;
+	Label lblPlayroom = spielraumLayout.lblPlayroom;
+	Label lblPlayroomName = spielraumLayout.lblPlayroomName;
+	Label lblPointsGoal = spielraumLayout.lblPointsGoal;
+	Label lblPointsGoalIs = spielraumLayout.lblPointsGoalIs;
+	Label lblTrumpf = spielraumLayout.lblTrumpf;
+	Label lblTrumpfIs = spielraumLayout.lblTrumpfIs;
 	
 	Label lblPointsLimit = startGamePopupLayout.lblPointsLimit;
 	Button btnBackStartGame = startGamePopupLayout.btnBack;
@@ -369,6 +375,9 @@ public class JassClientView {
 		//otherPlayerLayout.lblPoints.setText(t.getString("label.points"));
 		spielraumLayout.lblChat.setText(t.getString("label.chat"));
 		spielraumLayout.lblWait.setText(t.getString("label.wait"));
+		spielraumLayout.lblPlayroom.setText(t.getString("label.spielraumname"));
+		spielraumLayout.lblPointsGoal.setText(t.getString("label.limit"));
+		spielraumLayout.lblTrumpf.setText(t.getString("label.trumpf"));
 		startGamePopupLayout.lblPointsLimit.setText(t.getString("label.limit"));
 		errorPopupLayout.lblError.setText(t.getString("label.error"));
 		siegerPopupLayout.lblWinner.setText(t.getString("label.winner"));
@@ -900,5 +909,53 @@ public class JassClientView {
 		this.spielraumLayout = spielraumLayout;
 	}
 
+	public Label getLblPlayroom() {
+		return lblPlayroom;
+	}
+
+	public void setLblPlayroom(Label lblPlayroom) {
+		this.lblPlayroom = lblPlayroom;
+	}
+
+	public Label getLblPlayroomName() {
+		return lblPlayroomName;
+	}
+
+	public void setLblPlayroomName(Label lblPlayroomName) {
+		this.lblPlayroomName = lblPlayroomName;
+	}
+
+	public Label getLblPointsGoal() {
+		return lblPointsGoal;
+	}
+
+	public void setLblPointsGoal(Label lblPointsGoal) {
+		this.lblPointsGoal = lblPointsGoal;
+	}
+
+	public Label getLblPointsGoalIs() {
+		return lblPointsGoalIs;
+	}
+
+	public void setLblPointsGoalIs(Label lblPointsGoalIs) {
+		this.lblPointsGoalIs = lblPointsGoalIs;
+	}
+
+	public Label getLblTrumpf() {
+		return lblTrumpf;
+	}
+
+	public void setLblTrumpf(Label lblTrumpf) {
+		this.lblTrumpf = lblTrumpf;
+	}
+
+	public Label getLblTrumpfIs() {
+		return lblTrumpfIs;
+	}
+
+	public void setLblTrumpfIs(Label lblTrumpfIs) {
+		this.lblTrumpfIs = lblTrumpfIs;
+	}
+	
 }
 
