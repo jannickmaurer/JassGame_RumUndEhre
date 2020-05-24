@@ -39,6 +39,6 @@ public class ResultLogin extends Message {
 	
 	public void processIfFalse(JassClientController controller) {
 		// TODO Auto-generated method stub
-		controller.somethingFailed();
+		controller.somethingFailedLogin();
 	}
 }

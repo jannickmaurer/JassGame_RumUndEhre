@@ -29,7 +29,7 @@ public class ResultCreatePlayroom  extends Message {
 	}
 	
 	public void processIfFalse(JassClientController controller) {
-		controller.somethingFailed();
+		controller.somethingFailedCreatePlayroom();
 	}
 
 

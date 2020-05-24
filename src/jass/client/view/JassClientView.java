@@ -52,6 +52,11 @@ public class JassClientView {
 	public StartGamePopupPane startGamePopupLayout = new StartGamePopupPane();
 	public ProfilPopUpPane profilPopupLayout = new ProfilPopUpPane();
 	public ErrorPopupPane errorPopupLayout = new ErrorPopupPane();
+	public ErrorPopupPaneConnect errorPopupConnectLayout = new ErrorPopupPaneConnect();
+	public ErrorPopupPaneCreatePlayroom errorPopupCreatePlayroomLayout = new ErrorPopupPaneCreatePlayroom();
+	public ErrorPopupPaneLogin errorPopupLoginLayout = new ErrorPopupPaneLogin();
+	public ErrorPopupPaneRegistration errorPopupRegistrationLayout = new ErrorPopupPaneRegistration();
+	public ErrorPopupPaneStartGame errorPopupStartGameLayout = new ErrorPopupPaneStartGame();
 	public SiegerPopupPane siegerPopupLayout = new SiegerPopupPane();
 	public TrumpfPopupPane trumpfPopupLayout = new TrumpfPopupPane();
 	public WyssPopupPane wyssPopupLayout = new WyssPopupPane();
@@ -63,6 +68,11 @@ public class JassClientView {
 	public Popup createSpielraumPopUp = new Popup();
 	public Popup startGamePopUp = new Popup();
 	public Popup errorPopUp = new Popup();
+	public Popup errorConnectPopUp = new Popup();
+	public Popup errorCreatePlayroomPopUp = new Popup();
+	public Popup errorLoginPopUp = new Popup();
+	public Popup errorRegistrationPopUp = new Popup();
+	public Popup errorStartGamePopUp = new Popup();
 	public Popup siegerPopUp = new Popup();
 	public Popup trumpfPopUp = new Popup();
 	public Popup wyssPopUp = new Popup();
@@ -109,6 +119,21 @@ public class JassClientView {
 	
 	private Label lblError = errorPopupLayout.getLblError();
 	private Button btnBackError = errorPopupLayout.getBtnBack();
+	
+	private Label lblErrorConnect = errorPopupConnectLayout.getLblErrorConnect();
+	private Button btnBackErrorConnect = errorPopupConnectLayout.getBtnBack();
+	
+	private Label lblErrorCreatePlayroom = errorPopupCreatePlayroomLayout.getLblErrorCreatePlayroom();
+	private Button btnBackErrorCreatePlayroom = errorPopupCreatePlayroomLayout.getBtnBack();
+	
+	private Label lblErrorLogin = errorPopupLoginLayout.getLblErrorLogin();
+	private Button btnBackErrorLogin = errorPopupLoginLayout.getBtnBack();
+	
+	private Label lblErrorRegistration = errorPopupRegistrationLayout.getLblErrorRegistration();
+	private Button btnBackErrorRegistration = errorPopupRegistrationLayout.getBtnBack();
+	
+	private Label lblErrorStartGame = errorPopupStartGameLayout.getLblErrorStartGame();
+	private Button btnBackErrorStartGame = errorPopupStartGameLayout.getBtnBack();
 	
 	private Label lblWinner = siegerPopupLayout.getLblWinner();
 	private Button btnBackSieger = siegerPopupLayout.getBtnBack();
@@ -221,6 +246,16 @@ public class JassClientView {
 		btnStartGamePopUp.setPrefWidth(140);
 		btnBackError.setMinWidth(Region.USE_PREF_SIZE);
 		btnBackError.setPrefWidth(140);
+		btnBackErrorConnect.setMinWidth(Region.USE_PREF_SIZE);
+		btnBackErrorConnect.setPrefWidth(140);
+		btnBackErrorCreatePlayroom.setMinWidth(Region.USE_PREF_SIZE);
+		btnBackErrorCreatePlayroom.setPrefWidth(140);
+		btnBackErrorLogin.setMinWidth(Region.USE_PREF_SIZE);
+		btnBackErrorLogin.setPrefWidth(140);
+		btnBackErrorRegistration.setMinWidth(Region.USE_PREF_SIZE);
+		btnBackErrorRegistration.setPrefWidth(140);
+		btnBackErrorStartGame.setMinWidth(Region.USE_PREF_SIZE);
+		btnBackErrorStartGame.setPrefWidth(140);
 		btnBackProfil.setMinWidth(Region.USE_PREF_SIZE);
 		btnBackProfil.setPrefWidth(140);
 		btnBackSieger.setMinWidth(Region.USE_PREF_SIZE);
@@ -306,6 +341,21 @@ public class JassClientView {
 		errorPopUp.getContent().add(errorPopupLayout);
 		errorPopUp.setAutoHide(false);
 		
+		errorConnectPopUp.getContent().add(errorPopupConnectLayout);
+		errorConnectPopUp.setAutoHide(false);
+		
+		errorCreatePlayroomPopUp.getContent().add(errorPopupCreatePlayroomLayout);
+		errorCreatePlayroomPopUp.setAutoHide(false);
+		
+		errorLoginPopUp.getContent().add(errorPopupLoginLayout);
+		errorLoginPopUp.setAutoHide(false);
+		
+		errorRegistrationPopUp.getContent().add(errorPopupRegistrationLayout);
+		errorRegistrationPopUp.setAutoHide(false);
+		
+		errorStartGamePopUp.getContent().add(errorPopupStartGameLayout);
+		errorStartGamePopUp.setAutoHide(false);
+		
 		profilPopUp.getContent().add(profilPopupLayout);
 		profilPopUp.setAutoHide(false);
 		
@@ -379,6 +429,11 @@ public class JassClientView {
 		spielraumLayout.getLblGameType().setText(t.getString("label.gametype"));
 		startGamePopupLayout.getLblPointsLimit().setText(t.getString("label.limit"));
 		errorPopupLayout.getLblError().setText(t.getString("label.error"));
+		errorPopupConnectLayout.getLblErrorConnect().setText(t.getString("label.error.connect"));
+		errorPopupCreatePlayroomLayout.getLblErrorCreatePlayroom().setText(t.getString("label.error.createplayroom"));
+		errorPopupLoginLayout.getLblErrorLogin().setText(t.getString("label.error.login"));
+		errorPopupRegistrationLayout.getLblErrorRegistration().setText(t.getString("label.error.registration"));
+		errorPopupStartGameLayout.getLblErrorStartGame().setText(t.getString("label.error.startgame"));
 		siegerPopupLayout.getLblWinner().setText(t.getString("label.winner"));
 		trumpfPopupLayout.getLblChooseTrumpf().setText(t.getString("label.choosetrumpf"));
 		wyssPopupLayout.getLblWyss().setText(t.getString("label.wyss"));
@@ -409,6 +464,11 @@ public class JassClientView {
 		wyssPopupLayout.getBtnNoWyss().setText(t.getString("button.nowyss"));
 		profilPopupLayout.getBtnBack().setText(t.getString("button.back"));
 		errorPopupLayout.getBtnBack().setText(t.getString("button.back"));
+		errorPopupConnectLayout.getBtnBack().setText(t.getString("button.back"));
+		errorPopupCreatePlayroomLayout.getBtnBack().setText(t.getString("button.back"));
+		errorPopupLoginLayout.getBtnBack().setText(t.getString("button.back"));
+		errorPopupRegistrationLayout.getBtnBack().setText(t.getString("button.back"));
+		errorPopupStartGameLayout.getBtnBack().setText(t.getString("button.back"));
 		siegerPopupLayout.getBtnBack().setText(t.getString("button.back"));
 		trumpfPopupLayout.getBtnHearts().setText(t.getString("button.hearts"));
 		trumpfPopupLayout.getBtnDiamonds().setText(t.getString("button.diamonds"));
@@ -1207,5 +1267,165 @@ public class JassClientView {
 		this.btnStartGamePopUp = btnStartGamePopUp;
 	}
 
+	public ErrorPopupPaneConnect getErrorPopupConnectLayout() {
+		return errorPopupConnectLayout;
+	}
+
+	public void setErrorPopupConnectLayout(ErrorPopupPaneConnect errorPopupConnectLayout) {
+		this.errorPopupConnectLayout = errorPopupConnectLayout;
+	}
+
+	public ErrorPopupPaneCreatePlayroom getErrorPopupCreatePlayroomLayout() {
+		return errorPopupCreatePlayroomLayout;
+	}
+
+	public void setErrorPopupCreatePlayroomLayout(ErrorPopupPaneCreatePlayroom errorPopupCreatePlayroomLayout) {
+		this.errorPopupCreatePlayroomLayout = errorPopupCreatePlayroomLayout;
+	}
+
+	public ErrorPopupPaneLogin getErrorPopupLoginLayout() {
+		return errorPopupLoginLayout;
+	}
+
+	public void setErrorPopupLoginLayout(ErrorPopupPaneLogin errorPopupLoginLayout) {
+		this.errorPopupLoginLayout = errorPopupLoginLayout;
+	}
+
+	public ErrorPopupPaneRegistration getErrorPopupRegistrationLayout() {
+		return errorPopupRegistrationLayout;
+	}
+
+	public void setErrorPopupRegistrationLayout(ErrorPopupPaneRegistration errorPopupRegistrationLayout) {
+		this.errorPopupRegistrationLayout = errorPopupRegistrationLayout;
+	}
+
+	public ErrorPopupPaneStartGame getErrorPopupStartGameLayout() {
+		return errorPopupStartGameLayout;
+	}
+
+	public void setErrorPopupStartGameLayout(ErrorPopupPaneStartGame errorPopupStartGameLayout) {
+		this.errorPopupStartGameLayout = errorPopupStartGameLayout;
+	}
+
+	public Popup getErrorConnectPopUp() {
+		return errorConnectPopUp;
+	}
+
+	public void setErrorConnectPopUp(Popup errorConnectPopUp) {
+		this.errorConnectPopUp = errorConnectPopUp;
+	}
+
+	public Popup getErrorCreatePlayroomPopUp() {
+		return errorCreatePlayroomPopUp;
+	}
+
+	public void setErrorCreatePlayroomPopUp(Popup errorCreatePlayroomPopUp) {
+		this.errorCreatePlayroomPopUp = errorCreatePlayroomPopUp;
+	}
+
+	public Popup getErrorLoginPopUp() {
+		return errorLoginPopUp;
+	}
+
+	public void setErrorLoginPopUp(Popup errorLoginPopUp) {
+		this.errorLoginPopUp = errorLoginPopUp;
+	}
+
+	public Popup getErrorRegistrationPopUp() {
+		return errorRegistrationPopUp;
+	}
+
+	public void setErrorRegistrationPopUp(Popup errorRegistrationPopUp) {
+		this.errorRegistrationPopUp = errorRegistrationPopUp;
+	}
+
+	public Popup getErrorStartGamePopUp() {
+		return errorStartGamePopUp;
+	}
+
+	public void setErrorStartGamePopUp(Popup errorStartGamePopUp) {
+		this.errorStartGamePopUp = errorStartGamePopUp;
+	}
+
+	public Label getLblErrorConnect() {
+		return lblErrorConnect;
+	}
+
+	public void setLblErrorConnect(Label lblErrorConnect) {
+		this.lblErrorConnect = lblErrorConnect;
+	}
+
+	public Button getBtnBackErrorConnect() {
+		return btnBackErrorConnect;
+	}
+
+	public void setBtnBackErrorConnect(Button btnBackErrorConnect) {
+		this.btnBackErrorConnect = btnBackErrorConnect;
+	}
+
+	public Label getLblErrorCreatePlayroom() {
+		return lblErrorCreatePlayroom;
+	}
+
+	public void setLblErrorCreatePlayroom(Label lblErrorCreatePlayroom) {
+		this.lblErrorCreatePlayroom = lblErrorCreatePlayroom;
+	}
+
+	public Button getBtnBackErrorCreatePlayroom() {
+		return btnBackErrorCreatePlayroom;
+	}
+
+	public void setBtnBackErrorCreatePlayroom(Button btnBackErrorCreatePlayroom) {
+		this.btnBackErrorCreatePlayroom = btnBackErrorCreatePlayroom;
+	}
+
+	public Label getLblErrorLogin() {
+		return lblErrorLogin;
+	}
+
+	public void setLblErrorLogin(Label lblErrorLogin) {
+		this.lblErrorLogin = lblErrorLogin;
+	}
+
+	public Button getBtnBackErrorLogin() {
+		return btnBackErrorLogin;
+	}
+
+	public void setBtnBackErrorLogin(Button btnBackErrorLogin) {
+		this.btnBackErrorLogin = btnBackErrorLogin;
+	}
+
+	public Label getLblErrorRegistration() {
+		return lblErrorRegistration;
+	}
+
+	public void setLblErrorRegistration(Label lblErrorRegistration) {
+		this.lblErrorRegistration = lblErrorRegistration;
+	}
+
+	public Button getBtnBackErrorRegistration() {
+		return btnBackErrorRegistration;
+	}
+
+	public void setBtnBackErrorRegistration(Button btnBackErrorRegistration) {
+		this.btnBackErrorRegistration = btnBackErrorRegistration;
+	}
+
+	public Label getLblErrorStartGame() {
+		return lblErrorStartGame;
+	}
+
+	public void setLblErrorStartGame(Label lblErrorStartGame) {
+		this.lblErrorStartGame = lblErrorStartGame;
+	}
+
+	public Button getBtnBackErrorStartGame() {
+		return btnBackErrorStartGame;
+	}
+
+	public void setBtnBackErrorStartGame(Button btnBackErrorStartGame) {
+		this.btnBackErrorStartGame = btnBackErrorStartGame;
+	}
+	
 }
 

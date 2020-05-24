@@ -134,6 +134,21 @@ public class JassClientController {
 		view.getBtnBackError().setOnAction(e -> {
 			view.errorPopUp.hide();
 		});
+		view.getBtnBackErrorConnect().setOnAction(e -> {
+			view.errorConnectPopUp.hide();
+		});
+		view.getBtnBackErrorCreatePlayroom().setOnAction(e -> {
+			view.errorCreatePlayroomPopUp.hide();
+		});
+		view.getBtnBackErrorLogin().setOnAction(e -> {
+			view.errorLoginPopUp.hide();
+		});
+		view.getBtnBackErrorRegistration().setOnAction(e -> {
+			view.errorRegistrationPopUp.hide();
+		});
+		view.getBtnBackErrorStartGame().setOnAction(e -> {
+			view.errorStartGamePopUp.hide();
+		});
 		view.getBtnBackProfil().setOnAction(e -> {
 			view.profilPopUp.hide();
 		});
@@ -577,7 +592,7 @@ public class JassClientController {
 			model.connect(view.getTfIP().getText(), Integer.parseInt(view.getTfPort().getText()));
 		} catch (Exception e) {
 			logger.info("Server down");
-			somethingFailed();
+			somethingFailedConnect();
 		}
 	}
 
@@ -651,6 +666,46 @@ public class JassClientController {
 		Platform.runLater(new Runnable() {
 			public void run() {
 				view.errorPopUp.show(view.getStage());
+			}
+		});
+	}
+	
+	public void somethingFailedConnect() {
+		Platform.runLater(new Runnable() {
+			public void run() {
+				view.errorConnectPopUp.show(view.getStage());
+			}
+		});
+	}
+	
+	public void somethingFailedCreatePlayroom() {
+		Platform.runLater(new Runnable() {
+			public void run() {
+				view.errorCreatePlayroomPopUp.show(view.getStage());
+			}
+		});
+	}
+	
+	public void somethingFailedLogin() {
+		Platform.runLater(new Runnable() {
+			public void run() {
+				view.errorLoginPopUp.show(view.getStage());
+			}
+		});
+	}
+	
+	public void somethingFailedRegistration() {
+		Platform.runLater(new Runnable() {
+			public void run() {
+				view.errorRegistrationPopUp.show(view.getStage());
+			}
+		});
+	}
+	
+	public void somethingFailedStartGame() {
+		Platform.runLater(new Runnable() {
+			public void run() {
+				view.errorStartGamePopUp.show(view.getStage());
 			}
 		});
 	}
