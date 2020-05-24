@@ -83,7 +83,8 @@ public class SpielraumPane extends GridPane {
 		btnSend.setId("ButtonSend");
 		tfMessage.setId("TextFieldMessage");
 	
-		
+		playedCardList = new ArrayList<>();
+
 
 		lblChat.setId("LabelBold");
 		vMessage.getChildren().addAll(lblChat, scrollPane, tfMessage, btnSend);
@@ -118,6 +119,7 @@ public class SpielraumPane extends GridPane {
 		
 		CardLabel ownCl = new CardLabel("Own");
 		playedCards.add(ownCl, 1, 2);
+		playedCardList.add(ownCl);
 
 		cardP1.setWidth(40);
 		cardP1.setHeight(58);
@@ -156,7 +158,6 @@ public class SpielraumPane extends GridPane {
 
 		this.add(playedCards, 1, 1);
 
-		playedCardList = new ArrayList<>();
 		
 		HBox h6 = new HBox();
 		h6.setId("HBox");
@@ -237,6 +238,10 @@ public class SpielraumPane extends GridPane {
 			otherPlayerPaneList.remove(i);
 		}
 	}
+	
+	
+	
+	
 	
 	//public void clearPlayedCards() {
 	//	playedCards.getChildren().clear();
@@ -345,13 +350,21 @@ public class SpielraumPane extends GridPane {
 	}
 	
 	public void updatePlayedCard(String username, String playedCard) {
+		logger.info("Update Played Card: " + username + " " + playedCard);
 		for(int i = 0; i < playedCardList.size(); i++) {
 			if(playedCardList.get(i).getUsername().equals(username)) {
-//				CardLabel cl = (CardLabel) playedCards.getChildren().
-//				cl.setCard(new Card(playedCard));
+				CardLabel cl = (CardLabel) playedCardList.get(i);
+				cl.setCard(new Card(playedCard));
 			}
 		}
-		
+	}
+	
+	public void clearPlayedCards() {
+		for(int i = 0; i < playedCardList.size(); i++) {
+			playedCardList.remove(i);
+//				CardLabel cl = (CardLabel) playedCardList.get(i);
+//				cl.setCard(null);
+		}
 	}
 	
 //	public void clearPlayedCards() {

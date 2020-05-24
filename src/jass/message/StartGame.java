@@ -36,10 +36,24 @@ public class StartGame extends Message {
 		client.getPlayroom().setMaxPoints(Integer.parseInt(maxPoints));
 		Playroom playroom = client.getPlayroom();
 		if(this.token.equals(client.getToken())) {
+			
 			if(client.getPlayroom().getOwner().equals(client.getName())) {
+				result = true;
+				client.send(new ResultStartGame(result));
 				client.getPlayroom().startGame();
 				String[] content = new String[] {"ResultBroadcastStartGame", Integer.toString(client.getPlayroom().getMaxPoints())};
 				client.getPlayroom().send(new ResultBroadcastStartGame(content));
+				
+//				
+				
+				
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+//				
 				CardCreation cc = new CardCreation();
 				for(String s : playroom.getMembers()) {
 					System.out.println(s);
@@ -47,12 +61,19 @@ public class StartGame extends Message {
 					String[] content2 = new String[] {"ResultShuffle", tableCardsAsString};
 					Message msg = new ResultShuffle(content2);
 					Client.getClient(s).send(msg);
-					Client.getClient(s).getAccount().setCurrentPlayerCards(tableCardsAsString);
+					Client.getClient(s).getAccount().setCurrentPlayerCards(tableCardsAsString);	
 				}
-				result = true;
+//				try {
+//					Thread.sleep(1000);
+//				} catch (InterruptedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+				
 			}
+		} else {
+			client.send(new ResultStartGame(result));
 		}
-		client.send(new ResultStartGame(result));
 	}
 	
 	

@@ -206,8 +206,8 @@ public class Board {
 		this.gameTyp = gameTyp;
 	}
 
-	public ArrayList<Card> getPlayableHandCards() {
-		return playableHandCards.getPlayableHandCards();
+	public HandCards getPlayableHandCards() {
+		return playableHandCards;
 	}
 
 	public HandCards getRemainingHandCards() {

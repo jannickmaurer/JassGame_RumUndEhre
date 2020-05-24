@@ -34,7 +34,7 @@ public class ResultBroadcastSendTableCard extends Message {
 	public void process(JassClientController controller) {
 		controller.updatePlayedCard(name, tableCard);
 		controller.getBoard().addTableCard(new Card(tableCard));
-		controller.setPlayerOnTurn(nextPlayer);
+		if(!nextPlayer.equalsIgnoreCase("null")) controller.setPlayerOnTurn(nextPlayer);
 	}
 
 	public void processIfFalse(JassClientController controller) {

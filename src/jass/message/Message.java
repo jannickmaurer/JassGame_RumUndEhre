@@ -53,7 +53,9 @@ public abstract class Message {
 			String msgText = in.readLine(); // Will wait here for complete line
 
 			// Break message into individual parts, and remove extra spaces
-			String[] content = msgText.split("\\|");
+			String[] content;
+			content = msgText.split("\\|");
+			
 			for (int i = 0; i < content.length; i++) {
 				content[i] = content[i].trim();
 			}

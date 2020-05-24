@@ -133,11 +133,22 @@ public class PlayerPane extends VBox {
 			cl.setCard(handCardsList.get(i));
 			cl.setCardNameAsString(handCardsList.get(i).toString());
 		}
-		
-		
-
 //		hboxCards.getChildren().add(new Button("Hallo"));
+	}
+	
 
+	public void updatePlayableHandCards(ArrayList<String> playableHandCards) {
+		for(CardLabel cl : cardLabels) {
+			for(String s : playableHandCards) {
+				if(cl.getCardNameAsString().equals(s)) cl.setDisable(false);
+			}
+		}
+//		for(int i = 0; i < hboxCards.getChildren().size(); i++) {
+//			CardLabel cl = (CardLabel) hboxCards.getChildren().get(i);
+//			for(Card c : playableHandCards) {
+//				if(c.toString().equals(cl.toString())) cl.setDisable(false);
+//			}	
+//		}
 	}
 
 	public Label getLblPointsPlayer() {
@@ -155,6 +166,13 @@ public class PlayerPane extends VBox {
 	public void setCardLabels(ArrayList<CardLabel> cardLabels) {
 		this.cardLabels = cardLabels;
 	}
+	
+	public void setDisabledCardLabels(Boolean disabled) {
+		for(CardLabel cl : cardLabels) {
+			cl.setDisable(disabled);
+		}
+	}
+
 	
 
 	// ---> anpassen: public void updatePointsLabel() {

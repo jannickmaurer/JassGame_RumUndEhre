@@ -24,7 +24,7 @@ public enum Trumpf { Trumpf, Stich, None;
 		boolean found = false;
 		for (int i = 1; i < cards.size() && !found; i++) {
 			if (cards.get(i).getSuit().toString().equals(Board.trumpf)) found = true;}
-		return found;
+		return found; 
 	}
 	
 	public static boolean hasTrumpfCards(ArrayList<Card> cards) {

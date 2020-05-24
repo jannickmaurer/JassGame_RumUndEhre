@@ -50,7 +50,6 @@ import javafx.collections.ObservableList;
 import javafx.event.Event;
 
 public class JassClientController {
-
 	private static ServiceLocator sl = ServiceLocator.getServiceLocator();
 	private static Logger logger = sl.getServerLogger();
 	private JassClientModel model;
@@ -80,7 +79,7 @@ public class JassClientController {
 	public JassClientController(JassClientModel model, JassClientView view) {
 		this.model = model;
 		this.view = view;
-		
+
 		view.getBtnRun().setOnAction(event -> connect());
 		view.getBtnNewRegistration().setOnAction(event -> {
 			createAccount();
@@ -173,12 +172,10 @@ public class JassClientController {
 //			view.wyssPopUp.hide();
 //			view.siegerPopUp.show(view.getStage());
 		});
-
 		view.getBtnTrumpf().setOnAction(e -> {
 			view.gameTypePopup.hide();
 			view.trumpfPopUp.show(view.getStage());
 		});
-
 		view.getBtnObeAbe().setOnAction(this::startRound);
 		view.getBtnUndeUfe().setOnAction(this::startRound);
 		view.getBtnSlalomObeAbe().setOnAction(this::startRound);
@@ -243,27 +240,37 @@ public class JassClientController {
 					+ view.getSpielraumLayout().getPlayerPane().getCardLabels().get(i).getCardNameAsString()
 					+ " running");
 		}
-		
-		playerOnTurn.addListener((o, oldValue, newValue) ->{
-			if(newValue.equals(this.username)) {
+
+		playerOnTurn.addListener((o, oldValue, newValue) -> {
+			if (newValue.equals(this.username)) {
 				board.play();
-				logger.info("Playable Handcards: " + board.getPlayableHandCards());
-				for(int i = 0; i < view.getSpielraumLayout().getPlayerPane().getCardLabels().size(); i++) {
-					String temp = view.getSpielraumLayout().getPlayerPane().getCardLabels().get(i).getCardNameAsString();
-					for(Card c : board.handCards.getPlayableHandCards()) {
-						if(c.toString().equals(temp)) {
-							view.getSpielraumLayout().getPlayerPane().getCardLabels().get(i).setDisable(false);
-						}
-					}
+				logger.info("Playable Handcards from Board: " + board.getPlayableHandCards());
+			
+				String playableHandCardsAsString = board.getPlayableHandCards().toString();
+				String[] temp = playableHandCardsAsString.split("\\|");
+				ArrayList<String> playableCards = new ArrayList<>();
+				for(int i = 0; i < temp.length; i++) {
+					playableCards.add(temp[i]);
 				}
+				logger.info("Use: " + playableCards);
+				view.getSpielraumLayout().getPlayerPane().updatePlayableHandCards(playableCards);
+
+//				for(int i = 0; i < view.getSpielraumLayout().getPlayerPane().getCardLabels().size(); i++) {
+//					String temp = view.getSpielraumLayout().getPlayerPane().getCardLabels().get(i).getCardNameAsString();
+//					for(Card c : board.handCards.getPlayableHandCards()) {
+//						if(c.toString().equals(temp)) {
+//							view.getSpielraumLayout().getPlayerPane().getCardLabels().get(i).setDisable(false);
+//						}
+//					}
+//				}
 			}
 		});
-		
-		playerToStartRound.addListener((o, oldValue, newValue) ->{
-			if(newValue.equals(this.username)) {
-				
+
+		playerToStartRound.addListener((o, oldValue, newValue) -> {
+			if (newValue.equals(this.username)) {
+
 			}
-			
+
 		});
 	}
 
@@ -506,6 +513,12 @@ public class JassClientController {
 	}
 
 	private void sendTableCard(Event event) {
+		try {
+			Thread.sleep(200);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		CardLabel cl = (CardLabel) event.getSource();
 		model.sendTableCard(cl.getCardNameAsString());
 		logger.info("Send Tablecard: " + cl.getCardNameAsString());
@@ -542,7 +555,7 @@ public class JassClientController {
 	}
 
 	private void createPlayroom() {
-			model.createPlayroom(view.getTfSpielraumName().getText(), "Trumpf");
+		model.createPlayroom(view.getTfSpielraumName().getText(), "Trumpf");
 	}
 
 	public void deleteAccount() {
@@ -727,6 +740,7 @@ public class JassClientController {
 			Platform.runLater(new Runnable() {
 				public void run() {
 					view.trumpfPopUp.hide();
+					view.getSpielraumLayout().getPlayerPane().setDisabledCardLabels(false);
 				}
 			});
 		}
@@ -739,11 +753,11 @@ public class JassClientController {
 //			}
 //		});
 //	}
-	
+
 	public void createOtherPlayerPanes(ArrayList<String> members) {
 		Platform.runLater(new Runnable() {
 			public void run() {
-				
+
 				view.getSpielraumLayout().clearOtherPlayerPaneList();
 				view.getSpielraumLayout().createOtherPlayerPanes(members);
 			}
@@ -756,7 +770,7 @@ public class JassClientController {
 				public void run() {
 					int total = points + Integer
 							.parseInt(view.getSpielraumLayout().getPlayerPane().getLblPointsPlayer().getText());
-					view.getSpielraumLayout().getPlayerPane().getLblPointsPlayer().setText(Integer.toString(points));
+					view.getSpielraumLayout().getPlayerPane().getLblPointsPlayer().setText(Integer.toString(total));
 				}
 			});
 
@@ -802,7 +816,7 @@ public class JassClientController {
 	public void trumpf(String trumpf) {
 		Platform.runLater(new Runnable() {
 			public void run() {
-				switch(trumpf) {
+				switch (trumpf) {
 				case "H":
 					view.getSpielraumLayout().getLblTrumpfIs().setText("Herz");
 					break;
@@ -823,7 +837,7 @@ public class JassClientController {
 	public void gameType(String gameType) {
 		Platform.runLater(new Runnable() {
 			public void run() {
-				switch(gameType) {
+				switch (gameType) {
 				case "Trumpf":
 					view.getSpielraumLayout().getLblTrumpf().setText("Trumpf");
 					break;
@@ -868,7 +882,7 @@ public class JassClientController {
 
 	public void setMembers(ArrayList<String> members) {
 		this.members.clear();
-		for(String m : members) {
+		for (String m : members) {
 			this.members.add(m);
 		}
 	}
@@ -882,12 +896,12 @@ public class JassClientController {
 	}
 
 	public void updatePlayedCard(String name, String tableCard) {
+		logger.info("Controller update PlayedCard");
 		Platform.runLater(new Runnable() {
 			public void run() {
 //				view.getSpielraumLayout().clearPlayedCards();
-				if(name.equals(username)) {
+				if (name.equals(username)) {
 					view.getSpielraumLayout().updatePlayedCard("Own", tableCard);
-
 				} else {
 					view.getSpielraumLayout().updatePlayedCard(name, tableCard);
 				}
@@ -896,5 +910,10 @@ public class JassClientController {
 
 	}
 	
-	
+	public void setCardFree(String username) {
+		if(username.equals(this.username)) {
+			view.getSpielraumLayout().getPlayerPane().setDisabledCardLabels(false);
+		}
+	}
+
 }

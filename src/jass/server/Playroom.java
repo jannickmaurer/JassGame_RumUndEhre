@@ -130,6 +130,12 @@ public class Playroom implements Serializable {
 			evaluationRuleSet.addClientCard(clientCard);
 		}
 		if (playedCards == this.getMembers().size()) {
+			try {
+				Thread.sleep(6000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			evaluationRuleSet.addClientCard(clientCard);
 			tempLeader = evaluationRuleSet.winnerIsPlayer();
 			int points = evaluationRuleSet.pointsForWinner();

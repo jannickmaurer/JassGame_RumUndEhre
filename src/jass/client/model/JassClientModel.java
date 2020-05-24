@@ -65,8 +65,8 @@ public class JassClientModel {
 					try {
 						BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 						String msgText = in.readLine(); // Will wait here for complete line
-						lastReceivedMessage.setValue(msgText);
 						logger.info("Model received String: " + msgText);
+						lastReceivedMessage.setValue(msgText);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}

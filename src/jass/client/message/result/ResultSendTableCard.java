@@ -32,6 +32,7 @@ public class ResultSendTableCard extends Message {
 		logger.info("Remove Handcard: " + playedCard) ;
 		controller.getBoard().removeHandCard(new Card(playedCard));
 		controller.updatePlayerPane(playedCard);
+		controller.getView().getSpielraumLayout().getPlayerPane().setDisabledCardLabels(true);
 	}
 
 	public void processIfFalse(JassClientController controller) {
