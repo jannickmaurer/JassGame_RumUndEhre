@@ -57,7 +57,7 @@ public class Board {
 //			this.startHandCards.add(new Card (handCardList[i]));
 			//this.startHandCards.add(new Card (handCardList[i]));
 		}
-		this.handCards.setHandCards(tempHandCards);
+		handCards.setHandCards(tempHandCards);
 		logger.info("HandCards added: " + handCards.toString());
 		
 	}
@@ -278,5 +278,9 @@ public class Board {
 //	public void setTableCards(TableCards tableCards) {
 //		this.tableCards = tableCards;
 //	}
+	
+	public void removeHandCard(Card card) {
+		this.handCards.cardPlayed(card);
+	}
 
 }

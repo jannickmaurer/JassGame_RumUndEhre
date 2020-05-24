@@ -49,8 +49,9 @@ public class HandCards extends Cards{
 	}
 	
 	public void cardPlayed(Card card) {
-		int i = handCards.indexOf(card);  //remainingHandCards
-		handCards.remove(i);  //remainingHandCards
+		logger.info("Remove card: " + card.toString());
+//		int i = handCards.indexOf(card);  //remainingHandCards
+		handCards.remove(card);  //remainingHandCards
 	}
 
 	public void clearPlayableHandCards() {
@@ -110,6 +111,18 @@ public class HandCards extends Cards{
 	
 	public boolean hasPlayableCards() {
 		return playableHandCards.size() != 0; 
+	}
+	
+	public String toString() {
+		if (handCards == null) return "No Cards";
+		String s = "";
+		for (Card card : handCards) {
+			s += card.toString() + "|";
+		}
+		if (s != null && s.length() > 0) {
+			s = s.substring(0, s.length() - 1);
+		}
+		return s;
 	}
 	
 
