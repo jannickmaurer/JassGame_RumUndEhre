@@ -21,7 +21,7 @@ public class Board {
 	public static String trumpf = "H";
 	public boolean wiisDone = false;
 	public Card myLastPlayedCard;
-	public static String gameTyp = "Trumpf";
+	public String gameTyp = "Trumpf";
 	public String playableCards;
 	public HandCards playableHandCards;
 	public HandCards handCards; //allefalls direkt zugriff
@@ -78,7 +78,8 @@ public class Board {
 	public void play() {
 		if(playableHandCards != null) playableHandCards.clearPlayableHandCards();
 		if (tableCards.hasCards() == false) {
-			playableHandCards = handCards;
+		//	playableHandCards = handCards;
+			playableHandCards.setPlayableHandCards(handCards.getHandCards());
 		}
 		if (tableCards.hasCards() == true) {
 			if (gameTyp == "Trumpf") {
@@ -89,7 +90,7 @@ public class Board {
 								playableHandCards.add(handCards.getCard(i));
 							}
 						}		
-					}else playableHandCards = handCards;
+					}else playableHandCards.setPlayableHandCards(handCards.getHandCards());
 				}
 				if (tableCards.evaluateTrumpf().toString() == "Stich") {
 					Card highestTableStichCard;
@@ -125,7 +126,9 @@ public class Board {
 						}
 					}
 				}
-				if (playableHandCards.hasPlayableCards() == false) playableHandCards = handCards;			
+				if (playableHandCards.hasPlayableCards() == false) {
+					playableHandCards.setPlayableHandCards(handCards.getHandCards()); 		
+				}
 			}
 
 			if (gameTyp == "ObeAbe" || gameTyp == "UndeUfe" || gameTyp == "Slalom") {
@@ -134,7 +137,9 @@ public class Board {
 						playableHandCards.add(handCards.getCard(i));
 					}
 				}	
-				if (playableHandCards.hasPlayableCards() == false) playableHandCards = handCards;
+				if (playableHandCards.hasPlayableCards() == false) {
+					playableHandCards.setPlayableHandCards(handCards.getHandCards());
+				}
 			}
 		} 
 	}
@@ -182,7 +187,7 @@ public class Board {
 
 	public void addTableCard(Card card) {
 		logger.info("Add Card to TableCards: " + card.toString());
-		this.tableCards.add(card);
+		this.tableCards.addTableCard(card);
 		this.playedCards++;
 		if(playedCards == members.size()) {
 			playedCards = 0;
@@ -241,12 +246,12 @@ public class Board {
 //		this.myLastPlayedCard = myLastPlayedCard;
 //	}
 
-	public static String getGameTyp() {
+	public String getGameTyp() {
 		return gameTyp;
 	}
 
-	public static void setGameTyp(String gameTyp) {
-		Board.gameTyp = gameTyp;
+	public void setGameTyp(String gameTyp) {
+		this.gameTyp = gameTyp;
 	}
 
 	public HandCards getPlayableHandCards() {
