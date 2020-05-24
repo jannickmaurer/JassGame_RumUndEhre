@@ -1,3 +1,5 @@
+//Geschrieben von Samuel David
+
 package jass.client.view;
 
 import javafx.geometry.Pos;
@@ -18,7 +20,7 @@ public class TrumpfPopupPane extends GridPane {
 	private Button btnDiamonds = new Button();
 	private Button btnSpades = new Button();
 	private Button btnClubs = new Button();
-	private Button btnPush = new Button();
+	//private Button btnPush = new Button();
 	
 	public TrumpfPopupPane() {		
 		this.add(lblChooseTrumpf, 0, 0);
@@ -26,7 +28,7 @@ public class TrumpfPopupPane extends GridPane {
 		this.add(btnDiamonds, 0, 2);
 		this.add(btnSpades, 0, 3);
 		this.add(btnClubs, 0, 4);
-		this.add(btnPush, 0, 5);
+		//this.add(btnPush, 0, 5);
 		
 		this.setId("popup");
 		this.setAlignment(Pos.TOP_CENTER);
@@ -74,12 +76,12 @@ public class TrumpfPopupPane extends GridPane {
 		this.btnClubs = btnClubs;
 	}
 
-	public Button getBtnPush() {
-		return btnPush;
-	}
+	//public Button getBtnPush() {
+	//	return btnPush;
+	//}
 
-	public void setBtnPush(Button btnPush) {
-		this.btnPush = btnPush;
-	}
+	//public void setBtnPush(Button btnPush) {
+	//	this.btnPush = btnPush;
+	//}
 	
 }
